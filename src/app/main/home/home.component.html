@@ -1,0 +1,97 @@
+<div class="main">
+    <!-- <div class="" style="height: 15vh;">dummy header</div> -->
+    <div class="landing-part">
+        <div class="banner">
+            <img src="../../../assets/images/everlaneStyle/image.png" alt="">
+        </div>
+        <section class="button-container">
+            <button class="genderCategory btn" [ngClass]="{'active': selectedGender === 'Men'}"
+                (click)="selectGender('Men')">
+                Men
+            </button>
+            <button class="genderCategory btn" [ngClass]="{'active': selectedGender === 'Women'}"
+                (click)="selectGender('Women')">
+                Women
+            </button>
+        </section>
+        <section class="category" *ngIf="selectedGender === 'Men'">
+            <div *ngFor="let category of categories" class="sub-category">
+              <img class="round-banner" [src]="category.image" alt="{{ category.name }}">
+              <div>
+                <p>{{ category.name }}</p>
+              </div>
+            </div>
+          </section>
+          <section class="category" *ngIf="selectedGender === 'Women'">
+            <div *ngFor="let category of womensCategories" class="sub-category">
+              <img class="round-banner" [src]="category.image" alt="{{ category.name }}">
+              <div>
+                <p>{{ category.name }}</p>
+              </div>
+            </div>
+          </section>
+          
+        <!-- <section class="category" *ngIf="selectedGender === 'Women'">
+
+            <div class="sub-category">
+                <img class="round-banner"
+                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
+                    alt="">
+                <div>
+                    <p>Bottom</p>
+                </div>
+            </div>
+            <div class="sub-category">
+                <img class="round-banner"
+                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
+                    alt="">
+                <div>
+                    <p>Dresses</p>
+                </div>
+            </div>
+            <div class="sub-category">
+                <img class="round-banner"
+                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
+                    alt="">
+                <div>
+                    <p>Accessories</p>
+                </div>
+            </div>
+            <div class="sub-category">
+                <img class="round-banner"
+                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
+                    alt="">
+                <div>
+                    <p>Foot Wear</p>
+                </div>
+            </div>
+            <div class="sub-category">
+                <img class="round-banner"
+                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
+                    alt="">
+                <div>
+                    <p>Trousers</p>
+                </div>
+            </div>
+        </section> -->
+    </div>
+    <div>
+        <div class="advertising-bar col-md-12 d-flex">
+            <div class="col-md-6">asdfgh</div>
+            <div class="col-md-6">asdfghj</div>
+        </div>
+    </div>
+    <div class="col-md-12 d-flex">
+<div>
+    <h3>Partners Up</h3>
+    <div  class="partners">
+        <img class="round-banner" src="../../../assets/images/logos/03fc9ea117d97ac227d8dfae27106ddd.jpg" >
+        <img class="round-banner" src="../../../assets/images/logos/zara.png" >
+        <img class="round-banner" src="../../../assets/images/logos/max.jpg" >
+      </div>
+</div>
+          
+    </div>
+    <div></div>
+    <div></div>
+</div>
