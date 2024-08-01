@@ -1,0 +1,42 @@
+.container-fluid{
+
+background-color:rgb(240, 224, 234);
+height:15vh;
+}
+.navbar{
+
+    padding: 0;
+  
+}
+.collapse 
+{
+align-items: end;
+
+}
+   .navbar-nav .nav-item .nav-link {
+            color: #5a5a5a; /* Default link color */
+            font-weight: bold; /* Make links bold */
+            padding: 15px 50px; /* Add padding to links */
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+        
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #973d93; /* Change color on hover */
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem; /* Increase brand font size */
+            font-weight: bold; /* Make brand bold */
+            font-size: x-large;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+            margin-left: 20px;
+        }
+
+        .navbar-light .navbar-toggler {
+            border-color: #007bff; /* Change the border color of the toggle button */
+        }
+
+        .navbar-light .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 123, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+        
