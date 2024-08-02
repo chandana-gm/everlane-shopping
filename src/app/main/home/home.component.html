@@ -1,10 +1,9 @@
 <div class="main">
-    <!-- <div class="" style="height: 15vh;">dummy header</div> -->
     <div class="landing-part">
         <div class="banner">
             <img src="../../../assets/images/everlaneStyle/image.png" alt="">
         </div>
-        <section class="button-container">
+        <div class="button-container">
             <button class="genderCategory btn" [ngClass]="{'active': selectedGender === 'Men'}"
                 (click)="selectGender('Men')">
                 Men
@@ -13,85 +12,154 @@
                 (click)="selectGender('Women')">
                 Women
             </button>
-        </section>
-        <section class="category" *ngIf="selectedGender === 'Men'">
-            <div *ngFor="let category of categories" class="sub-category">
-              <img class="round-banner" [src]="category.image" alt="{{ category.name }}">
-              <div>
-                <p>{{ category.name }}</p>
-              </div>
-            </div>
-          </section>
-          <section class="category" *ngIf="selectedGender === 'Women'">
-            <div *ngFor="let category of womensCategories" class="sub-category">
-              <img class="round-banner" [src]="category.image" alt="{{ category.name }}">
-              <div>
-                <p>{{ category.name }}</p>
-              </div>
-            </div>
-          </section>
-          
-        <!-- <section class="category" *ngIf="selectedGender === 'Women'">
-
-            <div class="sub-category">
-                <img class="round-banner"
-                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
-                    alt="">
-                <div>
-                    <p>Bottom</p>
+            <section class="category" *ngIf="selectedGender === 'Men'">
+                <div *ngFor="let category of categories" class="sub-category">
+                    <img class="round-banner" src="../../../assets/images/everlaneStyle/imagebanner.png" alt="image">
+                    <div>
+                        <p>{{ category.name }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="sub-category">
-                <img class="round-banner"
-                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
-                    alt="">
-                <div>
-                    <p>Dresses</p>
+            </section>
+            <section class="category" *ngIf="selectedGender === 'Women'">
+                <div *ngFor="let category of womensCategories" class="sub-category">
+                    <img class="round-banner" [src]="category.image" alt="image">
+                    <div>
+                        <p>{{ category.name }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="sub-category">
-                <img class="round-banner"
-                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
-                    alt="">
-                <div>
-                    <p>Accessories</p>
-                </div>
-            </div>
-            <div class="sub-category">
-                <img class="round-banner"
-                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
-                    alt="">
-                <div>
-                    <p>Foot Wear</p>
-                </div>
-            </div>
-            <div class="sub-category">
-                <img class="round-banner"
-                    src="../../../assets/images/everlaneStyle/online-fashion-shopping-with-laptop_908344-5378.jpg"
-                    alt="">
-                <div>
-                    <p>Trousers</p>
-                </div>
-            </div>
-        </section> -->
-    </div>
-    <div>
-        <div class="advertising-bar col-md-12 d-flex">
-            <div class="col-md-6">asdfgh</div>
-            <div class="col-md-6">asdfghj</div>
+            </section>
         </div>
+        <div class="mt-3">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
+                <!-- <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  </div> -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-6">
+                                <img class="d-block w-100" src="./../../.././assets/images/everlaneStyle/image_.png"
+                                    alt="First slide image 1">
+                            </div>
+                            <div class="col-6">
+                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image.png"
+                                    alt="First slide image 2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-6">
+                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image.png"
+                                    alt="First slide image 2">
+                            </div>
+                            <div class="col-6">
+                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image_.png"
+                                    alt="First slide image 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a> -->
+            </div>
+        </div>
+
+
+        <!-- treanding -->
+        <div class="top-rated-picks">
+            <h3 style="margin: 20px; font-weight: 700;">Top Rated Picks</h3>
+            <div class="trending-card card-container " data-interval="3000">
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+                <div class="card" style="width: 15rem; margin: 10px;">
+                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
+                        class="card-img-top" alt="...">
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Features -->
+        <div class="partner-section d-flex flex-column align-items-center mt-4 mb-5">
+            <h3 class="mt-4 mb-5">Features</h3>
+            <div class="about-us row d-flex col-12 justify-content-center">
+                <div class="Features col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-4">
+                    <img src="https://getwardrobe.com/tldimages/tild3364-3336-4334-b663-383065353739__closet.svg"
+                        alt="">
+                    <div class="features-name mt-3">Virtual closet</div>
+                </div>
+                <div class="Features col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-4">
+                    <img src="https://getwardrobe.com/tldimages/tild3662-3033-4061-a137-656665356136__jjigsaw.svg"
+                        alt="">
+                    <div class="features-name mt-3">Combinations</div>
+                </div>
+                <div class="Features col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-4">
+                    <img src="https://getwardrobe.com/tldimages/tild3866-6433-4335-b463-313330343562__set-female.svg"
+                        alt="">
+                    <div class="features-name mt-3">Outfit Maker</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partners -->
+        <!-- <div class="partner-section col-md-12 mt-4">
+            <h3 class="mt-4 mb-5">Partners Up</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="partners d-flex flex-wrap">
+                        <img class="round-banners" src="../../../assets/images/logos/Gucci-Logo.png">
+                        <img class="round-banners" src="../../../assets/images/logos/03fc9ea117d97ac227d8dfae27106ddd.jpg">
+                        <img class="round-banners" src="../../../assets/images/logos/Gucci-Logo.png">
+                        <img class="round-banner" src="../../../assets/images/logos/max.jpg">
+                     </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="partners d-flex flex-wrap">
+                        <img class="round-banners" src="../../../assets/images/logos/Gucci-Logo.png">
+                        <img class="round-banners" src="../../../assets/images/logos/03fc9ea117d97ac227d8dfae27106ddd.jpg">
+                        <img class="round-banners" src="../../../assets/images/logos/Gucci-Logo.png">
+                        <img class="round-banner" src="../../../assets/images/logos/max.jpg">
+                      </div>
+                </div>
+            </div>
+        </div> -->
+
     </div>
-    <div class="col-md-12 d-flex">
-<div>
-    <h3>Partners Up</h3>
-    <div  class="partners">
-        <img class="round-banner" src="../../../assets/images/logos/03fc9ea117d97ac227d8dfae27106ddd.jpg" >
-        <img class="round-banner" src="../../../assets/images/logos/zara.png" >
-        <img class="round-banner" src="../../../assets/images/logos/max.jpg" >
-      </div>
-</div>
-          
-    </div>
-    <div></div>
-    <div></div>
-</div>

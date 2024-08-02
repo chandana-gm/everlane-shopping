@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,12 +14,7 @@ export class HomeComponent {
    womensCategories: any[] = []
    ads:any[]=[]
    ngOnInit(){
-     this.ads = [
-      { title: 'Ad 1', description: 'Description for Ad 1', img: 'https://via.placeholder.com/300x200' },
-      { title: 'Ad 2', description: 'Description for Ad 2', img: 'https://via.placeholder.com/300x200' },
-      { title: 'Ad 3', description: 'Description for Ad 3', img: 'https://via.placeholder.com/300x200' },
-      { title: 'Ad 4', description: 'Description for Ad 4', img: 'https://via.placeholder.com/300x200' }
-    ];
+
 
     this.api.getCategory().subscribe((data:any)=>{
       console.log(data,"data");

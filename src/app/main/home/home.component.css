@@ -5,14 +5,26 @@
     width: 100%;
     height: 20vh;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-around;
 }
+
+
 .sub-category {
     /* width: 90px; */
     padding: 10px;
     /* border: 2px solid green; */
 
+}
+
+.round-banner {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    /* border: 2px solid green; */
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
 }
 .banner img {
     width: 100%;
@@ -32,10 +44,75 @@
     margin: 10px;
 }
 
+/* .carousel-indicators [data-bs-slide-to] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 1px;
+}
+
+.carousel-indicators .active {
+    background-color: #fff;
+    border-color: #fff;
+} */
+
 .partners{
     display: flex;
-    justify-content: space-between;
+    /* border: 2px solid green; */
+    justify-content: space-around;
+    width: 100%;
 }
+.Features{
+    /* width: 50%; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 2px solid green; */
+
+}
+.features-name{font-weight: 700; letter-spacing: 2px;}
+.partner-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+.partner-section h3{
+    font-weight: 900;
+}
+
+.partner-section img{
+    width: 150px;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+    /* mix-blend-mode: color-burn; */
+}
+.trending-card{
+    margin: 20px;
+    display: flex;
+    justify-content: space-around;
+    
+}
+.top-rated-picks {
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    overflow-x: auto;
+    /* scroll-snap-type: x mandatory; */
+    scroll-behavior: smooth;
+}
+
+.card {
+    flex: 0 0 auto;
+    width: 15rem;
+    margin: 10px;
+}
+
+
+
 
 @media (max-width: 768px) {
     .genderCategory {
@@ -43,6 +120,29 @@
         margin: 10px 0; /* Adjust margin for smaller screens */
         /* height: 15px; */
         font-size: 12px;
+    }
+    .card-container {
+        display: block;
+    }
+    .category p{
+        font-size: smaller;
+    }
+    .round-banner {
+        width: 50px;
+        height: 50px;
+    }
+  
+}
+@media (max-width: 370px) {
+    /* .category {
+        height: min-content;
+    } */
+    .category p{
+        font-size: xx-small;
+    }
+    .round-banner {
+        width: 30px;
+        height: 30px;
     }
 }
 
@@ -70,15 +170,6 @@
     object-fit: cover;
 }
 
-.round-banner {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    /* border: 2px solid green; */
-    object-fit: cover;
-    display: flex;
-    justify-content: center;
-}
 
 .round-banner img {
     max-width: 100%;
