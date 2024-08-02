@@ -7,11 +7,13 @@ import { ShoppingDetailsComponent } from './shopping-details/shopping-details.co
 import { DetailPageComponent } from './detail-page/detail-page.component';
 
 
+
 @NgModule({
   declarations: [
     ShoppingComponent,
     ShoppingDetailsComponent,
-    DetailPageComponent
+    DetailPageComponent,
+    
   ],
   imports: [
     CommonModule,

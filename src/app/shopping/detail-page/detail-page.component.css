@@ -15,6 +15,7 @@
     height: 100%;
     border: 1px solid #ddd;
     padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .btn-primary {
     background-color: #db89a4;

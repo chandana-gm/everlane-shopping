@@ -14,26 +14,26 @@ align-items: end;
 
 }
    .navbar-nav .nav-item .nav-link {
-            color: #5a5a5a; /* Default link color */
-            font-weight: bold; /* Make links bold */
-            padding: 15px 50px; /* Add padding to links */
-            transition: color 0.3s ease; /* Smooth color transition */
+            color: #5a5a5a; 
+            font-weight: bold;
+            padding: 15px 50px; 
+            transition: color 0.3s ease; 
         }
         
         .navbar-nav .nav-item .nav-link:hover {
-            color: #973d93; /* Change color on hover */
+            color: #973d93; 
         }
 
         .navbar-brand {
-            font-size: 1.5rem; /* Increase brand font size */
-            font-weight: bold; /* Make brand bold */
+            font-size: 1.5rem; 
+            font-weight: bold; 
             font-size: x-large;
             font-family:Georgia, 'Times New Roman', Times, serif;
             margin-left: 20px;
         }
 
         .navbar-light .navbar-toggler {
-            border-color: #007bff; /* Change the border color of the toggle button */
+            border-color: #007bff;
         }
 
         .navbar-light .navbar-toggler-icon {
