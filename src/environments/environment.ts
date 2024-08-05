@@ -1,10 +1,11 @@
 export const environment = {
     production: false,
-    baseUrl: 'https://xd7q7vf5-8000.inc1.devtunnels.ms/api/',
     mensCategoryUrl: 'subcategories/?category_id=1',
-    womensCategoryUrl: 'subcategories/?category_id=2'
+    womensCategoryUrl: 'subcategories/?category_id=3',
+    bannerUrl:'banners/',
+    trendingUrl:'products/trending/'
   };
 export const baseUrl = {
     production: false,
-    baseUrl: 'https://xd7q7vf5-8000.inc1.devtunnels.ms/api/',
+    baseUrl: 'http://18.143.206.136/api/',
   };

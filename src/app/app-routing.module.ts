@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HeaderComponent } from './layout/header/header.component';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(m => m.MainModule) }, 

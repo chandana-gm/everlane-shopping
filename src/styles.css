@@ -1,8 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', Arial, sans-serif;
   }
+
+
+.f4{
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color:  rgb(204, 22, 134);
+}
+.button{
+    background-color: #db89a4;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+}
+
