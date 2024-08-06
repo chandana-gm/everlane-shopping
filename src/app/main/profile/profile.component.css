@@ -1,0 +1,44 @@
+.full-height {
+    height: 80vh;
+}
+.profile-name{
+
+    padding:10px;
+    margin-right: 1px;
+    background-color:#f8eaf7;
+}
+.full-height {
+    height: 100vh;
+}
+.profile-detail {
+    background-color:white;
+    
+}
+.profile-name .col {
+    display: flex;
+    align-items: center;
+}
+.profile-name .col i {
+    margin-right: 10px;
+}
+
+.my-profile {
+    font-size: 1.25rem;
+    background-color:#f8eaf7;
+    padding:10px;
+    margin:1px;
+    margin-top: 0;
+    height:81%
+}
+.edit-profile-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.profile-edit{
+    background-color:#f8eaf7;
+    padding: 20px;
+   
+}
+.form-label {
+    font-weight: bold;
+  }

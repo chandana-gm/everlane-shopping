@@ -1,0 +1,31 @@
+
+.container {
+    max-width: 500px;
+    margin: 10px auto;
+    padding:5px;
+  }
+  .image{
+    height:90vh;
+   
+    object-fit: cover;
+  }
+ 
+  .form-label {
+    font-weight: bold;
+  }
+  .error {
+    color: red;
+    font-size: 0.875em;
+  }
+  .btn{
+
+    background-color: rgb(15, 107, 77);
+  }
+  @media (max-width: 576px) {
+    .container {
+      padding: 10px;
+    }
+    .card {
+      padding: 15px;
+    }
+  }
