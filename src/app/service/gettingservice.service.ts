@@ -23,6 +23,19 @@ export class GettingserviceService {
   getTrendingProducts(){
     return this.http.get<any>(baseUrl.baseUrl+environment.trendingUrl)
   }
+  getAutumnSeasonProducts(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.autumnSeasonProductsUrl)
+  }
+  getWinterSeasonProducts(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.winterSeasonProductsUrl)
+  }
+getSummerSeasonProducts(){
+  return this.http.get<any>(baseUrl.baseUrl+environment.summerSeasonProductsUrl)
 
+}
+getMansoonSeasonProducts(){
+  return this.http.get<any>(baseUrl.baseUrl+environment.rainySeasonProductsUrl)
+
+}
 
 }

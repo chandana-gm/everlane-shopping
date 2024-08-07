@@ -6,9 +6,9 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
 import { CartComponent } from './cart/cart.component';
 
 
-const routes: Routes = [{ path: '', component: ShoppingComponent },
-  {path:'shoppingDetails',component:ShoppingDetailsComponent},
-  {path:'detailsPage',component:DetailPageComponent},
+const routes: Routes = [
+  {path:'shoppingDetails/:name',component:ShoppingDetailsComponent},
+  {path:'detailsPage/:id',component:DetailPageComponent},
   {path:'cart',component:CartComponent},
   
 ];

@@ -1,7 +1,7 @@
 <div class="main">
     <div class="landing-part">
         <div class="banner">
-            <img src="../../../assets/images/croped/banner6.jpg" alt="" routerLink="/shopping/shoppingDetails">
+            <img src="../../../assets/images/croped/banner2.jpg" alt="" routerLink="/shopping/shoppingDetails">
         </div>
         <div class="gradient-overlay"></div>
         <!-- <div class="banner" *ngIf="banners?.data?.length">
@@ -34,71 +34,67 @@
                 </div>
             </section>
         </div>
+
+        <!-- carousel -->
         <div class="mt-3">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
-                <!-- <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  </div> -->
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row">
-                            <div class="col-6" style="cursor: pointer ;">
-                                <img class="d-block w-100" src="./../../.././assets/images/everlaneStyle/image_.png"
-                                    alt="First slide image 1">
+                            <div class="col-6 img-carousel" style="cursor: pointer;">
+                                <img class="d-block w-100" src="./../../.././assets/images/croped/winter3.jpg" alt="First slide image 1" (click)="onImageClick('season_winter')">
                             </div>
-                            <div class="col-6" style="cursor: pointer ;">
-                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image.png"
-                                    alt="First slide image 2">
+                            <div class="col-6 img-carousel" style="cursor: pointer;">
+                                <img class="d-block w-100" src="../../.././assets/images/croped/summer2.jpg" alt="First slide image 2" (click)="onImageClick('season_summer')">
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
-                            <div class="col-6" style="cursor: pointer ;">
-                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image.png"
-                                    alt="First slide image 2">
+                            <div class="col-6 img-carousel" style="cursor: pointer;">
+                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image.png" alt="First slide image 2" (click)="onImageClick('season_mansoon')">
                             </div>
-                            <div class="col-6" style="cursor: pointer ;">
-                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image_.png"
-                                    alt="First slide image 2">
+                            <div class="col-6 img-carousel" style="cursor: pointer;">
+                                <img class="d-block w-100" src="../../.././assets/images/everlaneStyle/image_.png" alt="First slide image 2" (click)="onImageClick('season_autumn')">
                             </div>
                         </div>
                     </div>
+                </div>&nbsp;
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 </div>
-                <!-- <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a> -->
             </div>
-        </div>
+            
+        </div>&nbsp;
 
 
         <!-- treanding -->
         <div class="top-rated-picks">
             <h3 class="mt-4 mb-5">Top Rated Picks <i class="bi bi-fire" style="color: red;"></i></h3>
             <div class="marquee-container">
-                <div class="marquee">
+                <div class="marquee" #marquee>
                     <div class="marquee-item" *ngFor="let item of trending" routerLink="/shopping/shoppingDetails">
                         <div class="image-container">
                             <img [src]="item.image" alt="{{ item.name }}">
                             <div class="item-name">{{ item.name }}</div>
                         </div>
                     </div>
-                    <!-- Repeat the items to ensure smooth scrolling -->
+                    <!-- Repeat -->
                     <div class="marquee-item" *ngFor="let item of trending" routerLink="/shopping/shoppingDetails">
                         <div class="image-container">
                             <img [src]="item.image" alt="{{ item.name }}">
                             <div class="item-name">{{ item.name }}</div>
                         </div>
                     </div>
+                    <!--  -->
                 </div>
+                <button class="prev" (click)="scrollLeft()">&#10094;</button>
+                <button class="next" (click)="scrollRight()">&#10095;</button>
             </div>
         </div>
+        
+        
 
 
         <!-- Features -->

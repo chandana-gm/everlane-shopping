@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms'
-
 
 @Component({
   selector: 'app-home',
@@ -9,38 +8,57 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@ang
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+ 
 
-   constructor(private api:GettingserviceService){}
-   selectedGender: string = 'Men';
-   categories: any[] = []
-   womensCategories: any[] = []
-   banners: any
-   trending:any
-   ads:any[]=[]
-   ngOnInit(){
+  constructor(private api: GettingserviceService,private router:Router) { }
 
-    this.api.getMensCategories().subscribe((data:any)=>{
-      this.categories=data.data
-      console.log(this.categories);   
-    })
-    this.api.getWomensCategories().subscribe((data:any)=>{
-      this.womensCategories=data.data
-      console.log(this.womensCategories);   
-    })
-    this.api.getBanners().subscribe((data)=>{
-      console.log(data);
-      this.banners=data
-    })
-    this.api.getTrendingProducts().subscribe((data)=>{
-      this.trending= data.data
-      console.log(this.trending);
-      
-    })
+  @ViewChild('marquee') marquee!: ElementRef;
+  selectedGender: string = 'Men';
+  categories: any[] = [];
+  womensCategories: any[] = [];
+  banners: any;
+  trending: any;
 
-   }
+  selectGender(gender: string) {
+    this.selectedGender = gender;
+  }
 
-   selectGender(gender: string) {
-     this.selectedGender = gender;
-   }
+  ngOnInit() {
+    this.api.getMensCategories().subscribe((data: any) => {
+      this.categories = data.data;
+    });
+    this.api.getWomensCategories().subscribe((data: any) => {
+      this.womensCategories = data.data;
+    });
+    this.api.getBanners().subscribe((data) => {
+      this.banners = data;
+    });
+    this.api.getTrendingProducts().subscribe((data) => {
+      this.trending = data.data;
+    });
+    this.api.getAutumnSeasonProducts().subscribe((data) => {
+      console.log("autumn", data);
+    });
+  }
 
+
+  onImageClick(season: string) {
+    console.log(season);
+    this.router.navigate(['shopping/shoppingDetails',season]);
+
+  }
+
+  scrollLeft() {
+    this.marquee.nativeElement.scrollBy({
+      left: -200,
+      behavior: 'smooth'
+    });
+  }
+
+  scrollRight() {
+    this.marquee.nativeElement.scrollBy({
+      left: 200,
+      behavior: 'smooth'
+    });
+  }
 }
