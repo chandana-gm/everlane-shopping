@@ -17,10 +17,12 @@ export class GettingserviceService {
   getWomensCategories(){
     return this.http.get<any>(baseUrl.baseUrl+environment.womensCategoryUrl)
   }
-
-
-  private categoryUrl = 'https://xd7q7vf5-8000.inc1.devtunnels.ms/api/categories/'
-  getCategory(){
-   return this.http.get<any>(this.categoryUrl)
+  getBanners(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.bannerUrl)
   }
+  getTrendingProducts(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.trendingUrl)
+  }
+
+
 }

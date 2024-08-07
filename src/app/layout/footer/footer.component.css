@@ -1,4 +1,11 @@
-.container{
+
+.container {
     padding: 0;
-    position:relative;
-}
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .container {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }

@@ -7,14 +7,14 @@ import { AppComponent } from './app.component';
 import {  FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent  } from './layout/header/header.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent 
-  
+    HeaderComponent
 
     
   
@@ -22,7 +22,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

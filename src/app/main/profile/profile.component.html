@@ -1,33 +1,15 @@
 <!-- <div class="container-fluid full-height">
     <div class="row full-height">
-        <div class=" profile-detail col-4 bg-">
+        <div class="profile-detail col-3">
             <div class="row profile-name">
-                <div class="col"><i class="bi bi-person-circle fs-1"></i> Anjali</div>
-              
-                <div class="col text-right">Change</div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">My Profile</div>
-            </div>
-        </div>
-        <div class=" profile-edit col-10 bg-dark">
-            <div class="row h-100">
-                <div class="col my-auto text-center">Edit Profile</div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<div class="container-fluid full-height">
-    <div class="row full-height">
-        <div class="profile-detail col-4">
-            <div class="row profile-name">
-                <div class="col"><i class="bi bi-person-circle fs-1"></i> Anjali Midhun</div>
+                <div class="col"><i class="bi bi-person-circle fs-1" style="color:#973d93"></i> Anjali Midhun</div>
                 <div class="col text-end"><a href="#" class="btn btn-link ">Change</a></div>
             </div>
-            <div class="my-profile mt-2" >
+            <div class="my-profile mt-2">
                 <div><b>My Profile</b></div>
-                <div>Change password</div>
-                <div>My Review</div>
+                <hr>
+                <div class="detail">Change password</div>
+                <div class="detail">My Review</div>
             </div>
         </div>
         <div class="profile-edit  col">
@@ -35,44 +17,132 @@
                 <div class="col">
                     <div class="container">
                         <div class="mt-2">
-                            <h1 class="text-center" style="color:#973d93;">Edit Profile</h1>
-                            <form  class="mt-4">
+                            <h1 class="text-start" style="color:#973d93;">Edit Profile </h1>
+                            <hr>
+                            <form class="mt-4">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="username" class="form-label">First Name:</label>
                                             <input id="username" formControlName="username" class="form-control" />
-                                            
+
                                         </div>
                                         <div class="form-group">
                                             <label for="email" class="form-label">Email:</label>
                                             <input id="email" formControlName="email" class="form-control" />
-                                            
+
                                         </div>
-                                        
-                                        
+
+
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="lastname" class="form-label">Last Name:</label>
                                             <input id="lastname" formControlName="lastname" class="form-control" />
-                                            
+
                                         </div>
                                         <div class="form-group">
                                             <label for="phone" class="form-label">Phone Number:</label>
                                             <input id="phone" formControlName="phone" class="form-control" />
-                                            
+
                                         </div>
-                                        
-                                        
+
+
                                     </div>
                                 </div>
-                               
-                                <button type="submit"  class="button lg mt-4">Edit</button>
+                                <hr>
+                                <div class="form-group d-flex justify-content-center mt-4" >
+                                    <button type="submit" class="button" style="width:20%;">Edit</button>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container-fluid">
+    <div class="row full-height">
+        <div class="profile-detail col-12 col-md-4 col-lg-3">
+            <div class="row profile-name">
+                <div class="col"><i class="bi bi-person-circle fs-1" style="color:#973d93"></i> Anjali Midhun</div>
+                <div class="col text-end"><a href="#" class="btn btn-link">Change</a></div>
+            </div>
+            <div class="my-profile mt-2">
+                <div (click)="showsection('section1')"><b>My Profile</b></div>
+                <hr>
+                <div class="detail" (click)="showsection('section2')">Change password</div>
+                <div class="detail">My Review</div>
+            </div>
+        </div>
+        <div class="profile-edit col-12 col-md-8 col-lg-9">
+            <div class="row h-100">
+                <div *ngIf="currentSection === 'section1'">
+                    <div class="col">
+                        <div class="container">
+                            <div class="mt-2">
+                                <h2 class="text-start" style="color:#973d93;">Edit Profile</h2>
+                                <hr>
+                                <form class="mt-4">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="username" class="form-label">First Name:</label>
+                                                <input id="username" formControlName="username" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email" class="form-label">Email:</label>
+                                                <input id="email" formControlName="email" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastname" class="form-label">Last Name:</label>
+                                                <input id="lastname" formControlName="lastname" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label">Phone Number:</label>
+                                                <input id="phone" formControlName="phone" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group d-flex justify-content-center mt-4">
+                                        <button type="submit" class="button" style="width:20%;">Edit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- password change -->
+                <div *ngIf="currentSection === 'section2'">
+
+                    <div class="container-password">
+                        <h2 class="my-4" style="color:#973d93">Password Change</h2>
+                        <hr>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="currentPassword">Current Password</label>
+                                    <input id="currentPassword" formControlName="current" class="form-control"
+                                        type="password" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="newPassword">New Password</label>
+                                    <input id="newPassword" formControlName="change" class="form-control"
+                                        type="password" />
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex justify-content-center mt-4">
+                                <button type="submit" class="button">Change Password</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

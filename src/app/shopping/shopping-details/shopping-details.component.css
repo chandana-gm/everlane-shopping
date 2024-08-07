@@ -8,6 +8,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     background-color: white;
+    cursor: pointer;
 }
 
 .card:hover {
@@ -35,5 +36,19 @@
 .card-text {
     color: #6c757d;
 }
-
+.cart-button span.added {
+    display: none;
+  }
+  
+  .cart-button span.added.show {
+    display: block;
+  }
+  
+  span.add-to-cart.hide {
+    display: none;
+  }
+  
+  span.add-to-cart {
+    display: block;
+  }
 

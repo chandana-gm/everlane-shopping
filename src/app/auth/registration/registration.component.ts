@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class RegistrationComponent implements OnInit {
   signUpForm!: FormGroup;
 
   
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private router:Router) {}
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -35,6 +36,10 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     if (this.signUpForm.valid) {
+      console.log('haiiiiii');
+      
+      this.signUpForm.reset();
+      this.router.navigate(['/auth/login'])
 
     }}
 }

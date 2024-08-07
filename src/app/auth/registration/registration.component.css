@@ -1,11 +1,16 @@
 
+.body{
+  padding:40px;
+}
 .container {
-    max-width: 500px;
-    margin: 10px auto;
-    padding:5px;
+   padding:80px;
+   margin-top:-60px;
   }
   .image{
-    height:90vh;
+    height:80vh;
+    width:80vh;
+    margin-left: 30px;
+
    
     object-fit: cover;
   }

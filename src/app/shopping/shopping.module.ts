@@ -5,6 +5,7 @@ import { ShoppingRoutingModule } from './shopping-routing.module';
 import { ShoppingComponent } from './shopping.component';
 import { ShoppingDetailsComponent } from './shopping-details/shopping-details.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -13,6 +14,7 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
     ShoppingComponent,
     ShoppingDetailsComponent,
     DetailPageComponent,
+    CartComponent,
     
   ],
   imports: [
