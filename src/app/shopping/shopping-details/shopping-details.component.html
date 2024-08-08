@@ -1,24 +1,31 @@
-<div class="container">
-  
-    <div class="row  ">
+<div class="container" >
+    <div class="row">
         <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" *ngFor="let item of seasonProducts">
-            <div class="card" style="width: 15rem;" >
-                <img [src]="item.image" class="card-img-top" alt="..." (click)="productDetails(item.id)" >
+            <div class="card" style="width: 15rem;">
+                <img [src]="item.image" class="card-img-top" alt="..." (click)="productDetails(item.id)">
                 <div class="card-body">
-                    <h5 class="card-title">{{item.brand}} - {{item.name}}</h5>
-                    <p class="card-text">{{item.description}}.</p>
-                    <button class="cart-button button" (click)="cartClick($event)">
-                        <span class="add-to-cart">Add to cart</span>
-                            <span class="added" routerLink="/shopping/cart">Go to cart <i class="bi bi-cart-check" ></i></span>
-                    </button>
-                    
+                    <h5 class="card-title">{{item.brand}} - {{item.name }}</h5>
+                    <p class="card-text">{{item.description| slice:0:20 }}{{ item.length > 0 ? '' : '....' }}</p>
+                    <!-- <p>{{ yourText | slice:0:10 }}{{ yourText.length > 10 ? '...' : '' }}</p> -->
+                    <div class="d-flex">
+                        <button class="cart-button button" (click)="cartClick($event)">
+                            <span class="add-to-cart" (click)="cartedItem(item)">Add to cart</span>
+                            <span class="added" routerLink="/shopping/cart">Go to cart <i
+                                    class="bi bi-cart-check"></i></span>
+                        </button>&nbsp;
+                        <div class="wishlist-icon" (click)="wishlistEvent(item)">
+                            <span *ngIf="!item.isWishlisted"><i class="bi bi-heart" ></i></span>
+                            <span *ngIf="item.isWishlisted"><i class="bi bi-heart-fill fill"></i></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<ng-template #loading>
+    <div class="loader">
 
-
-
-
-  
+        <img src="../../../assets/images/loaders/spinner.gif" alt="">
+    </div>
+</ng-template>

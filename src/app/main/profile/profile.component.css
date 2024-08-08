@@ -1,0 +1,60 @@
+.container-fluid{
+height: fit-content;
+}
+.profile-name{
+
+    padding:10px;
+    margin-right: 1px;
+    margin-left: 1px;
+    background-color:#faf6fa;
+}
+.full-height {
+    height: 100vh;
+    /* border: 2px solid green; */
+}
+.profile-detail {
+    background-color:white;
+   
+    
+}
+.profile-name .col {
+    display: flex;
+    align-items: center;
+}
+.profile-name .col i {
+    margin-right: 10px;
+}
+
+.my-profile {
+    font-size: 1rem;
+    background-color:#faf6fa;
+    padding:20px;
+    margin:1px;
+    margin-top: 0;
+    min-height:70vh;
+} 
+.my-profile div{
+
+    padding: 10px;
+}
+
+.detail:hover{
+
+    color:white;
+   
+    background-color:#973d93;
+}
+
+.edit-profile-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.profile-edit .container-password{
+ 
+    padding: 20px;
+   
+}
+.form-label {
+    font-weight: bold;
+  }
+  

@@ -1,0 +1,26 @@
+.wishlist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+.wishlist-text{
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+section i:hover{
+    color: red;
+}
+section img{
+    object-fit: cover;
+}
+.instock{
+    color: green;
+}
+.outofstock{
+    color: red;
+}
+.inside-wishlist{
+    margin: 0 20px;
+}

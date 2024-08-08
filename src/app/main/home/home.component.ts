@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 
@@ -18,6 +18,7 @@ export class HomeComponent {
   womensCategories: any[] = [];
   banners: any;
   trending: any;
+  // isLoading=false
 
   selectGender(gender: string) {
     this.selectedGender = gender;
@@ -26,6 +27,7 @@ export class HomeComponent {
   ngOnInit() {
     this.api.getMensCategories().subscribe((data: any) => {
       this.categories = data.data;
+      // this.isLoading=true
     });
     this.api.getWomensCategories().subscribe((data: any) => {
       this.womensCategories = data.data;
@@ -36,16 +38,14 @@ export class HomeComponent {
     this.api.getTrendingProducts().subscribe((data) => {
       this.trending = data.data;
     });
-    this.api.getAutumnSeasonProducts().subscribe((data) => {
-      console.log("autumn", data);
-    });
   }
 
+  onCategoryClick(category:any){
+    this.router.navigate(['shopping/shoppingDetails', category.name]);   
+  }
 
   onImageClick(season: string) {
-    console.log(season);
     this.router.navigate(['shopping/shoppingDetails',season]);
-
   }
 
   scrollLeft() {

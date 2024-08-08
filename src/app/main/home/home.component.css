@@ -105,12 +105,7 @@
     padding: 10px;
 }
 
-.partners {
-    display: flex;
-    /* border: 2px solid green; */
-    justify-content: space-around;
-    width: 100%;
-}
+
 
 .Features {
     /* width: 50%; */
@@ -236,6 +231,15 @@ button.next {
         transform: translateX(-50%);
     }
 }
+
+.loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loader img{
+    object-fit: cover;
+  }
 
 
 

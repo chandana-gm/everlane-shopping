@@ -9,6 +9,7 @@ import { CartComponent } from './cart/cart.component';
 
 
 
+
 @NgModule({
   declarations: [
     ShoppingComponent,
@@ -19,7 +20,8 @@ import { CartComponent } from './cart/cart.component';
   ],
   imports: [
     CommonModule,
-    ShoppingRoutingModule
+    ShoppingRoutingModule,
+
   ]
 })
 export class ShoppingModule { }

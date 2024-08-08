@@ -1,0 +1,50 @@
+.body {
+  padding: 0 40px;
+  width: 100%
+}
+
+.container {
+  padding: 80px;
+  margin-top: -60px;
+}
+
+.image {
+  height: 80vh;
+  width: 80vh;
+  margin-left: 30px;
+  object-fit: cover;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-size: 0.875em;
+}
+
+.btn {
+
+  background-color: rgb(15, 107, 77);
+}
+.redirect-to-login:hover{
+  color: blueviolet;
+}
+.redirect-to-login{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+text-decoration: underline;
+cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
