@@ -3,6 +3,13 @@
     background-color: white;
     height: 15vh;
 }
+.logo-search{
+    display: flex;
+    /* border: 2px solid green; */
+    width: 100%;
+    justify-content: space-between;
+}
+
 
 .navbar {
 
@@ -25,7 +32,8 @@ nav {
 .navbar-nav .nav-item .nav-link {
     color: #424040;
     font-weight: bold;
-    padding: 15px 50px;
+    padding: 15px 15px;
+    margin: 0 10px;
     transition: color 0.3s ease;
 
 }
@@ -53,5 +61,11 @@ nav {
 
 .nav-item:hover {
     background-color: #973d93;
+    color: white;
 
+
+}
+.input-group-text{
+    background-color: #973d93;
+    color: white;
 }

@@ -1,0 +1,135 @@
+.container {
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .steps div {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+    position: relative;
+  }
+  
+  .steps div::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    z-index: -1;
+  }
+  
+  .steps div:last-child::after {
+    content: none;
+  }
+  
+  .steps div.active {
+    color: #973d93;
+  }
+  
+  .steps div.active i {
+    color: #973d93;
+  }
+  
+  .steps div i {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .steps div span {
+    font-weight: bold;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .navigation-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .navigation-buttons button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .navigation-buttons button:not([disabled]) {
+    background-color:#973d93;
+    color: #fff;
+  }
+  
+  .navigation-buttons button:not([disabled]):hover {
+    background-color:#9b5197;;
+  }
+  
+  form {
+    display: grid;
+    gap: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  small{color: red;}
+  .address-container{
+    display: flex;
+    /* justify-content: space-a; */
+  }
+  .confirmed-order{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    flex-direction: column;
+    margin-top: 180px;
+  }
+  .order-icon{
+    font-size: 50px;
+  }
+  .back-to-shopping{
+    text-decoration: underline;
+  }
+  .back-to-shopping:hover{
+    text-decoration: underline;
+    color: blueviolet;
+  }
+  .payment-tab{
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid firebrick; */
+  }
+  .payment-tab section{
+    padding: 50px;
+    background-color: #fffdfd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+
+  }

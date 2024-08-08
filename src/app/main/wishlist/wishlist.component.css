@@ -24,3 +24,15 @@ section img{
 .inside-wishlist{
     margin: 0 20px;
 }
+.cart-button span.added {
+    display: none;
+  }
+  .cart-button span.added.show {
+    display: block;
+  }
+  span.add-to-cart.hide {
+    display: none;
+  }
+  span.add-to-cart {
+    display: block;
+  }

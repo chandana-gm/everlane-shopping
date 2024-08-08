@@ -1,4 +1,4 @@
-<div class="landing-part" >
+<div class="landing-part" *ngIf="isLoading else loader">
     <div class="banner">
         <img src="../../../assets/images/croped/banner2.jpg" alt="" routerLink="/shopping/shoppingDetails">
     </div>
@@ -26,9 +26,7 @@
         <section class="category" *ngIf="selectedGender === 'Women'">
             <div *ngFor="let category of womensCategories" class="sub-category">
                 <img class="round-banner" [src]="category.image" alt="image" (click)="onCategoryClick(category)">
-                <div>
                     <p>{{ category.name }}</p>
-                </div>
             </div>
         </section>
     </div>
@@ -61,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-            </div>&nbsp;
+            </div>
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
@@ -75,7 +73,7 @@
 
     <!-- treanding -->
     <div class="top-rated-picks">
-        <h3 class="mt-4 mb-5">Top Rated Picks <i class="bi bi-fire" style="color: red;"></i></h3>
+        <h3 class="mt-5 ">Top Rated Picks <i class="bi bi-fire" style="color: red;"></i></h3>
         <div class="marquee-container">
             <div class="marquee" #marquee>
                 <div class="marquee-item" *ngFor="let item of trending" routerLink="/shopping/shoppingDetails">
@@ -103,7 +101,7 @@
 
     <!-- Features -->
     <div class="partner-section d-flex flex-column align-items-center mt-4 mb-5">
-        <h3 class="mt-4 mb-5">Features</h3>
+        <h3 class="mt-2 mb-5">Features</h3>
         <div class="about-us row d-flex col-12 justify-content-center">
             <div class="Features col-12 col-sm-6 col-md-4 d-flex flex-column align-items-center mb-4">
                 <img src="https://getwardrobe.com/tldimages/tild3364-3336-4334-b663-383065353739__closet.svg" alt="">
