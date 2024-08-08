@@ -14,4 +14,11 @@ export class PostServiceService {
   postCart(item:any){
     this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`,item)
   }
+  postRegistration(item:any){
+  return this.http.post<any>(baseUrl.baseUrl+postApis.register,item)
+  }
+  postLogin(logindata:any){
+    return this.http.post<any>(baseUrl.baseUrl+postApis.logIn,logindata)
+   
+  }
 }
