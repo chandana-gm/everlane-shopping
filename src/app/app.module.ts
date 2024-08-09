@@ -7,7 +7,12 @@ import { AppComponent } from './app.component';
 import {  FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent  } from './layout/header/header.component';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
+
 
 
 @NgModule({
@@ -24,7 +29,13 @@ import { ReactiveFormsModule } from '@angular/forms'
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule ,
+    ToastrModule.forRoot({ // ToastrModule added
+      positionClass: 'toast-bottom-center', // Default position
+    }),
+  
+  
     
   ],
   exports:[HeaderComponent,FooterComponent],

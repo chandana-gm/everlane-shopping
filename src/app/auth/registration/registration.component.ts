@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostServiceService } from 'src/app/service/post-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -14,7 +15,7 @@ export class RegistrationComponent implements OnInit {
   signUpForm!: FormGroup;
 
   
-  constructor(private fb: FormBuilder,private router:Router ,private service:PostServiceService) {}
+  constructor(private fb: FormBuilder,private router:Router ,private service:PostServiceService,private toastr: ToastrService) {}
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
@@ -22,10 +23,10 @@ export class RegistrationComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', [Validators.required, this.mobileValidator]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirm_password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required,
+        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')]],
+      confirm_password: ['', [Validators.required,]]
     }, { validator: this.passwordMatchValidator });
-    
   }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -43,27 +44,28 @@ export class RegistrationComponent implements OnInit {
     }
     return { invalidMobile: true }; 
   }
+  get password() {
+    return this.signUpForm.get('password');
+  }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.signUpForm.valid) {
-      console.log('haiiiiii');
-      console.log('datas',this.signUpForm.value);
-      const data = this.signUpForm.value
-      this.service.postRegistration(data).subscribe((data: any) => {
-
-        console.log('response',data)
-
-
-      })
+      console.log('Form', this.signUpForm.value);
+      this.service.postRegistration(this.signUpForm.value).subscribe(
+        (response: any) => {
+          console.log('Registration successful:', response);
+          this.toastr.success('Registration successful!', 'Success');
+          this.router.navigate(['/auth/login']);
+        },
+        (error) => {
+          console.error('Registration error:', error);
+          this.toastr.error('Registration failed. Please try again.', 'Error');
+        }
+      );
       this.signUpForm.reset();
-      this.router.navigate(['/auth/login'])
-
-    }}
-    
-
-
+    }
+  }
 
 
     
 }
-

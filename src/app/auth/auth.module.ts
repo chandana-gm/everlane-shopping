@@ -9,6 +9,10 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 
+
+
+
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -19,7 +23,11 @@ import { RegistrationComponent } from './registration/registration.component';
     CommonModule,
     AuthRoutingModule,
     FormsModule ,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
+  
+  
+  
   ]
 })
 export class AuthModule { }
