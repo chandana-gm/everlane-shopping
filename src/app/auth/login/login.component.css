@@ -2,7 +2,6 @@
 
   height: 100vh;
   background-image: url('../.././../assets/front-view-queer-woman-posing-studio.jpg');
-  /* Path to your background image */
   background-size: cover;
   background-position-x: left;
   background-repeat: no-repeat;
@@ -10,6 +9,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
+  
   
 }
 
@@ -47,22 +47,37 @@ label {
   border-color: #0d6efd;
 } 
 
+
+
+
 @media (max-width: 767px) {
+  .container-fluid {
+    background-size: cover; 
+    background-position: center; 
+  }
+
+  .card {
+    width: 90%; 
+  }
   .login-icon {
     font-size: 2rem;
   }
 }
 
 @media (max-width: 575px) {
-  .login-icon {
-    font-size: 1.5rem;
+  .container-fluid {
+    background-size: cover;
+    background-position: center;
   }
+
   .card {
     width: 100%;
     margin-top: 0;
   }
-  
+  .login-icon {
+    font-size: 1.5rem;
+  }
+}
   
   
 
-}
