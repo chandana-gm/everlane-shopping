@@ -1,71 +1,107 @@
 .container-fluid {
-
     background-color: white;
     height: 15vh;
-}
-.logo-search{
+  }
+  
+  .logo-search {
     display: flex;
-    /* border: 2px solid green; */
-    width: 100%;
+    width: 60%;
     justify-content: space-between;
-}
-
-
-.navbar {
-
+    align-items: center; 
+  }
+  
+  .navbar {
     padding: 0;
-
-}
-
-.collapse {
+  }
+  
+  .collapse {
     align-items: end;
-
-}
-
-nav {
+  }
+  
+  nav {
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 1;
-}
-
-.navbar-nav .nav-item .nav-link {
+  }
+  
+  .navbar-nav .nav-item .nav-link {
     color: #424040;
     font-weight: bold;
     padding: 15px 15px;
     margin: 0 10px;
     transition: color 0.3s ease;
-
-}
-
-.navbar-nav .nav-item .nav-link:hover {
+  }
+  
+  .navbar-nav .nav-item .nav-link:hover {
     color: white;
-}
-
-.navbar-brand {
+  }
+  
+  .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
     font-size: x-large;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, "Times New Roman", Times, serif;
     margin-left: 20px;
-}
-
-.navbar-light .navbar-toggler {
+  }
+  
+  .navbar-light .navbar-toggler {
     border-color: #007bff;
-}
-
-.navbar-light .navbar-toggler-icon {
+  }
+  
+  .navbar-light .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 123, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-
-.nav-item:hover {
+  }
+  
+  .nav-item:hover {
     background-color: #973d93;
     color: white;
+  }
+  
+  .input-group-text {
+    background-color: transparent;
+    cursor: pointer;
+    /* border: none; */
+  }
+  
+  .input-group-text i {
+    color: #888;
+  }
+  .input-group{
+    width: 50%;
+  }
 
+  .form-control .search{
+    position: relative;
+  }
+  
+  /* Media Queries for responsiveness */
+  
+  @media (max-width: 768px) {
+    .logo-search {
+      flex-direction: row;
+      align-items: center;
+      width: 70%;
+    }
+  
+    .navbar-brand {
+      font-size: 1rem; 
+    }
+  
+    .navbar-nav {
 
-}
-.input-group-text{
-    background-color: #973d93;
-    color: white;
-}
+      padding: 10px 0;
+    }
+  
+    .navbar-nav .nav-item {
+      margin: 5px 0;
+    }
+    .input-group{
+        width: 100%;
+      }
+  }
+  @media (max-width: 350px) {
+    .logo-search a {
+        font-size: 10px;
+    }}
+  

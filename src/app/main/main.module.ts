@@ -9,7 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShoppingModule } from '../shopping/shopping.module';
 import { WishlistComponent } from './wishlist/wishlist.component';
-import { WalldrobeComponent } from './walldrobe/walldrobe.component';
+import { DonationComponent } from './donation/donation.component';
+
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { WalldrobeComponent } from './walldrobe/walldrobe.component';
     HomeComponent,
     ProfileComponent,
     WishlistComponent,
-    WalldrobeComponent
+    DonationComponent,
   ],
   imports: [
     CommonModule,

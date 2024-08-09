@@ -22,6 +22,8 @@ export class ShoppingDetailsComponent implements OnInit {
     if (this.bannerSeason == 'Shirts') {
       this.service.getShirtCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
+        console.log(data);
+        
         this.isLoading = true
       });
     }
