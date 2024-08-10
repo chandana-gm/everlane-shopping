@@ -45,7 +45,7 @@ if(this.loginForm.valid)
 }
 
 );
-this.loginForm.reset();
+
 
 }
   }
