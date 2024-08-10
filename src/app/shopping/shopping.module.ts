@@ -8,6 +8,7 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedSchemaModule } from '../shared-schema/shared-schema.module';
 
 
 
@@ -24,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ShoppingRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedSchemaModule
 
   ]
 })

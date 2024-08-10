@@ -25,6 +25,7 @@ export const environment = {
 export const postApis = {
     production: false,
     addToCart: 'add-to-cart/',
+    addToWishlist:'wishlist/add/',
     register:'register/',
     logIn:'login/'
   };

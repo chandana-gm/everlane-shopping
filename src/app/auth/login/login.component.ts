@@ -24,23 +24,39 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
-
     if (this.loginForm.valid) {
       console.log('data', this.loginForm.value);
-      const formdata = this.loginForm.value
-      this.service.postLogin(formdata).subscribe((data: any) => {
-        console.log('loginResponse', data)
-        this.toastr.success(data.message)
-        this.router.navigate(['/main']);
-      },
+      const formdata = this.loginForm.value;
+  
+      this.service.postLogin(formdata).subscribe(
+        (data: any) => {
+          console.log('loginResponse', data);
+          
+          // Encrypt the token
+          const encryptedData = this.service.encryptData(data.token, 'token');
+          console.log(encryptedData, 'encryptedData');
+          
+          // Store username and encrypted token in localStorage
+          const user = { 'username': data.username, 'token': encryptedData };
+          localStorage.setItem('user', JSON.stringify(user));
+          
+          // Display success message
+          this.toastr.success(data.message);
+          
+          // Navigate to the main page
+          this.router.navigate(['/main']);
+        },
         (error) => {
           console.error('Registration error:', error);
           this.toastr.error(error.error.message, 'Error');
         }
       );
+  
+      // Reset the form after submission
       this.loginForm.reset();
     }
   }
+  
 }
 
 

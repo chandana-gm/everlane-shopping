@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit{
 
   ngOnInit(): void {
+    window.scroll(0,0)
     
   }
   currentSection: string = 'section1';

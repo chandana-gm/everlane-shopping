@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './home-donation.component.html',
   styleUrls: ['./home-donation.component.css']
 })
-export class HomeDonationComponent {
-
+export class HomeDonationComponent  {
+ngOnInit(){
+window.scroll(0,0)
+}
 }

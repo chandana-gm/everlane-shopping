@@ -24,17 +24,18 @@
                 </li> -->
 
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" routerLink="/donation/donation%home">Donate <i class="fa-solid fa-hand-holding-hand"></i></a>
+                    <a class="nav-link" aria-current="page"   (click)="redirectToDonate()">Donate <i class="fa-solid fa-hand-holding-hand"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" routerLink="/auth/register">Register/Login</a>
+                    <a class="nav-link" aria-current="page" *ngIf="!isAthenticated"  (click)="redirectToRegister()" >Register/Login</a>
+                    <a class="nav-link" aria-current="page" *ngIf="isAthenticated" (click)="redirectToProfile()">welcome,{{authenticatedUser}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/main/wishlist"><i class="bi bi-heart"
+                    <a class="nav-link active" aria-current="page" routerLink="/main/wishlist" (click)="redirectToWishlist()"><i class="bi bi-heart"
                             style="font-size: larger; font-weight: 900;"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/shopping/cart"><i class="bi bi-cart"
+                    <a class="nav-link active" aria-current="page" routerLink="/shopping/cart" (click)="redirectToCart()"><i class="bi bi-cart"
                             style="font-size: larger; font-weight: 900;"></i></a>
                 </li>
             </ul>

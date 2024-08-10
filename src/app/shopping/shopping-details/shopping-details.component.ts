@@ -126,9 +126,29 @@ export class ShoppingDetailsComponent implements OnInit {
    
 
   }
-  wishlistEvent(item: any) {
-    item.isWishlisted = !item.isWishlisted;
+  async wishlistEvent(item: any) {
+    const storedUser = localStorage.getItem('user'); 
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+  
+      const decryptedToken = await this.postService.decryptData(user.token, 'token');
+      console.log('Decrypted Token:', decryptedToken);
+      console.log('Item ID:', item.id);
+  
+      this.postService.postWishlist(item.id, decryptedToken).subscribe(
+        (response) => {
+          console.log('Posting response:', response);
+        },
+        (error) => {
+          console.error('Error posting to wishlist:', error);
+        }
+      );
+      item.isWishlisted = !item.isWishlisted;
+    } else {
+      console.error('User not authenticated');
+    }
   }
+  
 
   productDetails(id: any) {
     this.router.navigate(['/shopping/detailsPage', id]);
