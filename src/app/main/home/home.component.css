@@ -7,6 +7,7 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
+    overflow: visible;
 }
 
 
@@ -254,6 +255,17 @@ button.next {
 
 
 
+@media (max-width: 992px) {
+    .category p {
+        font-size: smaller;
+    }
+
+    .round-banner {
+        width: 50px;
+        height: 50px;
+    }
+   
+}
 @media (max-width: 768px) {
     .genderCategory {
         flex: 1 1 40%;
@@ -275,14 +287,26 @@ button.next {
         width: 50px;
         height: 50px;
     }
+   
+    
 
     .img-carousel img {
         height: 150px;
     }
+    .category{
+        overflow-x: auto; 
+    white-space: nowrap; 
+    justify-content: flex-start; /* Align items to the start */
+    -webkit-overflow-scrolling: touch; 
+  }
+  .sub-category{
+    padding-left: 30px;
+
+  }
 
 }
 
-@media (max-width: 500px) {
+@media (max-width: 610px) {
     .marquee-container {
         height: 220px;
     }
@@ -297,14 +321,28 @@ button.next {
     .marquee {
         animation: scroll-left 40s linear infinite;
     }
+    .category{
+        overflow-x: auto; 
+    white-space: nowrap; 
+    justify-content: flex-start; /* Align items to the start */
+    -webkit-overflow-scrolling: touch; 
+  }
+  .sub-category{
+    padding-left: 30px;
+
+  }
 
     .item-name {
         font-size: 10px;
     }
 
     .img-carousel img {
-        height: 100px;
+        /* height: 100px; */
     }
+    /* .category{
+        flex-wrap: wrap;
+        height: 40vh;
+    } */
 
 }
 
@@ -317,10 +355,10 @@ button.next {
         font-size: xx-small;
     }
 
-    .round-banner {
+    /* .round-banner {
         width: 30px;
         height: 30px;
-    }
+    } */
 }
 
 .btn {
@@ -354,10 +392,7 @@ button.next {
 
 }
 
-.advertising-bar {
-    border: 2px solid green;
 
-}
 
 .gradient-overlay {
     position: absolute;

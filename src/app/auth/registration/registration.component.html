@@ -4,12 +4,12 @@
         <img src="../../../assets/newviolet.jpg" alt="" class="image">
     </div>
     <div class="col-md-6 col-12">
-        <div class="container">
-            <div>
+        <div class="container" >
+            <div >
              
                 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
 
-                    <h1 class="text-center" style="color:#973d93;">Sign Up</h1>
+                    <h1 class="text-center" style="color:#973d93; ">Sign Up</h1>
                     <div class="form-group">
                         <label for="username" class="form-label">User Name:</label>
                         <input id="username" formControlName="username" class="form-control" />
@@ -79,7 +79,7 @@
                             Confirm password is required (minimum 6 characters).
                         </div>
                     </div>
-                    <button type="submit" [disabled]="signUpForm.invalid" class="btn btn-block mt-4">Sign Up</button>
+                    <button type="submit" [disabled]="signUpForm.invalid" class="button btn-block mt-4">Sign Up</button>
                 </form>
                 <div class="redirect-to-login">
                     <p routerLink="/auth/login">Already a member? Login here</p>

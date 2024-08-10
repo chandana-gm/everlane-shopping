@@ -10,46 +10,38 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private fb:FormBuilder,private service:PostServiceService,private router:Router,private toastr:ToastrService){}
+  constructor(private fb: FormBuilder, private service: PostServiceService, private router: Router, private toastr: ToastrService) { }
   email: string = '';
   password: string = '';
 
-loginForm!: FormGroup;
+  loginForm!: FormGroup;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-    
+
       // email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
   }
-onSubmit(){
+  onSubmit() {
 
-if(this.loginForm.valid)
-{
-
-  console.log('data',this.loginForm.value);
-  const formdata=this.loginForm.value 
-  this.service.postLogin(formdata).subscribe((data:any)=>{
-  console.log('loginResponse',data);
-  this.toastr.success(data.response, 'Success');
-  this.router.navigate(['/main/home']);
-  },
-  
-  (error) => {
-
-    console.error('Registration error:', error);
-    this.toastr.error('Login failed. Please try again.', 'Error');
-  
-  
+    if (this.loginForm.valid) {
+      console.log('data', this.loginForm.value);
+      const formdata = this.loginForm.value
+      this.service.postLogin(formdata).subscribe((data: any) => {
+        console.log('loginResponse', data)
+        this.toastr.success(data.message)
+        this.router.navigate(['/main']);
+      },
+        (error) => {
+          console.error('Registration error:', error);
+          this.toastr.error(error.error.message, 'Error');
+        }
+      );
+      this.loginForm.reset();
+    }
+  }
 }
 
-);
-this.loginForm.reset();
 
-}
-  }
-  }
-
-  
 

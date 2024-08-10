@@ -1,10 +1,12 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DonationComponent } from './donation.component';
 import { DiasterRegisterComponent } from './diaster-register/diaster-register.component';
+import { HomeDonationComponent } from './home-donation/home-donation.component';
 
-const routes: Routes = [{ path: '', component: DonationComponent },
-  {path:'',component:DiasterRegisterComponent}
+const routes: Routes = [
+  // { path: '', component: DonationComponent },
+  {path:'',component:DiasterRegisterComponent},
+  {path:'donation%home',component:HomeDonationComponent},
 ];
 
 @NgModule({

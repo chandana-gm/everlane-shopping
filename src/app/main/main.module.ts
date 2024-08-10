@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShoppingModule } from '../shopping/shopping.module';
 import { WishlistComponent } from './wishlist/wishlist.component';
-import { DonationComponent } from './donation/donation.component';
 
 
 
@@ -19,7 +18,7 @@ import { DonationComponent } from './donation/donation.component';
     HomeComponent,
     ProfileComponent,
     WishlistComponent,
-    DonationComponent,
+
   ],
   imports: [
     CommonModule,

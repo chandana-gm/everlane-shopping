@@ -65,7 +65,7 @@
   }
   
   .input-group-text i {
-    color: #888;
+    color: #5a5959;
   }
   .input-group{
     width: 50%;
@@ -74,6 +74,17 @@
   .form-control .search{
     position: relative;
   }
+
+
+.logo-search .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #973d93;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(105, 2, 105, 0.25);
+}
+
+
   
   /* Media Queries for responsiveness */
   
