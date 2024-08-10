@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { GettingserviceService } from 'src/app/service/gettingservice.service';
+import { PostServiceService } from 'src/app/service/post-service.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -7,8 +9,10 @@ import { Component } from '@angular/core';
 })
 export class WishlistComponent {
 
-  stockUpdate=true
-  outofstockUpdate=false
+  constructor(private service: GettingserviceService, private postServive:PostServiceService) { }
+
+  stockUpdate = true
+  outofstockUpdate = false
 
   cartClick(event: Event) {
     const button = event.currentTarget as HTMLElement;
@@ -25,4 +29,17 @@ export class WishlistComponent {
       }
     }
   }
+
+  async ngOnInit() {
+    const storedUser = localStorage.getItem('user'); 
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+  
+      const decryptedToken = await this.postServive.decryptData(user.token, 'token');
+    this.service.getWishlist(decryptedToken).subscribe((data) => {
+      console.log('wishlistdata', data);
+
+    })
+  }
+}
 }

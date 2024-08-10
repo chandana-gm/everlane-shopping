@@ -17,7 +17,8 @@ export const environment = {
     tshirtWomenCategory:'products/?subcategory=7',
     jeansWomenCategory:'products/?subcategory=8',
     skirtsWomenCategory:'products/?subcategory=9',
-    cartProducts:'carts/'
+    cartProducts:'carts/',
+    getWishlist:'wishlist/'
 
   };
 
@@ -27,7 +28,8 @@ export const postApis = {
     addToCart: 'add-to-cart/',
     addToWishlist:'wishlist/add/',
     register:'register/',
-    logIn:'login/'
+    logIn:'login/',
+    logOut:'logout/'
   };
 
 export const baseUrl = {

@@ -35,7 +35,9 @@ export class PostServiceService {
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body, options);
   }
 
-
+postLogout(){
+  
+}
 
 
   // encript and decrypt token
