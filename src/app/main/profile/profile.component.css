@@ -1,9 +1,4 @@
-.container-fluid{
-/* height: fit-content;
-display: flex;
-justify-content: center; */
 
-}
 .profile-edit{
   width:50%;
 }
@@ -49,6 +44,7 @@ justify-content: center; */
     color:white;
    
     background-color:#973d93;
+    cursor: pointer;
 }
 
 .edit-profile-text {

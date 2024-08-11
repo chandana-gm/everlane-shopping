@@ -150,6 +150,16 @@ export class ShoppingDetailsComponent implements OnInit {
   }
   
 
+  async deleteWishlistItem(){
+    const storedUser = localStorage.getItem('user'); 
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      const decryptedToken = await this.postService.decryptData(user.token, 'token');
+      
+  }
+}
+  
+
   productDetails(id: any) {
     this.router.navigate(['/shopping/detailsPage', id]);
   }

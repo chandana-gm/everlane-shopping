@@ -43,6 +43,9 @@ span.add-to-cart {
   display: block;
 }
 .wishlist-icon {
+  position: absolute;
+  top: 5px;
+  left: 145px;
   margin-left: 60px !important;
   font-size: x-large;
 }

@@ -16,7 +16,7 @@
                         </button>&nbsp;
                         <div class="wishlist-icon" (click)="wishlistEvent(item)">
                             <span *ngIf="!item.isWishlisted"><i class="bi bi-heart" ></i></span>
-                            <span *ngIf="item.isWishlisted"><i class="bi bi-heart-fill fill"></i></span>
+                            <span *ngIf="item.isWishlisted" (click)="deleteWishlistItem()"><i class="bi bi-heart-fill fill"></i></span>
                         </div>
                     </div>
                 </div>
