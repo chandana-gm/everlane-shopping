@@ -40,6 +40,8 @@ postLogout(){
 }
 
 
+
+
   // encript and decrypt token
   encryptData(data: any, key: string): string {
     return CryptoJS.AES.encrypt(JSON.stringify(data), key).toString();

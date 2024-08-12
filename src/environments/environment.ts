@@ -32,6 +32,10 @@ export const postApis = {
     logOut:'logout/'
   };
 
+export const deleteApis = {
+    production: false,
+    removeItemFromWishlist: 'wishlist/delete',
+  };
 export const baseUrl = {
     production: false,
     baseUrl: 'http://18.143.206.136/api/',

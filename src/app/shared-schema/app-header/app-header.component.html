@@ -26,14 +26,26 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page"   (click)="redirectToDonate()">Donate <i class="fa-solid fa-hand-holding-hand"></i></a>
                 </li>
-                <li class="nav-item">
-                    <ng-container *ngIf="isAthenticated; else notAuthenticated">
-                      <a class="nav-link" aria-current="page" (click)="redirectToProfile()">Welcome, <small>{{ authenticatedUser }}</small></a>
-                    </ng-container>
-                    <ng-template #notAuthenticated>
-                      <a class="nav-link" aria-current="page" (click)="redirectToRegister()">Register/Login</a>
-                    </ng-template>
-                  </li>
+                <li class="nav-item dropdown" [class.show]="dropdownOpen" *ngIf="isAuthenticated; else notAuthenticated"
+                (mouseenter)="toggleDropdown(true)" (mouseleave)="toggleDropdown(false)">
+              <a class="nav-link dropdown-toggle"  id="userDropdown" role="button">
+                Welcome, <small>{{ authenticatedUser }}</small>
+              </a>
+              <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="userDropdown">
+                <a class="dropdown-item"  (click)="redirectToProfile()">Profile</a>
+                <a class="dropdown-item"  (click)="redirectToProfile()">My Orders</a>
+                <a class="dropdown-item"  (click)="redirectToProfile()">Rewards</a>
+                <a class="dropdown-item"  (click)="redirectToProfile()">Logout</a>
+                <!-- <a class="dropdown-item" href="#" (click)="logout()">Logout</a> -->
+              </div>
+            </li>
+      
+            <!-- Not Authenticated -->
+            <ng-template #notAuthenticated>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" (click)="redirectToRegister()">Register/Login</a>
+              </li>
+            </ng-template>
                   
                 
                 <li class="nav-item">

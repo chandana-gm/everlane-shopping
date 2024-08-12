@@ -84,6 +84,21 @@
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(105, 2, 105, 0.25);
 }
+.dropdown-menu {
+  display: none;
+}
+
+.dropdown.show .dropdown-menu {
+  display: block;
+}
+.dropdown-menu{
+  width: 13rem;
+  position: absolute;
+  top: 4rem;
+  padding: 20px;
+  cursor: pointer;
+}
+
 
 
   

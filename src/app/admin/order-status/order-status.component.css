@@ -1,0 +1,14 @@
+.loading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.animated-h2{
+    /* background-image: url('../../../assets/images/giphy2.webp'); */
+    /* background-size: cover;
+    background-position: center;
+    color: transparent;
+    background-clip: text; */
+    font-weight: 900;
+}

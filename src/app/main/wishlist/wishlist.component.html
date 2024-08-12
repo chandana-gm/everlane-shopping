@@ -4,7 +4,7 @@
 
         <div class="inside-wishlist">
             <hr>
-            <section class="row">
+            <!-- <section class="row">
                 <div class="col-md-2 image-container">
                     <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
                         alt="Product Image" class="img-fluid" [ngClass]="{'grayscale': stockUpdate}">
@@ -16,7 +16,7 @@
                     <p>price : $200</p>
                 </div>
                 <div class="col-md-1">
-                    <i class="bi bi-trash3"></i>
+                    <i class="bi bi-trash3" (click)="removeitem($event)"></i>
                 </div>
                 <div class="col-md-2">
                     <button class="cart-button button" (click)="cartClick($event)" [disabled]="stockUpdate">
@@ -25,24 +25,21 @@
                                 class="bi bi-cart-check"></i></span>
                     </button>
                 </div>
-            </section>
-            <hr>
-            <section class="row mb-3">
+            </section> -->
+            <!-- <hr> -->
+            <div class="row mb-3 section" *ngFor="let data of wishlistData">
                 <div class="col-md-2">
-                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
-                        alt="Product Image" class="img-fluid">
+                    <img [src]="data.product_image" alt="Product Image" class="img-fluid">
                 </div>
                 <div class="col-md-7">
-                    <p>Product details lorem ipsum dolor Lorem ipsum dolor sit amet. sit consectetur adipiscing elit.</p>
+                    <p>Product details lorem ipsum dolor Lorem ipsum dolor sit amet. sit consectetur adipiscing elit.
+                    </p>
                     <p>price : $200</p>
-               
+
                 </div>
-                <!-- <div class="col-md-2">
-                    <span class="instock" *ngIf="outofstockUpdate"> IN STOCK</span>
-                    <span class="outofstock" *ngIf="stockUpdate"> OUT OF STOCK</span>
-                </div> -->
+
                 <div class="col-md-1">
-                    <i class="bi bi-trash3"></i>
+                    <i class="bi bi-trash3" (click)="removeItemFromWishlist(data.id)"></i>
                 </div>
                 <div class="col-md-2">
                     <button class="cart-button button" (click)="cartClick($event)">
@@ -50,8 +47,9 @@
                         <span class="added" routerLink="/shopping/cart">Go to cart <i
                                 class="bi bi-cart-check"></i></span>
                     </button>
-                </div>
-            </section>
+                </div>&nbsp;
+                <hr>
+            </div>
         </div>
     </div>
 </div>

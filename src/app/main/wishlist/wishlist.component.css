@@ -9,11 +9,13 @@
     font-weight: 700;
     margin-bottom: 20px;
 }
-section i:hover{
+.section i:hover{
     color: red;
 }
-section img{
+.section img{
     object-fit: cover;
+    height: 150px;
+    width: 250px;
 }
 .instock{
     color: green;

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
@@ -9,10 +11,13 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 })
 export class WishlistComponent {
 
-  constructor(private service: GettingserviceService, private postServive:PostServiceService) { }
+  constructor(private service: GettingserviceService, private postServive: PostServiceService, private deleteService:DeleteServiceService,
+    private toaster:ToastrService
+  ) { }
 
   stockUpdate = true
   outofstockUpdate = false
+  wishlistData:any
 
   cartClick(event: Event) {
     const button = event.currentTarget as HTMLElement;
@@ -31,15 +36,39 @@ export class WishlistComponent {
   }
 
   async ngOnInit() {
-    const storedUser = localStorage.getItem('user'); 
+    const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
-  
       const decryptedToken = await this.postServive.decryptData(user.token, 'token');
-    this.service.getWishlist(decryptedToken).subscribe((data) => {
-      console.log('wishlistdata', data);
+      
+    
+      this.deleteService.getWithoutRefresh().subscribe(() => {
+        this.getWishlist(decryptedToken); 
+      });
 
-    })
+ 
+      this.getWishlist(decryptedToken);
+    }
   }
-}
+
+  async getWishlist(token: any) {
+    this.service.getWishlist(token).subscribe((data) => {
+      console.log('wishlistdata', data);
+      this.wishlistData = data.data;
+    });
+  }
+
+  async removeItemFromWishlist(item: any) {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      const decryptedToken = await this.postServive.decryptData(user.token, 'token');
+      
+      this.deleteService.removeItemFromWishlist(item, decryptedToken).subscribe((data) => {
+        console.log('wishlistdata remove response', data.message);
+        this.toaster.success(data.message);
+        this.getWishlist(decryptedToken); 
+      });
+    }
+  }
 }

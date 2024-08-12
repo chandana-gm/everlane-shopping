@@ -12,8 +12,10 @@ export class AppHeaderComponent {
 
 
 
-  isAthenticated = false
+  isAuthenticated = false
   authenticatedUser = ''
+  dropdownOpen = false;
+
 
 
   constructor( private service: PostServiceService, private route: Router) {
@@ -26,11 +28,11 @@ export class AppHeaderComponent {
     if (storedUser) {
       const user = JSON.parse(storedUser);
       this.authenticatedUser = user.username
-      this.isAthenticated = true
+      this.isAuthenticated = true
       const decryptedToken = this.service.decryptData(user.token, 'token');
     } else {
       console.error('not authenticated');
-      this.isAthenticated = false; 
+      this.isAuthenticated = false; 
     }
 
   }
@@ -50,5 +52,8 @@ export class AppHeaderComponent {
     this.route.navigate(['/shopping/cart'])
   }
 
+  toggleDropdown(state: boolean) {
+    this.dropdownOpen = state;
+  }
 
 }

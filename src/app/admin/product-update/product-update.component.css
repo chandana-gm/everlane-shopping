@@ -1,0 +1,38 @@
+.loading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.animated-h2{
+    /* background-image: url('../../../assets/images/giphy2.webp'); */
+    /* background-size: cover;
+    background-position: center;
+    color: transparent;
+    background-clip: text; */
+    font-weight: 900;
+}
+p{
+    cursor: pointer;
+    color: blue;
+    font-size: 15px;
+    margin-bottom: 1px;
+}
+.custom-modal-width {
+    max-width: 80%; 
+    width: 900px;   
+}
+.checkbox-group{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.category-group{
+    display: flex;
+    justify-content: space-between;
+}
+.modal-headers{
+    position: relative;
+    top: 5px;
+    left: 95%;
+}
