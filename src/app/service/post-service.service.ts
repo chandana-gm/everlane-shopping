@@ -13,9 +13,26 @@ export class PostServiceService {
 
   constructor(private http: HttpClient) { }
 
-  postCart(item: any) {
-    this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`, item)
+  postCart(item: any, token: any) {
+    let body = {
+      'product_id': item
+    }
+    console.log('id',item);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+
+    });
+    console.log('token',token);
+    const options = { headers: headers };
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`, body, options);
   }
+
+deleteCart(item:any){
+
+  return this.http.delete<any>(baseUrl.baseUrl + postApis.deleteCart, item)
+}
+
   postRegistration(item: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.register, item)
   }
@@ -25,19 +42,20 @@ export class PostServiceService {
   }
 
   postWishlist(item: any, token: any) {
-    let body={
-      'product':item
+    let body = {
+      'product': item
     }
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
     const options = { headers: headers };
+ 
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body, options);
   }
 
-postLogout(){
-  
-}
+  postLogout() {
+
+  }
 
 
 

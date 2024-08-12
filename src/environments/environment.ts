@@ -29,7 +29,8 @@ export const postApis = {
     addToWishlist:'wishlist/add/',
     register:'register/',
     logIn:'login/',
-    logOut:'logout/'
+    logOut:'logout/',
+    deleteCart:'cart-item/id/delete'
   };
 
 export const deleteApis = {

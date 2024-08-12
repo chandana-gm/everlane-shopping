@@ -5,6 +5,7 @@ import { DonationRoutingModule } from './donation-routing.module';
 import { DonationComponent } from './donation.component';
 import { DiasterRegisterComponent } from './diaster-register/diaster-register.component';
 import { HomeDonationComponent } from './home-donation/home-donation.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HomeDonationComponent } from './home-donation/home-donation.component';
   imports: [
     CommonModule,
     DonationRoutingModule,
-    SharedSchemaModule
+    SharedSchemaModule,
+    ReactiveFormsModule
   ]
 })
 export class DonationModule { }

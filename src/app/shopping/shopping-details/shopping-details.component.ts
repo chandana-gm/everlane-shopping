@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
+import { ToastrService } from 'ngx-toastr';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
@@ -10,7 +11,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./shopping-details.component.css']
 })
 export class ShoppingDetailsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private service: GettingserviceService, private router: Router, private postService: PostServiceService, private deleteService:DeleteServiceService) { }
+  constructor(private route: ActivatedRoute, private service: GettingserviceService, private router: Router, private postService: PostServiceService, private deleteService:DeleteServiceService,private toastr:ToastrService) { }
   bannerSeason: any;
   seasonProducts: any;
   isLoading = false
@@ -121,10 +122,32 @@ export class ShoppingDetailsComponent implements OnInit {
     }
   }
 
-  cartedItem(item: any) {
-    console.log('carted', item);
-    this.postService.postCart(item)
 
+
+   async cartedItem(item: any) {
+   const stored=localStorage.getItem('user');
+   if(stored)
+   {
+    const data=JSON.parse(stored);
+    const decryptedToken = await this.postService.decryptData(data.token, 'token');
+    console.log('decrpt',decryptedToken);
+    console.log('carted', item.id);
+    this.postService.postCart(item.id,decryptedToken).subscribe((data:any)=>{
+   
+        console.log('response', data);
+        this.toastr.success(data.message);
+          
+      },
+      (error: any) => {
+        console.error('Error:', error);
+        this.toastr.error(data.message);
+          
+      }
+    );
+    
+  
+}
+   
 
   }
   async wishlistEvent(item: any) {
@@ -189,7 +212,7 @@ export class ShoppingDetailsComponent implements OnInit {
 
   // }
 
-  productDetails(id: any) {
-    this.router.navigate(['/shopping/detailsPage', id]);
-  }
+  // productDetails(id: any) {
+  //   this.router.navigate(['/shopping/detailsPage', id]);
+  // }
 }

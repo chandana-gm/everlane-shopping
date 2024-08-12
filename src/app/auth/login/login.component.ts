@@ -32,19 +32,16 @@ export class LoginComponent implements OnInit {
         (data: any) => {
           console.log('loginResponse', data);
           
-          // Encrypt the token
+        
           const encryptedData = this.service.encryptData(data.token, 'token');
           console.log(encryptedData, 'encryptedData');
-          
-          // Store username and encrypted token in localStorage
           const user = { 'username': data.username, 'token': encryptedData };
           localStorage.setItem('user', JSON.stringify(user));
           
           // Display success message
           this.toastr.success(data.message);
           
-          // Navigate to the main page
-          this.router.navigate(['/main']);
+                  this.router.navigate(['/main']);
         },
         (error) => {
           console.error('Registration error:', error);

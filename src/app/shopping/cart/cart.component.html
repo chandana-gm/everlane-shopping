@@ -10,12 +10,16 @@
                     <h3 class="cart-text">Shopping Cart</h3>
                 </section>
                 <hr>
+               <div *ngFor="let item of productDetail">
                 <section class="row">
                     <div class="col-md-3">
+          
                         <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
                             alt="Product Image" class="img-fluid">
                     </div>
                     <div class="col-md-6">
+               
+                    
                         <p>Product details lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         <div class="quantity">
                             <button class="quantity-btn minus">-</button>
@@ -23,18 +27,20 @@
                             <button class="quantity-btn plus">+</button>
                         </div>
                         <div class="share-remove-product">
-                            <section>Remove</section>
+                            <section (click)="deleteCart(item.id)">Remove</section>
                             <section>&#124; </section>
                             <section>Share</section>
 
                         </div>
                     </div>
                     <div class="col-md-3">
-                        ₹1900.00
+                        ₹{{item.product_price}}
                     </div>
                 </section>
+
                 <hr>
-                <section class="row mb-3">
+            </div>
+                <!-- <section class="row mb-3">
                     <div class="col-md-3">
                         <img src="../../../assets/images/everlaneStyle/wardrobe.jpg" alt="Product Image"
                             class="img-fluid">
@@ -56,7 +62,7 @@
                     <div class="col-md-3">
                         ₹1500.00
                     </div>
-                </section>
+                </section> -->
             </div>
             <div class="col-md-3 price-details">
                 <div class="price-inner">
@@ -64,7 +70,7 @@
                 <hr>
                 <div class="price-info">
                     <section>Subtotal</section>
-                    <section>₹3500.00</section>
+                    <section>₹{{total}}</section>
                 </div>
                 <div class="buy-button">
                     <button routerLink="/shopping/checkout">Proceed to Buy</button>
