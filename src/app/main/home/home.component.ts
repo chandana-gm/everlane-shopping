@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
+import { PostServiceService } from 'src/app/service/post-service.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { GettingserviceService } from 'src/app/service/gettingservice.service';
 export class HomeComponent {
  
 
-  constructor(private api: GettingserviceService,private router:Router) { }
+  constructor(private api: GettingserviceService,private router:Router, private service:PostServiceService) { }
 
   @ViewChild('marquee') marquee!: ElementRef;
   selectedGender: string = 'Men';
@@ -18,16 +19,17 @@ export class HomeComponent {
   womensCategories: any[] = [];
   banners: any;
   trending: any;
-  isLoading=false
 
   selectGender(gender: string) {
     this.selectedGender = gender;
   }
 
   ngOnInit() {
+
+    
+
     this.api.getMensCategories().subscribe((data: any) => {
       this.categories = data.data;
-      this.isLoading=true
     });
     this.api.getWomensCategories().subscribe((data: any) => {
       this.womensCategories = data.data;

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SharedSchemaModule } from '../shared-schema/shared-schema.module';
 import { DonationRoutingModule } from './donation-routing.module';
 import { DonationComponent } from './donation.component';
 import { DiasterRegisterComponent } from './diaster-register/diaster-register.component';
@@ -17,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     DonationRoutingModule,
-    ReactiveFormsModule 
+    SharedSchemaModule,
+    ReactiveFormsModule
   ]
 })
 export class DonationModule { }

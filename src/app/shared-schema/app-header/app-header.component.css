@@ -33,7 +33,10 @@
     transition: color 0.3s ease;
   }
   
-
+  .navbar-nav .nav-item .nav-link:hover {
+    color: white;
+    cursor: pointer;
+  }
   
   .navbar-brand {
     font-size: 1.5rem;
@@ -47,7 +50,10 @@
     border-color: #007bff;
   }
   
- 
+  .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 123, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
   .nav-item:hover {
     background-color: #973d93;
     color: white;
@@ -81,26 +87,7 @@
 
 
   
-  /* Media Queries  */
-  @media (max-width: 975px) {
-   
-  
-  .navbar-nav .nav-item .nav-link {
-    color: #424040;
-    font-weight: bold;
-    padding:8px 8px;
-    margin: 0 5px;
- 
-  }
-  .nav-link:hover{
-  color: #973d93;
-
-  }
-  .nav-item:hover {
-    background-color: #973d93;
-    color: white;
-  }
-    }
+  /* Media Queries for responsiveness */
   
   @media (max-width: 768px) {
     .logo-search {

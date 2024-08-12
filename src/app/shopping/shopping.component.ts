@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GettingserviceService } from '../service/gettingservice.service';
 
 @Component({
   selector: 'app-shopping',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./shopping.component.css']
 })
 export class ShoppingComponent {
-
+  constructor(private service:GettingserviceService){}
+  isLoading=false
+  ngOnInit() {
+    this.service.getShirtCategory().subscribe((data: any) => {
+      this.isLoading=true
+    });
+  }
 }

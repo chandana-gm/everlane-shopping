@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GettingserviceService } from '../service/gettingservice.service';
 
 @Component({
   selector: 'app-main',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
 
+  constructor(private service:GettingserviceService){}
+  isLoading=false
+  ngOnInit() {
+    this.service.getMensCategories().subscribe((data: any) => {
+      this.isLoading=true
+    });
+  }
 }

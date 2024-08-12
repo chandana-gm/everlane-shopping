@@ -11,7 +11,7 @@ export class HomeDonationComponent implements  OnInit {
   disasterForm!: FormGroup;
   constructor(private fb: FormBuilder,private toastr:ToastrService) {}
   ngOnInit(): void {
-
+    window.scroll(0,0)
     this.disasterForm = this.fb.group({
       username: ['', Validators.required],
       id: ['', [Validators.required, Validators.pattern('^[0-9]{12}$')]],

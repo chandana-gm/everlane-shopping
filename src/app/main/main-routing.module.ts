@@ -7,10 +7,11 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 
 
 const routes: Routes = [
-  // { path: 'main', component: MainComponent },
-  {path:'',component:HomeComponent},
-  {path:'profile',component:ProfileComponent},
-  {path:'wishlist',component:WishlistComponent},
+  { path: '', component: MainComponent,children:[
+    {path:'',component:HomeComponent},
+    {path:'profile',component:ProfileComponent},
+    {path:'wishlist',component:WishlistComponent},
+  ] },
 
 ];
 

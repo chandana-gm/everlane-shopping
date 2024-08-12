@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
@@ -9,7 +10,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./shopping-details.component.css']
 })
 export class ShoppingDetailsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private service: GettingserviceService, private router: Router, private postService:PostServiceService) { }
+  constructor(private route: ActivatedRoute, private service: GettingserviceService, private router: Router, private postService:PostServiceService,private toastr:ToastrService) { }
   bannerSeason: any;
   seasonProducts: any;
   isLoading = false
@@ -120,17 +121,55 @@ export class ShoppingDetailsComponent implements OnInit {
     }
   }
 
-  cartedItem(itemId: any) {
-    console.log('carted', itemId);
-    this.postService.postCart(itemId).subscribe((data:any)=>{
-    console.log('response',data)
-  });
+   async cartedItem(item: any) {
+   const stored=localStorage.getItem('user');
+   if(stored)
+   {
+    const data=JSON.parse(stored);
+    const decryptedToken = await this.postService.decryptData(data.token, 'token');
+    console.log('decrpt',decryptedToken);
+    console.log('carted', item.id);
+    this.postService.postCart(item.id,decryptedToken).subscribe((data:any)=>{
+   
+        console.log('response', data);
+        this.toastr.success(data.message);
+          
+      },
+      (error: any) => {
+        console.error('Error:', error);
+        this.toastr.error(data.message);
+          
+      }
+    );
+    
+  
+}
    
 
   }
-  wishlistEvent(item: any) {
-    item.isWishlisted = !item.isWishlisted;
+  async wishlistEvent(item: any) {
+    const storedUser = localStorage.getItem('user'); 
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+  
+      const decryptedToken = await this.postService.decryptData(user.token, 'token');
+      console.log('Decrypted Token:', decryptedToken);
+      console.log('Item ID:', item.id);
+  
+      this.postService.postWishlist(item.id, decryptedToken).subscribe(
+        (response) => {
+          console.log('Posting response:', response);
+        },
+        (error) => {
+          console.error('Error posting to wishlist:', error);
+        }
+      );
+      item.isWishlisted = !item.isWishlisted;
+    } else {
+      console.error('User not authenticated');
+    }
   }
+  
 
   productDetails(id: any) {
     this.router.navigate(['/shopping/detailsPage', id]);
