@@ -18,7 +18,7 @@ export class HomeComponent {
   womensCategories: any[] = [];
   banners: any;
   trending: any;
-  // isLoading=false
+  isLoading=false
 
   selectGender(gender: string) {
     this.selectedGender = gender;
@@ -27,7 +27,7 @@ export class HomeComponent {
   ngOnInit() {
     this.api.getMensCategories().subscribe((data: any) => {
       this.categories = data.data;
-      // this.isLoading=true
+      this.isLoading=true
     });
     this.api.getWomensCategories().subscribe((data: any) => {
       this.womensCategories = data.data;

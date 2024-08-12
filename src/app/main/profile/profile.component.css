@@ -1,5 +1,8 @@
 .container-fluid{
-height: fit-content;
+/* height: fit-content;
+display: flex;
+justify-content: center; */
+
 }
 .profile-edit{
   width:50%;

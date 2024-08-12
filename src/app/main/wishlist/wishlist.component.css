@@ -24,3 +24,34 @@ section img{
 .inside-wishlist{
     margin: 0 20px;
 }
+.cart-button span.added {
+    display: none;
+  }
+  .cart-button span.added.show {
+    display: block;
+  }
+  span.add-to-cart.hide {
+    display: none;
+  }
+  span.add-to-cart {
+    display: block;
+  }
+  .item-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: rgb(250, 3, 3);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 16px;
+}
+.image-container{
+    position: relative;
+    object-fit: cover;
+}
+.grayscale {
+    filter: grayscale(100%);
+  }
+

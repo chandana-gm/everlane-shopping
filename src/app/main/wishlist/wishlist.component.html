@@ -5,22 +5,25 @@
         <div class="inside-wishlist">
             <hr>
             <section class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 image-container">
                     <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
-                        alt="Product Image" class="img-fluid">
+                        alt="Product Image" class="img-fluid" [ngClass]="{'grayscale': stockUpdate}">
+                        <div class="item-name" *ngIf="stockUpdate">Out of stock</div>
+
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-7">
                     <p>Product details lorem ipsum dolor sit amet adipiscing elit.</p>
-                </div>
-                <div class="col-md-2 ">
-                    <span class="instock" *ngIf="stockUpdate"> IN STOCK</span>
-                    <span class="outofstock" *ngIf="outofstockUpdate"> OUT OF STOCK</span>
+                    <p>price : $200</p>
                 </div>
                 <div class="col-md-1">
                     <i class="bi bi-trash3"></i>
                 </div>
                 <div class="col-md-2">
-                    <button class="button">Add to Cart</button>
+                    <button class="cart-button button" (click)="cartClick($event)" [disabled]="stockUpdate">
+                        <span class="add-to-cart">Add to cart</span>
+                        <span class="added" routerLink="/shopping/cart">Go to cart <i
+                                class="bi bi-cart-check"></i></span>
+                    </button>
                 </div>
             </section>
             <hr>
@@ -29,18 +32,24 @@
                     <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
                         alt="Product Image" class="img-fluid">
                 </div>
-                <div class="col-md-5">
-                    <p>Product details lorem ipsum dolor sit consectetur adipiscing elit.</p>
+                <div class="col-md-7">
+                    <p>Product details lorem ipsum dolor Lorem ipsum dolor sit amet. sit consectetur adipiscing elit.</p>
+                    <p>price : $200</p>
+               
                 </div>
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                     <span class="instock" *ngIf="outofstockUpdate"> IN STOCK</span>
                     <span class="outofstock" *ngIf="stockUpdate"> OUT OF STOCK</span>
-                </div>
+                </div> -->
                 <div class="col-md-1">
                     <i class="bi bi-trash3"></i>
                 </div>
                 <div class="col-md-2">
-                    <button class="button ">Add to Cart</button>
+                    <button class="cart-button button" (click)="cartClick($event)">
+                        <span class="add-to-cart">Add to cart</span>
+                        <span class="added" routerLink="/shopping/cart">Go to cart <i
+                                class="bi bi-cart-check"></i></span>
+                    </button>
                 </div>
             </section>
         </div>

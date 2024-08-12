@@ -22,6 +22,8 @@ export class ShoppingDetailsComponent implements OnInit {
     if (this.bannerSeason == 'Shirts') {
       this.service.getShirtCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
+        console.log(data);
+        
         this.isLoading = true
       });
     }
@@ -118,9 +120,11 @@ export class ShoppingDetailsComponent implements OnInit {
     }
   }
 
-  cartedItem(item: any) {
-    console.log('carted', item);
-    this.postService.postCart(item)
+  cartedItem(itemId: any) {
+    console.log('carted', itemId);
+    this.postService.postCart(itemId).subscribe((data:any)=>{
+    console.log('response',data)
+  });
    
 
   }
