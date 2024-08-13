@@ -27,8 +27,8 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule ,
-    ToastrModule.forRoot({ // ToastrModule added
-      positionClass: 'toast-bottom-center', // Default position
+    ToastrModule.forRoot({ 
+      positionClass: 'toast-bottom-center', 
     }),
   
   

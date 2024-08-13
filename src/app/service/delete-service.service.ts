@@ -24,7 +24,11 @@ export class DeleteServiceService {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
-    this.sendWithoutRefresh()
+    // this.sendWithoutRefresh();
     return this.http.delete<any>(`${baseUrl.baseUrl}${deleteApis.removeItemFromWishlist}/${item}/`,{headers})
+  }
+
+  removeFromCart(){
+
   }
 }

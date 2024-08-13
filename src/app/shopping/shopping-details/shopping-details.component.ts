@@ -11,7 +11,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./shopping-details.component.css']
 })
 export class ShoppingDetailsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private service: GettingserviceService, private router: Router, private postService: PostServiceService, private deleteService:DeleteServiceService,private toastr:ToastrService) { }
+  constructor(private route: ActivatedRoute, private service: GettingserviceService, private router: Router, private postService: PostServiceService, private deleteService: DeleteServiceService, private toastr: ToastrService) { }
   bannerSeason: any;
   seasonProducts: any;
   isLoading = false
@@ -124,66 +124,65 @@ export class ShoppingDetailsComponent implements OnInit {
 
 
 
-   async cartedItem(item: any) {
-   const stored=localStorage.getItem('user');
-   if(stored)
-   {
-    const data=JSON.parse(stored);
-    const decryptedToken = await this.postService.decryptData(data.token, 'token');
-    console.log('decrpt',decryptedToken);
-    console.log('carted', item.id);
-    this.postService.postCart(item.id,decryptedToken).subscribe((data:any)=>{
-   
+  async cartedItem(item: any) {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      const data = JSON.parse(stored);
+      const decryptedToken = await this.postService.decryptData(data.token, 'token');
+      console.log('decrpt', decryptedToken);
+      console.log('carted', item.id);
+      this.postService.postCart(item.id, decryptedToken).subscribe((data: any) => {
+
         console.log('response', data);
         this.toastr.success(data.message);
-          
+
       },
-      (error: any) => {
-        console.error('Error:', error);
-        this.toastr.error(data.message);
-          
-      }
-    );
-    
-  
-}
-   
+        (error: any) => {
+          console.error('Error:', error);
+          this.toastr.error(data.message);
+
+        }
+      );
+
+
+    }
+
 
   }
   async wishlistEvent(item: any) {
     const previousState = item.isWishlisted;
     const storedUser = localStorage.getItem('user');
-  
+
     if (!storedUser) {
       console.error('User not authenticated');
       return;
     }
-  
+
     const user = JSON.parse(storedUser);
     try {
       const decryptedToken = await this.postService.decryptData(user.token, 'token');
       // console.log('Decrypted Token:', decryptedToken);
       // console.log('Item ID:', item.id);
-  
+
       if (previousState) {
         await this.deleteWishlistItem(item, decryptedToken);
       } else {
         const wishlistResponseId = await this.addWishlistItem(item, decryptedToken);
         item.wishlistResponseId = wishlistResponseId;
-        console.log("item.wishlistResponseId",item.wishlistResponseId);
-        
+        console.log("item.wishlistResponseId", item.wishlistResponseId);
+
       }
       item.isWishlisted = !previousState;
-  
+
     } catch (error) {
       console.error('Error decrypting token', error);
       item.isWishlisted = previousState;
     }
   }
-  
+
   async deleteWishlistItem(item: any, decryptedToken: string) {
     console.log(item);
-    
+
     try {
       const response = await this.deleteService.removeItemFromWishlist(item.wishlistResponseId, decryptedToken).toPromise();
       console.log('Removed from wishlist:', response);
@@ -191,18 +190,18 @@ export class ShoppingDetailsComponent implements OnInit {
       console.error('Error removing item from wishlist:', error);
     }
   }
-  
-  async addWishlistItem(item: any, decryptedToken: string){
+
+  async addWishlistItem(item: any, decryptedToken: string) {
     try {
       const response = await this.postService.postWishlist(item.id, decryptedToken).toPromise();
       console.log('Added to wishlist');
-      return response.data.id; 
+      return response.data.id;
     } catch (error) {
       console.error('Error adding item to wishlist:', error);
       throw error;
     }
   }
-  
+
 
 
   //   const storedUser = localStorage.getItem('user'); 

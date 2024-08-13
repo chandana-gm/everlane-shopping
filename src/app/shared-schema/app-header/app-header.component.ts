@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class AppHeaderComponent {
   isAuthenticated = false
   authenticatedUser = ''
   dropdownOpen = false;
+  cartItems: any[] = [];
+  decryptedTokenFromStorage:'' | undefined 
 
 
 
-  constructor( private service: PostServiceService, private route: Router) {
+  constructor( private service: PostServiceService, private route: Router, private getService:GettingserviceService) {
 
   }
 
@@ -30,10 +33,17 @@ export class AppHeaderComponent {
       this.authenticatedUser = user.username
       this.isAuthenticated = true
       const decryptedToken = this.service.decryptData(user.token, 'token');
+      this.decryptedTokenFromStorage=decryptedToken
+    this.getService.getCart(decryptedToken).subscribe(response => {console.log("response from header",response.data.items);
+      this.cartItems=response.data.items
+      // console.log('Number of items in the cart:', this.cartItems.length);
+    
+    })
     } else {
       console.error('not authenticated');
       this.isAuthenticated = false; 
     }
+
 
   }
   redirectToRegister() {
@@ -54,6 +64,16 @@ export class AppHeaderComponent {
 
   toggleDropdown(state: boolean) {
     this.dropdownOpen = state;
+  }
+  logout(){
+    console.log(this.decryptedTokenFromStorage,"token");
+    
+    this.service.postLogout(this.decryptedTokenFromStorage).subscribe((response)=>{
+      console.log(response);
+      window.location.reload()
+      this.isAuthenticated = false
+    });
+    localStorage.removeItem('user');
   }
 
 }

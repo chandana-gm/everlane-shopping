@@ -2,82 +2,52 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 product-cart">
-                <!-- <div class="cart-empty" id="cart-empty">
-                    <h3>Your shopping cart is empty.</h3>
-                    <p>Browse our products and start adding items to your cart!</p>
-                </div> -->
                 <section class="mt-3">
                     <h3 class="cart-text">Shopping Cart</h3>
                 </section>
                 <hr>
-               <div *ngFor="let item of productDetail">
-                <section class="row">
-                    <div class="col-md-3">
-          
-                        <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
-                            alt="Product Image" class="img-fluid">
-                    </div>
-                    <div class="col-md-6">
-               
-                    
-                        <p>Product details lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <div class="quantity">
-                            <button class="quantity-btn minus">-</button>
-                            <input type="text" class="quantity-input" value="1" readonly>
-                            <button class="quantity-btn plus">+</button>
+                <div *ngFor="let item of productDetail">
+                    <section class="row">
+                        <div class="col-md-3">
+                            <img [src]="item.product_image" alt="Product Image" class="img-fluid">
                         </div>
-                        <div class="share-remove-product">
-                            <section (click)="deleteCart(item.id)">Remove</section>
-                            <section>&#124; </section>
-                            <section>Share</section>
-
+                        <div class="col-md-6">
+                            <p>{{item.product_name}}</p>
+                            <div class="quantity">
+                                <button class="quantity-btn minus" 
+                                        (click)="decrementQuantity(item)" 
+                                        [disabled]="item.quantity === 1">-</button>
+                                <input type="text" class="quantity-input" 
+                                       [value]="item.quantity" readonly>
+                                <button class="quantity-btn plus" 
+                                        (click)="incrementQuantity(item)">+</button>
+                            </div>
+                            <div class="share-remove-product">
+                                <section (click)="deleteCart(item.id)">Remove</section>
+                                <section>&#124;</section>
+                                <section>Share</section>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        ₹{{item.product_price}}
-                    </div>
-                </section>
-
-                <hr>
-            </div>
-                <!-- <section class="row mb-3">
-                    <div class="col-md-3">
-                        <img src="../../../assets/images/everlaneStyle/wardrobe.jpg" alt="Product Image"
-                            class="img-fluid">
-                    </div>
-                    <div class="col-md-6">
-                        <p>Product details lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <div class="quantity">
-                            <button class="quantity-btn minus">-</button>
-                            <input type="text" class="quantity-input" value="1" readonly>
-                            <button class="quantity-btn plus">+</button>
+                        <div class="col-md-3">
+                            ₹{{item.product_price}}
                         </div>
-                        <div class="share-remove-product">
-                            <section>Remove</section>
-                            <section>&#124; </section>
-                            <section>Share</section>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        ₹1500.00
-                    </div>
-                </section> -->
+                    </section>
+                    <hr>
+                </div>
             </div>
             <div class="col-md-3 price-details">
                 <div class="price-inner">
                     <h3>Price Details</h3>
-                <hr>
-                <div class="price-info">
-                    <section>Subtotal</section>
-                    <section>₹{{total}}</section>
-                </div>
-                <div class="buy-button">
-                    <button routerLink="/shopping/checkout">Proceed to Buy</button>
-                </div>
+                    <hr>
+                    <div class="price-info">
+                        <section>Subtotal</section>
+                        <section>₹{{total}}</section>
+                    </div>
+                    <div class="buy-button">
+                        <button routerLink="/shopping/checkout">Proceed to Buy</button>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
