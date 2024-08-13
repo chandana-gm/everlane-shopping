@@ -30,12 +30,14 @@ export const postApis = {
     register:'register/',
     logIn:'login/',
     logOut:'logout/',
-    deleteCart:'cart-item/id/delete'
+    donateRegister:'disasters/',
+   
   };
 
 export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
+     deleteCart:'cart-item/ delete'
   };
 export const baseUrl = {
     production: false,
