@@ -28,7 +28,17 @@ export class DeleteServiceService {
     return this.http.delete<any>(`${baseUrl.baseUrl}${deleteApis.removeItemFromWishlist}/${item}/`,{headers})
   }
 
-  removeFromCart(){
+  removeFromCart(){}
 
+  
+  removeCartitem(item:any,token:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    console.log('item',item);
+    console.log('token',token)
+    
+    return this.http.delete<any>(`${baseUrl.baseUrl}cart-item/${item.id}/delete/`,{headers})
   }
 }
+

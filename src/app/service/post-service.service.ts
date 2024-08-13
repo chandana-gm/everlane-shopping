@@ -20,6 +20,10 @@ export class PostServiceService {
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`, body, options);
   }
 
+deleteCart(item:any){
+
+  return this.http.delete<any>(baseUrl.baseUrl + postApis.deleteCart, item)
+}
 
   postRegistration(item: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.register, item)
@@ -62,6 +66,7 @@ export class PostServiceService {
   postLogout(token:any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.logOut,token) 
   }
+
 
 
 

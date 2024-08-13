@@ -30,13 +30,19 @@ export const postApis = {
     register:'register/',
     logIn:'login/',
     logOut:'logout/',
+<<<<<<< HEAD
     deleteCart:'cart-item/id/delete/',
     cartItemQuantityUpdate:'update-cart-item-quantity/'
+=======
+    donateRegister:'disasters/',
+   
+>>>>>>> a5bfa32adb4d9990c2a78c75403befa690d651c2
   };
 
 export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
+     deleteCart:'cart-item/ delete'
   };
 export const baseUrl = {
     production: false,

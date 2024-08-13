@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
@@ -8,7 +10,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  constructor(private service: GettingserviceService, private postService: PostServiceService) { }
+  constructor(private service: GettingserviceService, private postService: PostServiceService,private deleteService:DeleteServiceService,private toastr:ToastrService) { }
   productDetail: any = []
   total: any
   quantity: number = 1;
@@ -57,8 +59,30 @@ export class CartComponent {
     }
   }
 
-  deleteCart(item:any) {
+ 
 
+<<<<<<< HEAD
+=======
+
+
+async removecartItem(item: any) {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    const decryptedToken = await this.postService.decryptData(user.token,'token');
+    console.log('item',item);
+    console.log('decrypt',decryptedToken);
+    
+    this.deleteService.removeCartitem(item, decryptedToken).subscribe((data) => {
+      console.log('item removed', data.message);
+      this.toastr.success(data.message);
+     
+  });
+}
+  
+
+
+>>>>>>> a5bfa32adb4d9990c2a78c75403befa690d651c2
   }
 
 }

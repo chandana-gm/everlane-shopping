@@ -11,6 +11,7 @@
                         <div class="col-md-3">
                             <img [src]="item.product_image" alt="Product Image" class="img-fluid">
                         </div>
+<<<<<<< HEAD
                         <div class="col-md-6">
                             <p>{{item.product_name}}</p>
                             <div class="quantity">
@@ -27,6 +28,13 @@
                                 <section>&#124;</section>
                                 <section>Share</section>
                             </div>
+=======
+                        <div class="share-remove-product">
+                            <section (click)="removecartItem(item)">Remove</section>
+                            <section>&#124; </section>
+                            <section>Share</section>
+
+>>>>>>> a5bfa32adb4d9990c2a78c75403befa690d651c2
                         </div>
                         <div class="col-md-3">
                             ₹{{item.product_price}}
