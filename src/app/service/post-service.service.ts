@@ -53,6 +53,9 @@ export class PostServiceService {
   postLogout() {
 
   }
+  postDonationReg(item: any) {
+    return this.http.post<any>(baseUrl.baseUrl + postApis.donateRegister, item)
+  }
 
 
 

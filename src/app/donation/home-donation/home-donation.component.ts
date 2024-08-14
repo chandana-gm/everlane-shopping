@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PostServiceService } from 'src/app/service/post-service.service';
 
 @Component({
   selector: 'app-home-donation',
@@ -9,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeDonationComponent implements  OnInit {
   disasterForm!: FormGroup;
-  constructor(private fb: FormBuilder,private toastr:ToastrService) {}
+  constructor(private fb: FormBuilder,private toastr:ToastrService,private postService:PostServiceService) {}
   ngOnInit(): void {
     window.scroll(0,0)
     this.disasterForm = this.fb.group({
@@ -26,14 +27,25 @@ export class HomeDonationComponent implements  OnInit {
   }
 
 
-  onSubmit() {
+ async onSubmit() {
     if (this.disasterForm.valid) {
+      const formData=this.disasterForm.value
       console.log('Form Submitted!', this.disasterForm.value);
-      this.toastr.success('Registration successful!', 'Success');
+      const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    const user = JSON.parse(storedUser);
+    const decryptedToken = await this.postService.decryptData(user.token,'token');
+      this.postService.postDonationReg(formData).subscribe((data)=>{
+
+        console.log(data,'posted');
+        
+      })
+      // this.toastr.success('Registration successful!', 'Success');
     } else {
       this.toastr.error('Registration failed. Please try again.');
       console.log('Form is not valid');
     }
     this.disasterForm.reset()
   }
+}
 }
