@@ -34,7 +34,7 @@ export class AppHeaderComponent {
       this.isAuthenticated = true
       const decryptedToken = this.service.decryptData(user.token, 'token');
       this.decryptedTokenFromStorage=decryptedToken
-    this.getService.getCart(decryptedToken).subscribe(response => {console.log("response from header",response.data.items);
+    this.getService.getCart().subscribe(response => {console.log("response from header",response.data.items);
       this.cartItems=response.data.items
       // console.log('Number of items in the cart:', this.cartItems.length);
     
@@ -65,15 +65,15 @@ export class AppHeaderComponent {
   toggleDropdown(state: boolean) {
     this.dropdownOpen = state;
   }
-  logout(){
+ async logout(){
     console.log(this.decryptedTokenFromStorage,"token");
     
-    this.service.postLogout(this.decryptedTokenFromStorage).subscribe((response)=>{
+   await this.service.postLogout(this.decryptedTokenFromStorage).subscribe((response)=>{
       console.log(response);
       window.location.reload()
       this.isAuthenticated = false
+      localStorage.removeItem('user');
     });
-    localStorage.removeItem('user');
   }
 
 }

@@ -7,8 +7,7 @@ import { DiasterRegisterComponent } from './diaster-register/diaster-register.co
 import { HomeDonationComponent } from './home-donation/home-donation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClientDonationComponent } from './client-donation/client-donation.component';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { NzButtonModule } from 'ng-zorro-antd/button';
+
 
 
 @NgModule({
@@ -23,8 +22,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     DonationRoutingModule,
     SharedSchemaModule,
     ReactiveFormsModule,
-    NzUploadModule,
-    NzButtonModule 
+
   ]
 })
 export class DonationModule { }

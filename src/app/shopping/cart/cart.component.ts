@@ -27,7 +27,7 @@ export class CartComponent {
       console.log('decrypt', decryptedToken);
       this.decreptedTokenFromStorage=decryptedToken
 
-      this.service.getCart(decryptedToken).subscribe(response => {
+      this.service.getCart().subscribe(response => {
         if (response) {
           this.productDetail = response.data[0].items;
           console.log(this.productDetail);
@@ -61,8 +61,6 @@ export class CartComponent {
 
  
 
-<<<<<<< HEAD
-=======
 
 
 async removecartItem(item: any) {
@@ -82,7 +80,6 @@ async removecartItem(item: any) {
   
 
 
->>>>>>> a5bfa32adb4d9990c2a78c75403befa690d651c2
   }
 
 }

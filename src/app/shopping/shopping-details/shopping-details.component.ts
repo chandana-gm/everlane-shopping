@@ -15,68 +15,75 @@ export class ShoppingDetailsComponent implements OnInit {
   bannerSeason: any;
   seasonProducts: any;
   isLoading = false
+  cartedItems: any
 
   ngOnInit() {
     this.bannerSeason = this.route.snapshot.paramMap.get('name');
 
 
     // categories api //
-    if (this.bannerSeason == 'Shirts') {
+    if (this.bannerSeason === 'Shirts') {
       this.service.getShirtCategory().subscribe((data) => {
-        this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        console.log(data);
+        console.log(data.data, "season");
 
-        this.isLoading = true
+        this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
+        this.isLoading = true;
+
+        this.service.getCart().subscribe((cartData) => {
+          console.log(cartData.data,"cartData.data");
+          
+          const cartedItems = this.seasonProducts.filter((product: any) =>
+            cartData.data.some((cartItem: any) => cartItem.items.product === product.id)
+          );
+          console.log('cartData', cartedItems);
+
+
+        });
+
       });
-    }
-    if (this.bannerSeason == 'Jeans Men') {
+    } else if (this.bannerSeason === 'Jeans Men') {
       this.service.getJeansMenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
+        
       });
-    }
-    if (this.bannerSeason == 'T shirts') {
+    } else if (this.bannerSeason === 'T shirts') {
       this.service.getTShirtMenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
-    }
-    if (this.bannerSeason == 'Trousers') {
+    } else if (this.bannerSeason === 'Trousers') {
       this.service.getTrousersCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
-    }
-    if (this.bannerSeason == 'Shorts') {
+    } else if (this.bannerSeason === 'Shorts') {
       this.service.getShortsCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
-    }
-    if (this.bannerSeason == 'kurtis') {
+    } else if (this.bannerSeason === 'kurtis') {
       this.service.getKurtiesWomenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
-    }
-    if (this.bannerSeason == 'T shirts woman') {
+    } else if (this.bannerSeason === 'T shirts woman') {
       this.service.getTShirtWimenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
-    }
-    if (this.bannerSeason == 'Jeans') {
+    } else if (this.bannerSeason === 'Jeans') {
       this.service.getJeansWomenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
-    }
-    if (this.bannerSeason == 'skirts') {
+    } else if (this.bannerSeason === 'skirts') {
       this.service.getSkirtsWomenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
-        this.isLoading = true
+        this.isLoading = true;
       });
     }
+
 
     // seasons //
     if (this.bannerSeason == 'season_winter') {
@@ -85,19 +92,19 @@ export class ShoppingDetailsComponent implements OnInit {
         this.isLoading = true
       });
     }
-    if (this.bannerSeason == 'season_summer') {
+    else if (this.bannerSeason == 'season_summer') {
       this.service.getSummerSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
         this.isLoading = true
       });
     }
-    if (this.bannerSeason == 'season_mansoon') {
+    else if (this.bannerSeason == 'season_mansoon') {
       this.service.getMansoonSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
         this.isLoading = true
       });
     }
-    if (this.bannerSeason == 'season_autumn') {
+    else if (this.bannerSeason == 'season_autumn') {
       this.service.getAutumnSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
         this.isLoading = true
@@ -193,7 +200,7 @@ export class ShoppingDetailsComponent implements OnInit {
 
   async addWishlistItem(item: any, decryptedToken: string) {
     try {
-      const response = await this.postService.postWishlist(item.id, decryptedToken).toPromise();
+      const response = await this.postService.postWishlist(item.id).toPromise();
       console.log('Added to wishlist');
       return response.data.id;
     } catch (error) {

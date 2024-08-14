@@ -33,11 +33,11 @@ deleteCart(item:any){
     return this.http.post<any>(baseUrl.baseUrl + postApis.logIn, loginData)
   }
 
-  postWishlist(item: any, token: any) {
+  postWishlist(item: any,) {
     let body = {'product': item}
-    const headers = new HttpHeaders({'Authorization': `Token ${token}`});
-    const options = { headers: headers };
-    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body, options);
+    // const headers = new HttpHeaders({'Authorization': `Token ${token}`});
+    // const options = { headers: headers };
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body);
   }
 
   cartItemUpdatedecreament(item: any, token: any) {
@@ -64,7 +64,12 @@ deleteCart(item:any){
   }
 
   postLogout(token:any) {
-    return this.http.post<any>(baseUrl.baseUrl + postApis.logOut,token) 
+    let body={}
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    const options = { headers: headers };
+    return this.http.post<any>(baseUrl.baseUrl + postApis.logOut,body,options) 
   }
 
 
