@@ -13,6 +13,9 @@ export class CartComponent {
   constructor(private service: GettingserviceService, private postService: PostServiceService,private deleteService:DeleteServiceService,private toastr:ToastrService) { }
   productDetail: any = []
   total: any
+  quantity: number = 1;
+  decreptedTokenFromStorage=''
+
 
   async ngOnInit() {
 
@@ -22,25 +25,38 @@ export class CartComponent {
 
       const decryptedToken = await this.postService.decryptData(user.token, 'token');
       console.log('decrypt', decryptedToken);
+      this.decreptedTokenFromStorage=decryptedToken
 
-      this.service.getCart(decryptedToken).subscribe(response => {
-        //   console.log( 'cart-response',data);
-        //   this.productDetail=data.data
-        //  console.log(this.productDetail);
+      this.service.getCart().subscribe(response => {
         if (response) {
           this.productDetail = response.data[0].items;
           console.log(this.productDetail);
           this.total = response.data[0].total_price
           console.log(this.total);
-
         }
 
       })
     }
 
+  }
 
 
+  incrementQuantity(item: any) {
+    item.quantity++;
+    this.postService.cartItemUpdateIncrement(item.id,this.decreptedTokenFromStorage).subscribe((data)=>{
+      console.log(data);
+      
+    })
+  }
 
+  decrementQuantity(item: any) {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.postService.cartItemUpdatedecreament(item.id,this.decreptedTokenFromStorage).subscribe((data)=>{
+        console.log(data);
+        
+      })
+    }
   }
 
  

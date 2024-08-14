@@ -120,3 +120,24 @@ margin-left: 20px;
     padding: 30px;
     border: 1px solid #ccc;
 }
+.empty-cart {
+    width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 300;
+  }
+  
+  svg {
+    max-width: 80%;
+    /* padding: 5rem 3rem; */
+  }
+  
+  h3 {
+    /* font-size: 2rem; */
+    /* line-height: 2rem; */
+    margin-bottom: 80px;
+    padding: 10px;
+    font-weight: 600;
+    /* font-family:monospace; */
+
+  }

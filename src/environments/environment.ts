@@ -30,6 +30,8 @@ export const postApis = {
     register:'register/',
     logIn:'login/',
     logOut:'logout/',
+    deleteCart:'cart-item/id/delete/',
+    cartItemQuantityUpdate:'update-cart-item-quantity/',
     donateRegister:'disasters/',
    
   };

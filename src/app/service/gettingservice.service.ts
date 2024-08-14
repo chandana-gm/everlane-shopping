@@ -62,11 +62,9 @@ export class GettingserviceService {
   getSkirtsWomenCategory() {
     return this.http.get<any>(baseUrl.baseUrl + environment.skirtsWomenCategory)
   }
-  getCart(token:any) {
-    const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`
-    });
-    return this.http.get<any>(baseUrl.baseUrl + environment.cartProducts,{headers})
+  getCart() {
+   
+    return this.http.get<any>(baseUrl.baseUrl + environment.cartProducts)
   }
   getWishlist(token:any) {
     const headers = new HttpHeaders({

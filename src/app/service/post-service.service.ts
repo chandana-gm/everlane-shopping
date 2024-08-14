@@ -14,44 +14,62 @@ export class PostServiceService {
   constructor(private http: HttpClient) { }
 
   postCart(item: any, token: any) {
-    let body = {
-      'product_id': item
-    }
-    console.log('id',item);
-
-    const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`
-
-    });
-    console.log('token',token);
+    let body = {'product_id': item}
+    const headers = new HttpHeaders({'Authorization': `Token ${token}`});
     const options = { headers: headers };
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`, body, options);
   }
 
+deleteCart(item:any){
 
+  return this.http.delete<any>(baseUrl.baseUrl + postApis.deleteCart, item)
+}
 
   postRegistration(item: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.register, item)
   }
-  postLogin(loginData: any) {
 
+  postLogin(loginData: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.logIn, loginData)
   }
 
-  postWishlist(item: any, token: any) {
+  postWishlist(item: any,) {
+    let body = {'product': item}
+    // const headers = new HttpHeaders({'Authorization': `Token ${token}`});
+    // const options = { headers: headers };
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body);
+  }
+
+  cartItemUpdatedecreament(item: any, token: any) {
     let body = {
-      'product': item
+      "cart_item_id": item,
+      "action": "decrease"
     }
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
     const options = { headers: headers };
- 
-    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body, options);
+    return this.http.post<any>(baseUrl.baseUrl + postApis.cartItemQuantityUpdate, body, options)
+  }
+  cartItemUpdateIncrement(item: any, token: any) {
+    let body = {
+      "cart_item_id": item,
+      "action": "increase"
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    const options = { headers: headers };
+    return this.http.post<any>(baseUrl.baseUrl + postApis.cartItemQuantityUpdate, body, options)
   }
 
-  postLogout() {
-
+  postLogout(token:any) {
+    let body={}
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    const options = { headers: headers };
+    return this.http.post<any>(baseUrl.baseUrl + postApis.logOut,body,options) 
   }
   postDonationReg(item: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.donateRegister, item)

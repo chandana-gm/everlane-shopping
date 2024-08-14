@@ -11,42 +11,44 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 })
 export class WishlistComponent {
 
-  constructor(private service: GettingserviceService, private postServive: PostServiceService, private deleteService:DeleteServiceService,
-    private toaster:ToastrService
+  constructor(private service: GettingserviceService, private postServive: PostServiceService, private deleteService: DeleteServiceService,
+    private toaster: ToastrService
   ) { }
 
   stockUpdate = true
   outofstockUpdate = false
-  wishlistData:any
+  wishlistData: any 
 
-  cartClick(event: Event) {
-    const button = event.currentTarget as HTMLElement;
-    if (button) {
-      button.classList.add('clicked');
+  // cartClick(event: Event) {
+  //   const button = event.currentTarget as HTMLElement;
+  //   if (button) {
+  //     button.classList.add('clicked');
 
-      const addedSpan = button.querySelector('span.added');
-      if (addedSpan) {
-        addedSpan.classList.add('show');
-      }
-      const removeSpan = button.querySelector('span.add-to-cart');
-      if (removeSpan) {
-        removeSpan.classList.add('hide');
-      }
-    }
-  }
+  //     const addedSpan = button.querySelector('span.added');
+  //     if (addedSpan) {
+  //       addedSpan.classList.add('show');
+  //     }
+  //     const removeSpan = button.querySelector('span.add-to-cart');
+  //     if (removeSpan) {
+  //       removeSpan.classList.add('hide');
+  //     }
+  //   }
+  // }
 
   async ngOnInit() {
+    window.scroll(0,0)
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
       const decryptedToken = await this.postServive.decryptData(user.token, 'token');
-      
-    
+
+
       this.deleteService.getWithoutRefresh().subscribe(() => {
-        this.getWishlist(decryptedToken); 
+        this.getWishlist(decryptedToken);
+        // this.wishlistData=data
       });
 
- 
+
       this.getWishlist(decryptedToken);
     }
   }
@@ -55,6 +57,8 @@ export class WishlistComponent {
     this.service.getWishlist(token).subscribe((data) => {
       console.log('wishlistdata', data);
       this.wishlistData = data.data;
+      console.log(this.wishlistData,"wish");
+      
     });
   }
 
@@ -63,12 +67,55 @@ export class WishlistComponent {
     if (storedUser) {
       const user = JSON.parse(storedUser);
       const decryptedToken = await this.postServive.decryptData(user.token, 'token');
-      
+
       this.deleteService.removeItemFromWishlist(item, decryptedToken).subscribe((data) => {
-        console.log('wishlistdata remove response', data.message);
         this.toaster.success(data.message);
-        this.getWishlist(decryptedToken); 
+        this.getWishlist(decryptedToken);
       });
     }
+  }
+
+  // async wishlistItemToCart(item: any) {
+  //   const storedUser = localStorage.getItem('user');
+
+  //   if (storedUser) {
+  //     const user = JSON.parse(storedUser);
+  //     const decryptedToken = await this.postServive.decryptData(user.token, 'token');
+  //     this.deleteService.removeItemFromWishlist(item, decryptedToken).subscribe(
+  //       (data: any) => {
+  //         this.getWishlist(decryptedToken);
+  //       },
+  //       (error: any) => {
+  //         console.error('Error:', error);
+  //         this.toaster.error('Failed to remove item from wishlist.');
+  //       }
+  //     );
+  //   }
+  // }
+
+  async addToCart(item: any,product:any) {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      const data = JSON.parse(stored);
+      const decryptedToken = await this.postServive.decryptData(data.token, 'token');
+      console.log('decrpt', decryptedToken);
+      console.log('carted', item);
+      this.postServive.postCart(item, decryptedToken).subscribe((data: any) => {
+
+        console.log('response', data);
+        this.toaster.success("item added to cart");
+        this.removeItemFromWishlist(product)
+
+      },
+        (error: any) => {
+          console.error('Error:', error);
+          this.toaster.error(data.message);
+
+        }
+      );
+
+
+    }
+
   }
 }
