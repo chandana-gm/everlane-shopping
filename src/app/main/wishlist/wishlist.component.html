@@ -1,56 +1,32 @@
-<div class="container-fluid mt-2">
-    <div class="col-12 wishlist mb-3 mt-2" *ngIf="wishlistData?.length>0 else nodata">
-        <h3 class="wishlist-text">Wishlist</h3>
-
+<div class="container mt-2">
+    <div class="col-12 wishlist mb-3 mt-2" *ngIf="wishlistData?.length > 0; else nodata">
+        <h3 class="wishlist-text">Wishlist - {{ wishlistData.length }} items</h3>
         <div class="inside-wishlist">
-            <hr>
-            <!-- <section class="row">
-                <div class="col-md-2 image-container">
-                    <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg"
-                        alt="Product Image" class="img-fluid" [ngClass]="{'grayscale': stockUpdate}">
-                        <div class="item-name" *ngIf="stockUpdate">Out of stock</div>
-
+          <hr>
+          <div class="row equal-height-cards">
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" *ngFor="let data of wishlistData">
+              <div class="card" style="width: 15rem; margin-left: 0px;">
+                <div class="card-img-container">
+                  <img [src]="data.product_image ? data.product_image : '../../../assets/images/loaders/images.png'" class="card-img-top" alt="Product Image">
                 </div>
-                <div class="col-md-7">
-                    <p>Product details lorem ipsum dolor sit amet adipiscing elit.</p>
-                    <p>price : $200</p>
-                </div>
-                <div class="col-md-1">
-                    <i class="bi bi-trash3" (click)="removeitem($event)"></i>
-                </div>
-                <div class="col-md-2">
-                    <button class="cart-button button" (click)="cartClick($event)" [disabled]="stockUpdate">
-                        <span class="add-to-cart">Add to cart</span>
-                        <span class="added" routerLink="/shopping/cart">Go to cart <i
-                                class="bi bi-cart-check"></i></span>
+                <div class="card-body">
+                  <p class="card-title">{{ data.product_name | uppercase | slice: 0: 15 }}{{ data.length > 0 ? '' : '....' }}</p>
+                  <p class="card-text">{{ data.product_description | slice: 0: 20 }}{{ data.length > 0 ? '' : '....' }}</p>
+                  <p>{{ data.product_price | currency: 'INR' }}</p>
+                  <div class="d-flex justify-content-between">
+                    <button class="cart-button button" (click)="addToCart(data.product, data.id)">
+                      <span class="add-to-cart">Add to cart</span>
+                      
                     </button>
+                    
+                    <i class="bi bi-trash3" style="cursor: pointer;" (click)="removeItemFromWishlist(data.id)"></i>
+                  </div>
                 </div>
-            </section> -->
-            <!-- <hr> -->
-            <div class="row mb-3 section" *ngFor="let data of wishlistData">
-                <div class="col-md-2">
-                    <img [src]="data.product_image" alt="Product Image" class="img-fluid">
-                </div>
-                <div class="col-md-7">
-                    <p>Product details lorem ipsum dolor Lorem ipsum dolor sit amet. sit consectetur adipiscing elit.
-                    </p>
-                    <p>price : $200</p>
-
-                </div>
-
-                <div class="col-md-1">
-                    <i class="bi bi-trash3" (click)="removeItemFromWishlist(data.id)"></i>
-                </div>
-                <div class="col-md-2">
-                    <button class="cart-button button" (click)="addToCart(data.product,data.id)">
-                        <span class="add-to-cart">Add to cart</span>
-                    </button>
-                </div>&nbsp;
-                <hr>
+              </div>
             </div>
+          </div>
         </div>
-
-    </div>
+      </div>
     <ng-template #nodata>
         <div class="empty cart">
             <div class="empty-cart">

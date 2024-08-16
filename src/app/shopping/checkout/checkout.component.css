@@ -105,10 +105,12 @@
   .confirmed-order{
     display: flex;
     justify-content: center;
+    height: 100vh;
+    /* max-width: 80vh; */
     align-items: center;
     font-weight: 700;
     flex-direction: column;
-    margin-top: 180px;
+    /* margin-top: 180px; */
   }
   .order-icon{
     font-size: 50px;
@@ -133,3 +135,4 @@
 
 
   }
+  

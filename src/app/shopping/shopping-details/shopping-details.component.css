@@ -60,3 +60,13 @@ span.add-to-cart {
 .loader img{
   object-fit: cover;
 }
+@media (max-width:993px) {
+  .wishlist-icon {
+    left: 120px;
+  }
+}
+@media (max-width:767px) {
+  .wishlist-icon {
+    left: 145px;
+  }
+}

@@ -16,6 +16,8 @@ export class ShoppingDetailsComponent implements OnInit {
   seasonProducts: any;
   isLoading = false
   cartedItems: any
+  incartActive = false
+
 
   ngOnInit() {
     this.bannerSeason = this.route.snapshot.paramMap.get('name');
@@ -30,14 +32,19 @@ export class ShoppingDetailsComponent implements OnInit {
         this.isLoading = true;
 
         this.service.getCart().subscribe((cartData) => {
-          console.log(cartData.data,"cartData.data");
-          
+          console.log(cartData.data, "cartData.data");
+
           const cartedItems = this.seasonProducts.filter((product: any) =>
-            cartData.data.some((cartItem: any) => cartItem.items.product === product.id)
+            cartData.data.some((cartItem: any) => cartItem.items[0].product === product.id)
           );
-          console.log('cartData', cartedItems);
-
-
+          // console.log(cartedItems.length,"carteditems")
+          // if (cartedItems.length!=0) {
+          //   this.incartActive=true
+          // }
+          // else{
+          //   this.incartActive=false
+          // }
+          // console.log('cartData', cartedItems);
         });
 
       });
@@ -45,7 +52,7 @@ export class ShoppingDetailsComponent implements OnInit {
       this.service.getJeansMenCategory().subscribe((data) => {
         this.seasonProducts = data.data.map((item: any) => ({ ...item, isWishlisted: false }));
         this.isLoading = true;
-        
+
       });
     } else if (this.bannerSeason === 'T shirts') {
       this.service.getTShirtMenCategory().subscribe((data) => {
@@ -110,6 +117,14 @@ export class ShoppingDetailsComponent implements OnInit {
         this.isLoading = true
       });
     }
+  }
+
+  alreadyCartedItem(id: any) {
+    console.log(id, "id");
+    this.service.getCart().subscribe((cartData) => {
+      console.log(cartData.data, "cartData.data");
+      this.seasonProducts.map(cartData)
+    })
   }
 
 

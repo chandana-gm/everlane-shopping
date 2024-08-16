@@ -171,7 +171,7 @@
 
 .marquee {
     display: flex;
-    animation: scroll-left 50s linear infinite;
+    animation: scroll-left 100s linear infinite;
 }
 
 .marquee-item {
@@ -229,6 +229,23 @@ button.prev {
 button.next {
     right: 10px;
 }
+.outfit-maker-button{
+    position: absolute;
+    left:45%;
+    top: 92%;
+    background-color:#973d93;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.outfit-maker-button:hover {
+    background-color:#9b5197;;
+}
+
 
 @keyframes scroll-left {
     from {
@@ -319,7 +336,7 @@ button.next {
     }
 
     .marquee {
-        animation: scroll-left 40s linear infinite;
+        /* animation: scroll-left 130s linear infinite; */
     }
     .category{
         overflow-x: auto; 
@@ -347,10 +364,9 @@ button.next {
 }
 
 @media (max-width: 370px) {
-
-    /* .category {
-        height: min-content;
-    } */
+    .marquee {
+        animation: scroll-left 130s linear infinite;
+    }
     .category p {
         font-size: xx-small;
     }
