@@ -42,7 +42,13 @@
  text-decoration: underline;
 cursor: pointer;
 }
-
+.backButton{
+  /* border: 1px solid #ccc; */
+  position: fixed;
+  left: 0px;
+  top: 10px;
+  cursor: pointer;
+}
 
 
 @media (max-width: 1054px) {

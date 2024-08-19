@@ -1,23 +1,25 @@
 <div class="container">
-    <div class="row">
+    <div *ngIf="seasonProducts.length === 0" class="text-center mt-5">
+        <div class="empty_state">
+            <i class="ion-sad-outline"></i>
+            <h3 class="">No products find</h3>
+            <p>There have been no products in this section yet</p>
+          </div>
+    </div>
+
+    <!-- Display the products if there are any -->
+    <div *ngIf="seasonProducts.length > 0" class="row">
         <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" *ngFor="let item of seasonProducts">
             <div class="card" style="width: 15rem;">
-                <img [src]="item.image ? item.image : '../../../assets/images/loaders/images.png'" class="card-img-top" alt="...">
+                <img [src]="item.image ? item.image : '../../../assets/images/loaders/images.png'" class="card-img-top" alt="..." (click)="redirectToDetailPage(item.id)">
                 <div class="card-body">
-                  
-                    <h5 class="card-title">{{item.brand}} - {{item.name }}</h5>
+                    <h5 class="card-title">{{item.brand | uppercase}} - {{item.name | titlecase }}</h5>
                     <p class="card-text">{{item.price | currency : 'INR'}}</p>
-                    <p class="card-text">{{item.description| slice:0:20 }}{{ item.length > 0 ? '' : '....' }}</p>
-                    <!-- <p>{{ yourText | slice:0:10 }}{{ yourText.length > 10 ? '...' : '' }}</p> -->
+                    <p class="card-text">{{item.description | slice:0:20 }}{{ item.description.length > 20 ? '...' : '' }}</p>
                     <div class="d-flex">
-                        <button class="cart-button button" (click)="cartClick($event)">
-                            <span class="add-to-cart" (click)="cartedItem(item)" >Add to cart</span>
-                            <span class="added" routerLink="/shopping/cart">Go to cart <i
-                                    class="bi bi-cart-check"></i></span>
-                        </button>&nbsp;
                         <div class="wishlist-icon" (click)="wishlistEvent(item)">
-                            <span *ngIf="!item.isWishlisted"><i class="bi bi-heart"  ></i></span>
-                            <span *ngIf="item.isWishlisted"><i class="bi bi-heart-fill fill"></i></span>
+                            <span *ngIf="!item.isWishlisted"><i class="bi bi-heart"></i></span>
+                            <span *ngIf="item.isWishlisted"><i class="bi bi-heart-fill fill" (click)="deleteWishlistItem(item.id)"></i></span>
                         </div>
                     </div>
                 </div>

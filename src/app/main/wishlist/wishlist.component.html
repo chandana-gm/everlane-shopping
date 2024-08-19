@@ -6,8 +6,8 @@
           <div class="row equal-height-cards">
             <div class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center" *ngFor="let data of wishlistData">
               <div class="card" style="width: 15rem; margin-left: 0px;">
-                <div class="card-img-container">
-                  <img [src]="data.product_image ? data.product_image : '../../../assets/images/loaders/images.png'" class="card-img-top" alt="Product Image">
+                <div class="card-img-container" (click)="redirectToDetailPage(data)">
+                  <img [src]="data.product_image ? data.product_image : '../../../assets/images/loaders/images.png'" class="card-img-top" alt="Product Image" >
                 </div>
                 <div class="card-body">
                   <p class="card-title">{{ data.product_name | uppercase | slice: 0: 15 }}{{ data.length > 0 ? '' : '....' }}</p>

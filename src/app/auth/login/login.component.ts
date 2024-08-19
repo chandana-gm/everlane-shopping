@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
           
           // Display success message
           this.toastr.success(data.message);
-          
-                  this.router.navigate(['/main']);
+          this.router.navigate(['/main']);
+          // window.location.reload()
         },
         (error) => {
           console.error('Registration error:', error);

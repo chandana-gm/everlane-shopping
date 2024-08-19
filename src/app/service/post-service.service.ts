@@ -33,10 +33,8 @@ deleteCart(item:any){
     return this.http.post<any>(baseUrl.baseUrl + postApis.logIn, loginData)
   }
 
-  postWishlist(item: any,) {
+  postWishlist(item: any) {
     let body = {'product': item}
-    // const headers = new HttpHeaders({'Authorization': `Token ${token}`});
-    // const options = { headers: headers };
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body);
   }
 
@@ -76,6 +74,8 @@ deleteCart(item:any){
 
 
 
+
+  
   // encript and decrypt token
   encryptData(data: any, key: string): string {
     return CryptoJS.AES.encrypt(JSON.stringify(data), key).toString();

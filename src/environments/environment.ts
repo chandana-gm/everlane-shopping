@@ -18,7 +18,10 @@ export const environment = {
     jeansWomenCategory:'products/?subcategory=8',
     skirtsWomenCategory:'products/?subcategory=9',
     cartProducts:'carts/',
-    getWishlist:'wishlist/'
+    getWishlist:'wishlist/',
+    getAllProducts:'products/',
+    getProfile:'profile/',
+    productSearch:'products/?query='
 
   };
 
@@ -40,6 +43,11 @@ export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
      deleteCart:'cart-item/ delete'
+  };
+export const patchApis = {
+    production: false,
+    updateProfile: 'profile/update/',
+    changePassword:'profile/change-password/'
   };
 export const baseUrl = {
     production: false,

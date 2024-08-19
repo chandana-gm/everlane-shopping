@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
@@ -17,10 +17,13 @@ export class AppHeaderComponent implements OnInit {
   cartItems: any[] = [];
   decryptedTokenFromStorage: string | undefined;
   cartLength: any;
+  searchTerm: string = '';
+  @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private service: PostServiceService, 
-    private route: Router, 
+    private route: ActivatedRoute, 
+    private router:Router,
     private getService: GettingserviceService, 
     private deleteService: DeleteServiceService
   ) {}
@@ -33,52 +36,54 @@ export class AppHeaderComponent implements OnInit {
       this.isAuthenticated = true;
       const decryptedToken = this.service.decryptData(user.token, 'token');
       this.decryptedTokenFromStorage = decryptedToken;
+      // this.getCartItemNumbers(); 
 
 
-      this.deleteService.getCartItemNumbers().subscribe((cartLength) => {
-        this.cartLength = cartLength;
-        this.getCartItemNumbers(); 
+      this.deleteService.getCartItemNumbers().subscribe(() => {
+        this.getService.getCart().subscribe((data)=>{
+          this.cartLength=data.data[0].items.length
+          console.log(data,'data from header');
+        })
       });
 
       
-      this.getCartItemNumbers();
+
 
     } else {
       console.error('Not authenticated');
-      this.getCartItemNumbers(); 
+      // this.getCartItemNumbers(); 
     }
   }
 
-  getCartItemNumbers() {
-    this.getService.getCart().subscribe((response) => {
-      this.cartItems = response.data[0].items;
-      const updatedCartLength = this.cartItems.length;
-      this.refreshCart(updatedCartLength);
-    });
+  SearchValue() {
+    if (this.searchTerm) {
+      this.router.navigate(['shopping/shoppingDetails',this.searchTerm], {
+        queryParams: { product: this.searchTerm }
+      });
+    }
   }
 
-  refreshCart(cartLength: number) {
-    this.deleteService.cartItemNumbers(cartLength); 
-  }
+  
+
 
   redirectToRegister() {
-    this.route.navigate(['/auth/register']);
+    this.router.navigate(['/auth/register']);
   }
 
   redirectToProfile() {
-    this.route.navigate(['/main/profile']);
+    this.router.navigate(['/main/profile']);
   }
 
   redirectToDonate() {
-    this.route.navigate(['/donation/donation%home']);
+    this.router.navigate(['/donation/donation%home']);
   }
 
   redirectToWishlist() {
-    this.route.navigate(['/main/wishlist']);
+    this.router.navigate(['/main/wishlist']);
   }
 
   redirectToCart() {
-    this.route.navigate(['/shopping/cart']);
+    this.router.navigate(['/shopping/cart']);
   }
 
   toggleDropdown(state: boolean) {

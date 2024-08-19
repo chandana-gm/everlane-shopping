@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppFooterComponent } from './app-footer/app-footer.component';
+import { ProductcardComponent } from './productcard/productcard.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -9,10 +11,12 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
 @NgModule({
   declarations: [
     AppHeaderComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    ProductcardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports:[AppFooterComponent,AppHeaderComponent]
 })

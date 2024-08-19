@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { baseUrl } from 'src/environments/environment';
+import { baseUrl, patchApis } from 'src/environments/environment';
 import { deleteApis } from 'src/environments/environment';
 
 @Injectable({
@@ -9,20 +9,20 @@ import { deleteApis } from 'src/environments/environment';
 })
 export class DeleteServiceService {
 
-  constructor(private http:HttpClient) { }
-  wishlistData= new Subject
-  private cartNumber = new Subject<number>();
+  constructor(private http: HttpClient) { }
+  wishlistData = new Subject
+  cartNumber: any = new Subject();
 
-// subjects
-  sendWithoutRefresh(){
+  // subjects
+  sendWithoutRefresh() {
     this.wishlistData.next(null)
   }
-  getWithoutRefresh(){
-   return this.wishlistData.asObservable()
+  getWithoutRefresh() {
+    return this.wishlistData.asObservable()
   }
 
-  cartItemNumbers(cartLength: number) {
-    this.cartNumber.next(cartLength);
+  cartItemNumbers() {
+    this.cartNumber.next();
   }
 
   getCartItemNumbers() {
@@ -30,24 +30,33 @@ export class DeleteServiceService {
   }
 
 
-  removeItemFromWishlist(item:any,token:any){
+  removeItemFromWishlist(item: any, token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
     // this.sendWithoutRefresh();
-    return this.http.delete<any>(`${baseUrl.baseUrl}${deleteApis.removeItemFromWishlist}/${item}/`,{headers})
+    return this.http.delete<any>(`${baseUrl.baseUrl}${deleteApis.removeItemFromWishlist}/${item}/`, { headers })
   }
 
-  removeFromCart(){}
+  removeFromCart() { }
 
-  
-  removeCartitem(item:any,token:any){
+
+  removeCartitem(item: any, token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
-    
-    
-    return this.http.delete<any>(`${baseUrl.baseUrl}cart-item/${item.id}/delete/`,{headers})
+    return this.http.delete<any>(`${baseUrl.baseUrl}cart-item/${item.id}/delete/`, { headers })
   }
+
+
+
+  // patch
+  updateProfile(updatedData: any) {
+    return this.http.patch<any>(baseUrl.baseUrl + patchApis.updateProfile, updatedData)
+  }
+  changePassword(data:any){
+    return this.http.patch<any>(baseUrl.baseUrl + patchApis.changePassword, data)
+  }
+
 }
 
