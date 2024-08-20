@@ -74,8 +74,33 @@ export class PostServiceService {
   createAddress(value: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.addressCreation, value)
   }
+  postDonationReg(item: any,token:any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    console.log('item',item);
+    console.log('token',token)
+    
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.disasterRegister}`,item,{headers});
+  } 
+  
+  postDisAdminApprove(item:any,token:any){
+
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+  
+    return this.http.patch<any>(`${baseUrl.baseUrl}${postApis.adminApprove}${item}/`,{headers});
+
+  }
+  postDonation(item:any,id:any){
+
+       return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postDonation}`,item,id);
+
+  }
 
 
+   
 
   // encript and decrypt token
   encryptData(data: any, key: string): string {

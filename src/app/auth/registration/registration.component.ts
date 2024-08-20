@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit {
 
   signUpForm!: FormGroup;
+  passwordFieldType: string = 'password';
+    confirmPasswordFieldType: string = 'password';
 
 
   constructor(private fb: FormBuilder, private router: Router, private service: PostServiceService, private toastr: ToastrService) { }
@@ -28,6 +30,13 @@ export class RegistrationComponent implements OnInit {
       confirm_password: ['', [Validators.required,]]
     }, { validator: this.passwordMatchValidator });
   }
+  togglePasswordVisibility(field: string) {
+    if (field === 'password') {
+        this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    } else if (field === 'confirmPassword') {
+        this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+    }
+}
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');

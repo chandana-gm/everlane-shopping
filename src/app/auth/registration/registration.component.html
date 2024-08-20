@@ -57,7 +57,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="password" class="form-label">Password:</label>
                         <input id="password" type="password" formControlName="password" class="form-control" />
                        
@@ -79,7 +79,43 @@
                         <div class="error" *ngIf="signUpForm.get('confirm_password')?.hasError('required') && signUpForm.get('confirm_password')?.touched">
                             Confirm password is required (minimum 6 characters).
                         </div>
+                    </div> -->
+
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password:</label>
+                        <div class="input-group">
+                            <input [type]="passwordFieldType" id="password" formControlName="password" class="form-control" />
+                            <span class="input-group-text" (click)="togglePasswordVisibility('password')">
+                                <i class="bi" [ngClass]="passwordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
+                            </span>
+                        </div>
+                        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
+                            <div *ngIf="password?.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div *ngIf="password?.errors?.['pattern']">
+                                Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.
+                            </div>
+                        </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm_password" class="form-label">Confirm Password:</label>
+                        <div class="input-group">
+                            <input [type]="confirmPasswordFieldType" id="confirm_password" formControlName="confirm_password" class="form-control" />
+                            <span class="input-group-text" (click)="togglePasswordVisibility('confirmPassword')">
+                                <i class="bi" [ngClass]="confirmPasswordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
+                            </span>
+                        </div>
+                        <div class="error" *ngIf="signUpForm.errors?.['mismatch'] && signUpForm.get('confirm_password')?.touched">
+                            Passwords must match.
+                        </div>
+                        <div class="error" *ngIf="signUpForm.get('confirm_password')?.hasError('required') && signUpForm.get('confirm_password')?.touched">
+                            Confirm password is required (minimum 6 characters).
+                        </div>
+                    </div>
+                    
                     <button type="submit" [disabled]="signUpForm.invalid" class="button btn-block mt-4">Sign Up</button>
                 </form>
                 <div class="redirect-to-login">

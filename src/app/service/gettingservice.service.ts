@@ -83,4 +83,24 @@ export class GettingserviceService {
   getAddress(){
     return this.http.get<any>(baseUrl.baseUrl+environment.getAddress)
   }
+
+  
+  // adminget
+  getDiasterRegister(token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });    
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.getDisastRegister}`, { headers });
+  }
+  
+  getDisasterList(token: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    console.log(token);
+    
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.getDisasterlist}`, { headers });
+  }
+  
 }
+ 

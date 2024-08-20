@@ -10,11 +10,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   constructor(private fb: FormBuilder, private service: PostServiceService, private router: Router, private toastr: ToastrService) { }
   email: string = '';
   password: string = '';
   loading: boolean = false;
 
+  passwordFieldType: string = 'password';
   loginForm!: FormGroup;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -23,6 +25,12 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
+
+    
+  
+  }
+  togglePasswordVisibility() {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
   onSubmit() {
     if (this.loginForm.valid) {
@@ -31,20 +39,32 @@ export class LoginComponent implements OnInit {
   
       this.service.postLogin(formdata).subscribe(
         (data: any) => {
-          this.loading = true;
-          console.log('loginResponse', data);
+      
+          console.log('abc',formdata.username);
           
-        
+          if (formdata.username == 'admin1' && formdata.password == 'Admin12345') {
+            console.log('loginResponse', data);
+            
+            const encryptedData = this.service.encryptData(data.token, 'token');
+          console.log(encryptedData, 'encryptedData');
+          const user = { 'username': data.username, 'token': encryptedData };
+          localStorage.setItem('user', JSON.stringify(user));
+          this.toastr.success('Welcome Admin!');
+            this.router.navigate(['/admin']);
+          } else{
+           
+          console.log('loginResponse', data);
           const encryptedData = this.service.encryptData(data.token, 'token');
           console.log(encryptedData, 'encryptedData');
           const user = { 'username': data.username, 'token': encryptedData };
           localStorage.setItem('user', JSON.stringify(user));
-
           this.toastr.success(data.message);
+           this.router.navigate(['/main']);
+          }
           this.router.navigate(['/main']);
         },
         (error) => {
-          console.error('Registration error:', error);
+          console.error('login  error:', error);
           this.toastr.error(error.error.message, 'Error');
         },
         () => {
@@ -55,6 +75,7 @@ export class LoginComponent implements OnInit {
       // this.loginForm.reset();
     }
   }
+
   
 }
 

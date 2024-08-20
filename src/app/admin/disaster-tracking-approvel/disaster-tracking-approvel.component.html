@@ -3,24 +3,58 @@
       <h2 class="animated-h2">Approval of Disaster Aid Requests</h2>
     </div>
     <br>
-    <table class="table table-secondary table-bordered" >
+  
+    <table class="table table-striped  table-hover ">
+
       <thead>
-        <tr class="table-dark">
-          <th scope="col">Place</th>
-          <th scope="col">Registraed user</th>
-          <th scope="col">Details</th>
-          <th scope="col">Action</th>
-        </tr>
+        <th scope="col">Name</th>
+        <th scope="col">Adhar</th>
+        <th scope="col">location</th>
+        <th scope="col">Decription</th>
+        <th scope="col">Men</th>
+        <th scope="col">Women</th>
+        <th scope="col">Kid</th>
+        <th scope="col">Status</th>
+
       </thead>
       <tbody>
-        <tr >
-          <th></th>
-          <td></td>
+        <tr class="" *ngFor="let item of disasterReg" >
+          <td>{{item.first_name}}</td>
+          <td>{{item.adhar}}</td>
+          <td>{{item.location}}</td>
+          <td>{{item.name}},{{item.description}}</td>
           <!-- <td>{{ item.data.userId | titlecase }}</td> -->
-          <td></td>
-          <td></td>
+          <td>{{item.required_men_dresses}}</td>
+          <td>{{item.required_women_dresses }}</td>
+          <td>{{item.required_kids_dresses}}</td>
+          <td>
+            <!-- <div class="row"  *ngIf= "item.is_approved=='false'"> -->
+              <div class="row">
+                <!-- <span class="badge badge-success">Success</span>
+                <span class="badge badge-danger">Danger</span> -->
+              <div class="col-6">
+                <button type="button" class="btn btn-outline-success btn-sm" style="font-size: x-small; "(click)="disasterApproval(item,'accept')">Accept</button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: x-small;" (click)="disasterApproval(item,'reject')">Reject</button>
+            
+              </div>
+              <!-- <div class="col-6">
+                <button type="button" class="btn btn-outline-success btn-sm" style="font-size: x-small;">Accept</button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: x-small;" >Reject</button>
+            
+              </div> -->
+            </div>
+            
+
+
+
+          </td>
+
         </tr>
-        
+       
       </tbody>
     </table>
   </div>
