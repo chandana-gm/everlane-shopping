@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
@@ -10,18 +11,19 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 })
 export class HomeDonationComponent implements  OnInit {
   disasterForm!: FormGroup;
-  constructor(private fb: FormBuilder,private toastr:ToastrService,private postService:PostServiceService) {}
+  constructor(private fb: FormBuilder,private toastr:ToastrService,private postService:PostServiceService,private router:Router) {}
   ngOnInit(): void {
     window.scroll(0,0)
     this.disasterForm = this.fb.group({
-      username: ['', Validators.required],
-      id: ['', [Validators.required, Validators.pattern('^[0-9]{12}$')]],
-      place: ['', Validators.required],
-      disasterTypes: ['', Validators.required],
-      men: ['', [Validators.required, Validators.min(1)]],
-      women: ['', [Validators.required, Validators.min(1)]],
-      kid: ['', [Validators.required, Validators.min(1)]],
-      additionalNotes: [''],
+   
+     
+        name: ['', Validators.required],
+        description: [''],
+        adhar: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
+        location: ['', Validators.required],
+        required_men_dresses: ['', [Validators.required, Validators.min(0)]],
+        required_women_dresses: ['', [Validators.required, Validators.min(0)]],
+        required_kids_dresses: ['', [Validators.required, Validators.min(0)]]
     });
     
   }
@@ -35,14 +37,16 @@ export class HomeDonationComponent implements  OnInit {
   if (storedUser) {
     const user = JSON.parse(storedUser);
     const decryptedToken = await this.postService.decryptData(user.token,'token');
-      this.postService.postDonationReg(formData).subscribe((data)=>{
-
-        console.log(data,'posted');
+      this.postService.postDonationReg(formData,decryptedToken).subscribe((data:any)=>{
+        console.log('response',data);
         
-      })
-      // this.toastr.success('Registration successful!', 'Success');
-    } else {
-      this.toastr.error('Registration failed. Please try again.');
+     this.toastr.success('Registration successful!', data);
+     this.router.navigate(['/donation/donation%25home']);
+
+      });
+    }
+    else{
+        this.toastr.error('Registration failed. Please try again.');
       console.log('Form is not valid');
     }
     this.disasterForm.reset()

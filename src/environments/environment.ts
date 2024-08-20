@@ -18,7 +18,9 @@ export const environment = {
     jeansWomenCategory:'products/?subcategory=8',
     skirtsWomenCategory:'products/?subcategory=9',
     cartProducts:'carts/',
-    getWishlist:'wishlist/'
+    getWishlist:'wishlist/',
+    getDisastRegister:'disasters/pending/',
+    getDisasterlist:'disasters/'
 
   };
 
@@ -32,7 +34,9 @@ export const postApis = {
     logOut:'logout/',
     deleteCart:'cart-item/id/delete/',
     cartItemQuantityUpdate:'update-cart-item-quantity/',
-    donateRegister:'disasters/',
+    disasterRegister:'disasters/',
+    adminApprove:'disasters/approve/',
+    postDonation:'donations/'
    
   };
 

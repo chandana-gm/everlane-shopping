@@ -72,4 +72,26 @@ export class GettingserviceService {
     });
     return this.http.get<any>(baseUrl.baseUrl + environment.getWishlist,{headers})
   }
-}
+  
+  // adminget
+    getDiasterRegister(token:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    console.log(token);
+    
+    return this.http.get<any>(baseUrl.baseUrl+ environment.getDisastRegister,{headers})
+  }
+  getDisasterList( token:any)
+  {
+    const headers = new HttpHeaders({
+      'Authorization': `Token ${token}`
+    });
+    console.log(token);
+    
+    return this.http.get<any>(baseUrl.baseUrl+ environment.getDisasterlist,{headers})
+  }
+
+  }
+
+ 
