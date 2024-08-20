@@ -50,17 +50,36 @@ export class HomeComponent {
     this.router.navigate(['shopping/shoppingDetails',season]);
   }
 
-  scrollLeft() {
-    this.marquee.nativeElement.scrollBy({
-      left: -200,
-      behavior: 'smooth'
-    });
-  }
+scrollLeft() {
+  this.pauseMarquee();
+  this.marquee.nativeElement.scrollBy({
+    left: -200,
+    behavior: 'smooth'
+  });
+  this.resumeMarquee();
+}
 
-  scrollRight() {
-    this.marquee.nativeElement.scrollBy({
-      left: 200,
-      behavior: 'smooth'
-    });
-  }
+scrollRight() {
+  this.pauseMarquee();
+  this.marquee.nativeElement.scrollBy({
+    left: 200,
+    behavior: 'smooth'
+  });
+  this.resumeMarquee();
+}
+
+pauseMarquee() {
+  this.marquee.nativeElement.style.animationPlayState = 'paused';
+}
+
+resumeMarquee() {
+  setTimeout(() => {
+    this.marquee.nativeElement.style.animationPlayState = 'running';
+  }, 500); 
+}
+clicked(item:any){
+  console.log(item);
+  this.router.navigate(['/shopping/detailsPage',item.id])
+  
+}
 }

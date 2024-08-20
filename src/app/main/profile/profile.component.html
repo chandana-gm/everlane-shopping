@@ -1,88 +1,97 @@
-
 <div class="container-fluid">
     <div class="row full-height">
         <div class="profile-detail col-12 col-md-4 col-lg-4">
-         
             <div class="my-profile mt-2">
-                <div (click)="showsection('section1')"><b>My Profile</b></div>
+                <div (click)="showSection('section1')"><b>My Profile</b></div>
                 <hr>
-                <div class="detail" (click)="showsection('section2')">Change password</div>
+                <div class="detail" (click)="showSection('section2')">Change password</div>
                 <div class="detail">My Review</div>
             </div>
         </div>
         <div class="profile-edit col-12 col-md-8 col-lg-8 ml-4">
-           
-                <div *ngIf="currentSection === 'section1'">
-                   
-                        <div class="container p-4 ">
-                            <div class="mt-2">
-                                <div class="profile-header text-center">
-                                         
-                                        <i class="bi bi-person-circle fs-1 text-primary"></i>
-                                        <div> <h4 class="d-inline ms-2" style="color:#973d93">Anjali Midhun</h4></div>
-                                  </div>
-                                <hr>
-                              
-                                <form class="mt-4">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="username" class="form-label">First Name:</label>
-                                                <input id="username"  class="form-control" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email" class="form-label">Email:</label>
-                                                <input id="email" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="form-group">
-                                                <label for="lastname" class="form-label">Last Name:</label>
-                                                <input id="lastname"  class="form-control" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label">Phone Number:</label>
-                                                <input id="phone"class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group d-flex justify-content-center mt-4">
-                                        <button type="submit" class="button" style="width:20%;">Edit</button>
-                                    </div>
-                                </form>
+            <!-- Profile Section -->
+            <div *ngIf="currentSection === 'section1'">
+                <div class="container p-4" *ngIf="userData">
+                    <div class="mt-2">
+                        <div class="profile-header text-center">
+                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                            <div> 
+                                <h4 class="d-inline ms-2" style="color:#973d93">{{userData.username}}</h4>
                             </div>
                         </div>
-                
-                </div>
-                <!-- password change -->
-          
-
-                    <div class="container-password" *ngIf="currentSection === 'section2'">
-                        <h2 class="my-4" style="color:#973d93">Password Change</h2>
                         <hr>
-                        <form>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label class="form-label" for="currentPassword">Current Password</label>
-                                    <input id="currentPassword" class="form-control"
-                                        type="password" />
+                        <form class="mt-4">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="username" class="form-label">First Name:</label>
+                                        <input
+                                            id="username"
+                                            class="form-control"
+                                            name="first_name"
+                                            [(ngModel)]="userData.first_name"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email:</label>
+                                        <input
+                                            id="email"
+                                            class="form-control"
+                                            name="email"
+                                            [(ngModel)]="userData.email"
+                                        />
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label class="form-label" for="newPassword">New Password</label>
-                                    <input id="newPassword"  class="form-control"
-                                        type="password" />
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastname" class="form-label">Last Name:</label>
+                                        <input
+                                            id="lastname"
+                                            class="form-control"
+                                            name="last_name"
+                                            [(ngModel)]="userData.last_name"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Phone Number:</label>
+                                        <input
+                                            id="phone"
+                                            class="form-control"
+                                            name="mobile"
+                                            [(ngModel)]="userData.mobile"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-
+                            <hr>
                             <div class="form-group d-flex justify-content-center mt-4">
-                                <button type="submit" class="button">Change Password</button>
+                                <button type="button" (click)="onSubmit()" class="button" style="width:20%;">Edit</button>
                             </div>
                         </form>
                     </div>
-              
-
-            
+                </div>
+            </div>
+            <!-- Password Change Section -->
+            <div class="container-password" *ngIf="currentSection === 'section2'">
+                <h2 class="my-4" style="color:#973d93">Password Change</h2>
+                <hr>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="currentPassword">Current Password</label>
+                            <input id="currentPassword" class="form-control" type="password" #currentPassword />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="newPassword">New Password</label>
+                            <input id="newPassword" class="form-control" type="password" #newPassword />
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-center mt-4">
+                        <button type="button" (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})" class="button">Change Password</button>
+                    </div>
+                </form>
+                
+            </div>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg mt-2">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <div class="logo-search">
 
             <a class="navbar-brand" href="#">EverLane Style</a>
             <div class="input-group">
-                <input type="text" class="form-control search" placeholder="search">
-                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control search" placeholder="search" [(ngModel)]="searchTerm" (keyup.enter)="SearchValue()" >
+                  <span class="input-group-text" (click)="SearchValue()"><i class="bi bi-search"></i></span>
               </div>
               
         </div>
@@ -52,10 +52,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="/shopping/cart" (click)="redirectToCart()"><i class="bi bi-cart position-relative"
                            >
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:x-small;">
-                                0
-                              
-                              </span>
+                            <span *ngIf="isAuthenticated" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:x-small;">{{cartLength}}</span>
+                            <span *ngIf="!isAuthenticated" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:x-small;">0</span>
                            </i></a>
                 </li>
             </ul>

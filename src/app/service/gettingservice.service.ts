@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { baseUrl } from 'src/environments/environment';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,15 @@ import { baseUrl } from 'src/environments/environment';
 export class GettingserviceService {
 
   constructor(private http: HttpClient) { }
+  search= new Subject
 
+
+  sendWithoutRefresh(){
+    this.search.next(null)
+  }
+  getWithoutRefresh(){
+   return this.search.asObservable()
+  }
 
   getMensCategories() {
     return this.http.get<any>(baseUrl.baseUrl + environment.mensCategoryUrl)
@@ -63,14 +72,19 @@ export class GettingserviceService {
     return this.http.get<any>(baseUrl.baseUrl + environment.skirtsWomenCategory)
   }
   getCart() {
-   
     return this.http.get<any>(baseUrl.baseUrl + environment.cartProducts)
   }
-  getWishlist(token:any) {
-    const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`
-    });
-    return this.http.get<any>(baseUrl.baseUrl + environment.getWishlist,{headers})
+  getWishlist(token?: any) {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getWishlist)
+  }
+  getAllProducts(id: any) {
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.getAllProducts}${id}/`)
+  }
+  getProfile() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getProfile)
+  }
+  searchProducts(searchItem:any){
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.productSearch}${searchItem}`)
   }
   
   // adminget

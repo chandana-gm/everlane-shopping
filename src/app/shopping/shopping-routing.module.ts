@@ -10,7 +10,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 const routes: Routes = [
   {path:'',component:ShoppingComponent, children:[
     {path:'shoppingDetails/:name',component:ShoppingDetailsComponent},
-    {path:'detailsPage/:id',component:DetailPageComponent},
+    {path:'detailsPage/:id',component:DetailPageComponent, runGuardsAndResolvers: 'paramsOrQueryParamsChange'},
     {path:'cart',component:CartComponent},
     {path:'checkout',component:CheckoutComponent},
   ]}

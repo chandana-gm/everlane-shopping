@@ -12,6 +12,7 @@ import { GettingserviceService } from 'src/app/service/gettingservice.service';
 export class DetailPageComponent implements OnInit {
   singleProduct: any;
   productId: any;
+  size:any
   fullData: any[]=[]
 
   constructor(private route: ActivatedRoute, private service: GettingserviceService) { }
@@ -19,15 +20,21 @@ export class DetailPageComponent implements OnInit {
   ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get('id');
 
-    this.service.getTrendingProducts().subscribe(response => {
-      this.fullData = response.data;
-      console.log(this.fullData,"fulldata");
-      this.singleProduct = this.fullData.find(product => product.id === this.productId);
-      if (this.singleProduct) {
-        console.log("Single product", this.singleProduct);
-      } else {
-        console.log("Product not found");
-      }
-    });
+    // this.service.getTrendingProducts().subscribe(response => {
+    //   this.fullData = response.data;
+    //   console.log(this.fullData,"fulldata");
+    //   this.singleProduct = this.fullData.find(product => product.id === this.productId);
+    //   if (this.singleProduct) {
+    //     console.log("Single product", this.singleProduct);
+    //   } else {
+    //     console.log("Product not found");
+    //   }
+    // });
+    this.service.getAllProducts(this.productId).subscribe((data)=>{
+      console.log("single data",data);
+      this.singleProduct=data.data
+      this.size= this.singleProduct.items
+      
+    })
   }
 }

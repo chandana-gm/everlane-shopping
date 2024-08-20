@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -12,12 +13,12 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 export class WishlistComponent {
 
   constructor(private service: GettingserviceService, private postServive: PostServiceService, private deleteService: DeleteServiceService,
-    private toaster: ToastrService
+    private toaster: ToastrService, private router: Router
   ) { }
 
   stockUpdate = true
   outofstockUpdate = false
-  wishlistData: any 
+  wishlistData: any
 
   // cartClick(event: Event) {
   //   const button = event.currentTarget as HTMLElement;
@@ -36,11 +37,12 @@ export class WishlistComponent {
   // }
 
   async ngOnInit() {
-    window.scroll(0,0)
+    window.scroll(0, 0)
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
       const decryptedToken = await this.postServive.decryptData(user.token, 'token');
+      console.log(decryptedToken);
 
 
       this.deleteService.getWithoutRefresh().subscribe(() => {
@@ -57,8 +59,8 @@ export class WishlistComponent {
     this.service.getWishlist(token).subscribe((data) => {
       console.log('wishlistdata', data);
       this.wishlistData = data.data;
-      console.log(this.wishlistData,"wish");
-      
+      console.log(this.wishlistData, "wish");
+
     });
   }
 
@@ -73,6 +75,12 @@ export class WishlistComponent {
         this.getWishlist(decryptedToken);
       });
     }
+  }
+
+  redirectToDetailPage(item: any) {
+    console.log(item.product);
+    this.router.navigate(['shopping/detailsPage', item.product])
+
   }
 
   // async wishlistItemToCart(item: any) {
@@ -93,7 +101,7 @@ export class WishlistComponent {
   //   }
   // }
 
-  async addToCart(item: any,product:any) {
+  async addToCart(item: any, product: any) {
     const stored = localStorage.getItem('user');
     if (stored) {
       const data = JSON.parse(stored);

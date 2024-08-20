@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
+  ngOnInit(){
+    window.scroll(0,0)
+  }
   checkoutForm: FormGroup;
   currentStep: number = 0;
   isOrderConfirmed=false
@@ -56,7 +59,7 @@ export class CheckoutComponent {
       console.log('Form is not valid');
     }
   }
-  backToShopping(shop:string){
-this.route.navigate(['/shopping/shoppingDetails',shop])
+  backToShopping(){
+this.route.navigate(['/main'])
   }
 }

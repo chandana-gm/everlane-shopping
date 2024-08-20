@@ -9,7 +9,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedSchemaModule } from '../shared-schema/shared-schema.module';
-
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -26,7 +26,8 @@ import { SharedSchemaModule } from '../shared-schema/shared-schema.module';
     CommonModule,
     ShoppingRoutingModule,
     ReactiveFormsModule,
-    SharedSchemaModule
+    SharedSchemaModule,
+    FormsModule
 
   ]
 })

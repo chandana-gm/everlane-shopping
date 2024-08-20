@@ -1,4 +1,5 @@
 <div class="cart">
+    
     <div class="container-fluid" *ngIf="productDetail?.length>0 else nodata">
         <div class="row">
             <div class="col-md-9 product-cart">
@@ -8,10 +9,10 @@
                 <hr>
                 <div *ngFor="let item of productDetail">
                     <section class="row">
-                        <div class="col-md-3">
-                            <img [src]="item.product_image" alt="Product Image" class="img-fluid">
+                        <div class="col-sm-3">
+                            <img [src]="item.product_image ? item.product_image : '../../../assets/images/loaders/images.png'" alt="Product Image" class="img-fluid">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-6">
                             <p>{{item.product_name}}</p>
                             <div class="quantity">
                                 <button class="quantity-btn minus" (click)="decrementQuantity(item)"
@@ -28,14 +29,14 @@
                             </div>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             ₹{{item.product_price}}
                         </div>
                     </section>
                     <hr>
                 </div>
             </div>
-            <div class="col-md-3 price-details">
+            <div class="col-md-3 col-sm-12 price-details">
                 <div class="price-inner">
                     <h3>Price Details</h3>
                     <hr>

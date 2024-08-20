@@ -20,7 +20,10 @@ export const environment = {
     cartProducts:'carts/',
     getWishlist:'wishlist/',
     getDisastRegister:'disasters/pending/',
-    getDisasterlist:'disasters/'
+    getDisasterlist:'disasters/',
+    getAllProducts:'products/',
+    getProfile:'profile/',
+    productSearch:'products/?query='
 
   };
 
@@ -44,6 +47,11 @@ export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
      deleteCart:'cart-item/ delete'
+  };
+export const patchApis = {
+    production: false,
+    updateProfile: 'profile/update/',
+    changePassword:'profile/change-password/'
   };
 export const baseUrl = {
     production: false,

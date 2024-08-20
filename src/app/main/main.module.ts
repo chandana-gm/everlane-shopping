@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ShoppingModule } from '../shopping/shopping.module';
 import { SharedSchemaModule } from '../shared-schema/shared-schema.module';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -27,7 +28,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MainRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,  
-    SharedSchemaModule
+    SharedSchemaModule,
+    FormsModule
   ]
 })
 export class MainModule { }

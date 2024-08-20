@@ -141,3 +141,19 @@ margin-left: 20px;
     /* font-family:monospace; */
 
   }
+  @media (max-width:993px) {
+    .price-details h3 {
+        font-size: 20px;
+    
+    }
+    .price-info section {
+        font-size: .85rem;
+        font-weight: 500;
+    }}
+  @media (max-width:767px) {
+    .price-details{
+    margin-top: 10px !important;
+    padding: 0;
+
+    }
+  }
