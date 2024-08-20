@@ -14,12 +14,16 @@
                   <p class="card-text">{{ data.product_description | slice: 0: 20 }}{{ data.length > 0 ? '' : '....' }}</p>
                   <p>{{ data.product_price | currency: 'INR' }}</p>
                   <div class="d-flex justify-content-between">
-                    <button class="cart-button button" (click)="addToCart(data.product, data.id)">
+                    <!-- <button class="cart-button button" (click)="addToCart(data.product, data.id)">
                       <span class="add-to-cart">Add to cart</span>
+                      
+                    </button> -->
+                    <button class="cart-button button" (click)="removeItemFromWishlist(data.product)">
+                      <span class="add-to-cart">Remove</span>
                       
                     </button>
                     
-                    <i class="bi bi-trash3" style="cursor: pointer;" (click)="removeItemFromWishlist(data.id)"></i>
+                    <!-- <i class="bi bi-trash3" style="cursor: pointer;" (click)="removeItemFromWishlist(data.id)"></i> -->
                   </div>
                 </div>
               </div>

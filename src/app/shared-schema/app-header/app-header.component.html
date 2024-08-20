@@ -26,7 +26,7 @@
                 <li class="nav-item dropdown" [class.show]="dropdownOpen" *ngIf="isAuthenticated; else notAuthenticated"
                 (mouseenter)="toggleDropdown(true)" (mouseleave)="toggleDropdown(false)">
               <a class="nav-link dropdown-toggle"  id="userDropdown" role="button">
-                Welcome, <small>{{ authenticatedUser }}</small>
+                Welcome, <small>{{ authenticatedUser | titlecase }}</small>
               </a>
               <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="userDropdown">
                 <a class="dropdown-item"  (click)="redirectToProfile()">Profile</a>

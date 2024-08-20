@@ -10,15 +10,9 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class GettingserviceService {
 
   constructor(private http: HttpClient) { }
-  search= new Subject
+ 
 
 
-  sendWithoutRefresh(){
-    this.search.next(null)
-  }
-  getWithoutRefresh(){
-   return this.search.asObservable()
-  }
 
   getMensCategories() {
     return this.http.get<any>(baseUrl.baseUrl + environment.mensCategoryUrl)
@@ -85,5 +79,8 @@ export class GettingserviceService {
   }
   searchProducts(searchItem:any){
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.productSearch}${searchItem}`)
+  }
+  getAddress(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getAddress)
   }
 }

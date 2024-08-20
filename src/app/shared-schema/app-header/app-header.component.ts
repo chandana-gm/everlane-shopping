@@ -21,12 +21,12 @@ export class AppHeaderComponent implements OnInit {
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
-    private service: PostServiceService, 
-    private route: ActivatedRoute, 
-    private router:Router,
-    private getService: GettingserviceService, 
+    private service: PostServiceService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private getService: GettingserviceService,
     private deleteService: DeleteServiceService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const storedUser = localStorage.getItem('user');
@@ -36,17 +36,14 @@ export class AppHeaderComponent implements OnInit {
       this.isAuthenticated = true;
       const decryptedToken = this.service.decryptData(user.token, 'token');
       this.decryptedTokenFromStorage = decryptedToken;
-      // this.getCartItemNumbers(); 
-
-
-      this.deleteService.getCartItemNumbers().subscribe(() => {
-        this.getService.getCart().subscribe((data)=>{
-          this.cartLength=data.data[0].items.length
-          console.log(data,'data from header');
-        })
-      });
-
       
+      this.deleteService.getCartItemNumbers().subscribe(() => {
+        this.getCartLength()
+        
+      });
+      this.getCartLength()
+
+
 
 
     } else {
@@ -54,16 +51,22 @@ export class AppHeaderComponent implements OnInit {
       // this.getCartItemNumbers(); 
     }
   }
+  getCartLength() {
+    this.getService.getCart().subscribe((data) => {
+      this.cartLength = data.data[0].items.length
+      console.log(this.cartLength, 'data from header');
+    })
+  }
 
   SearchValue() {
     if (this.searchTerm) {
-      this.router.navigate(['shopping/shoppingDetails',this.searchTerm], {
+      this.router.navigate(['shopping/shoppingDetails', this.searchTerm], {
         queryParams: { product: this.searchTerm }
       });
     }
   }
 
-  
+
 
 
   redirectToRegister() {

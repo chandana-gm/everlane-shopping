@@ -11,7 +11,8 @@ export class MainComponent {
   constructor(private service:GettingserviceService){}
   isLoading=false
   ngOnInit() {
-    this.service.getMensCategories().subscribe((data: any) => {
+    this.service.getBanners().subscribe((data: any) => {
+      console.log(data);
       this.isLoading=true
     });
   }

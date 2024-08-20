@@ -42,7 +42,7 @@ export class ShoppingDetailsComponent implements OnInit {
     if (this.bannerSeason === 'Shirts') {
       this.service.getShirtCategory().subscribe((data) => {
         this.seasonProducts = data.data
-        console.log(data);
+        console.log(this.seasonProducts);
         this.isLoading = true;
         this.wishlisted()
       });
@@ -144,49 +144,34 @@ export class ShoppingDetailsComponent implements OnInit {
     })
   }
 
-  // toggle cart
-  cartClick(event: Event) {
-    const button = event.currentTarget as HTMLElement;
-    if (button) {
-      button.classList.add('clicked');
 
-      const addedSpan = button.querySelector('span.added');
-      if (addedSpan) {
-        addedSpan.classList.add('show');
-      }
-      const removeSpan = button.querySelector('span.add-to-cart');
-      if (removeSpan) {
-        removeSpan.classList.add('hide');
-      }
-    }
-  }
 
   // post cart
-  async cartedItem(item: any) {
-    const stored = localStorage.getItem('user');
-    if (stored) {
-      const data = JSON.parse(stored);
-      const decryptedToken = await this.postService.decryptData(data.token, 'token');
-      console.log('decrpt', decryptedToken);
-      console.log('carted', item.id);
-      this.postService.postCart(item.id, decryptedToken).subscribe((data: any) => {
+  // async cartedItem(item: any) {
+  //   const stored = localStorage.getItem('user');
+  //   if (stored) {
+  //     const data = JSON.parse(stored);
+  //     const decryptedToken = await this.postService.decryptData(data.token, 'token');
+  //     console.log('decrpt', decryptedToken);
+  //     console.log('carted', item.id);
+  //     this.postService.postCart(item.id, decryptedToken).subscribe((data: any) => {
 
-        console.log('response', data);
-        this.toastr.success(data.message);
+  //       console.log('response', data);
+  //       this.toastr.success(data.message);
 
-      },
-        (error: any) => {
-          console.error('Error:', error);
-          this.toastr.error(data.message);
+  //     },
+  //       (error: any) => {
+  //         console.error('Error:', error);
+  //         this.toastr.error(data.message);
 
-        }
-      );
-
-
-    }
+  //       }
+  //     );
 
 
-  }
+  //   }
+
+
+  // }
 
   redirectToDetailPage(id: any) {
     this.router.navigate(['/shopping/detailsPage', id])
@@ -196,11 +181,10 @@ export class ShoppingDetailsComponent implements OnInit {
     const previousState = item.isWishlisted;
     try {
       if (previousState) {
-        await this.deleteWishlistItem(item);
+        // await this.deleteWishlistItem(item);
       } else {
         const wishlistResponseId = await this.addWishlistItem(item);
         item.wishlistResponseId = wishlistResponseId;
-        console.log("item.wishlistResponseId", item.wishlistResponseId);
 
       }
       item.isWishlisted = !previousState;
@@ -221,11 +205,14 @@ export class ShoppingDetailsComponent implements OnInit {
     }
   }
 
-  async addWishlistItem(item: any) {
+   addWishlistItem(item: any) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      const response = await this.postService.postWishlist(item.id).toPromise();
-      return response.data.id;
+     this.postService.postWishlist(item.id).subscribe(data=>{
+      console.log(data);
+      this.toastr.success(data.message)
+     });
+   
     } else
       this.router.navigate(['/auth/register'])
   }

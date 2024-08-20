@@ -13,12 +13,13 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: PostServiceService, private router: Router, private toastr: ToastrService) { }
   email: string = '';
   password: string = '';
+  loading: boolean = false;
 
   loginForm!: FormGroup;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
 
-      // email: ['', [Validators.required, Validators.email]],
+
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   
       this.service.postLogin(formdata).subscribe(
         (data: any) => {
+          this.loading = true;
           console.log('loginResponse', data);
           
         
@@ -37,20 +39,20 @@ export class LoginComponent implements OnInit {
           console.log(encryptedData, 'encryptedData');
           const user = { 'username': data.username, 'token': encryptedData };
           localStorage.setItem('user', JSON.stringify(user));
-          
-          // Display success message
+
           this.toastr.success(data.message);
           this.router.navigate(['/main']);
-          // window.location.reload()
         },
         (error) => {
           console.error('Registration error:', error);
           this.toastr.error(error.error.message, 'Error');
+        },
+        () => {
+          // Complete block (runs after success or error)
+          this.loading = false; 
         }
       );
-  
-      // Reset the form after submission
-      this.loginForm.reset();
+      // this.loginForm.reset();
     }
   }
   

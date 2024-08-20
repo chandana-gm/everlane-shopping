@@ -21,7 +21,8 @@ export const environment = {
     getWishlist:'wishlist/',
     getAllProducts:'products/',
     getProfile:'profile/',
-    productSearch:'products/?query='
+    productSearch:'products/?query=',
+    getAddress:'addresses/'
 
   };
 
@@ -36,13 +37,16 @@ export const postApis = {
     deleteCart:'cart-item/id/delete/',
     cartItemQuantityUpdate:'update-cart-item-quantity/',
     donateRegister:'disasters/',
+    addressCreation:'addresses/create/',
+
    
   };
 
 export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
-     deleteCart:'cart-item/ delete'
+     deleteCart:'cart-item/delete',
+     
   };
 export const patchApis = {
     production: false,

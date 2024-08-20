@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -85,6 +85,7 @@ export class CartComponent {
       this.deleteService.removeCartitem(item, decryptedToken).subscribe((data) => {
         console.log('item removed', data.message);
         this.deleteService.sendWithoutRefresh();
+        this.deleteService.cartItemNumbers()
         this.toastr.success(data.message);
 
       });
@@ -97,4 +98,15 @@ export class CartComponent {
     this.deleteService.sendWithoutRefresh();
   }
 
-}
+
+  // copy link
+  currentUrl: string = window.location.origin;
+  toggleShareLink() {
+    navigator.clipboard.writeText(`${this.currentUrl}/shopping/detailsPage/${16}`).then(() => {
+      this.toastr.success('Link copied to clipboard!');
+    }).catch(err => {
+      this.toastr.error('Could not copy text');
+    });
+  }
+  }
+

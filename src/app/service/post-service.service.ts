@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseUrl } from 'src/environments/environment';
 import { postApis } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
+import { Subject } from 'rxjs';
 
 
 
@@ -13,17 +14,18 @@ export class PostServiceService {
 
   constructor(private http: HttpClient) { }
 
-  postCart(item: any, token: any) {
-    let body = {'product_id': item}
-    const headers = new HttpHeaders({'Authorization': `Token ${token}`});
-    const options = { headers: headers };
-    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`, body, options);
+  postCart(item: any, size: any) {
+    let body = {
+      'product_id': item,
+      'size': size
+    }
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToCart}`, body);
   }
 
-deleteCart(item:any){
+  deleteCart(item: any) {
 
-  return this.http.delete<any>(baseUrl.baseUrl + postApis.deleteCart, item)
-}
+    return this.http.delete<any>(baseUrl.baseUrl + postApis.deleteCart, item)
+  }
 
   postRegistration(item: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.register, item)
@@ -34,7 +36,7 @@ deleteCart(item:any){
   }
 
   postWishlist(item: any) {
-    let body = {'product': item}
+    let body = { 'product_id': item }
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addToWishlist}`, body);
   }
 
@@ -61,21 +63,20 @@ deleteCart(item:any){
     return this.http.post<any>(baseUrl.baseUrl + postApis.cartItemQuantityUpdate, body, options)
   }
 
-  postLogout(token:any) {
-    let body={}
+  postLogout(token: any) {
+    let body = {}
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
     const options = { headers: headers };
-    return this.http.post<any>(baseUrl.baseUrl + postApis.logOut,body,options) 
+    return this.http.post<any>(baseUrl.baseUrl + postApis.logOut, body, options)
+  }
+  createAddress(value: any) {
+    return this.http.post<any>(baseUrl.baseUrl + postApis.addressCreation, value)
   }
 
 
 
-
-
-
-  
   // encript and decrypt token
   encryptData(data: any, key: string): string {
     return CryptoJS.AES.encrypt(JSON.stringify(data), key).toString();

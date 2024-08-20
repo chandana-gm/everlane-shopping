@@ -33,10 +33,10 @@
     cursor: pointer;
     
 }
-.col:hover {
+/* .col:hover {
     background-color:#f0d6ef;
     color: #fff;
-}
+} */
 .cols{
      text-align: center;
     padding: 5px;
@@ -45,6 +45,11 @@
     cursor: not-allowed;
     color: red;
 }
+.selected {
+    background-color: #eef1f4;
+    color: rgb(6, 6, 6);
+    /* border-color: #007bff; */
+  }
 .product-image-card{
     
     /* border: 1px solid green; */

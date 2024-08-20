@@ -10,7 +10,7 @@
     background-color:#faf6fa;
 }
 .full-height {
-    height: 100vh;
+    min-height: 100vh;
     /* border: 2px solid green; */
 }
 .profile-detail {
@@ -67,4 +67,97 @@
     color: #495057;
     font-weight: 600;
 }
+  
+.add-new:hover{
+    text-decoration: underline;
+}
+.add-new{
+    color: blueviolet;
+    cursor: pointer;
+}
+
+
+
+  
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  small {
+    color: #dc3545;
+    font-size: 0.875em;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .error {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: -5px;
+  }
+  
+  .address-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* For making inputs responsive */
+  @media (max-width: 768px) {
+    .address-container {
+      flex-direction: column;
+    }
+  }
+  
+  /* Optional styling for required indicators */
+  label small {
+    color: #dc3545;
+  }
+  
+  .mt-1 {
+    margin-top: 1rem;
+  }
+  
+
+  .card-body {
+    padding: 20px;
+    border-left: 1px solid #ccc;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .card-text strong {
+    color: #555;
+  }
+  .remove i{
+    position: absolute;
+    right: 30px;
+    top: 150px;
+  }
+  .remove i:hover{
+    color: red;
+  }
   

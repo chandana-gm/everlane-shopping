@@ -19,13 +19,17 @@ export class HomeComponent {
   womensCategories: any[] = [];
   banners: any;
   trending: any;
+  randomNumber:any
+  isLoading:boolean=false
+  imageLoaded = false;
 
   selectGender(gender: string) {
     this.selectedGender = gender;
   }
 
   ngOnInit() {
-
+ 
+    this.randomNumber=Math.floor(Math.random() * 4)
     
 
     this.api.getMensCategories().subscribe((data: any) => {
@@ -36,6 +40,7 @@ export class HomeComponent {
     });
     this.api.getBanners().subscribe((data) => {
       this.banners = data;
+      this.isLoading= true
     });
     this.api.getTrendingProducts().subscribe((data) => {
       this.trending = data.data;

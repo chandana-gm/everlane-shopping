@@ -55,16 +55,6 @@
               <i class="bi bi-person-circle login-icon"></i>
             </div>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-              <!-- <div class="form-group">
-                <label for="email">Email:</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                  <input type="email" id="email" formControlName="email" class="form-control" placeholder="name@example.com" />
-                </div> -->
-                <!-- <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-                  Valid email is required.
-                </div>
-              </div> -->
 
               <div class="form-group">
                 <label for="username" class="form-label">User Name:</label>
@@ -83,7 +73,13 @@
                   Password is required.
                 </div>
               </div>
-              <button type="submit" [disabled]="loginForm.invalid" class="button w-100 mt-3">Login</button>
+              <button type="submit" [disabled]="loginForm.invalid || loading" class="button w-100 mt-3">
+                <span *ngIf="!loading">Login</span>
+                <span *ngIf="loading">
+                  <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                </span>
+              </button>
+              
             </form>
           </div>
         </div>
