@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
           this.toastr.success(data.message);
            this.router.navigate(['/main']);
           }
-          this.router.navigate(['/main']);
+       
           // window.location.reload()
         },
         (error) => {

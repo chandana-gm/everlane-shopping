@@ -96,14 +96,27 @@ export class GettingserviceService {
     
     return this.http.get<any>(baseUrl.baseUrl+ environment.getDisastRegister,{headers})
   }
-  getDisasterList( token:any)
-  {
-    const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`
-    });
-    console.log(token);
+  // getDisasterList( token?:any)
+  // {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Token ${token}`
+  //   });
+  //   console.log(token);
     
-    return this.http.get<any>(baseUrl.baseUrl+ environment.getDisasterlist,{headers})
+  //   return this.http.get<any>(baseUrl.baseUrl+ environment.getDisasterlist,{headers})
+  // }
+  getDisasterList()
+  {
+   
+    
+    return this.http.get<any>(baseUrl.baseUrl+ environment.getDisasterlist)
+  }
+
+  getDonationList(id:any)
+  {
+
+return this.http.get<any>(`${baseUrl.baseUrl}disasters/${id}/donations/`)
+
   }
 
   }

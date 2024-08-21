@@ -11,6 +11,7 @@ import { ReturnRequestComponent } from './return-request/return-request.componen
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { OrderStatusComponent } from './order-status/order-status.component';
 import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/disaster-tracking-approvel.component';
+import { DonationListComponent } from './donation-list/donation-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/
     ReturnRequestComponent,
     ViewOrdersComponent,
     OrderStatusComponent,
-    DisasterTrackingApprovelComponent
+    DisasterTrackingApprovelComponent,
+    DonationListComponent
   ],
   imports: [
     CommonModule,

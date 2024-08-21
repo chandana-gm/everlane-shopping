@@ -9,6 +9,7 @@ import { ProductUpdateComponent } from './product-update/product-update.componen
 import { ReturnRequestComponent } from './return-request/return-request.component';
 import { DiasterRegisterComponent } from '../donation/diaster-register/diaster-register.component';
 import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/disaster-tracking-approvel.component';
+import { DonationListComponent } from './donation-list/donation-list.component';
 
 const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'addProduct',component:AddProductComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'order%status',component:OrderStatusComponent},
   {path:'returnrequest',component:ReturnRequestComponent},
   {path:'disaterstatusrequest',component:DisasterTrackingApprovelComponent},
+  {path:'donation_list',component:DonationListComponent}
 
 ] },
  

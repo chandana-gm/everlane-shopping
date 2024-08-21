@@ -23,7 +23,8 @@ export const environment = {
     getDisasterlist:'disasters/',
     getAllProducts:'products/',
     getProfile:'profile/',
-    productSearch:'products/?query='
+    productSearch:'products/?query=',
+    getDonationList:'disasters/donations/'
 
   };
 

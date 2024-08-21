@@ -97,6 +97,10 @@ export class AppHeaderComponent implements OnInit {
       window.location.reload();
       this.isAuthenticated = false;
       localStorage.removeItem('user');
+      this.router.navigate(['/main']);
+      
+   
+      
     });
   }
 }

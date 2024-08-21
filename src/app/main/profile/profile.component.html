@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row full-height">
         <div class="profile-detail col-12 col-md-4 col-lg-4">
-            <div class="my-profile mt-2">
+            <div class="my-profile">
                 <div (click)="showSection('section1')"><b>My Profile</b></div>
                 <hr>
                 <div class="detail" (click)="showSection('section2')">Change password</div>
                 <div class="detail">My Review</div>
             </div>
         </div>
-        <div class="profile-edit col-12 col-md-8 col-lg-8 ml-4">
+        <div class="col-12 col-md-8 col-lg-8">
             <!-- Profile Section -->
             <div *ngIf="currentSection === 'section1'">
                 <div class="container p-4" *ngIf="userData">
