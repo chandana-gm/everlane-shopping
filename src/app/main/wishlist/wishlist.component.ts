@@ -46,21 +46,18 @@ export class WishlistComponent {
 
 
       this.deleteService.getWithoutRefresh().subscribe(() => {
-        this.getWishlist(decryptedToken);
+        this.getWishlist();
         // this.wishlistData=data
       });
 
 
-      this.getWishlist(decryptedToken);
+      this.getWishlist();
     }
   }
 
-  async getWishlist(token: any) {
-    this.service.getWishlist(token).subscribe((data) => {
-      console.log('wishlistdata', data);
+  async getWishlist() {
+    this.service.getWishlist().subscribe((data) => {
       this.wishlistData = data.data;
-      console.log(this.wishlistData, "wish");
-
     });
   }
 
@@ -72,7 +69,7 @@ export class WishlistComponent {
 
       this.deleteService.removeItemFromWishlist(item, decryptedToken).subscribe((data) => {
         this.toaster.success(data.message);
-        this.getWishlist(decryptedToken);
+        this.getWishlist();
       });
     }
   }
@@ -108,19 +105,19 @@ export class WishlistComponent {
       const decryptedToken = await this.postServive.decryptData(data.token, 'token');
       console.log('decrpt', decryptedToken);
       console.log('carted', item);
-      this.postServive.postCart(item, decryptedToken).subscribe((data: any) => {
+      // this.postServive.postCart(item, decryptedToken).subscribe((data: any) => {
 
-        console.log('response', data);
-        this.toaster.success("item added to cart");
-        this.removeItemFromWishlist(product)
+      //   console.log('response', data);
+      //   this.toaster.success("item added to cart");
+      //   this.removeItemFromWishlist(product)
 
-      },
-        (error: any) => {
-          console.error('Error:', error);
-          this.toaster.error(data.message);
+      // },
+      //   (error: any) => {
+      //     console.error('Error:', error);
+      //     this.toaster.error(data.message);
 
-        }
-      );
+      //   }
+      // );
 
 
     }

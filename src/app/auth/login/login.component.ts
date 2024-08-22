@@ -10,15 +10,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   constructor(private fb: FormBuilder, private service: PostServiceService, private router: Router, private toastr: ToastrService) { }
   email: string = '';
   password: string = '';
+  loading: boolean = false;
+
   passwordFieldType: string = 'password';
   loginForm!: FormGroup;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
 
-      // email: ['', [Validators.required, Validators.email]],
+
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
@@ -64,10 +67,13 @@ export class LoginComponent implements OnInit {
         (error) => {
           console.error('login  error:', error);
           this.toastr.error(error.error.message, 'Error');
+        },
+        () => {
+          // Complete block (runs after success or error)
+          this.loading = false; 
         }
       );
-
-      this.loginForm.reset();
+      // this.loginForm.reset();
     }
   }
 

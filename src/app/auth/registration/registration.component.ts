@@ -16,8 +16,8 @@ export class RegistrationComponent implements OnInit {
   passwordFieldType: string = 'password';
     confirmPasswordFieldType: string = 'password';
 
-  
-  constructor(private fb: FormBuilder,private router:Router ,private service:PostServiceService,private toastr: ToastrService) {}
+
+  constructor(private fb: FormBuilder, private router: Router, private service: PostServiceService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
@@ -26,7 +26,7 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', [Validators.required, this.mobileValidator]],
       password: ['', [Validators.required,
-        Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%#*?&])[A-Za-z\\d@$!%#*?&]{8,}$')]],
+      Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%#*?&])[A-Za-z\\d@$!%#*?&]{8,}$')]],
       confirm_password: ['', [Validators.required,]]
     }, { validator: this.passwordMatchValidator });
   }
@@ -49,9 +49,9 @@ export class RegistrationComponent implements OnInit {
   mobileValidator(control: AbstractControl): ValidationErrors | null {
     const mobilePattern = /^[0-9]{10}$/;
     if (!control.value || mobilePattern.test(control.value)) {
-      return null; 
+      return null;
     }
-    return { invalidMobile: true }; 
+    return { invalidMobile: true };
   }
   get password() {
     return this.signUpForm.get('password');
@@ -71,10 +71,10 @@ export class RegistrationComponent implements OnInit {
           this.toastr.error('Registration failed. Please try again.', 'Error');
         }
       );
-      this.signUpForm.reset();
+      // this.signUpForm.reset();
     }
   }
 
 
-    
+
 }

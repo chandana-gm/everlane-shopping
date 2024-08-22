@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { baseUrl, patchApis } from 'src/environments/environment';
+import { baseUrl, environment, patchApis } from 'src/environments/environment';
 import { deleteApis } from 'src/environments/environment';
 
 @Injectable({
@@ -25,7 +25,6 @@ export class DeleteServiceService {
   cartItemNumbers() {
     this.cartNumber.next();
   }
-
   getCartItemNumbers() {
     return this.cartNumber.asObservable();
   }
@@ -43,10 +42,12 @@ export class DeleteServiceService {
 
 
   removeCartitem(item: any, token?: any) {
-    const headers = new HttpHeaders({
-      'Authorization': `Token ${token}`
-    });
-    return this.http.delete<any>(`${baseUrl.baseUrl}cart-item/${item.id}/delete/`, { headers })
+    return this.http.delete<any>(`${baseUrl.baseUrl}cart-item/${item.id}/delete/`)
+  }
+
+  removeAddress(item: any) {
+    this.sendWithoutRefresh()
+    return this.http.delete<any>(`${baseUrl.baseUrl}${environment.getAddress}${item}/delete/`)
   }
 
 
@@ -55,7 +56,7 @@ export class DeleteServiceService {
   updateProfile(updatedData: any) {
     return this.http.patch<any>(baseUrl.baseUrl + patchApis.updateProfile, updatedData)
   }
-  changePassword(data:any){
+  changePassword(data: any) {
     return this.http.patch<any>(baseUrl.baseUrl + patchApis.changePassword, data)
   }
 

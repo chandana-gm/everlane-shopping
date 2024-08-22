@@ -10,15 +10,9 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class GettingserviceService {
 
   constructor(private http: HttpClient) { }
-  search= new Subject
+ 
 
 
-  sendWithoutRefresh(){
-    this.search.next(null)
-  }
-  getWithoutRefresh(){
-   return this.search.asObservable()
-  }
 
   getMensCategories() {
     return this.http.get<any>(baseUrl.baseUrl + environment.mensCategoryUrl)
@@ -86,15 +80,17 @@ export class GettingserviceService {
   searchProducts(searchItem:any){
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.productSearch}${searchItem}`)
   }
+  getAddress(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getAddress)
+  }
+
   
   // adminget
-    getDiasterRegister(token:any){
+  getDiasterRegister(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
-    });
-    console.log(token);
-    
-    return this.http.get<any>(baseUrl.baseUrl+ environment.getDisastRegister,{headers})
+    });    
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.getDisastRegister}`, { headers });
   }
   // getDisasterList( token?:any)
   // {
@@ -108,15 +104,16 @@ export class GettingserviceService {
   getDisasterList()
   {
    
-    
     return this.http.get<any>(baseUrl.baseUrl+ environment.getDisasterlist)
   }
 
   getDonationList(id:any)
   {
-
 return this.http.get<any>(`${baseUrl.baseUrl}disasters/${id}/donations/`)
 
+  }
+  getMyDonation(){
+    return this.http.get<any>(baseUrl.baseUrl+ environment.myDonation)
   }
 
   }

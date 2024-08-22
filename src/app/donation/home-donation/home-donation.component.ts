@@ -16,7 +16,7 @@ export class HomeDonationComponent implements  OnInit {
     window.scroll(0,0)
     this.disasterForm = this.fb.group({
    
-     
+  
         name: ['', Validators.required],
         description: [''],
         adhar: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
@@ -36,6 +36,10 @@ export class HomeDonationComponent implements  OnInit {
       const storedUser = localStorage.getItem('user');
   if (storedUser) {
     const user = JSON.parse(storedUser);
+    // const username=user.username
+    // this.disasterForm.patchValue({
+
+    // })
     const decryptedToken = await this.postService.decryptData(user.token,'token');
       this.postService.postDonationReg(formData,decryptedToken).subscribe((data:any)=>{
         console.log('response',data);
