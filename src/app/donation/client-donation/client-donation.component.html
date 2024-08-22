@@ -11,10 +11,8 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="doner" class="form-label">Donor Name</label>
-                            <input type="text" id="doner" formControlName="doner_name" class="form-control">
-                            <div *ngIf="donationForm.get('doner_name')?.invalid && donationForm.get('doner_name')?.touched" class="text-danger">
-                                Please enter the Donor name.
-                            </div>
+                            <input type="text" id="doner" formControlName="doner_name" class="form-control" readonly>
+                           
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -43,7 +41,7 @@
                 </div>
                 <hr>
               
-
+<!-- 
               <div class="form-group mb-3">
                 <label for="images" class="form-label"> Upload your image of dress</label> 
                 <div>
@@ -57,8 +55,22 @@
                       <img [src]="image" alt="Uploaded Image" width="150" height="150">
                     </div>
                   </div>
+  </div> -->
+   <div class="form-group mb-3">
+    <label for="images">Upload Images</label>
+    <div>
+    <input type="file" id="images" (change)="onFileSelected($event)" multiple>
   </div>
-                
+  <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
+    <p class="text-danger">Please select at least five image.</p>
+  </div>
+
+  <div *ngIf="images.length" class="preview">
+    <div *ngFor="let image of images">
+      <img [src]="image" alt="Image Preview" width="150" height="150">
+    </div>
+  </div>
+</div>
 <hr>
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -82,8 +94,8 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="kid" class="form-label">Dress for Kids</label>
-                            <input type="number" id="kid" formControlName="kid_dresses" class="form-control" placeholder="Number of Kid-dress">
-                            <div *ngIf="donationForm.get('kid_dresses')?.invalid && donationForm.get('kid_dresses')?.touched" class="text-danger">
+                            <input type="number" id="kid" formControlName="kids_dresses" class="form-control" placeholder="Number of Kid-dress">
+                            <div *ngIf="donationForm.get('kids_dresses')?.invalid && donationForm.get('kids_dresses')?.touched" class="text-danger">
                                 Please enter a valid number for Kid-dress.
                             </div>
                         </div>
@@ -94,9 +106,9 @@
                     <label for="pickupLocation" class="form-label">Pick Up Location</label>
                     <select class="form-select" id="pickupLocation" formControlName="pickup_location">
                         <option value="" disabled selected>Select a location</option>
-                        <option value="abc">Location 1</option>
-                        <option value="abc">Location 2</option>
-                        <option value="abc">Location 3</option>
+                        <option value="1">Location 1</option>
+                        <option value="2">Location 2</option>
+                        <option value="3">Location 3</option>
                     </select>
                     <div *ngIf="donationForm.get('pickup_location')?.invalid && donationForm.get('pickup_location')?.touched" class="text-danger">
                         Please select a pickup location.
@@ -104,7 +116,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="button">Submit Donation</button>
+                    <button type="submit" class="button" [disabled]="donationForm.invalid">Submit</button>
                 </div>
             </div>
         </div>

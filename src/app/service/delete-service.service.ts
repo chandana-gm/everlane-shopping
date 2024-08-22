@@ -12,6 +12,7 @@ export class DeleteServiceService {
   constructor(private http: HttpClient) { }
   wishlistData = new Subject
   cartNumber: any = new Subject();
+  pageLoad=new Subject
 
   // subjects
   sendWithoutRefresh() {

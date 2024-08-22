@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   checkoutForm: FormGroup;
   addressMessage:any
   showAddressForm: boolean = false;
+  myDonation:any[]=[]
 
 
   constructor(private service: GettingserviceService, private fb: FormBuilder, private deleteService: DeleteServiceService, private toster: ToastrService, private postService: PostServiceService) {
@@ -38,6 +39,14 @@ export class ProfileComponent implements OnInit {
     this.deleteService.getWithoutRefresh().subscribe(()=>{
       this.getAddress()
     })
+    this.service.getMyDonation().subscribe((response)=>
+    {
+      console.log('data',response);
+      this.myDonation=response.data
+      
+      
+    })
+
   }
 
   onSubmit() {

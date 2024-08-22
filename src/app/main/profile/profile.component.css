@@ -1,163 +1,144 @@
+.profile-name {
 
-.profile-edit{
-  width:50%;
+  padding: 10px;
+  margin-right: 1px;
+  margin-left: 1px;
+  background-color: #faf6fa;
 }
-.profile-name{
 
-    padding:10px;
-    margin-right: 1px;
-    margin-left: 1px;
-    background-color:#faf6fa;
-}
 .full-height {
-    min-height: 100vh;
-    /* border: 2px solid green; */
+  height: auto;
+
 }
+
 .profile-detail {
-    background-color:white;
-   
-    
+  background-color: white;
+
+
 }
+
 .profile-name .col {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 .profile-name .col i {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .my-profile {
-    font-size: 1rem;
-    background-color:#faf6fa;
-    padding:20px;
-    margin:1px;
-    margin-top: 0;
-    
-} 
-.my-profile div{
+  font-size: 1rem;
+  background-color: #faf6fa;
+  padding: 20px;
+  height: 100%;
+  margin: 1px;
+  margin-top: 0;
 
-    padding: 10px;
 }
 
-.detail:hover{
+.my-profile div {
 
-    color:white;
-   
-    background-color:#973d93;
-    cursor: pointer;
+  padding: 10px;
+}
+
+.detail:hover {
+
+  color: white;
+
+  background-color: #973d93;
+  cursor: pointer;
 }
 
 .edit-profile-text {
-    font-size: 2rem;
-    font-weight: bold;
+  font-size: 2rem;
+  font-weight: bold;
 }
-.profile-edit .container-password{
- 
-    padding: 20px;
-   
+
+.profile-edit .container-password {
+
+  padding: 20px;
+
 }
-.form-label {
-    font-weight: bold;
-  }
+
 .profile-header i {
-    color: #6c757d;
+  color: #6c757d;
 }
 
 .profile-header h4 {
+  color: #495057;
+  font-weight: 600;
+}
+
+.add-new:hover {
+  text-decoration: underline;
+}
+
+.add-new {
+  color: blueviolet;
+  cursor: pointer;
+}
+
+
+
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+small {
+  color: #dc3545;
+  font-size: 0.875em;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.875em;
+  margin-top: -5px;
+}
+
+.address-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* For making inputs responsive */
+@media (max-width: 768px) {
+  .address-container {
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-weight: bold;
+  }
+
+  .profile-header i {
+    color: #6c757d;
+  }
+
+  .profile-header h4 {
     color: #495057;
     font-weight: 600;
+  }
+
+  th {
+    font-size: small;
+  }
 }
-  
-.add-new:hover{
-    text-decoration: underline;
-}
-.add-new{
-    color: blueviolet;
-    cursor: pointer;
-}
-
-
-
-  
-  label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  
-  small {
-    color: #dc3545;
-    font-size: 0.875em;
-  }
-  
-  input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 1em;
-    transition: border-color 0.3s;
-  }
-  
-  input[type="text"]:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .error {
-    color: #dc3545;
-    font-size: 0.875em;
-    margin-top: -5px;
-  }
-  
-  .address-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  /* For making inputs responsive */
-  @media (max-width: 768px) {
-    .address-container {
-      flex-direction: column;
-    }
-  }
-  
-  /* Optional styling for required indicators */
-  label small {
-    color: #dc3545;
-  }
-  
-  .mt-1 {
-    margin-top: 1rem;
-  }
-  
-
-  .card-body {
-    padding: 20px;
-    border-left: 1px solid #ccc;
-  }
-  
-  .card-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-  }
-  
-  .card-text {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .card-text strong {
-    color: #555;
-  }
-  .remove i{
-    position: absolute;
-    right: 30px;
-    top: 150px;
-  }
-  .remove i:hover{
-    color: red;
-  }
-  
