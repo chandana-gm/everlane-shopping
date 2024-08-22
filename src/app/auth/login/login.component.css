@@ -1,7 +1,7 @@
 .container-fluid{
 
   height: 100vh;
-  background-image: url('../.././../assets/woman-listening-music-dance123.jpg');
+  /* background-image: url('../.././../assets/woman-listening-music-dance123.jpg'); */
   background-size: cover;
   background-position-x: left;
   background-repeat: no-repeat;

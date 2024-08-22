@@ -38,15 +38,13 @@ export const postApis = {
     logOut:'logout/',
     deleteCart:'cart-item/id/delete/',
     cartItemQuantityUpdate:'update-cart-item-quantity/',
-<<<<<<< HEAD
     donateRegister:'disasters/',
     addressCreation:'addresses/create/',
+    placeOrder:'place-order/',
 
-=======
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',
     postDonation:'donations/'
->>>>>>> 2a12364cdb9994631be85489402e0fc52817771e
    
   };
 

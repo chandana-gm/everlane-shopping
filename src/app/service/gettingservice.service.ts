@@ -93,7 +93,7 @@ export class GettingserviceService {
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.getDisastRegister}`, { headers });
   }
   
-  getDisasterList(token: any) {
+  getDisasterList(token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });

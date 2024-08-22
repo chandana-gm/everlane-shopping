@@ -26,7 +26,7 @@
                             <div class="share-remove-product">
                                 <section (click)="removecartItem(item)">Remove</section>
                                 <section>&#124; </section>
-                                <section class="shareButton" (click)="toggleShareLink()">
+                                <section class="shareButton" (click)="toggleShareLink(item.product_id)">
                                     Copy link
                                 </section>
                             </div>
