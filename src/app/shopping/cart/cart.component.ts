@@ -101,8 +101,8 @@ export class CartComponent {
 
   // copy link
   currentUrl: string = window.location.origin;
-  toggleShareLink() {
-    navigator.clipboard.writeText(`${this.currentUrl}/shopping/detailsPage/${16}`).then(() => {
+  toggleShareLink(id:any) {
+    navigator.clipboard.writeText(`${this.currentUrl}/shopping/detailsPage/${id}`).then(() => {
       this.toastr.success('Link copied to clipboard!');
     }).catch(err => {
       this.toastr.error('Could not copy text');

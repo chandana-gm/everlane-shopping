@@ -97,7 +97,8 @@ export class AppHeaderComponent implements OnInit {
     console.log(this.decryptedTokenFromStorage, 'token');
     await this.service.postLogout(this.decryptedTokenFromStorage).subscribe((response) => {
       console.log(response);
-      window.location.reload();
+      this.router.navigate(['/main'])
+      // window.location.reload();
       this.isAuthenticated = false;
       localStorage.removeItem('user');
       this.router.navigate(['/main']);

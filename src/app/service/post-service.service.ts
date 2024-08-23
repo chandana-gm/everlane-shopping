@@ -74,33 +74,38 @@ export class PostServiceService {
   createAddress(value: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.addressCreation, value)
   }
-  postDonationReg(item: any,token:any) {
+  postDonationReg(item: any, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
-    console.log('item',item);
-    console.log('token',token)
-    
-    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.disasterRegister}`,item,{headers});
-  } 
-  
-  postDisAdminApprove(item:any,token:any){
+    console.log('item', item);
+    console.log('token', token)
 
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.disasterRegister}`, item, { headers });
+  }
+
+  postDisAdminApprove(item: any, token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
-  
-    return this.http.patch<any>(`${baseUrl.baseUrl}${postApis.adminApprove}${item}/`,{headers});
-
+    return this.http.patch<any>(`${baseUrl.baseUrl}${postApis.adminApprove}${item}/`, { headers });
   }
-  postDonation(item:any,id:any){
-
-       return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postDonation}`,item,id);
-
+  postDonation(item: any, id: any) {
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postDonation}`, item, id);
   }
 
+  postPlaceOrder(delivery_type:any,payment_method:any,id?:any,existingid?:any,disaster_id?:any){
+    let body={
+      "order_type":delivery_type,
+      "payment_method":payment_method,
+      "address_id":id,
+      "disaster_id":disaster_id,
+      "pickup_location_id":1
+    }
+    return this.http.post<any>(baseUrl.baseUrl+postApis.placeOrder,body)
+  }
 
-   
+
 
   // encript and decrypt token
   encryptData(data: any, key: string): string {

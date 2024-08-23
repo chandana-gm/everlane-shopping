@@ -43,6 +43,7 @@ export const postApis = {
     cartItemQuantityUpdate:'update-cart-item-quantity/',
     donateRegister:'disasters/',
     addressCreation:'addresses/create/',
+    placeOrder:'place-order/',
 
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',

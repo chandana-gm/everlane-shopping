@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { DeleteServiceService } from 'src/app/service/delete-service.service';
+import { GettingserviceService } from 'src/app/service/gettingservice.service';
+import { PostServiceService } from 'src/app/service/post-service.service';
 
 @Component({
   selector: 'app-checkout',
@@ -8,58 +12,100 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
-  ngOnInit(){
-    window.scroll(0,0)
+  ngOnInit() {
+    window.scroll(0, 0)
+    this.getAddress()
+    this.getDisasterList()
   }
   checkoutForm: FormGroup;
   currentStep: number = 0;
-  isOrderConfirmed=false
+  isOrderConfirmed = false
+  selectedType: string = 'delivery';
+  selectedPlace: string = ''
+  selectedPaymentMethod: string = 'UPI';
+  showPaymentMethod: boolean = false;
+  addressList: any
+  upiId: string = '';
+  selectedAddress: any;
+  addressId = ''
+  disasterList: any
+  activeSection: string = 'addAddress';
+  selectedAddressId: any = null;
 
-  constructor(private fb: FormBuilder, private route:Router) {
+
+
+
+  selectType(type: string): void {
+    this.selectedType = type;
+  }
+
+
+  constructor(private fb: FormBuilder, private route: Router, private service: GettingserviceService, private postService: PostServiceService, private toster: ToastrService, private deleteService: DeleteServiceService) {
     this.checkoutForm = this.fb.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
       landMark: [''],
-      postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
-      paymentOption: ['', Validators.required],
-      upiId: [''],
+      pincode: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
+      mobile: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      locality: ['', Validators.required],
     });
   }
+  getAddress() {
+    this.service.getAddress().subscribe((data) => {
+      this.addressList = data.data
+    })
+  }
+  addressCreated(form: any) {
+    this.postService.createAddress(form).subscribe((data) => {
+      // this.toster.success(data.message)
+      this.addressId = data.data.id
+      console.log(this.addressId);
+      this.showPaymentMethod = true;
+      console.log(this.addressId);
 
-  previousStep() {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
+    })
+  }
+  proceedToPayment() {
+    this.showPaymentMethod = true;
+  }
+  confirmOrder() {
+    this.postService.postPlaceOrder(this.selectedType, this.selectedPaymentMethod, this.addressId, this.selectAddress, this.selectedPlace).subscribe((data) => {
+      this.toster.success(data.message)
+      this.deleteService.cartItemNumbers()
+      this.isOrderConfirmed = true
+
+    })
+  }
+  getDisasterList() {
+    this.service.getDisasterList().subscribe((data) => {
+      this.disasterList = data.data
+
+    })
   }
 
-  nextStep() {
-    if (this.isCurrentStepValid() && this.currentStep < 1) {
-      this.currentStep++;
+  isNextButtonDisabled(): boolean {
+    if (this.selectedPaymentMethod === 'ONLINE') {
+      return !this.upiId;
     }
+    return false;
   }
 
-  isCurrentStepValid(): boolean {
-    const controls = this.checkoutForm.controls;
-    switch (this.currentStep) {
-      case 0:
-        return controls['address'].valid && controls['city'].valid && controls['postalCode'].valid;
-      case 1:
-        return controls['paymentOption'].valid && (controls['paymentOption'].value === 'upi' ? controls['upiId'].valid : true);
-      default:
-        return false;
-    }
+  selectAddress(address: any): void {
+    this.selectedAddress = address.id
+    this.addressId = address.id
+    console.log(this.addressId);
+
+
+    // console.log('Selected Address:', address.id);
   }
 
-  submitForm() {
-    if (this.checkoutForm.valid) {
-      console.log('Form Submitted', this.checkoutForm.value);
-      this.isOrderConfirmed = true;
-    } else {
-      console.log('Form is not valid');
-    }
+  toggleSection(section: string): void {
+    this.activeSection = section;
   }
-  backToShopping(){
-this.route.navigate(['/main'])
+  selectExistingAddress() {
+    this.showPaymentMethod = true;
+
   }
 }
+
