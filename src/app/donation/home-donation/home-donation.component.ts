@@ -14,6 +14,14 @@ export class HomeDonationComponent implements  OnInit {
   constructor(private fb: FormBuilder,private toastr:ToastrService,private postService:PostServiceService,private router:Router) {}
   ngOnInit(): void {
     window.scroll(0,0)
+    const token=localStorage.getItem('user')
+    if(token)
+    {
+      this.router.navigate(['/donation/donation%25home']);
+    }
+    else{
+      this.router.navigate(['/auth/register'])
+    }
     this.disasterForm = this.fb.group({
    
   
@@ -44,7 +52,7 @@ export class HomeDonationComponent implements  OnInit {
       this.postService.postDonationReg(formData,decryptedToken).subscribe((data:any)=>{
         console.log('response',data);
         
-     this.toastr.success('Registration successful!', data);
+     this.toastr.success('Registration successful!', data.message);
      this.router.navigate(['/donation/donation%25home']);
 
       });
@@ -55,5 +63,17 @@ export class HomeDonationComponent implements  OnInit {
     }
     this.disasterForm.reset()
   }
+  else{
+    this.markAllFieldsAsTouched();
+  }
+}
+private markAllFieldsAsTouched(): void {
+  Object.keys(this.disasterForm.controls).forEach(field => {
+    const control = this.disasterForm.get(field);
+    control?.markAsTouched({ onlySelf: true });
+  });
+}
+onFormClick(): void {
+  this.markAllFieldsAsTouched();
 }
 }

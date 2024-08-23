@@ -117,6 +117,18 @@ export class ClientDonationComponent implements OnInit {
         }
       );
     }
+    else{
+      this.markAllFieldsAsTouched();
+    }
+  }
+  private markAllFieldsAsTouched(): void {
+    Object.keys(this.donationForm.controls).forEach(field => {
+      const control = this.donationForm.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
+  }
+  onFormClick(): void {
+    this.markAllFieldsAsTouched();
   }
 }
 

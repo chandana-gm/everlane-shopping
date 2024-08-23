@@ -1,4 +1,4 @@
-<form [formGroup]="donationForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="donationForm" (ngSubmit)="onSubmit()" (click)="onFormClick()">
     <div class="container">
         <div class="card border-success mb-3">
             <div class="card-header">
@@ -31,7 +31,7 @@
                     <select class="form-select" id="disasterSelect" formControlName="disaster" >
                         <option value="" disabled selected> Disaster and location</option>
                         <option *ngFor="let disaster of disasterList" [value]="disaster.id">
-                           {{disaster.name}}
+                           {{disaster.name}},  {{disaster.location}}
                         </option>
                       
                     </select>
@@ -106,9 +106,10 @@
                     <label for="pickupLocation" class="form-label">Pick Up Location</label>
                     <select class="form-select" id="pickupLocation" formControlName="pickup_location">
                         <option value="" disabled selected>Select a location</option>
-                        <option value="1">Location 1</option>
-                        <option value="2">Location 2</option>
-                        <option value="3">Location 3</option>
+                        <option  *ngFor="let disaster of disasterList" [value]="disaster.location">
+                            {{disaster.location}}
+                        </option>
+                        
                     </select>
                     <div *ngIf="donationForm.get('pickup_location')?.invalid && donationForm.get('pickup_location')?.touched" class="text-danger">
                         Please select a pickup location.

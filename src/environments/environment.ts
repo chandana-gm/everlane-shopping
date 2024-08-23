@@ -27,6 +27,7 @@ export const environment = {
     getDonationList:'disasters/donations/',
     getAddress:'addresses/',
     myDonation:'my-disasters/'
+  
 
   };
 
