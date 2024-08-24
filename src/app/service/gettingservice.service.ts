@@ -10,7 +10,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class GettingserviceService {
 
   constructor(private http: HttpClient) { }
- 
+
 
 
 
@@ -77,38 +77,41 @@ export class GettingserviceService {
   getProfile() {
     return this.http.get<any>(baseUrl.baseUrl + environment.getProfile)
   }
-  searchProducts(searchItem:any){
+  searchProducts(searchItem: any) {
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.productSearch}${searchItem}`)
   }
-  getAddress(){
-    return this.http.get<any>(baseUrl.baseUrl+environment.getAddress)
+  getAddress() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getAddress)
+  }
+  getOrders() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.viewOrders)
   }
 
-  
+
+
+
   // adminget
   getDiasterRegister(token: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
-    });    
+    });
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.getDisastRegister}`, { headers });
   }
 
-  
 
-  getDisasterList()
-  {
-   
-    return this.http.get<any>(baseUrl.baseUrl+ environment.getDisasterlist)
+
+  getDisasterList() {
+
+    return this.http.get<any>(baseUrl.baseUrl + environment.getDisasterlist)
   }
 
-  getDonationList(id:any)
-  {
-return this.http.get<any>(`${baseUrl.baseUrl}disasters/${id}/donations/`)
+  getDonationList(id: any) {
+    return this.http.get<any>(`${baseUrl.baseUrl}disasters/${id}/donations/`)
 
   }
-  getMyDonation(){
-    return this.http.get<any>(baseUrl.baseUrl+ environment.myDonation)
+  getMyDonation() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.myDonation)
   }
 
-  }
+}
 

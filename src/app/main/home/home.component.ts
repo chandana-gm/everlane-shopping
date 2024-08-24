@@ -28,7 +28,7 @@ export class HomeComponent {
   }
 
   ngOnInit() {
- 
+ window.scroll(0,0)
     this.randomNumber=Math.floor(Math.random() * 4)
     
 

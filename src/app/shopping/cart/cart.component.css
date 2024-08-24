@@ -141,6 +141,15 @@ margin-left: 20px;
     /* font-family:monospace; */
 
   }
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader img {
+    object-fit: cover;
+}
   @media (max-width:993px) {
     .price-details h3 {
         font-size: 20px;

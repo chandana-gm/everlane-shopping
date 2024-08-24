@@ -26,8 +26,8 @@ export const environment = {
     productSearch:'products/?query=',
     getDonationList:'disasters/donations/',
     getAddress:'addresses/',
-    myDonation:'my-disasters/'
-  
+    myDonation:'my-disasters/',
+    viewOrders:'orders/'
 
   };
 

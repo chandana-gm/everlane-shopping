@@ -6,7 +6,7 @@
                 <hr>
                 <div class="detail" (click)="showSection('section1')"><b>My Profile</b></div>
                 <div class="detail" (click)="showSection('section2')">Change password</div>
-                <div class="detail" (click)="showSection('section3')">My Review</div>
+                <div class="detail" (click)="showSection('section3')">My Orders</div>
                 <div class="detail" (click)="showSection('section4')">Address</div>
                 <div class="detail" (click)="showSection('section5')">My donation</div>
             </div>
@@ -81,6 +81,61 @@
                     </div>
                 </form>
 
+            </div>
+            <!-- my orders -->
+            <div *ngIf="currentSection === 'section3'">
+                <div class="container mt-3" *ngIf="ordersList.length > 0; else noOrders">
+                    <h2 class="text-charcoal hidden-sm-down" style="color:#973d93">Your Orders</h2>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="list-group mb-5" *ngFor="let orders of ordersList">
+                                <div class="list-group-item p-3 bg-snow" style="position: relative;">
+                                    <div class="row w-100 no-gutters">
+                                        <div class="col-6 col-md">
+                                            <h6 class="font-weight-bold">Order Number</h6>
+                                            <p class="text-pebble">{{ orders.order_code}}
+                                            </p>
+                                        </div>
+                                        <div class="col-6 col-md">
+                                            <h6 class="font-weight-bold">Date</h6>
+                                            <p class="text-pebble">{{ orders.created_on | slice:0:10 }}</p>
+                                        </div>
+                                        <div class="col-6 col-md">
+                                            <h6 class="font-weight-bold">Total</h6>
+                                            <p class="text-pebble">{{orders.total_amount|currency:'INR'}}</p>
+                                        </div>
+                                        <div class="col-6 col-md">
+                                            <h6 class="font-weight-bold">Order Status</h6>
+                                            <p class="text-pebble">{{orders.order_status}}</p>
+                                        </div>
+                                        <div class="col-12 col-md-3">
+                                            <a  class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download target="_blank">download <i class="fa-solid fa-download"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="list-group-item p-3 bg-white">
+                                    <div class="row no-gutters">
+                                        <div class="row no-gutters mt-3">
+                                            <div *ngFor="let item of orders.items" class="col-2 pr-0 pr-md-3">
+                                                <img [src]="item.product_image" alt="Product Image" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noOrders>
+                    <div class="rows">
+                        <div class="cards">
+                            <h1 class="h1">No records found</h1> 
+                       
+                           </div>
+                    </div>
+                  </ng-template>
             </div>
             <!-- address section -->
             <div *ngIf="currentSection === 'section4'">
@@ -209,25 +264,28 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form [formGroup]="checkoutForm" (ngSubmit)="addressCreated(checkoutForm.value)" class="mt-5">
+                                    <form [formGroup]="checkoutForm" (ngSubmit)="addressCreated(checkoutForm.value)"
+                                        class="mt-5">
                                         <div class="col-12">
                                             <label for="address">Building No & Name <small>*</small></label>
                                             <input formControlName="address" type="text" id="address" name="address">
                                             <div
                                                 *ngIf="checkoutForm.controls['address'].invalid && (checkoutForm.controls['address'].dirty || checkoutForm.controls['address'].touched)">
                                                 <small class="error"
-                                                    *ngIf="checkoutForm.controls['address'].errors?.['required']">Address is
+                                                    *ngIf="checkoutForm.controls['address'].errors?.['required']">Address
+                                                    is
                                                     required.</small>
                                             </div>
                                         </div>
-                
+
                                         <div class="address-container">
                                             <div class="col-6">
                                                 <label for="city">City <small>*</small></label>
                                                 <input formControlName="city" type="text" id="city" name="city">
                                                 <div
                                                     *ngIf="checkoutForm.controls['city'].invalid && (checkoutForm.controls['city'].dirty || checkoutForm.controls['city'].touched)">
-                                                    <small class="error" *ngIf="checkoutForm.controls['city'].errors?.['required']">City
+                                                    <small class="error"
+                                                        *ngIf="checkoutForm.controls['city'].errors?.['required']">City
                                                         is required.</small>
                                                 </div>
                                             </div>
@@ -237,32 +295,37 @@
                                                 <div
                                                     *ngIf="checkoutForm.controls['state'].invalid && (checkoutForm.controls['state'].dirty || checkoutForm.controls['state'].touched)">
                                                     <small class="error"
-                                                        *ngIf="checkoutForm.controls['state'].errors?.['required']">State is
+                                                        *ngIf="checkoutForm.controls['state'].errors?.['required']">State
+                                                        is
                                                         required.</small>
                                                 </div>
                                             </div>
                                         </div>
-                
+
                                         <div class="address-container">
                                             <div class="col-6">
                                                 <label>Landmark</label>
-                                                <input formControlName="landMark" type="text" id="landmark" name="landmark">
+                                                <input formControlName="landMark" type="text" id="landmark"
+                                                    name="landmark">
                                             </div>
                                             <div class="col-6">
                                                 <label for="pincode">Postal Code <small>*</small></label>
-                                                <input formControlName="pincode" type="text" id="postalCode" name="postalCode">
+                                                <input formControlName="pincode" type="text" id="postalCode"
+                                                    name="postalCode">
                                                 <div
                                                     *ngIf="checkoutForm.controls['pincode'].invalid && (checkoutForm.controls['pincode'].dirty || checkoutForm.controls['pincode'].touched)">
                                                     <small class="error"
-                                                        *ngIf="checkoutForm.controls['pincode'].errors?.['required']">Postal Code is
+                                                        *ngIf="checkoutForm.controls['pincode'].errors?.['required']">Postal
+                                                        Code is
                                                         required.</small>
                                                     <small class="error"
-                                                        *ngIf="checkoutForm.controls['pincode'].errors?.['pattern']">Postal Code must be
+                                                        *ngIf="checkoutForm.controls['pincode'].errors?.['pattern']">Postal
+                                                        Code must be
                                                         6 digits.</small>
                                                 </div>
                                             </div>
                                         </div>
-                
+
                                         <div class="address-container">
                                             <div class="col-6">
                                                 <label>Mobile: <small>*</small></label>
@@ -270,7 +333,8 @@
                                                 <div
                                                     *ngIf="checkoutForm.controls['mobile'].invalid && (checkoutForm.controls['mobile'].dirty || checkoutForm.controls['mobile'].touched)">
                                                     <small class="error"
-                                                        *ngIf="checkoutForm.controls['mobile'].errors?.['required']">Mobile number is
+                                                        *ngIf="checkoutForm.controls['mobile'].errors?.['required']">Mobile
+                                                        number is
                                                         required.</small>
                                                     <small class="error"
                                                         *ngIf="checkoutForm.controls['mobile'].errors?.['pattern']">Invalid
@@ -279,18 +343,21 @@
                                             </div>
                                             <div class="col-6">
                                                 <label>Locality <small>*</small></label>
-                                                <input formControlName="locality" type="text" id="locality" name="locality">
+                                                <input formControlName="locality" type="text" id="locality"
+                                                    name="locality">
                                                 <div
                                                     *ngIf="checkoutForm.controls['locality'].invalid && (checkoutForm.controls['locality'].dirty || checkoutForm.controls['locality'].touched)">
                                                     <small class="error"
-                                                        *ngIf="checkoutForm.controls['locality'].errors?.['required']">Locality is
+                                                        *ngIf="checkoutForm.controls['locality'].errors?.['required']">Locality
+                                                        is
                                                         required.</small>
                                                 </div>
                                             </div>
                                         </div>
-                
+
                                         <div class="form-group d-flex justify-content-center mt-4">
-                                            <button type="submit" data-bs-dismiss="modal" [disabled]="checkoutForm.invalid" class="button"
+                                            <button type="submit" data-bs-dismiss="modal"
+                                                [disabled]="checkoutForm.invalid" class="button"
                                                 style="width:20%;">Add</button>
                                         </div>
                                     </form>
@@ -303,48 +370,48 @@
             </div>
             <!-- my donations -->
             <div *ngIf="currentSection === 'section5'">
-                <div >
+                <div>
                     <div style="text-align: center;">
-                      <h2 class="animated-h2"  style="color:#973d93"> My donations</h2>
+                        <h2 class="animated-h2" style="color:#973d93"> My donations</h2>
                     </div>
                     <br>
-                  
+
                     <table class="table table-striped  table-hover ">
-                
-                      <thead>
-                      
-                        <th scope="col">Disaster Name</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Men_required Dress</th>
-                        <th scope="col">Women_required Dress</th>
-                        <th scope="col">Kids_required Dress</th>
-                        <th scope="col">Men_fullfilled Dress</th>
-                        <th scope="col">Women_fullfilled Dress</th>
-                        <th scope="col">Kids_fullfilled Dress</th>
-                        
-                       
-                    
-                      </thead>
-                      <tbody>
-                      <tr *ngFor="let item of myDonation">
-                        <td>{{item.name}}</td>
-                        <td>{{item.created_on}}</td>
-                        <td>{{item.required_men_dresses}}</td>
-                        <td>{{item.required_women_dresses}}</td>
-                        <td>{{item.required_kids_dresses}}</td>
-                        <td>{{item.fulfilled_men_dresses}}</td>
-                        <td>{{item.fulfilled_women_dresses}}</td>
-                        <td>{{item.fulfilled_kids_dresses}}</td>
-                      </tr>
-                      </tbody>
+
+                        <thead>
+
+                            <th scope="col">Disaster Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Men_required Dress</th>
+                            <th scope="col">Women_required Dress</th>
+                            <th scope="col">Kids_required Dress</th>
+                            <th scope="col">Men_fullfilled Dress</th>
+                            <th scope="col">Women_fullfilled Dress</th>
+                            <!-- <th scope="col">Kids_fullfilled Dress</th> -->
+
+
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of myDonation">
+                                <td>{{item.name}}</td>
+                                <td>{{item.created_on}}</td>
+                                <td>{{item.required_men_dresses}}</td>
+                                <td>{{item.required_women_dresses}}</td>
+                                <td>{{item.required_kids_dresses}}</td>
+                                <td>{{item.fulfilled_men_dresses}}</td>
+                                <td>{{item.fulfilled_women_dresses}}</td>
+                                <td>{{item.fulfilled_kids_dresses}}</td>
+                            </tr>
+                        </tbody>
                     </table>
-                  </div>
-                  
-                  <div>
+                </div>
+
+                <div>
+                </div>
+
+
+
             </div>
-
-
-
         </div>
     </div>
-</div>

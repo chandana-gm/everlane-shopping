@@ -19,6 +19,7 @@ export class AppHeaderComponent implements OnInit {
   cartLength: any;
   searchTerm: string = '';
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
+  
 
   constructor(
     private service: PostServiceService,
@@ -97,14 +98,12 @@ export class AppHeaderComponent implements OnInit {
     console.log(this.decryptedTokenFromStorage, 'token');
     await this.service.postLogout(this.decryptedTokenFromStorage).subscribe((response) => {
       console.log(response);
-      this.router.navigate(['/main'])
-      // window.location.reload();
       this.isAuthenticated = false;
       localStorage.removeItem('user');
-      this.router.navigate(['/main']);
-      
-   
-      
+      this.router.navigate(['/main']).then(() => {
+        window.location.reload();
+      });
     });
   }
+  
 }

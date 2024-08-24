@@ -119,7 +119,27 @@ input[type="text"]:focus {
   margin-bottom: 20px;
 }
 
-/* For making inputs responsive */
+.remove {
+  position: relative;
+  right: -10px;
+  /* top: px; */
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.h1 {
+  /* color: #88B04B; */
+  font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  margin-top: 50px;
+}
+
 @media (max-width: 768px) {
   .address-container {
     flex-direction: column;
@@ -141,4 +161,7 @@ input[type="text"]:focus {
   th {
     font-size: small;
   }
+
+
+
 }

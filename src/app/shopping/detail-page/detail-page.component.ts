@@ -19,7 +19,8 @@ export class DetailPageComponent implements OnInit {
   fullData: any[] = []
   allData: any
   isWishlisted: boolean = false;
-  selectedSize:any
+  selectedSize: any
+  loading: boolean = true
 
   constructor(private router: Router, private route: ActivatedRoute, private service: GettingserviceService, private postservice: PostServiceService, private toster: ToastrService, private deleteService: DeleteServiceService) { }
 
@@ -32,7 +33,7 @@ export class DetailPageComponent implements OnInit {
   getSingleProduct() {
     this.service.getAllProducts(this.productId).subscribe((data) => {
       this.singleProduct = data.data
-      console.log("single data", this.singleProduct);
+      this.loading = false
       this.size = this.singleProduct.items
       this.getWishlist()
       this.checkIfWishlisted()
@@ -65,7 +66,7 @@ export class DetailPageComponent implements OnInit {
     console.log(this.isWishlisted, "iswish");
 
   }
-  addToCart(item:any){
+  addToCart(item: any) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       console.log('cart clicked');
@@ -79,16 +80,16 @@ export class DetailPageComponent implements OnInit {
 
         }
       );
-      
+
     } else {
       this.router.navigate(['/auth/register'])
     }
   }
   selectSize(item: any) {
-    this.selectedSize = item.size 
+    this.selectedSize = item.size
     console.log(this.selectedSize);
-    
-  }
 
   }
+
+}
 

@@ -15,9 +15,10 @@ export class ProfileComponent implements OnInit {
   currentSection: string = 'section1';
   addressList: any
   checkoutForm: FormGroup;
-  addressMessage:any
+  addressMessage: any
   showAddressForm: boolean = false;
-  myDonation:any[]=[]
+  myDonation: any[] = []
+  ordersList: any
 
 
   constructor(private service: GettingserviceService, private fb: FormBuilder, private deleteService: DeleteServiceService, private toster: ToastrService, private postService: PostServiceService) {
@@ -36,15 +37,15 @@ export class ProfileComponent implements OnInit {
     window.scroll(0, 0);
     this.getUserProfile();
     this.getAddress()
-    this.deleteService.getWithoutRefresh().subscribe(()=>{
+    this.viewOrdersList()
+    this.deleteService.getWithoutRefresh().subscribe(() => {
       this.getAddress()
     })
-    this.service.getMyDonation().subscribe((response)=>
-    {
-      console.log('data',response);
-      this.myDonation=response.data
-      
-      
+    this.service.getMyDonation().subscribe((response) => {
+      console.log('data', response);
+      this.myDonation = response.data
+
+
     })
 
   }
@@ -76,8 +77,11 @@ export class ProfileComponent implements OnInit {
   changePassword(passwords: { old_password: string; new_password: string }) {
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
-
-    })
+    }, (error) => {
+      this.toster.error(error.error?.old_password || error.error?.new_password)
+      // console.error(error)
+    }
+    )
   }
 
   showSection(section: string) {
@@ -85,7 +89,7 @@ export class ProfileComponent implements OnInit {
   }
   showForm() {
     this.showAddressForm = true;
-}
+  }
 
   getUserProfile() {
     this.service.getProfile().subscribe((data) => {
@@ -100,7 +104,12 @@ export class ProfileComponent implements OnInit {
 
     })
   }
+  viewOrdersList() {
+    this.service.getOrders().subscribe((data) => {
+      this.ordersList = data.data
+    })
+  }
 
 
-  
+
 }

@@ -131,7 +131,7 @@
                     </div>
 
                     <!-- Select Address Section -->
-                    <div *ngIf="addressList.length > 0">
+                    <div *ngIf="addressList?.length > 0">
                         <div class="title" (click)="toggleSection('selectAddress')">
                             <div class="num">2</div>
                             <h4>Select Address</h4>
@@ -167,6 +167,7 @@
 
 
                     </div>
+                    
                 </div>
 
             </div>

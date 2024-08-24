@@ -27,10 +27,9 @@
   width: 100%;
 }
 
-/* Force all columns to take up equal space even if there are less than 4 items */
 .equal-height-cards > div {
-  flex: 1 0 25%; /* Ensures each card takes 25% width */
-  max-width: 25%; /* Limits the card width to 25% */
+  flex: 1 0 25%; 
+  max-width: 25%; 
 }
 .empty-cart {
   width: 50vw;
@@ -49,7 +48,16 @@ h3 {
   font-weight: 600;
   font-family: monospace;
 }
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
 
+.loader img {
+  object-fit: cover;
+}
 @media (max-width: 768px) {
   .equal-height-cards > div {
     flex: 1 0 50%; 
