@@ -15,17 +15,19 @@ export class DonationListComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+ 
     this.list = this.fb.group({
       disaster: ['', Validators.required]
     })
 
     this.getService.getDisasterList().subscribe((response) => {
+      
       console.log(response, 'res');
       this.data = response.data
       console.log(this.data);
 
     });
+  
   }
   
   onSubmit()
@@ -35,7 +37,7 @@ export class DonationListComponent implements OnInit {
       
         this.getService.getDonationList(disasterId).subscribe((response) => {
           console.log(response,'abc');
-          this.donationlist=response.data
+                  this.donationlist=response.data
           
       });
   }

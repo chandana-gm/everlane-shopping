@@ -14,6 +14,7 @@ export class ClientDonationComponent implements OnInit {
   disasterList: any[] = [];
   donationForm!: FormGroup;
   images: string[] = [];
+  address:any[]=[]
 
   constructor(
     private fb: FormBuilder,
@@ -48,14 +49,20 @@ export class ClientDonationComponent implements OnInit {
 
     this.getService.getDisasterList().subscribe((response) => {
           this.disasterList = response.data;
+        
         });
+        this.getService.getAddress().subscribe((data)=>{
+          console.log(data,'address');
+     this.address=data.data  
+        }
+        )
   }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const filesArray = Array.from(input.files);
-      this.images = [];
+
       filesArray.forEach(file => {
         const reader = new FileReader();
         reader.onload = (e: any) => {
@@ -69,6 +76,10 @@ export class ClientDonationComponent implements OnInit {
         images: filesArray
       });
     }
+  }
+
+  removeImage(index: number) {
+    this.images.splice(index, 1); 
   }
 
   async onSubmit() {
@@ -117,6 +128,18 @@ export class ClientDonationComponent implements OnInit {
         }
       );
     }
+    else{
+      this.markAllFieldsAsTouched();
+    }
+  }
+  private markAllFieldsAsTouched(): void {
+    Object.keys(this.donationForm.controls).forEach(field => {
+      const control = this.donationForm.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
+  }
+  onFormClick(): void {
+    this.markAllFieldsAsTouched();
   }
 }
 

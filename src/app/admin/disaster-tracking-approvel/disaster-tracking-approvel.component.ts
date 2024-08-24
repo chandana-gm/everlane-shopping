@@ -16,10 +16,7 @@ export class DisasterTrackingApprovelComponent implements OnInit {
   constructor(private getService: GettingserviceService, private postService: PostServiceService, private toastr: ToastrService, private deleteService: DeleteServiceService) { }
   async ngOnInit() {
 
-    // this.deleteService.getWithoutRefresh().subscribe(() => {
-    //   console.log('Page loaded');
-    // });
-
+   
     const storedUser = localStorage.getItem('user');
     console.log(storedUser);
 
@@ -32,6 +29,7 @@ export class DisasterTrackingApprovelComponent implements OnInit {
 
       this.getService.getDiasterRegister(decryptedToken).subscribe((response) => {
         console.log('response', response);
+        
         this.disasterReg = response.data
 
 
@@ -54,6 +52,9 @@ export class DisasterTrackingApprovelComponent implements OnInit {
 
         this.postService.postDisAdminApprove(item.id, decryptedToken).subscribe((data: any) => {
         this.toastr.success(data.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500); 
         },
           (error: any) => {
             console.error('login  error:', error);
@@ -67,8 +68,5 @@ export class DisasterTrackingApprovelComponent implements OnInit {
 
       this.toastr.error('Rejected');
     }
-
-
-
   }
 }

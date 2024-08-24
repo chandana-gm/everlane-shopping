@@ -49,7 +49,7 @@
       </div>
       <div class="modal-body">
 
-        <form [formGroup]="disasterForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="disasterForm" (ngSubmit)="onSubmit()" (click)="onFormClick()">
           <div class="row">
             <div class="col">
               <div class="form-group">

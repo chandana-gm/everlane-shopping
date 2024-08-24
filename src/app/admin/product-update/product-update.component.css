@@ -36,3 +36,39 @@ p{
     top: 5px;
     left: 95%;
 }
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding: 20px;
+}
+.card-header {
+    background-color:#2e2d2e;
+    color: white;
+    padding: 15px;
+    border-radius: 15px 15px 0 0;
+}
+.form-group {
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .form-check-input {
+    margin-right: 0.5rem;
+  }
+  
+  .form-check-label {
+    margin-bottom: 0;
+  }
+  
+  .d-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }

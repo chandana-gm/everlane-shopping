@@ -150,4 +150,8 @@ nav {
   .logo-search a {
     font-size: 10px;
   }
+  .navbar-nav .nav-item .nav-link:hover
+  {
+    font-size: xx-large;
+  }
 }

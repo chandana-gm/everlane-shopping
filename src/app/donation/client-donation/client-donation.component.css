@@ -54,3 +54,23 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+.preview {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .image-container {
+    position: relative;
+    margin: 10px;
+  }
+  
+  .remove-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(107, 3, 3);
+  }

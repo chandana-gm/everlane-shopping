@@ -30,60 +30,138 @@
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog custom-modal-width">
+        <div class="modal-dialog modal-dialog-centered modal-xl ">
             <div class="modal-content">
                 <div class="modal-headers">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-                        <!-- Name -->
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <input type="text" id="name" formControlName="name" class="form-control">
-                        </div>
+                    
 
-                        <!-- Description -->
+                    <div class="card border-success mb-3">
+                            <h1 class="text-center mt-2" >Add product</h1>
+                         
+                        <hr>
+                    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col-md-6">
+        <label for="gender" class="form-label">Gender:</label>
+        <select id="gender" formControlName="gender" class="form-select">
+          <option *ngFor="let choice of genderChoices" [value]="choice.value">
+            {{ choice.label }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+                    
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" formControlName="name" class="form-control">
+        </div>
+
+    </div>
+</div>
+                     
+                      
+                  
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <textarea id="description" formControlName="description" class="form-control"
                                 rows="3"></textarea>
                         </div>
                         <div class="category-group">
-                            <!-- Price -->
+                    
                             <div class="form-group">
                                 <label for="price">Price:</label>
                                 <input type="number" id="price" formControlName="price" class="form-control">
                             </div>
 
-                            <!-- Brand -->
                             <div class="form-group">
                                 <label for="brand">Brand:</label>
                                 <input type="text" id="brand" formControlName="brand" class="form-control">
                             </div>
-                            <!-- Subcategory -->
+           
                             <div class="form-group">
-                                <label for="subcategory">Subcategory:</label>
-                                <input type="text" id="subcategory" formControlName="subcategory" class="form-control">
-                            </div>
+                                <label for="category" class="form-label">Subcategory</label>
+                                <select class="form-select" id="category" formControlName="subcategory">
+                                    <option value="" disabled selected>Select a location</option>
+                                    <option value="1">Shirts</option>
+                                    <option value="2">Jeans Men</option>
+                                    <option value="3">T shirts</option>
+                                    <option value="4">Trousers</option>
+                                    <option value="6">Shorts</option>
+                                    <option value="5">Kurtis</option>
+                                    <option value="8">Jeans</option>
+                                    <option value="9">Skirts</option>
+                                    <option value="7">T shirts Woman</option>
+                                    <option value="11">Tops</option>
+                                    <option value="13">Jeggins</option>
+                                    <option value="14">Sweater</option>
+                                    <option value="15">Sports Wear</option>
+                                    <option value="16">Party Wear Men</option>
+                                </select>
+                                </div>
                         </div>
 
 
 
-
-                        <!-- Image -->
-                        <div class="form-group">
+                       <div class="form-group">
                             <label for="image">Image:</label>
-                            <input type="file" id="image" formControlName="image" class="form-control">
-                        </div>
-                        <div class="checkbox-group">
-                            <!-- Checkboxes -->
+                            <input type="file" id="image" (change)="onFileChange($event)" class="form-control" />
+                            <div *ngIf="imagePreview" class="mt-3">
+                              <img [src]="imagePreview"  width="150" height="150" />
+                            </div>
+                          </div>
+
+                      
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                              <label for="skinColor" class="form-label">Skin Color:</label>
+                              <select id="skinColor" formControlName="skinColor" class="form-select">
+                                <option *ngFor="let choice of skinColorChoices" [value]="choice.value">
+                                  {{ choice.label }}
+                                </option>
+                              </select>
+                            </div>
+                        
+                            <div class="col-md-6">
+                              <label for="height" class="form-label">Height:</label>
+                              <select id="height" formControlName="height" class="form-select">
+                                <option *ngFor="let choice of heightChoices" [value]="choice.value">
+                                  {{ choice.label }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        
+                          <div class="row mb-3">
+    
+                            <div class="col-md-6">
+                              <label for="season" class="form-label">Preferred Season:</label>
+                              <select id="season" formControlName="season" class="form-select">
+                                <option *ngFor="let choice of seasonChoices" [value]="choice.value">
+                                  {{ choice.label }}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="usage" class="form-label">Usage:</label>
+                                <select id="usage" formControlName="usage" class="form-select">
+                                  <option *ngFor="let choice of usageChoices" [value]="choice.value">
+                                    {{ choice.label }}
+                                  </option>
+                                </select>
+                              </div>
+                          </div>
+                        
+                        
+                          <div class="checkbox-group mt-4">
                             <div class="form-check">
                                 <input type="checkbox" id="isTrending" formControlName="isTrending"
                                     class="form-check-input">
                                 <label for="isTrending" class="form-check-label">Is trending</label>
                             </div>
-
+<!-- 
                             <div class="form-check">
                                 <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
                                 <label for="summer" class="form-check-label">Summer</label>
@@ -102,7 +180,7 @@
                             <div class="form-check">
                                 <input type="checkbox" id="autumn" formControlName="autumn" class="form-check-input">
                                 <label for="autumn" class="form-check-label">Autumn</label>
-                            </div>
+                            </div> -->
 
                             <div class="form-check">
                                 <input type="checkbox" id="isActive" formControlName="isActive"
@@ -117,12 +195,12 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <!-- Submit Button -->
-                            <button type="submit" style="width: 50%;" class="btn btn-primary mt-3" data-bs-dismiss="modal">Submit</button>
+                       
+                            <button type="submit" [disabled]="productForm.invalid" style="width: 50%;" class="btn btn-primary mt-3" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </form>
 
                 </div>
             </div>
         </div>
-    </div>
+    </div></div>

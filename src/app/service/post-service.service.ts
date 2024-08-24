@@ -104,6 +104,10 @@ export class PostServiceService {
     }
     return this.http.post<any>(baseUrl.baseUrl+postApis.placeOrder,body)
   }
+  addProduct(item:any){
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addProduct}`,item)
+
+  }
 
 
 
