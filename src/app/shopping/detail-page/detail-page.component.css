@@ -63,3 +63,13 @@
 .button{
     max-width: 97%;
 }
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .loader img {
+    object-fit: cover;
+  }

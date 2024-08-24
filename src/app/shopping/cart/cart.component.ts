@@ -16,6 +16,7 @@ export class CartComponent {
   quantity: number = 1;
   itemQuantity: any;
   decreptedTokenFromStorage = '';
+  loading = true; 
 
 
   async ngOnInit() {
@@ -29,7 +30,10 @@ export class CartComponent {
       this.decreptedTokenFromStorage = decryptedToken
 
       this.getCart();
+    }else{
+      this.loading=false
     }
+
     this.deleteService.getWithoutRefresh().subscribe(() => {
       this.getCart();
       // this.wishlistData=data
@@ -38,17 +42,20 @@ export class CartComponent {
 
   getCart() {
     
-    this.service.getCart().subscribe(response => {
-      if (response) {
-        this.deleteService.getWithoutRefresh();
-        this.productDetail = response.data[0].items;
-        console.log(this.productDetail);
-        this.total = response.data[0].total_price
-        console.log(this.total);
-
+    this.service.getCart().subscribe(
+      response => {
+        if (response) {
+          this.deleteService.getWithoutRefresh();
+          this.productDetail = response.data[0]?.items || [];
+          this.total = response.data[0]?.total_price || 0; 
+          this.loading = false;
+        }
+      },
+      error => {
+        console.error('Error fetching cart data:', error);
+        this.loading = false;
       }
-
-    })
+    );
   }
 
   incrementQuantity(item: any) {
@@ -90,9 +97,6 @@ export class CartComponent {
 
       });
     }
-
-
-
   }
   refreshCart() {
     this.deleteService.sendWithoutRefresh();

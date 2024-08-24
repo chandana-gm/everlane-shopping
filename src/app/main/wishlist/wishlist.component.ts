@@ -19,6 +19,7 @@ export class WishlistComponent {
   stockUpdate = true
   outofstockUpdate = false
   wishlistData: any
+  loading:boolean=true
 
   // cartClick(event: Event) {
   //   const button = event.currentTarget as HTMLElement;
@@ -43,21 +44,20 @@ export class WishlistComponent {
       const user = JSON.parse(storedUser);
       const decryptedToken = await this.postServive.decryptData(user.token, 'token');
       console.log(decryptedToken);
-
-
       this.deleteService.getWithoutRefresh().subscribe(() => {
         this.getWishlist();
-        // this.wishlistData=data
       });
-
-
       this.getWishlist();
+    }
+    else{
+      this.loading=false
     }
   }
 
   async getWishlist() {
     this.service.getWishlist().subscribe((data) => {
       this.wishlistData = data.data;
+      this.loading=false
     });
   }
 

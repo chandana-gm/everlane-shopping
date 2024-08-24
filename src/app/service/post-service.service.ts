@@ -63,7 +63,7 @@ export class PostServiceService {
     return this.http.post<any>(baseUrl.baseUrl + postApis.cartItemQuantityUpdate, body, options)
   }
 
-  postLogout(token: any) {
+  postLogout(token?: any) {
     let body = {}
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`

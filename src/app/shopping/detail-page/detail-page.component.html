@@ -1,44 +1,53 @@
 <div class="container">
-    <div class="row mt-5 mb-4" *ngIf="singleProduct">
-        <div class="col-md-6 product-image-card">
-            <img [src]="singleProduct.image ? singleProduct.image : '../../../assets/images/loaders/images.png'"
-                alt="Product Image" class="product-image">
+    <div *ngIf="loading" class="loading-spinner">
+        <div class="loader">
+
+            <img src="../../../assets/images/loaders/spinner.gif" alt="">
         </div>
-        <div class="col-md-5 ml-3 mt-5">
-            <h1 class="product-title">{{singleProduct.brand | uppercase}} - {{singleProduct.name | titlecase}}</h1>
-            <p class="product-price font-weight-bold "> {{singleProduct.price | currency:'INR'}}</p>
-            <p class="product-description">{{singleProduct.description}}</p>
-            <div class="row ml-1">
-                <!-- <b class="col">Size:</b> -->
-                <!-- <div class="col" *ngFor="let item of size"> -->
-                <div style="display: flex;" *ngIf="size && size.length > 0; else outOfStock">
-                    <div class="col" *ngFor="let item of size" [class.selected]="item.size === selectedSize"
-                        (click)="selectSize(item)">
-                        {{ item.size }}
-                    </div>
-                    
-                </div>
-                &nbsp;
-                &nbsp;
-
-                <ng-template #outOfStock>
-                    <b class="cols">Out Of Stock</b>
-                </ng-template>
-                <!-- </div> -->
+    </div>
+    <div *ngIf="!loading">
+        <div class="row mt-5 mb-4" *ngIf="singleProduct">
+            <div class="col-md-6 product-image-card">
+                <img [src]="singleProduct.image ? singleProduct.image : '../../../assets/images/loaders/images.png'"
+                    alt="Product Image" class="product-image">
             </div>
-
-              
-            <div class="d-flex justify-content-center">
-
-                <button *ngIf="!isWishlisted" class="button col mt-3" (click)="addItemToWishlist(singleProduct.id)">Move
-                    to wishlist</button>
-                <button *ngIf="isWishlisted" class="button col mt-3" disabled>Wishlisted</button>
-
-                <button *ngIf="size && size.length > 0" class="button col mt-3 " (click)="addToCart(singleProduct.id)">Add to
-                    Cart</button>
+            <div class="col-md-5 ml-3 mt-5">
+                <h1 class="product-title">{{singleProduct.brand | uppercase}} - {{singleProduct.name | titlecase}}</h1>
+                <p class="product-price font-weight-bold "> {{singleProduct.price | currency:'INR'}}</p>
+                <p class="product-description">{{singleProduct.description}}</p>
+                <div class="row ml-1">
+                    <!-- <b class="col">Size:</b> -->
+                    <!-- <div class="col" *ngFor="let item of size"> -->
+                    <div style="display: flex;" *ngIf="size && size.length > 0; else outOfStock">
+                        <div class="col" *ngFor="let item of size" [class.selected]="item.size === selectedSize"
+                            (click)="selectSize(item)">
+                            {{ item.size }}
+                        </div>
+                        
+                    </div>
+                    &nbsp;
+                    &nbsp;
+    
+                    <ng-template #outOfStock>
+                        <b class="cols">Out Of Stock</b>
+                    </ng-template>
+                    <!-- </div> -->
+                </div>
+    
+                  
+                <div class="d-flex justify-content-center">
+    
+                    <button *ngIf="!isWishlisted" class="button col mt-3" (click)="addItemToWishlist(singleProduct.id)">Move
+                        to wishlist</button>
+                    <button *ngIf="isWishlisted" class="button col mt-3" disabled>Wishlisted</button>
+    
+                    <button *ngIf="size && size.length > 0" class="button col mt-3 " (click)="addToCart(singleProduct.id)">Add to
+                        Cart</button>
+                </div>
             </div>
         </div>
     </div>
+    
 
       
 </div>

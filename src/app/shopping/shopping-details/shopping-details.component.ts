@@ -4,6 +4,7 @@ import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-details',
@@ -43,13 +44,11 @@ export class ShoppingDetailsComponent implements OnInit {
       this.service.getShirtCategory().subscribe((data) => {
         this.seasonProducts = data.data
         console.log(this.seasonProducts);
-        this.isLoading = true;
         this.wishlisted()
       });
     } else if (this.bannerSeason === 'Jeans Men') {
       this.service.getJeansMenCategory().subscribe((data) => {
         this.seasonProducts = data.data
-        this.isLoading = true;
         this.wishlisted()
 
       });
@@ -57,43 +56,36 @@ export class ShoppingDetailsComponent implements OnInit {
       this.service.getTShirtMenCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     } else if (this.bannerSeason === 'Trousers') {
       this.service.getTrousersCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     } else if (this.bannerSeason === 'Shorts') {
       this.service.getShortsCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     } else if (this.bannerSeason === 'kurtis') {
       this.service.getKurtiesWomenCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     } else if (this.bannerSeason === 'T shirts woman') {
       this.service.getTShirtWimenCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     } else if (this.bannerSeason === 'Jeans') {
       this.service.getJeansWomenCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     } else if (this.bannerSeason === 'skirts') {
       this.service.getSkirtsWomenCategory().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true;
       });
     }
 
@@ -102,28 +94,26 @@ export class ShoppingDetailsComponent implements OnInit {
       this.service.getWinterSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true
       });
     }
     else if (this.bannerSeason == 'season_summer') {
       this.service.getSummerSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true
+
       });
     }
     else if (this.bannerSeason == 'season_mansoon') {
       this.service.getMansoonSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true
+
       });
     }
     else if (this.bannerSeason == 'season_autumn') {
       this.service.getAutumnSeasonProducts().subscribe((data) => {
         this.seasonProducts = data.data
         this.wishlisted()
-        this.isLoading = true
       });
     }
   }
@@ -134,14 +124,24 @@ export class ShoppingDetailsComponent implements OnInit {
       return { ...product, isWishlisted };
     });
   }
+  
 
+  // fetchProducts(query: string) {
+  //   this.service.searchProducts(query).subscribe((data) => {
+  //     this.seasonProducts = data.data
+  //     this.wishlisted()
+  //   })
+  // }
   fetchProducts(query: string) {
-    this.service.searchProducts(query).subscribe((data) => {
-      this.seasonProducts = data.data
-      console.log(data,"searched data");
-      
-      this.wishlisted()
-    })
+
+    forkJoin({
+      wishlist: this.service.getWishlist(),
+      searchResults: this.service.searchProducts(query)
+    }).subscribe(({ wishlist, searchResults }) => {
+      this.wishlistData = wishlist.data;
+      this.seasonProducts = searchResults.data;
+      this.wishlisted();
+    });
   }
 
 

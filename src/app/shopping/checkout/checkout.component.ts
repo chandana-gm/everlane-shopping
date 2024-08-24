@@ -16,6 +16,7 @@ export class CheckoutComponent {
     window.scroll(0, 0)
     this.getAddress()
     this.getDisasterList()
+    console.log(this.checkoutForm.status);
   }
   checkoutForm: FormGroup;
   currentStep: number = 0;
@@ -57,6 +58,8 @@ export class CheckoutComponent {
     })
   }
   addressCreated(form: any) {
+    console.log(form);
+    
     this.postService.createAddress(form).subscribe((data) => {
       // this.toster.success(data.message)
       this.addressId = data.data.id

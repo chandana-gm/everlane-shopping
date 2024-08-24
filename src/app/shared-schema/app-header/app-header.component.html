@@ -2,7 +2,9 @@
     <div class="container-fluid">
         <div class="logo-search">
 
-            <a class="navbar-brand" href="#">EverLane Style</a>
+            <a class="navbar-brand" href="#">EverLane Style
+              <!-- <img src="../../../assets/images/logos/logo1-removebg-preview.png" alt="" height="100px" width="250px"> -->
+            </a>
             <div class="input-group">
                 <input type="text" class="form-control search" placeholder="search" [(ngModel)]="searchTerm" (keyup.enter)="SearchValue()" >
                   <span class="input-group-text" (click)="SearchValue()"><i class="bi bi-search"></i></span>
@@ -31,7 +33,7 @@
               <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="userDropdown">
                 <a class="dropdown-item"  (click)="redirectToProfile()">Profile</a>
                 <a class="dropdown-item"  (click)="redirectToProfile()">My Orders</a>
-                <a class="dropdown-item"  (click)="redirectToProfile()">Rewards</a>
+                <a class="dropdown-item"  (click)="redirectToProfile()">My Donations</a>
                 <a class="dropdown-item"  (click)="logout()">Logout</a>
                 <!-- <a class="dropdown-item" href="#" (click)="logout()">Logout</a> -->
               </div>

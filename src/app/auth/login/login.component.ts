@@ -36,46 +36,34 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log('data', this.loginForm.value);
       const formdata = this.loginForm.value;
-  
-      this.service.postLogin(formdata).subscribe(
-        (data: any) => {
       
-          console.log('abc',formdata.username);
-          
-          if (formdata.username == 'admin1' && formdata.password == 'Admin12345') {
-            console.log('loginResponse', data);
-            
-            const encryptedData = this.service.encryptData(data.token, 'token');
-          console.log(encryptedData, 'encryptedData');
-          const user = { 'username': data.username, 'token': encryptedData };
-          localStorage.setItem('user', JSON.stringify(user));
-          this.toastr.success('Welcome Admin!');
-            this.router.navigate(['/admin']);
-          } else{
-           
-          console.log('loginResponse', data);
+      this.service.postLogin(formdata).subscribe(
+        (data: any) => {          
           const encryptedData = this.service.encryptData(data.token, 'token');
           console.log(encryptedData, 'encryptedData');
-          const user = { 'username': data.username, 'token': encryptedData };
+          const user = { username: data.username, token: encryptedData };
           localStorage.setItem('user', JSON.stringify(user));
-          this.toastr.success(data.message);
-           this.router.navigate(['/main']);
+  
+          if (formdata.username === 'admin1' && formdata.password === 'Admin12345') {
+            this.toastr.success('Welcome Admin!');
+            this.router.navigate(['/admin']).then(() => {
+              window.location.reload();
+            });
+          } else {
+            this.toastr.success(data.message);
+            this.router.navigate(['/main']).then(() => {
+              window.location.reload();
+            });
           }
-       
-          // window.location.reload()
         },
         (error) => {
-          console.error('login  error:', error);
+          console.error('login error:', error);
           this.toastr.error(error.error.message, 'Error');
-        },
-        () => {
-          // Complete block (runs after success or error)
-          this.loading = false; 
         }
       );
-      // this.loginForm.reset();
     }
   }
+  
 
   
 }
