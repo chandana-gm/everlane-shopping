@@ -47,7 +47,8 @@ export const postApis = {
 
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',
-    postDonation:'donations/'
+    postDonation:'donations/',
+    addProduct:'products/create/'
    
   };
 

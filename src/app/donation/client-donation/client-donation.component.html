@@ -56,21 +56,23 @@
                     </div>
                   </div>
   </div> -->
-   <div class="form-group mb-3">
+  <div class="form-group mb-3">
     <label for="images">Upload Images</label>
     <div>
-    <input type="file" id="images" (change)="onFileSelected($event)" multiple>
-  </div>
-  <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
-    <p class="text-danger">Please select at least five image.</p>
-  </div>
-
-  <div *ngIf="images.length" class="preview">
-    <div *ngFor="let image of images">
-      <img [src]="image" alt="Image Preview" width="150" height="150">
+      <input type="file" id="images" (change)="onFileSelected($event)" multiple>
+    </div>
+    <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
+      <p class="text-danger">Please select at least five images.</p>
+    </div>
+  
+    <div *ngIf="images.length" class="preview">
+      <div *ngFor="let image of images; let i = index" class="image-container">
+        <i class="bi bi-x-circle-fill remove-icon" (click)="removeImage(i)"></i>
+        <img [src]="image" alt="Image Preview" width="150" height="150">
+      </div>
     </div>
   </div>
-</div>
+  
 <hr>
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -106,8 +108,10 @@
                     <label for="pickupLocation" class="form-label">Pick Up Location</label>
                     <select class="form-select" id="pickupLocation" formControlName="pickup_location">
                         <option value="" disabled selected>Select a location</option>
-                        <option  *ngFor="let disaster of disasterList" [value]="disaster.location">
-                            {{disaster.location}}
+                        <option  *ngFor="let item of address" [value]="1">
+                            {{item.address}},{{item.city}},{{item.locality
+                            }},{{item.mobile}}
+                         
                         </option>
                         
                     </select>
