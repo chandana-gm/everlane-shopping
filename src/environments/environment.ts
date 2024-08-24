@@ -17,6 +17,11 @@ export const environment = {
     tshirtWomenCategory:'products/?subcategory=7',
     jeansWomenCategory:'products/?subcategory=8',
     skirtsWomenCategory:'products/?subcategory=9',
+    topWomenCategory:'products/?subcategory=11',
+    jegginsWomenCategory:'products/?subcategory=13',
+    sweaterWomenCategory:'products/?subcategory=14',
+    partywearMenCategory:'products/?subcategory=16',
+    sportsCategory:'products/?subcategory=15',
     cartProducts:'carts/',
     getWishlist:'wishlist/',
     getDisastRegister:'disasters/pending/',
@@ -65,4 +70,5 @@ export const patchApis = {
 export const baseUrl = {
     production: false,
     baseUrl: 'http://18.143.206.136/api/',
+    subCategories:'products/?subcategory='
   };

@@ -1,12 +1,30 @@
 <div class="container">
     <!-- Only show if the order is confirmed -->
     <div *ngIf="isOrderConfirmed" class="confirmed-order">
-        <i class="bi bi-check-circle-fill order-icon"></i>
-        <h3>Order Confirmed</h3>
-        <p>Thank you for your order! Your order has been successfully placed.</p>
+        <div class="confirmed-order-class">
+            <div class="cards">
+                <div class="checkmark-container">
+                    <i class="checkmark">✓</i>
+                </div>
+                <h1 class="h1">Success</h1>
+                <p class="p">Your order placed successfully<br /> we'll be in touch shortly!</p>
+                <p style="text-decoration: underline; color: blueviolet; cursor: pointer;" routerLink="/main">Back to
+                    shopping</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Hide the rest of the checkout flow if the order is confirmed -->
+    <!-- processing before confirmation -->
+    <div *ngIf="isProcessing && !isOrderConfirmed" class="processing-order">
+        <div class="processing-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Processing...</span>
+            </div>
+            <p class="mt-3">Processing your order, please wait...</p>
+        </div>
+    </div>
+
+    <!--  checkout flow -->
     <div *ngIf="!isOrderConfirmed">
         <div class="card-body" *ngIf="!showPaymentMethod">
             <div class="payment-type">
@@ -37,7 +55,7 @@
                     <!-- Add Address Section -->
                     <div class="title" (click)="toggleSection('addAddress')">
                         <div class="num">1</div>
-                        <h4>Add Address</h4>
+                        <h4 class="mt-2">Add Address</h4>
                     </div>
 
                     <div *ngIf="activeSection === 'addAddress'">
@@ -134,44 +152,41 @@
                     <div *ngIf="addressList?.length > 0">
                         <div class="title" (click)="toggleSection('selectAddress')">
                             <div class="num">2</div>
-                            <h4>Select Address</h4>
+                            <h4 class="mt-2">Select Address</h4>
                         </div>
 
                         <div *ngIf="activeSection === 'selectAddress'">
                             <div class="row">
                                 <div class="col-md-6" *ngFor="let address of addressList">
-                                    <div class="card mb-5" style="width: 100%; min-height: 50px;">
+                                    <div class="card mb-5">
                                         <div class="card-body">
-                                            <h6 class="card-subtitle mb-2 text-muted">
+                                            <h6 class="card-subtitle mb-2 text-muted position-relative">
                                                 <input type="radio" name="selectedAddress"
-                                                    (change)="selectAddress(address)" class="position-absolute"
-                                                    style="top: 25px; right: 180px;" />
-                                                &nbsp;
+                                                    (change)="selectAddress(address)"
+                                                    class="position-absolute top-0 start-3 mt-3 ms-1" />
                                             </h6>
-                                            <p class="card-text">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <p class="card-text mt-5">
                                                 {{ address.address }}, {{ address.city }}, {{ address.state }}, {{
-                                                address.locality }}, {{ address.pincode }}
+                                                address.locality }},
+                                                {{ address.pincode }}
                                             </p>
                                             <p class="card-text">Mobile: {{ address.mobile }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card-actions mt-4">
                                 <div class="d-flex justify-content-center">
-                                    <button class="button" [disabled]="!selectedAddress" (click)="selectExistingAddress()" type="submit">Proceed</button>
+                                    <button class="button" [disabled]="!ifAddress" (click)="selectExistingAddress()"
+                                        type="submit">Proceed</button>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                    
                 </div>
-
             </div>
-
+            <!-- select place -->
             <div class="donation payment-info flex justify-space-between" *ngIf="selectedType === 'donate'">
                 <div class="column shipping">
                     <div class="title">
@@ -181,7 +196,8 @@
                     <div class="form-group">
                         <select id="paymentTypeSelect" class="form-select" [(ngModel)]="selectedPlace">
                             <option value="" disabled selected></option>
-                            <option *ngFor="let item of disasterList" [value]="item.id">{{ item.name }}</option>
+                            <option *ngFor="let item of disasterList" [value]="item.id">{{ item.name }} -
+                                {{item.location}}</option>
                         </select>
                     </div>
                     <div class="card-actions mt-4">
@@ -196,25 +212,29 @@
 
         <!-- Payment Method Section -->
         <div class="payment-method-section payment-info mt-4" *ngIf="showPaymentMethod">
-            <label>Select Payment Method</label>
-            <div class="form-group">
-                <select class="form-select" [(ngModel)]="selectedPaymentMethod">
-                    <option value="ONLINE">UPI</option>
-                    <option value="COD" [disabled]="selectedType === 'donate'">Cash on Delivery</option>
-                </select>
-            </div>
+            <div *ngIf="!isProcessing">
+                <label>Select Payment Method</label>
+                <div class="form-group">
+                    <select class="form-select" [(ngModel)]="selectedPaymentMethod">
+                        <option value="ONLINE">UPI</option>
+                        <option value="COD" [disabled]="selectedType === 'donate'">Cash on Delivery</option>
+                    </select>
+                </div>
 
-            <!-- Show UPI ID Input if UPI is selected -->
-            <div class="form-group mt-3" *ngIf="selectedPaymentMethod === 'ONLINE'">
-                <label for="upiId">Enter UPI ID</label>
-                <input type="text" id="upiId" class="form-control" placeholder="e.g., username@bank"
-                    [(ngModel)]="upiId">
-            </div>
-            <div class="card-actions mt-4">
-                <div class="d-flex justify-content-center">
-                    <button class="button" [disabled]="isNextButtonDisabled()" (click)="confirmOrder()">Next</button>
+                <!-- Show UPI ID Input if UPI is selected -->
+                <div class="form-group mt-3" *ngIf="selectedPaymentMethod === 'ONLINE'">
+                    <label for="upiId">Enter UPI ID</label>
+                    <input type="text" id="upiId" class="form-control" placeholder="e.g., username@bank"
+                        [(ngModel)]="upiId">
+                </div>
+                <div class="card-actions mt-4">
+                    <div class="d-flex justify-content-center">
+                        <button class="button" [disabled]="isNextButtonDisabled()"
+                            (click)="confirmOrder()">Next</button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

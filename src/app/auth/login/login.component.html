@@ -87,7 +87,7 @@
                   Password is required.
                 </div>
               </div>
-              <button type="submit" [disabled]="loginForm.invalid || loading" class="button w-100 mt-3">
+              <button type="submit" [disabled]="loginForm.invalid" class="button w-100 mt-3">
                 <span *ngIf="!loading">Login</span>
                 <span *ngIf="loading">
                   <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />

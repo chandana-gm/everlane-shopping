@@ -23,15 +23,17 @@ export class CheckoutComponent {
   isOrderConfirmed = false
   selectedType: string = 'delivery';
   selectedPlace: string = ''
-  selectedPaymentMethod: string = 'UPI';
+  selectedPaymentMethod: string = 'ONLINE';
   showPaymentMethod: boolean = false;
   addressList: any
   upiId: string = '';
   selectedAddress: any;
+  ifAddress:boolean=false
   addressId = ''
   disasterList: any
   activeSection: string = 'addAddress';
   selectedAddressId: any = null;
+  isProcessing = false;
 
 
 
@@ -73,12 +75,18 @@ export class CheckoutComponent {
     this.showPaymentMethod = true;
   }
   confirmOrder() {
+    this.isProcessing = true;
     this.postService.postPlaceOrder(this.selectedType, this.selectedPaymentMethod, this.addressId, this.selectAddress, this.selectedPlace).subscribe((data) => {
       this.toster.success(data.message)
       this.deleteService.cartItemNumbers()
       this.isOrderConfirmed = true
+      this.isProcessing = false;
 
-    })
+    }
+    , (error) => {
+      this.isProcessing = false;
+      this.toster.error('Order could not be placed. Please try again.');
+  })
   }
   getDisasterList() {
     this.service.getDisasterList().subscribe((data) => {
@@ -96,6 +104,7 @@ export class CheckoutComponent {
 
   selectAddress(address: any): void {
     this.selectedAddress = address.id
+    this.ifAddress=true
     this.addressId = address.id
     console.log(this.addressId);
 

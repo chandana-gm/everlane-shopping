@@ -116,7 +116,12 @@
                         </div>
                     </div>
                     
-                    <button type="submit" [disabled]="signUpForm.invalid" class="button btn-block mt-4">Sign Up</button>
+                    <button type="submit" [disabled]="signUpForm.invalid" class="button w-100 mt-3">
+                        <span *ngIf="!loading">Sign Up</span>
+                        <span *ngIf="loading">
+                          <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                        </span>
+                      </button>
                 </form>
                 <div class="redirect-to-login">
                     <p routerLink="/auth/login">Already a member? Login here</p>

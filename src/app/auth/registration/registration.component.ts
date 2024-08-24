@@ -14,7 +14,8 @@ export class RegistrationComponent implements OnInit {
 
   signUpForm!: FormGroup;
   passwordFieldType: string = 'password';
-    confirmPasswordFieldType: string = 'password';
+  confirmPasswordFieldType: string = 'password';
+  loading:boolean=false
 
 
   constructor(private fb: FormBuilder, private router: Router, private service: PostServiceService, private toastr: ToastrService) { }
@@ -32,11 +33,11 @@ export class RegistrationComponent implements OnInit {
   }
   togglePasswordVisibility(field: string) {
     if (field === 'password') {
-        this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     } else if (field === 'confirmPassword') {
-        this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+      this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
     }
-}
+  }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
@@ -58,20 +59,19 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading=true
     if (this.signUpForm.valid) {
-      console.log('Form', this.signUpForm.value);
       this.service.postRegistration(this.signUpForm.value).subscribe(
         (response: any) => {
-          console.log('Registration successful:', response);
-          this.toastr.success('Registration successful!', 'Success');
+          this.toastr.success(response.message);
           this.router.navigate(['/auth/login']);
         },
         (error) => {
-          console.error('Registration error:', error);
-          this.toastr.error('Registration failed. Please try again.', 'Error');
+          this.toastr.error(error.error?.data?.username ? error.error.data.username[0] : 'something went wrong please try again');
+          this.loading= false
         }
       );
-      // this.signUpForm.reset();
+
     }
   }
 
