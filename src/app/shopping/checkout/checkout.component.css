@@ -188,7 +188,7 @@ input::placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 90vh;
   font-weight: 700;
   flex-direction: column;
   font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
@@ -236,13 +236,15 @@ input::placeholder {
 
 .h1 {
   font-size: 2rem;
-  color: #333;
+  color: #4CAF50;
+  font-weight: 900;
   margin-top: 20px;
   font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
 }
 
 .p {
   font-size: 1.2rem;
+  letter-spacing: 2px;
   color: #666;
   margin-top: 10px;
   font-family: "Nunito Sans", "Helvetica Neue", sans-serif;

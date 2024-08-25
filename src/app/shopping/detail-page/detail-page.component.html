@@ -11,7 +11,7 @@
                 <img [src]="singleProduct.image ? singleProduct.image : '../../../assets/images/loaders/images.png'"
                     alt="Product Image" class="product-image">
             </div>
-            <div class="col-md-5 ml-3 mt-5">
+            <div class="col-md-5 mt-5 product-card">
                 <h1 class="product-title">{{singleProduct.brand | uppercase}} - {{singleProduct.name | titlecase}}</h1>
                 <p class="product-price font-weight-bold "> {{singleProduct.price | currency:'INR'}}</p>
                 <p class="product-description">{{singleProduct.description}}</p>
@@ -23,31 +23,33 @@
                             (click)="selectSize(item)">
                             {{ item.size }}
                         </div>
-                        
+
                     </div>
                     &nbsp;
                     &nbsp;
-    
+
                     <ng-template #outOfStock>
                         <b class="cols">Out Of Stock</b>
                     </ng-template>
                     <!-- </div> -->
                 </div>
-    
-                  
-                <div class="d-flex justify-content-center">
-    
-                    <button *ngIf="!isWishlisted" class="button col mt-3" (click)="addItemToWishlist(singleProduct.id)">Move
+
+
+                <div class="d-flex justify-content-center ">
+
+                    <button *ngIf="!isWishlisted" class="button col mt-3"
+                        (click)="addItemToWishlist(singleProduct.id)">Move
                         to wishlist</button>
                     <button *ngIf="isWishlisted" class="button col mt-3" disabled>Wishlisted</button>
-    
-                    <button *ngIf="size && size.length > 0" class="button col mt-3 " (click)="addToCart(singleProduct.id)">Add to
+                    &nbsp;
+                    <button *ngIf="size && size.length > 0" class="button col mt-3 "
+                        (click)="addToCart(singleProduct.id)">Add to
                         Cart</button>
                 </div>
             </div>
         </div>
     </div>
-    
 
-      
+
+
 </div>

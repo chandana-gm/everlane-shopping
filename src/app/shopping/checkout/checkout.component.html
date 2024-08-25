@@ -7,8 +7,8 @@
                     <i class="checkmark">✓</i>
                 </div>
                 <h1 class="h1">Success</h1>
-                <p class="p">Your order placed successfully<br /> we'll be in touch shortly!</p>
-                <p style="text-decoration: underline; color: blueviolet; cursor: pointer;" routerLink="/main">Back to
+                <p class="p">Your order placed successfully</p>
+                <p style="text-decoration: underline;cursor: pointer;" class="p" routerLink="/main">Back to
                     shopping</p>
             </div>
         </div>
@@ -178,7 +178,7 @@
                             </div>
                             <div class="card-actions mt-4">
                                 <div class="d-flex justify-content-center">
-                                    <button class="button" [disabled]="!ifAddress" (click)="selectExistingAddress()"
+                                    <button class="button" [disabled]="!ifAddress || addressId==''" (click)="selectExistingAddress()"
                                         type="submit">Proceed</button>
                                 </div>
                             </div>
@@ -225,11 +225,15 @@
                 <div class="form-group mt-3" *ngIf="selectedPaymentMethod === 'ONLINE'">
                     <label for="upiId">Enter UPI ID</label>
                     <input type="text" id="upiId" class="form-control" placeholder="e.g., username@bank"
-                        [(ngModel)]="upiId">
+                        [(ngModel)]="upiId" pattern="^[a-zA-Z0-9.-]{2,256}@[a-zA-Z]{2,64}$" required
+                        #upiIdInput="ngModel">
+                    <div *ngIf="upiIdInput.invalid && upiIdInput.touched" class="text-danger">
+                        Invalid UPI ID format.
+                    </div>
                 </div>
                 <div class="card-actions mt-4">
                     <div class="d-flex justify-content-center">
-                        <button class="button" [disabled]="isNextButtonDisabled()"
+                        <button class="button" [disabled]="isNextButtonDisabled() "
                             (click)="confirmOrder()">Next</button>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ export class CheckoutComponent {
   addressList: any
   upiId: string = '';
   selectedAddress: any;
-  ifAddress:boolean=false
+  ifAddress: boolean = false
   addressId = ''
   disasterList: any
   activeSection: string = 'addAddress';
@@ -36,14 +36,13 @@ export class CheckoutComponent {
   isProcessing = false;
 
 
-
-
-  selectType(type: string): void {
-    this.selectedType = type;
-  }
-
-
-  constructor(private fb: FormBuilder, private route: Router, private service: GettingserviceService, private postService: PostServiceService, private toster: ToastrService, private deleteService: DeleteServiceService) {
+  constructor(
+    private fb: FormBuilder,
+    private route: Router,
+    private service: GettingserviceService,
+    private postService: PostServiceService,
+    private toster: ToastrService,
+    private deleteService: DeleteServiceService) {
     this.checkoutForm = this.fb.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
@@ -54,6 +53,9 @@ export class CheckoutComponent {
       locality: ['', Validators.required],
     });
   }
+  selectType(type: string): void {
+    this.selectedType = type;
+  }
   getAddress() {
     this.service.getAddress().subscribe((data) => {
       this.addressList = data.data
@@ -61,7 +63,7 @@ export class CheckoutComponent {
   }
   addressCreated(form: any) {
     console.log(form);
-    
+
     this.postService.createAddress(form).subscribe((data) => {
       // this.toster.success(data.message)
       this.addressId = data.data.id
@@ -83,10 +85,10 @@ export class CheckoutComponent {
       this.isProcessing = false;
 
     }
-    , (error) => {
-      this.isProcessing = false;
-      this.toster.error('Order could not be placed. Please try again.');
-  })
+      , (error) => {
+        this.isProcessing = false;
+        this.toster.error('Order could not be placed. Please try again.');
+      })
   }
   getDisasterList() {
     this.service.getDisasterList().subscribe((data) => {
@@ -104,16 +106,17 @@ export class CheckoutComponent {
 
   selectAddress(address: any): void {
     this.selectedAddress = address.id
-    this.ifAddress=true
+    this.ifAddress = true
     this.addressId = address.id
     console.log(this.addressId);
 
-
-    // console.log('Selected Address:', address.id);
   }
 
   toggleSection(section: string): void {
     this.activeSection = section;
+    if (section === 'addAddress') {
+      this.addressId = ''
+    }
   }
   selectExistingAddress() {
     this.showPaymentMethod = true;

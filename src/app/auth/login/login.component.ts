@@ -15,18 +15,15 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   loading: boolean = false;
-
   passwordFieldType: string = 'password';
   loginForm!: FormGroup;
+
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-
-
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
-
-
 
   }
   togglePasswordVisibility() {

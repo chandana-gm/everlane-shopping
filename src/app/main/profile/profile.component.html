@@ -8,11 +8,7 @@
                 <div class="detail" (click)="showSection('section2')">Change password</div>
                 <div class="detail" (click)="showSection('section3')">My Orders</div>
                 <div class="detail" (click)="showSection('section4')">Address</div>
-<<<<<<< HEAD
                 <div class="detail" (click)="showSection('section5')">My Registrations</div>
-=======
-                <div class="detail" (click)="showSection('section5')">My donation</div>
->>>>>>> 12ae9ba9c594b3dde9e700079f0b261201cdbe5d
             </div>
         </div>
         <div class="col-12 col-md-9 col-lg-9">
@@ -56,8 +52,15 @@
                             </div>
                             <hr>
                             <div class="form-group d-flex justify-content-center mt-4">
-                                <button type="button" (click)="onSubmit()" class="button"
-                                    style="width:20%;">Edit</button>
+                                <!-- <button type="button" (click)="onSubmit()" class="button"
+                                    style="width:20%;">Edit</button> -->
+                                <button type="submit" style="width:20%;" class="button" (click)="onSubmit()">
+                                    <span *ngIf="!loading">Edit</span>
+                                    <span *ngIf="loading">
+                                        <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                            style="width: 20px; height: 20px;" />
+                                    </span>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -73,15 +76,32 @@
                             <label class="form-label" for="currentPassword">Current Password</label>
                             <input id="currentPassword" class="form-control" type="password" #currentPassword />
                         </div>
+
                         <div class="form-group col-md-6">
                             <label class="form-label" for="newPassword">New Password</label>
-                            <input id="newPassword" class="form-control" type="password" #newPassword />
+                            <input id="newPassword" class="form-control" type="password" #newPassword="ngModel"
+                                [(ngModel)]="newPasswordValue" name="newPassword" required
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                (input)="checkPasswordValidity()" />
+                            <div *ngIf="newPassword.invalid && newPassword.touched" class="text-danger">
+                                Password must be at least 8 characters long, with at least one uppercase letter, one
+                                lowercase letter, one number, and one special character.
+                            </div>
                         </div>
                     </div>
+
                     <div class="form-group d-flex justify-content-center mt-4">
-                        <button type="button"
+                        <!-- <button type="button" [disabled]="!isPasswordValid"
                             (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})"
-                            class="button">Change Password</button>
+                            class="button">Change Password</button> -->
+                        <button type="submit" [disabled]="!isPasswordValid" style="min-width: 150px;" class="button"
+                            (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
+                            <span *ngIf="!loading">Change Password</span>
+                            <span *ngIf="loading">
+                                <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                    style="width: 20px; height: 20px;" />
+                            </span>
+                        </button>
                     </div>
                 </form>
 
@@ -255,8 +275,8 @@
                                 </div>
                             </div>
                             &nbsp;
-                            <div class="remove">remove
-                                <i class="bi bi-trash3" style="cursor: pointer;" (click)="removeAddress(item.id)"></i>
+                            <div class="remove" style="cursor: pointer;" (click)="removeAddress(item.id)">remove
+                                <i class="bi bi-trash3" ></i>
                             </div>
                         </div>
                     </div>
@@ -402,7 +422,7 @@
                         <tbody>
                             <tr *ngFor="let item of myDonation">
                                 <td>{{item.name | titlecase}}</td>
-                                <td>{{item.created_on | date:'yyyy-MM-dd'}}</td>
+                                <td>{{item.created_on | date:'dd-MM-yyyy'}}</td>
                                 <td>{{item.fulfilled_men_dresses}}</td>
                                 <td>{{item.fulfilled_women_dresses}}</td>
                                 <td>{{item.fulfilled_kids_dresses}}</td>

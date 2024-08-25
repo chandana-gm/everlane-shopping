@@ -25,6 +25,7 @@ export class DetailPageComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private service: GettingserviceService, private postservice: PostServiceService, private toster: ToastrService, private deleteService: DeleteServiceService) { }
 
   ngOnInit() {
+    window.scroll(0,0)
     this.productId = this.route.snapshot.paramMap.get('id');
 
     this.getSingleProduct();
