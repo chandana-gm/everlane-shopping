@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
@@ -19,14 +20,14 @@ export class AppHeaderComponent implements OnInit {
   cartLength: any;
   searchTerm: string = '';
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
-  
 
   constructor(
     private service: PostServiceService,
     private route: ActivatedRoute,
     private router: Router,
     private getService: GettingserviceService,
-    private deleteService: DeleteServiceService
+    private deleteService: DeleteServiceService,
+    private toster:ToastrService
   ) { }
 
   ngOnInit() {
@@ -93,17 +94,14 @@ export class AppHeaderComponent implements OnInit {
   toggleDropdown(state: boolean) {
     this.dropdownOpen = state;
   }
-
-  async logout() {
-    console.log(this.decryptedTokenFromStorage, 'token');
-    await this.service.postLogout(this.decryptedTokenFromStorage).subscribe((response) => {
-      console.log(response);
-      this.isAuthenticated = false;
-      localStorage.removeItem('user');
-      this.router.navigate(['/main']).then(() => {
-        window.location.reload();
-      });
-    });
-  }
-  
+  logout() {
+    this.service.postLogout().subscribe((response) => {
+     this.isAuthenticated = false;
+     this.toster.success(response.message)
+     localStorage.removeItem('user');
+     this.router.navigate(['/main']).then(() => {
+       window.location.reload();
+     });
+   });
+ }
 }

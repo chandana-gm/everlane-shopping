@@ -69,7 +69,7 @@
                             <textarea id="description" formControlName="description" class="form-control"
                                 rows="3"></textarea>
                         </div>
-                        <div class="category-group">
+                        <!-- <div class="category-group">
                     
                             <div class="form-group">
                                 <label for="price">Price:</label>
@@ -101,10 +101,47 @@
                                     <option value="16">Party Wear Men</option>
                                 </select>
                                 </div>
+                        </div> -->
+
+
+                        <div class="row category-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Price:</label>
+                                    <input type="number" id="price" formControlName="price" class="form-control">
+                                </div>
+                            </div>
+                    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="brand">Brand:</label>
+                                    <input type="text" id="brand" formControlName="brand" class="form-control">
+                                </div>
+                            </div>
+                    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="category" class="form-label">Subcategory:</label>
+                                    <select class="form-select" id="category" formControlName="subcategory">
+                                        <option value="" disabled selected>Select a location</option>
+                                        <option value="1">Shirts</option>
+                                        <option value="2">Jeans Men</option>
+                                        <option value="3">T shirts</option>
+                                        <option value="4">Trousers</option>
+                                        <option value="6">Shorts</option>
+                                        <option value="5">Kurtis</option>
+                                        <option value="8">Jeans</option>
+                                        <option value="9">Skirts</option>
+                                        <option value="7">T shirts Woman</option>
+                                        <option value="11">Tops</option>
+                                        <option value="13">Jeggings</option>
+                                        <option value="14">Sweater</option>
+                                        <option value="15">Sports Wear</option>
+                                        <option value="16">Party Wear Men</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
-
-
                        <div class="form-group">
                             <label for="image">Image:</label>
                             <input type="file" id="image" (change)="onFileChange($event)" class="form-control" />
