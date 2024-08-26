@@ -1,4 +1,4 @@
-<div class="landing-part" >
+<div class="landing-part">
     <div class="banner">
         <!-- <img src="../../../assets/images/croped/banner2.jpg" alt="" routerLink="/shopping/shoppingDetails"> -->
         <!-- <button class="outfit-maker-button button">Outfit Maker</button> -->
@@ -6,7 +6,7 @@
     </div>
     <div class="banner" *ngIf="banners?.data?.length">
         <div class="gradient-overlay"></div>
-        <img [src]="banners.data[randomNumber].image" alt="" (load)="imageLoaded = true" >
+        <img [src]="banners.data[randomNumber].image" alt="" (load)="imageLoaded = true">
     </div>
     <div class="button-container">
         <button class="genderCategory  " [ngClass]="{'active': selectedGender === 'Men'}" (click)="selectGender('Men')">
@@ -79,19 +79,17 @@
                         <div class="image-container">
                             <img [src]="item.image" alt="{{ item.name }}" (click)="clicked(item)">
                             <div class="item-name">{{ item.name }}</div>
-
                         </div>
-
                     </div>
                     <!-- repeat -->
-                    <div class="marquee-item" *ngFor="let item of trending">
+                    <!-- <div class="marquee-item" *ngFor="let item of trending">
                         <div class="image-container">
                             <img [src]="item.image" alt="{{ item.name }}" (click)="clicked(item)">
                             <div class="item-name">{{ item.name }}</div>
 
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <button class="prev" (click)="scrollLeft()">&#10094;</button>

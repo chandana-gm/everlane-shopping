@@ -65,6 +65,24 @@ export class GettingserviceService {
   getSkirtsWomenCategory() {
     return this.http.get<any>(baseUrl.baseUrl + environment.skirtsWomenCategory)
   }
+  getSportswear(){
+    return this.http.get<any>(baseUrl.baseUrl + environment.sportsCategory)
+  }
+  getpartyWearMen(){
+    return this.http.get<any>(baseUrl.baseUrl + environment.partywearMenCategory)
+  }
+  getTopwear(){
+    return this.http.get<any>(baseUrl.baseUrl + environment.topWomenCategory)
+  }
+  getJegginswear(){
+    return this.http.get<any>(baseUrl.baseUrl + environment.jegginsWomenCategory)
+  }
+  Sweaterwear(){
+    return this.http.get<any>(baseUrl.baseUrl + environment.sweaterWomenCategory)
+  }
+  getSubCategories(id:string){
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.sportsCategory}${id}`)
+  }
   getCart() {
     return this.http.get<any>(baseUrl.baseUrl + environment.cartProducts)
   }
@@ -85,6 +103,10 @@ export class GettingserviceService {
   }
   getOrders() {
     return this.http.get<any>(baseUrl.baseUrl + environment.viewOrders)
+  }
+  getAllProductList(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getallProductList)
+
   }
 
 

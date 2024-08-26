@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostServiceService } from 'src/app/service/post-service.service';
@@ -14,10 +14,16 @@ export class RegistrationComponent implements OnInit {
 
   signUpForm!: FormGroup;
   passwordFieldType: string = 'password';
-    confirmPasswordFieldType: string = 'password';
+  confirmPasswordFieldType: string = 'password';
+  loading: boolean = false
 
 
-  constructor(private fb: FormBuilder, private router: Router, private service: PostServiceService, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private service: PostServiceService,
+    private toastr: ToastrService,
+    private location: Location) { }
+
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
@@ -30,13 +36,14 @@ export class RegistrationComponent implements OnInit {
       confirm_password: ['', [Validators.required,]]
     }, { validator: this.passwordMatchValidator });
   }
+
   togglePasswordVisibility(field: string) {
     if (field === 'password') {
-        this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
     } else if (field === 'confirmPassword') {
-        this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+      this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
     }
-}
+  }
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
@@ -46,6 +53,7 @@ export class RegistrationComponent implements OnInit {
     }
     return null;
   }
+
   mobileValidator(control: AbstractControl): ValidationErrors | null {
     const mobilePattern = /^[0-9]{10}$/;
     if (!control.value || mobilePattern.test(control.value)) {
@@ -53,28 +61,31 @@ export class RegistrationComponent implements OnInit {
     }
     return { invalidMobile: true };
   }
+  
   get password() {
     return this.signUpForm.get('password');
   }
 
   onSubmit(): void {
+    this.loading = true
     if (this.signUpForm.valid) {
-      console.log('Form', this.signUpForm.value);
       this.service.postRegistration(this.signUpForm.value).subscribe(
         (response: any) => {
-          console.log('Registration successful:', response);
-          this.toastr.success('Registration successful!', 'Success');
+          this.toastr.success(response.message);
           this.router.navigate(['/auth/login']);
         },
         (error) => {
-          console.error('Registration error:', error);
-          this.toastr.error('Registration failed. Please try again.', 'Error');
+          this.toastr.error(error.error?.data?.username ? error.error.data.username[0] : 'something went wrong please try again');
+          this.loading = false
         }
       );
-      // this.signUpForm.reset();
+
     }
   }
 
+  goBack() {
+    this.location.back();
+  }
 
 
 }

@@ -1,20 +1,18 @@
-
 <div class="body row">
-    <div class="backButton" routerLink="/main">&#10094;</div>
+    <div class="backButton" (click)="goBack()">&#10094;</div>
     <div class="col-md-6 d-none d-md-block" style=" z-index:0;">
         <img src="../../../assets/newviolet.jpg" alt="" class="image">
     </div>
     <div class="col-md-6 col-12">
-        <div class="container" >
-            <div >
-             
+        <div class="container">
+            <div>
                 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-
                     <h1 class="text-center" style="color:#973d93; ">Sign Up</h1>
                     <div class="form-group">
                         <label for="username" class="form-label">User Name:</label>
                         <input id="username" formControlName="username" class="form-control" />
-                        <div *ngIf="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched" class="error">
+                        <div *ngIf="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched"
+                            class="error">
                             User name is required.
                         </div>
                     </div>
@@ -23,7 +21,8 @@
                             <div class="form-group">
                                 <label for="first_name" class="form-label">First Name:</label>
                                 <input id="first_name" formControlName="first_name" class="form-control" />
-                                <div *ngIf="signUpForm.get('first_name')?.invalid && signUpForm.get('first_name')?.touched" class="error">
+                                <div *ngIf="signUpForm.get('first_name')?.invalid && signUpForm.get('first_name')?.touched"
+                                    class="error">
                                     First name is required.
                                 </div>
                             </div>
@@ -32,7 +31,8 @@
                             <div class="form-group">
                                 <label for="last_name" class="form-label">Last Name:</label>
                                 <input id="last_name" formControlName="last_name" class="form-control" />
-                                <div *ngIf="signUpForm.get('last_name')?.invalid && signUpForm.get('last_name')?.touched" class="error">
+                                <div *ngIf="signUpForm.get('last_name')?.invalid && signUpForm.get('last_name')?.touched"
+                                    class="error">
                                     Last name is required.
                                 </div>
                             </div>
@@ -48,7 +48,8 @@
                     <div class="form-group">
                         <label for="mobile" class="form-label">Mobile Number:</label>
                         <input id="mobile" formControlName="mobile" class="form-control" />
-                        <div *ngIf="signUpForm.get('mobile')?.invalid && signUpForm.get('mobile')?.touched" class="error">
+                        <div *ngIf="signUpForm.get('mobile')?.invalid && signUpForm.get('mobile')?.touched"
+                            class="error">
                             <div *ngIf="signUpForm.get('mobile')?.hasError('required')">
                                 Mobile number is required.
                             </div>
@@ -57,37 +58,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="password" class="form-label">Password:</label>
-                        <input id="password" type="password" formControlName="password" class="form-control" />
-                       
-                        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
-                          <div *ngIf="password?.errors?.['required']" >
-                            Password is required.
-                          </div>
-                          <div *ngIf="password?.errors?.['pattern']">
-                            Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.
-                          </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm_password" class="form-label">Confirm Password:</label>
-                        <input id="confirm_password" type="password" formControlName="confirm_password" class="form-control" />
-                        <div class="error" *ngIf="signUpForm.errors?.['mismatch'] && signUpForm.get('confirm_password')?.touched" >
-                            Passwords must match.
-                        </div>
-                        <div class="error" *ngIf="signUpForm.get('confirm_password')?.hasError('required') && signUpForm.get('confirm_password')?.touched">
-                            Confirm password is required (minimum 6 characters).
-                        </div>
-                    </div> -->
-
-
                     <div class="form-group">
                         <label for="password" class="form-label">Password:</label>
                         <div class="input-group">
-                            <input [type]="passwordFieldType" id="password" formControlName="password" class="form-control" />
+                            <input [type]="passwordFieldType" id="password" formControlName="password"
+                                class="form-control" />
                             <span class="input-group-text" (click)="togglePasswordVisibility('password')">
-                                <i class="bi" [ngClass]="passwordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
+                                <i class="bi"
+                                    [ngClass]="passwordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
                             </span>
                         </div>
                         <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error">
@@ -95,28 +73,39 @@
                                 Password is required.
                             </div>
                             <div *ngIf="password?.errors?.['pattern']">
-                                Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.
+                                Password must be at least 8 characters long, include at least one uppercase letter, one
+                                lowercase letter, one number, and one special character.
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="confirm_password" class="form-label">Confirm Password:</label>
                         <div class="input-group">
-                            <input [type]="confirmPasswordFieldType" id="confirm_password" formControlName="confirm_password" class="form-control" />
+                            <input [type]="confirmPasswordFieldType" id="confirm_password"
+                                formControlName="confirm_password" class="form-control" />
                             <span class="input-group-text" (click)="togglePasswordVisibility('confirmPassword')">
-                                <i class="bi" [ngClass]="confirmPasswordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
+                                <i class="bi"
+                                    [ngClass]="confirmPasswordFieldType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
                             </span>
                         </div>
-                        <div class="error" *ngIf="signUpForm.errors?.['mismatch'] && signUpForm.get('confirm_password')?.touched">
+                        <div class="error"
+                            *ngIf="signUpForm.errors?.['mismatch'] && signUpForm.get('confirm_password')?.touched">
                             Passwords must match.
                         </div>
-                        <div class="error" *ngIf="signUpForm.get('confirm_password')?.hasError('required') && signUpForm.get('confirm_password')?.touched">
+                        <div class="error"
+                            *ngIf="signUpForm.get('confirm_password')?.hasError('required') && signUpForm.get('confirm_password')?.touched">
                             Confirm password is required (minimum 6 characters).
                         </div>
                     </div>
-                    
-                    <button type="submit" [disabled]="signUpForm.invalid" class="button btn-block mt-4">Sign Up</button>
+
+                    <button type="submit" [disabled]="signUpForm.invalid" class="button w-100 mt-3">
+                        <span *ngIf="!loading">Sign Up</span>
+                        <span *ngIf="loading">
+                            <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                style="width: 20px; height: 20px;" />
+                        </span>
+                    </button>
                 </form>
                 <div class="redirect-to-login">
                     <p routerLink="/auth/login">Already a member? Login here</p>

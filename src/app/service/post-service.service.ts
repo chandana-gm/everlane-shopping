@@ -108,6 +108,7 @@ export class PostServiceService {
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addProduct}`,item)
 
   }
+  
 
 
 
@@ -120,4 +121,5 @@ export class PostServiceService {
     const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     return decryptedData;
   }
+
 }

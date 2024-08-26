@@ -9,9 +9,12 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
- 
 
-  constructor(private api: GettingserviceService,private router:Router, private service:PostServiceService) { }
+
+  constructor(
+    private api: GettingserviceService,
+    private router: Router,
+    private service: PostServiceService) { }
 
   @ViewChild('marquee') marquee!: ElementRef;
   selectedGender: string = 'Men';
@@ -19,8 +22,8 @@ export class HomeComponent {
   womensCategories: any[] = [];
   banners: any;
   trending: any;
-  randomNumber:any
-  isLoading:boolean=false
+  randomNumber: any
+  isLoading: boolean = false
   imageLoaded = false;
 
   selectGender(gender: string) {
@@ -28,10 +31,8 @@ export class HomeComponent {
   }
 
   ngOnInit() {
- window.scroll(0,0)
-    this.randomNumber=Math.floor(Math.random() * 4)
-    
-
+    window.scroll(0, 0)
+    this.randomNumber = Math.floor(Math.random() * 4)
     this.api.getMensCategories().subscribe((data: any) => {
       this.categories = data.data;
     });
@@ -40,51 +41,51 @@ export class HomeComponent {
     });
     this.api.getBanners().subscribe((data) => {
       this.banners = data;
-      this.isLoading= true
+      this.isLoading = true
     });
     this.api.getTrendingProducts().subscribe((data) => {
       this.trending = data.data;
     });
   }
 
-  onCategoryClick(category:any){
-    this.router.navigate(['shopping/shoppingDetails', category.name]);   
+  onCategoryClick(category: any) {
+    this.router.navigate(['shopping/shoppingDetails', category.name]);
   }
 
   onImageClick(season: string) {
-    this.router.navigate(['shopping/shoppingDetails',season]);
+    this.router.navigate(['shopping/shoppingDetails', season]);
   }
 
-scrollLeft() {
-  this.pauseMarquee();
-  this.marquee.nativeElement.scrollBy({
-    left: -200,
-    behavior: 'smooth'
-  });
-  this.resumeMarquee();
-}
+  scrollLeft() {
+    this.pauseMarquee();
+    this.marquee.nativeElement.scrollBy({
+      left: -200,
+      behavior: 'smooth'
+    });
+    this.resumeMarquee();
+  }
 
-scrollRight() {
-  this.pauseMarquee();
-  this.marquee.nativeElement.scrollBy({
-    left: 200,
-    behavior: 'smooth'
-  });
-  this.resumeMarquee();
-}
+  scrollRight() {
+    this.pauseMarquee();
+    this.marquee.nativeElement.scrollBy({
+      left: 200,
+      behavior: 'smooth'
+    });
+    this.resumeMarquee();
+  }
 
-pauseMarquee() {
-  this.marquee.nativeElement.style.animationPlayState = 'paused';
-}
+  pauseMarquee() {
+    this.marquee.nativeElement.style.animationPlayState = 'paused';
+  }
 
-resumeMarquee() {
-  setTimeout(() => {
-    this.marquee.nativeElement.style.animationPlayState = 'running';
-  }, 500); 
-}
-clicked(item:any){
-  console.log(item);
-  this.router.navigate(['/shopping/detailsPage',item.id])
-  
-}
+  resumeMarquee() {
+    setTimeout(() => {
+      this.marquee.nativeElement.style.animationPlayState = 'running';
+    }, 500);
+  }
+  clicked(item: any) {
+    console.log(item);
+    this.router.navigate(['/shopping/detailsPage', item.id])
+
+  }
 }

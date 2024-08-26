@@ -19,9 +19,17 @@ export class ProfileComponent implements OnInit {
   showAddressForm: boolean = false;
   myDonation: any[] = []
   ordersList: any
+  newPasswordValue: string = '';
+  isPasswordValid: boolean = false;
+  loading:boolean=false
 
 
-  constructor(private service: GettingserviceService, private fb: FormBuilder, private deleteService: DeleteServiceService, private toster: ToastrService, private postService: PostServiceService) {
+  constructor(
+    private service: GettingserviceService, 
+    private fb: FormBuilder, 
+    private deleteService: DeleteServiceService, 
+    private toster: ToastrService, 
+    private postService: PostServiceService) {
     this.checkoutForm = this.fb.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
@@ -44,21 +52,19 @@ export class ProfileComponent implements OnInit {
     this.service.getMyDonation().subscribe((response) => {
       console.log('data', response);
       this.myDonation = response.data
-
-
     })
-
   }
 
   onSubmit() {
+    this.loading=true
     console.log('Updated userData:', this.userData);
     this.deleteService.updateProfile(this.userData).subscribe((data) => {
-      console.log(data);
       this.toster.success(data.message)
       this.checkoutForm.reset();
-
+      this.loading=false
     })
   }
+
   addressCreated(form: any) {
     this.postService.createAddress(form).subscribe((data) => {
       this.toster.success(data.message)
@@ -73,12 +79,18 @@ export class ProfileComponent implements OnInit {
 
     })
   }
-
+  checkPasswordValidity(): void {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    this.isPasswordValid = passwordPattern.test(this.newPasswordValue);
+  }
   changePassword(passwords: { old_password: string; new_password: string }) {
+    this.loading=true
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
+      this.loading=false
     }, (error) => {
-      this.toster.error(error.error?.old_password || error.error?.new_password)
+      this.toster.error(error.error.message)
+      this.loading=false
       // console.error(error)
     }
     )

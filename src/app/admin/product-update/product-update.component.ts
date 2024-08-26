@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { DeleteServiceService } from 'src/app/service/delete-service.service';
+import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
 @Component({
@@ -11,6 +13,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 export class ProductUpdateComponent  implements OnInit{
 
   productForm!: FormGroup;
+  productList:any[]=[]
 
   skinColorChoices = [
     { value: 'FAIR', label: 'Fair' },
@@ -45,7 +48,8 @@ export class ProductUpdateComponent  implements OnInit{
  
   createdOn!: Date;
   imagePreview: any
-  constructor(private fb: FormBuilder,private postService:PostServiceService,private Toster:ToastrService) {}
+  isEdit = false;
+  constructor(private fb: FormBuilder,private postService:PostServiceService,private Toster:ToastrService,private service:GettingserviceService,private deleteService:DeleteServiceService) {}
 
   ngOnInit(): void {
  
@@ -60,8 +64,9 @@ export class ProductUpdateComponent  implements OnInit{
       image: [null],
       isTrending: [false],
       skinColor: ['', Validators.required],
+  
       height: ['', Validators.required],
-      gender: ['', Validators.required],
+      genders: ['', Validators.required],
       season: ['', Validators.required],
       usage: ['', Validators.required],
       isActive: [false],
@@ -70,6 +75,17 @@ export class ProductUpdateComponent  implements OnInit{
     });
     this.createdOn = new Date();
     this.productForm.patchValue({ createdOn: this.createdOn });
+  this.getAllProducts()
+  }
+
+
+  getAllProducts(){
+ this.service.getAllProductList().subscribe((data)=>{
+      console.log(data);
+      this.productList=data.data 
+
+      
+    })
   }
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -93,7 +109,7 @@ export class ProductUpdateComponent  implements OnInit{
         formData.append('price', this.productForm.get('price')?.value);
         formData.append('brand', this.productForm.get('brand')?.value);
         formData.append('subcategory', this.productForm.get('subcategory')?.value);
-        formData.append('gender', this.productForm.get('gender')?.value);
+        formData.append('genders', this.productForm.get('genders')?.value);
         formData.append('skinColor', this.productForm.get('skinColor')?.value);
         formData.append('height', this.productForm.get('height')?.value);
         formData.append('season', this.productForm.get('season')?.value);
@@ -119,6 +135,24 @@ export class ProductUpdateComponent  implements OnInit{
 
       
     }
+}
+addProduct() {
+  this.isEdit = false;  
+  this.productForm.reset();
+ 
+}
+editproduct(item:any){
+  this.isEdit = true;
+  this.productForm.patchValue(item);
+
+
+}
+deleteProduct(item:any){
+  this.deleteService.deleteProduct(item.id).subscribe((data)=>{
+    console.log(data);
+    this.getAllProducts()
+    
+  })
 }
 
 }

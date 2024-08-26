@@ -15,57 +15,58 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   loading: boolean = false;
-
   passwordFieldType: string = 'password';
   loginForm!: FormGroup;
+
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-
-
       username: ['', Validators.required],
       password: ['', [Validators.required]]
     });
 
-    
-  
   }
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
   onSubmit() {
+    this.loading = true
     if (this.loginForm.valid) {
       console.log('data', this.loginForm.value);
       const formdata = this.loginForm.value;
-      
+
       this.service.postLogin(formdata).subscribe(
-        (data: any) => {          
+        (data: any) => {
           const encryptedData = this.service.encryptData(data.token, 'token');
           console.log(encryptedData, 'encryptedData');
           const user = { username: data.username, token: encryptedData };
           localStorage.setItem('user', JSON.stringify(user));
-  
+
           if (formdata.username === 'admin1' && formdata.password === 'Admin12345') {
             this.toastr.success('Welcome Admin!');
             this.router.navigate(['/admin']).then(() => {
               window.location.reload();
+              this.loading = false
+
             });
           } else {
-            this.toastr.success(data.message);
             this.router.navigate(['/main']).then(() => {
               window.location.reload();
+              this.loading = false
             });
           }
         },
         (error) => {
           console.error('login error:', error);
           this.toastr.error(error.error.message, 'Error');
+          this.loading = false
         }
       );
     }
   }
-  
 
-  
+
+
 }
 
 

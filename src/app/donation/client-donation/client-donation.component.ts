@@ -113,8 +113,13 @@ export class ClientDonationComponent implements OnInit {
         (data: any) => {
 
           console.log(data,'response');
+          if(data.status=='sucess'){
+            this.toastr.success(data.message);
+          }
+          else{
           
-          this.toastr.success(data.message);
+          this.toastr.info(data.message);
+        }
           // this.toastr.error('Registration successful!',data.error.images[0]);
         },
         (error) => {

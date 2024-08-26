@@ -1,5 +1,4 @@
 .container-fluid{
-
   height: 100vh;
   /* background-image: url('../.././../assets/woman-listening-music-dance123.jpg'); */
   background-size: cover;
@@ -9,8 +8,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  
-  
+
 }
 
 label {

@@ -8,7 +8,7 @@
                 <div class="detail" (click)="showSection('section2')">Change password</div>
                 <div class="detail" (click)="showSection('section3')">My Orders</div>
                 <div class="detail" (click)="showSection('section4')">Address</div>
-                <div class="detail" (click)="showSection('section5')">My donation</div>
+                <div class="detail" (click)="showSection('section5')">My Registrations</div>
             </div>
         </div>
         <div class="col-12 col-md-9 col-lg-9">
@@ -52,8 +52,15 @@
                             </div>
                             <hr>
                             <div class="form-group d-flex justify-content-center mt-4">
-                                <button type="button" (click)="onSubmit()" class="button"
-                                    style="width:20%;">Edit</button>
+                                <!-- <button type="button" (click)="onSubmit()" class="button"
+                                    style="width:20%;">Edit</button> -->
+                                <button type="submit" style="width:20%;" class="button" (click)="onSubmit()">
+                                    <span *ngIf="!loading">Edit</span>
+                                    <span *ngIf="loading">
+                                        <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                            style="width: 20px; height: 20px;" />
+                                    </span>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -69,15 +76,32 @@
                             <label class="form-label" for="currentPassword">Current Password</label>
                             <input id="currentPassword" class="form-control" type="password" #currentPassword />
                         </div>
+
                         <div class="form-group col-md-6">
                             <label class="form-label" for="newPassword">New Password</label>
-                            <input id="newPassword" class="form-control" type="password" #newPassword />
+                            <input id="newPassword" class="form-control" type="password" #newPassword="ngModel"
+                                [(ngModel)]="newPasswordValue" name="newPassword" required
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                (input)="checkPasswordValidity()" />
+                            <div *ngIf="newPassword.invalid && newPassword.touched" class="text-danger">
+                                Password must be at least 8 characters long, with at least one uppercase letter, one
+                                lowercase letter, one number, and one special character.
+                            </div>
                         </div>
                     </div>
+
                     <div class="form-group d-flex justify-content-center mt-4">
-                        <button type="button"
+                        <!-- <button type="button" [disabled]="!isPasswordValid"
                             (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})"
-                            class="button">Change Password</button>
+                            class="button">Change Password</button> -->
+                        <button type="submit" [disabled]="!isPasswordValid" style="min-width: 150px;" class="button"
+                            (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
+                            <span *ngIf="!loading">Change Password</span>
+                            <span *ngIf="loading">
+                                <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                    style="width: 20px; height: 20px;" />
+                            </span>
+                        </button>
                     </div>
                 </form>
 
@@ -109,7 +133,8 @@
                                             <p class="text-pebble">{{orders.order_status}}</p>
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <a  class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download target="_blank">download <i class="fa-solid fa-download"></i></a>
+                                            <a class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download
+                                                target="_blank">download <i class="fa-solid fa-download"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -124,18 +149,18 @@
                                 </div> -->
 
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>
                 <ng-template #noOrders>
                     <div class="rows">
                         <div class="cards">
-                            <h1 class="h1">No records found</h1> 
-                       
-                           </div>
+                            <h1 class="h1">No records found</h1>
+
+                        </div>
                     </div>
-                  </ng-template>
+                </ng-template>
             </div>
             <!-- address section -->
             <div *ngIf="currentSection === 'section4'">
@@ -249,8 +274,9 @@
                                     <p class="card-text"><strong>Postal Code:</strong> {{ item.pincode }}</p>
                                 </div>
                             </div>
-                            <div class="remove">
-                                <i class="bi bi-trash3" style="cursor: pointer;" (click)="removeAddress(item.id)"></i>
+                            &nbsp;
+                            <div class="remove" style="cursor: pointer;" (click)="removeAddress(item.id)">remove
+                                <i class="bi bi-trash3" ></i>
                             </div>
                         </div>
                     </div>
@@ -370,48 +396,53 @@
             </div>
             <!-- my donations -->
             <div *ngIf="currentSection === 'section5'">
-                <div>
+                <div *ngIf="myDonation.length > 0; else noRegistrations">
                     <div style="text-align: center;">
-                        <h2 class="animated-h2" style="color:#973d93"> My donations</h2>
+                        <h2 class="animated-h2" style="color:#973d93"> My Registrations</h2>
                     </div>
                     <br>
 
-                    <table class="table table-striped  table-hover ">
-
+                    <table class="table table-bordered">
                         <thead>
-
-                            <th scope="col">Disaster Name</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Men_required Dress</th>
-                            <th scope="col">Women_required Dress</th>
-                            <th scope="col">Kids_required Dress</th>
-                            <th scope="col">Men_fullfilled Dress</th>
-                            <th scope="col">Women_fullfilled Dress</th>
-                            <!-- <th scope="col">Kids_fullfilled Dress</th> -->
-
-
-
+                            <tr>
+                                <th rowspan="2">Disaster Type</th>
+                                <th rowspan="2">Date</th>
+                                <th colspan="3" class="text-center">Fulfilled Dress</th>
+                                <th colspan="3" class="text-center">Required Dress</th>
+                            </tr>
+                            <tr>
+                                <th>Men</th>
+                                <th>Women</th>
+                                <th>Kids</th>
+                                <th>Men</th>
+                                <th>Women</th>
+                                <th>Kids</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of myDonation">
-                                <td>{{item.name}}</td>
-                                <td>{{item.created_on}}</td>
-                                <td>{{item.required_men_dresses}}</td>
-                                <td>{{item.required_women_dresses}}</td>
-                                <td>{{item.required_kids_dresses}}</td>
+                                <td>{{item.name | titlecase}}</td>
+                                <td>{{item.created_on | date:'dd-MM-yyyy'}}</td>
                                 <td>{{item.fulfilled_men_dresses}}</td>
                                 <td>{{item.fulfilled_women_dresses}}</td>
                                 <td>{{item.fulfilled_kids_dresses}}</td>
+                                <td>{{item.required_men_dresses}}</td>
+                                <td>{{item.required_women_dresses}}</td>
+                                <td>{{item.required_kids_dresses}}</td>
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
-
-                <div>
-                </div>
-
-
-
             </div>
+            <ng-template #noRegistrations>
+                <div class="rows">
+                    <div class="cards">
+                        <h1 class="h1">No records found</h1>
+
+                    </div>
+                </div>
+            </ng-template>
+
         </div>
     </div>

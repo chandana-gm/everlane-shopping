@@ -72,3 +72,9 @@ p{
   .mb-2 {
     margin-bottom: 0.5rem;
   }
+  th{
+    font-size:medium;
+  }
+  td{
+    font-size:small;
+  }

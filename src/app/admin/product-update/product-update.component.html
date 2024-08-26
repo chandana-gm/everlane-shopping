@@ -1,33 +1,25 @@
 <div>
     <div style="text-align: center;">
-        <h2 class="animated-h2">Products </h2>
+        <h2 class="animated-h2">Products details </h2>
     </div>
     <br>
-    <p data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-file-plus"></i> add new products</p>
-    <table class="table table-secondary table-bordered">
-        <thead>
-            <tr class="table-dark">
-                <th scope="col">Product</th>
-                <th scope="col">Availability</th>
-                <th scope="col">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th></th>
-                <td></td>
-                <td><button class="btn btn-outline-success">edit</button>&nbsp;<button
-                        class="btn btn-outline-danger">delete</button></td>
-            </tr>
 
-        </tbody>
-    </table>
+     <div class="row">
+    <div class="col-3">
+    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="button" (click)="addProduct()"><i class="bi bi-file-plus" ></i>Add Product</button>
+    </div>
+   
+    <div class="col-3" routerLink="admin/addProduct" >
+        <button class="button"> Add Product Size</button>
+    </div>
+     </div>
+ 
 </div>
 
 <div>
 
 
-    <!-- Modal -->
+ 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl ">
@@ -39,14 +31,14 @@
                     
 
                     <div class="card border-success mb-3">
-                            <h1 class="text-center mt-2" >Add product</h1>
-                         
+                        <h1 class="text-center mt-2">{{ isEdit ? 'Edit Product' : 'Add Product' }}</h1>
                         <hr>
+                         
                     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 <div class="row">
     <div class="col-md-6">
-        <label for="gender" class="form-label">Gender:</label>
-        <select id="gender" formControlName="gender" class="form-select">
+        <label for="genders" class="form-label">Gender:</label>
+        <select id="genders" formControlName="genders" class="form-select">
           <option *ngFor="let choice of genderChoices" [value]="choice.value">
             {{ choice.label }}
           </option>
@@ -69,41 +61,7 @@
                             <textarea id="description" formControlName="description" class="form-control"
                                 rows="3"></textarea>
                         </div>
-                        <!-- <div class="category-group">
-                    
-                            <div class="form-group">
-                                <label for="price">Price:</label>
-                                <input type="number" id="price" formControlName="price" class="form-control">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="brand">Brand:</label>
-                                <input type="text" id="brand" formControlName="brand" class="form-control">
-                            </div>
-           
-                            <div class="form-group">
-                                <label for="category" class="form-label">Subcategory</label>
-                                <select class="form-select" id="category" formControlName="subcategory">
-                                    <option value="" disabled selected>Select a location</option>
-                                    <option value="1">Shirts</option>
-                                    <option value="2">Jeans Men</option>
-                                    <option value="3">T shirts</option>
-                                    <option value="4">Trousers</option>
-                                    <option value="6">Shorts</option>
-                                    <option value="5">Kurtis</option>
-                                    <option value="8">Jeans</option>
-                                    <option value="9">Skirts</option>
-                                    <option value="7">T shirts Woman</option>
-                                    <option value="11">Tops</option>
-                                    <option value="13">Jeggins</option>
-                                    <option value="14">Sweater</option>
-                                    <option value="15">Sports Wear</option>
-                                    <option value="16">Party Wear Men</option>
-                                </select>
-                                </div>
-                        </div> -->
-
-
+                       
                         <div class="row category-group">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -231,13 +189,56 @@
                                 <label for="isDeleted" class="form-check-label">Is deleted</label>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                   
+                        <div class="text-center mt-4">
                        
-                            <button type="submit" [disabled]="productForm.invalid" style="width: 50%;" class="btn btn-primary mt-3" data-bs-dismiss="modal">Submit</button>
+                            <button type="submit" class="button" style="width:25%"> {{ isEdit ? 'Update' : 'Submit' }}</button>
                         </div>
+                      
                     </form>
 
                 </div>
             </div>
         </div>
     </div></div>
+    <table class="table  table-hover  mt-4 p-4">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Brand</th>
+            <th>Trending</th>
+            <th>Gender</th>
+          
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productList">
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.brand}}</td>
+            <td>{{item.is_trending}}</td>
+            <td>{{item.genders}}</td>
+            <td>{{item.created_on}}</td>
+            <td>
+                <div class="row">
+              
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-success btn-sm" style="font-size: xx-small; " data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="editproduct(item)">Edit</button>
+                  </div>
+                  <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: xx-small;" (click)="deleteProduct(item)">Delete</button>
+                
+                  </div>
+                </div>
+            </td>
+           
+        
+          </tr>
+        </tbody>
+      </table>
+      

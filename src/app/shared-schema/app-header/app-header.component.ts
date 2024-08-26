@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
@@ -24,10 +25,11 @@ export class AppHeaderComponent implements OnInit {
   constructor(
     private service: PostServiceService,
     private route: ActivatedRoute,
+    private toster:ToastrService,
     private router: Router,
     private getService: GettingserviceService,
     private deleteService: DeleteServiceService,
-    private toster:ToastrService
+   
   ) { }
 
   ngOnInit() {
@@ -94,14 +96,16 @@ export class AppHeaderComponent implements OnInit {
   toggleDropdown(state: boolean) {
     this.dropdownOpen = state;
   }
-  logout() {
-    this.service.postLogout().subscribe((response) => {
-     this.isAuthenticated = false;
-     this.toster.success(response.message)
-     localStorage.removeItem('user');
-     this.router.navigate(['/main']).then(() => {
-       window.location.reload();
-     });
-   });
- }
+
+   logout() {
+     this.service.postLogout().subscribe((response) => {
+      this.isAuthenticated = false;
+      this.toster.success(response.message)
+      localStorage.removeItem('user');
+      this.router.navigate(['/main']).then(() => {
+        window.location.reload();
+      });
+    });
+  }
+  
 }

@@ -49,7 +49,10 @@ export class DeleteServiceService {
     this.sendWithoutRefresh()
     return this.http.delete<any>(`${baseUrl.baseUrl}${environment.getAddress}${item}/delete/`)
   }
-
+  deleteProduct(item:any)
+  {
+    return this.http.delete<any>(`${baseUrl.baseUrl}products/${item}/delete/`)
+  }
 
 
   // patch
@@ -59,6 +62,8 @@ export class DeleteServiceService {
   changePassword(data: any) {
     return this.http.patch<any>(baseUrl.baseUrl + patchApis.changePassword, data)
   }
+  updateProduct(item:any){
+    // return this.http.patch<any>(`${baseUrl.baseUrl}products/${item}/update/`)
+  }
 
 }
-
