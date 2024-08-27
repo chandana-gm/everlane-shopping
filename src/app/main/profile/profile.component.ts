@@ -22,7 +22,11 @@ export class ProfileComponent implements OnInit {
   newPasswordValue: string = '';
   isPasswordValid: boolean = false;
   loading: boolean = false
-
+  singleProduct:any
+  selectedItem: any = null;
+  returnReasons: string[] = ['Reason 1', 'Reason 2', 'Reason 3'];
+  ifReturned=false
+  returnRequestSuccessful: { [key: number]: boolean } = {};
 
   constructor(
     private service: GettingserviceService,
@@ -41,6 +45,41 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+
+  showReturnFields: { [key: string]: boolean } = {};
+  returnReason: { [key: string]: string } = {};
+  returnQuantity: { [key: string]: number } = {};
+
+  cancelRequest(): void {
+    this.selectedItem = null;
+  }
+
+  sendReturnRequest(productItem: number) {
+    const quantity = this.returnQuantity[productItem];
+    const reason = this.returnReason[productItem];
+    console.log('Return Request:', { productItem, quantity, reason });
+    this.postService.requestRequestPost(productItem,quantity,reason).subscribe((data)=>{
+      this.toster.success(data.message)
+      this.returnRequestSuccessful[productItem] = true;
+    this.selectedItem = null;
+
+    }
+  )
+
+  }
+  returnRequest(item: any): void {
+    this.selectedItem = item; 
+    this.returnQuantity[item.id] = 1; 
+  }
+
+  getQuantityOptions(quantity: number): number[] {
+    return Array.from({ length: quantity }, (_, i) => i + 1);
+  }
+
+  toggleReturnFields(productId: string) {
+    this.showReturnFields[productId] = !this.showReturnFields[productId];
+  }
+  
   ngOnInit(): void {
     window.scroll(0, 0);
     this.getUserProfile();
@@ -124,6 +163,7 @@ export class ProfileComponent implements OnInit {
 
   OrderDetail(item: any) {
     console.log(item);
+    this.singleProduct=item
 
   }
 

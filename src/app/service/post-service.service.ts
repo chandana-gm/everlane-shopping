@@ -94,19 +94,26 @@ export class PostServiceService {
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postDonation}`, item, id);
   }
 
-  postPlaceOrder(delivery_type:any,payment_method:any,id?:any,existingid?:any,disaster_id?:any){
-    let body={
-      "order_type":delivery_type,
-      "payment_method":payment_method,
-      "address_id":id,
-      "disaster_id":disaster_id,
-      "pickup_location_id":1
+  postPlaceOrder(delivery_type: any, payment_method: any, id?: any, existingid?: any, disaster_id?: any) {
+    let body = {
+      "order_type": delivery_type,
+      "payment_method": payment_method,
+      "address_id": id,
+      "disaster_id": disaster_id,
+      "pickup_location_id": 1
     }
-    return this.http.post<any>(baseUrl.baseUrl+postApis.placeOrder,body)
+    return this.http.post<any>(baseUrl.baseUrl + postApis.placeOrder, body)
   }
-  addProduct(item:any){
-    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addProduct}`,item)
-
+  addProduct(item: any) {
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addProduct}`, item)
+  }
+  requestRequestPost(product_id: any, quantity: any, reason: any) {
+    let body = {
+      "order_item_id": product_id,
+      "return_quantity": quantity,
+      "return_reason": reason
+    }
+    return this.http.post<any>(baseUrl.baseUrl + postApis.returnRequest, body)
   }
 
 

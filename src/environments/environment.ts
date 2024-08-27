@@ -50,6 +50,7 @@ export const postApis = {
     donateRegister:'disasters/',
     addressCreation:'addresses/create/',
     placeOrder:'place-order/',
+    returnRequest:'request-return/',
 
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',
