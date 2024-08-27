@@ -21,14 +21,14 @@ export class ProfileComponent implements OnInit {
   ordersList: any
   newPasswordValue: string = '';
   isPasswordValid: boolean = false;
-  loading:boolean=false
+  loading: boolean = false
 
 
   constructor(
-    private service: GettingserviceService, 
-    private fb: FormBuilder, 
-    private deleteService: DeleteServiceService, 
-    private toster: ToastrService, 
+    private service: GettingserviceService,
+    private fb: FormBuilder,
+    private deleteService: DeleteServiceService,
+    private toster: ToastrService,
     private postService: PostServiceService) {
     this.checkoutForm = this.fb.group({
       address: ['', Validators.required],
@@ -56,12 +56,12 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading=true
+    this.loading = true
     console.log('Updated userData:', this.userData);
     this.deleteService.updateProfile(this.userData).subscribe((data) => {
       this.toster.success(data.message)
       this.checkoutForm.reset();
-      this.loading=false
+      this.loading = false
     })
   }
 
@@ -84,13 +84,13 @@ export class ProfileComponent implements OnInit {
     this.isPasswordValid = passwordPattern.test(this.newPasswordValue);
   }
   changePassword(passwords: { old_password: string; new_password: string }) {
-    this.loading=true
+    this.loading = true
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
-      this.loading=false
+      this.loading = false
     }, (error) => {
       this.toster.error(error.error.message)
-      this.loading=false
+      this.loading = false
       // console.error(error)
     }
     )
@@ -122,6 +122,9 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  OrderDetail(item: any) {
+    console.log(item);
 
+  }
 
 }

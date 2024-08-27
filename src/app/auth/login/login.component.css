@@ -1,6 +1,6 @@
 .container-fluid{
   height: 100vh;
-  /* background-image: url('../.././../assets/woman-listening-music-dance123.jpg'); */
+  background-image: url('../.././../assets/images/banner/back2.png');
   background-size: cover;
   background-position-x: left;
   background-repeat: no-repeat;
@@ -22,8 +22,8 @@ label {
   padding: 20px;
   border-radius: 10px;
   width: 500px;
-  background:white;
-  backdrop-filter: blur(10px);
+  background:rgb(255, 255, 255);
+  /* backdrop-filter: blur(10px); */
   margin-top: -50px;
   background: transparent;
   
@@ -45,7 +45,16 @@ label {
   border-color: #0d6efd;
 } 
 
-
+.redirect-to-login:hover{
+  color: blueviolet;
+}
+.redirect-to-login{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+ text-decoration: underline;
+cursor: pointer;
+}
 
 
 @media (max-width: 767px) {

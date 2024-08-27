@@ -112,21 +112,26 @@
                     <h2 class="text-charcoal hidden-sm-down" style="color:#973d93">Your Orders</h2>
                     <div class="row">
                         <div class="col-12">
-                            <div class="list-group mb-5" *ngFor="let orders of ordersList">
+                            <div class="list-group mb-3" *ngFor="let orders of ordersList" (click)="OrderDetail(orders)"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <div class="list-group-item p-3 bg-snow" style="position: relative;">
                                     <div class="row w-100 no-gutters">
-                                        <div class="col-6 col-md">
-                                            <h6 class="font-weight-bold">Order Number</h6>
-                                            <p class="text-pebble">{{ orders.order_code}}
-                                            </p>
+                                        <div class="col-6 col-md order-image" *ngIf="orders.items.length > 0">
+                                            <img [src]="orders.items[0].product_image" alt="" height="100px"
+                                                width="100px">
+                                            <span *ngIf="orders.items.length > 1" class="image-count position-absolute">
+                                                {{ orders.items.length - 1 }} more items
+                                            </span>
                                         </div>
+
                                         <div class="col-6 col-md">
-                                            <h6 class="font-weight-bold">Date</h6>
-                                            <p class="text-pebble">{{ orders.created_on | slice:0:10 }}</p>
-                                        </div>
-                                        <div class="col-6 col-md">
-                                            <h6 class="font-weight-bold">Total</h6>
+                                            <p class="text-pebble">{{ orders.items[0].product_name| slice:0:23}}{{
+                                                orders.items[0].product_name.length > 23 ? '...' :
+                                                ''}}</p>
                                             <p class="text-pebble">{{orders.total_amount|currency:'INR'}}</p>
+                                            <small class="text-muted">ID: {{orders.order_code}}</small>
+
+
                                         </div>
                                         <div class="col-6 col-md">
                                             <h6 class="font-weight-bold">Order Status</h6>
@@ -134,22 +139,35 @@
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <a class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download
-                                                target="_blank">download <i class="fa-solid fa-download"></i></a>
+                                                target="_blank">Invoice <i class="fa-solid fa-download"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="list-group-item p-3 bg-white">
-                                    <div class="row no-gutters">
-                                        <div class="row no-gutters mt-3">
-                                            <div *ngFor="let item of orders.items" class="col-2 pr-0 pr-md-3">
-                                                <img [src]="item.product_image" alt="Product Image" class="img-fluid">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
 
                             </div>
 
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -276,7 +294,7 @@
                             </div>
                             &nbsp;
                             <div class="remove" style="cursor: pointer;" (click)="removeAddress(item.id)">remove
-                                <i class="bi bi-trash3" ></i>
+                                <i class="bi bi-trash3"></i>
                             </div>
                         </div>
                     </div>

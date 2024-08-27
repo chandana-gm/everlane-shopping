@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -10,13 +11,18 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  constructor(private service: GettingserviceService, private postService: PostServiceService, private deleteService: DeleteServiceService, private toastr: ToastrService) { }
+  constructor(
+    private service: GettingserviceService, 
+    private postService: PostServiceService, 
+    private deleteService: DeleteServiceService, 
+    private router:Router,
+    private toastr: ToastrService) { }
   productDetail: any = [];
   total: any;
   quantity: number = 1;
   itemQuantity: any;
   decreptedTokenFromStorage = '';
-  loading = true; 
+  loading = true;
 
 
   async ngOnInit() {
@@ -30,8 +36,8 @@ export class CartComponent {
       this.decreptedTokenFromStorage = decryptedToken
 
       this.getCart();
-    }else{
-      this.loading=false
+    } else {
+      this.loading = false
     }
 
     this.deleteService.getWithoutRefresh().subscribe(() => {
@@ -41,13 +47,13 @@ export class CartComponent {
   }
 
   getCart() {
-    
+
     this.service.getCart().subscribe(
       response => {
         if (response) {
           this.deleteService.getWithoutRefresh();
           this.productDetail = response.data[0]?.items || [];
-          this.total = response.data[0]?.total_price || 0; 
+          this.total = response.data[0]?.total_price || 0;
           this.loading = false;
         }
       },
@@ -78,9 +84,6 @@ export class CartComponent {
   }
 
 
-
-
-
   async removecartItem(item: any) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -98,19 +101,32 @@ export class CartComponent {
       });
     }
   }
+
+  moveToWishlist(item: any) {
+    this.postService.postWishlist(item.product_id).subscribe((data: any) => {
+      this.toastr.success(data.message);
+      this.deleteService.cartItemNumbers()
+      this.removecartItem(item)
+    },
+      error => {
+      this.toastr.error(error.error.message)
+      }
+  )}
   refreshCart() {
     this.deleteService.sendWithoutRefresh();
   }
-
+  redirectToDetailPage(id:string){
+this.router.navigate(['/shopping/detailsPage',id])
+  }
 
   // copy link
   currentUrl: string = window.location.origin;
-  toggleShareLink(id:any) {
+  toggleShareLink(id: any) {
     navigator.clipboard.writeText(`${this.currentUrl}/shopping/detailsPage/${id}`).then(() => {
       this.toastr.success('Link copied to clipboard!');
     }).catch(err => {
       this.toastr.error('Could not copy text');
     });
   }
-  }
+}
 

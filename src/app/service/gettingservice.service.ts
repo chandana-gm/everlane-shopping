@@ -104,6 +104,9 @@ export class GettingserviceService {
   getOrders() {
     return this.http.get<any>(baseUrl.baseUrl + environment.viewOrders)
   }
+  getRecommdation(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getRecommendation)
+  }
 
 
 

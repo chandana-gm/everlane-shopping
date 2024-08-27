@@ -32,7 +32,8 @@ export const environment = {
     getDonationList:'disasters/donations/',
     getAddress:'addresses/',
     myDonation:'my-disasters/',
-    viewOrders:'orders/'
+    viewOrders:'orders/',
+    getRecommendation:'recommendations/'
 
   };
 
@@ -66,7 +67,8 @@ export const deleteApis = {
 export const patchApis = {
     production: false,
     updateProfile: 'profile/update/',
-    changePassword:'profile/change-password/'
+    changePassword:'profile/change-password/',
+    addQuestionnaire:'questionnaire/'
   };
 export const baseUrl = {
     production: false,
