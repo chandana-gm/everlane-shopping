@@ -62,13 +62,11 @@ export class DeleteServiceService {
   changePassword(data: any) {
     return this.http.patch<any>(baseUrl.baseUrl + patchApis.changePassword, data)
   }
-<<<<<<< HEAD
   updateProduct(item:any,formData:any){
     return this.http.patch<any>(`${baseUrl.baseUrl}products/${item}/update/`,formData)
-=======
+  }
   recommendationPatch(data:any){
     return this.http.patch<any>(baseUrl.baseUrl+patchApis.addQuestionnaire,data)
->>>>>>> d98ab1b9a2ce2b45ef7df4b0dd9f32b8d11ce768
   }
 
 }

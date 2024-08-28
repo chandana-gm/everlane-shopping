@@ -33,13 +33,10 @@ export const environment = {
     getAddress:'addresses/',
     myDonation:'my-disasters/',
     viewOrders:'orders/',
-<<<<<<< HEAD
     getallProductList:'products/',
     getReturnProduct:'return-pending/',
-    getPickup:'pickups/'
-=======
+    getPickup:'pickups/',
     getRecommendation:'recommendations/'
->>>>>>> d98ab1b9a2ce2b45ef7df4b0dd9f32b8d11ce768
 
   };
 
