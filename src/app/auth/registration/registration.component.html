@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label for="mobile" class="form-label">Mobile Number:</label>
-                        <input id="mobile" formControlName="mobile" class="form-control" />
+                        <input id="mobile" formControlName="mobile" class="form-control" type="number" step="0.01" />
                         <div *ngIf="signUpForm.get('mobile')?.invalid && signUpForm.get('mobile')?.touched"
                             class="error">
                             <div *ngIf="signUpForm.get('mobile')?.hasError('required')">

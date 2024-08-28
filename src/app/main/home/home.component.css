@@ -37,7 +37,8 @@
     box-shadow: 3px 3px 3px rgba(0, 0, 0, .1);
     cursor: pointer;
 }
-.sub-category:hover{
+
+.sub-category:hover {
     transform: translateY(-5px);
 
 
@@ -166,33 +167,33 @@
     position: relative;
     display: flex;
     align-items: center;
-  }
-  
-  .marquee-wrapper {
+}
+
+.marquee-wrapper {
     width: 100%;
     overflow: hidden;
-  }
-  
-  .marquee {
+}
+
+.marquee {
     display: flex;
     animation: marquee-scroll 20s linear infinite;
     white-space: nowrap;
-  }
-  
-  .marquee-item {
+}
+
+.marquee-item {
     flex: 0 0 auto;
     margin: 8px;
-  }
-  
-  .marquee img {
+}
+
+.marquee img {
     height: 300px;
     object-fit: cover;
     width: 300px;
     display: block;
-  }
-  
-  button.prev,
-  button.next {
+}
+
+button.prev,
+button.next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -202,31 +203,32 @@
     cursor: pointer;
     padding: 10px;
     z-index: 2;
-  }
-  
-  button.prev {
+}
+
+button.prev {
     left: 10px;
-  }
-  
-  button.next {
+}
+
+button.next {
     right: 10px;
-  }
-  
-  /* Marquee animation */
-  @keyframes marquee-scroll {
+}
+
+/* Marquee animation */
+@keyframes marquee-scroll {
     0% {
-      transform: translateX(0);
+        transform: translateX(0);
     }
+
     100% {
-      transform: translateX(-100%);
+        transform: translateX(-100%);
     }
-  }
-  
-  /* Pause animation when hovering */
-  .marquee:hover {
+}
+
+/* Pause animation when hovering */
+.marquee:hover {
     animation-play-state: paused;
-  }
-  
+}
+
 .image-container {
     position: relative;
 }
@@ -270,11 +272,12 @@ button.prev {
 button.next {
     right: 10px;
 }
-.outfit-maker-button{
+
+.outfit-maker-button {
     position: absolute;
-    left:45%;
+    left: 45%;
     top: 92%;
-    background-color:#973d93;
+    background-color: #973d93;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -283,8 +286,10 @@ button.next {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .outfit-maker-button:hover {
-    background-color:#9b5197;;
+    background-color: #9b5197;
+    ;
 }
 
 
@@ -297,6 +302,135 @@ button.next {
 .loader img {
     object-fit: cover;
 }
+.processing-order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  .processing-spinner .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+
+
+
+@keyframes colorChange {
+    0% {
+        background-color: #1dd1a1;
+        color: #ffffff;
+       
+    }
+
+    25% {
+        background-color: #feca57;
+        color: #ffffff;
+    }
+
+    50% {
+        background-color: #ff6b6b;
+        color: #ffffff;
+    }
+
+    75% {
+        background-color: #5f27cd;
+        color: #ffffff;
+    }
+
+    100% {
+        background-color: #ff6b6b;
+        color: #ffffff;
+    }
+}
+
+.recommend-icon {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 30px;
+    /* background-color: #28a745; */
+    color: #fff;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+    animation: colorChange 4s infinite linear;
+    transition: transform 0.3s ease;
+}
+
+.recommend-icon:hover {
+    transform: scale(1.1);
+}
+
+.recommendations-popup {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 350px;
+    max-height: 70vh;
+    min-height: 30vh;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.recommendations-popup::-webkit-scrollbar {
+    width: 8px;
+}
+
+.recommendations-popup::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+.recommendations-popup::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1; 
+}
+
+
+.close-btn {
+    cursor: pointer;
+    font-size: 20px;
+  }
+.popup-header {
+    background-color: #973d93;
+    position: sticky;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-body {
+    padding: 15px;
+    font-size: 14px;
+}
+
+.popup-body ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.popup-body li {
+    margin-bottom: 10px;
+}
+.image-container div{
+   padding: 10px;
+   margin:0 !important;
+}
+
 
 
 
@@ -312,8 +446,9 @@ button.next {
         width: 50px;
         height: 50px;
     }
-   
+
 }
+
 @media (max-width: 768px) {
     .genderCategory {
         flex: 1 1 40%;
@@ -335,22 +470,25 @@ button.next {
         width: 50px;
         height: 50px;
     }
-   
-    
+
+
 
     .img-carousel img {
         height: 150px;
     }
-    .category{
-        overflow-x: auto; 
-    white-space: nowrap; 
-    justify-content: flex-start; /* Align items to the start */
-    -webkit-overflow-scrolling: touch; 
-  }
-  .sub-category{
-    padding-left: 30px;
 
-  }
+    .category {
+        overflow-x: auto;
+        white-space: nowrap;
+        justify-content: flex-start;
+        /* Align items to the start */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sub-category {
+        padding-left: 30px;
+
+    }
 
 }
 
@@ -366,23 +504,25 @@ button.next {
         /* padding-left: 5px; */
     }
 
-   
-    .category{
-        overflow-x: auto; 
-    white-space: nowrap; 
-    justify-content: flex-start; /* Align items to the start */
-    -webkit-overflow-scrolling: touch; 
-  }
-  .sub-category{
-    padding-left: 30px;
 
-  }
+    .category {
+        overflow-x: auto;
+        white-space: nowrap;
+        justify-content: flex-start;
+        /* Align items to the start */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sub-category {
+        padding-left: 30px;
+
+    }
 
     .item-name {
         font-size: 10px;
     }
 
-   
+
     /* .category{
         flex-wrap: wrap;
         height: 40vh;
@@ -394,6 +534,7 @@ button.next {
     .marquee {
         animation: scroll-left 130s linear infinite;
     }
+
     .category p {
         font-size: xx-small;
     }

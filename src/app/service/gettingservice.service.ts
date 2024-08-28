@@ -104,6 +104,7 @@ export class GettingserviceService {
   getOrders() {
     return this.http.get<any>(baseUrl.baseUrl + environment.viewOrders)
   }
+<<<<<<< HEAD
   getAllProductList(){
     return this.http.get<any>(baseUrl.baseUrl+environment.getallProductList)
 
@@ -115,6 +116,11 @@ export class GettingserviceService {
     return this.http.get<any>(baseUrl.baseUrl+environment.getPickup)
   }
 
+=======
+  getRecommdation(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getRecommendation)
+  }
+>>>>>>> d98ab1b9a2ce2b45ef7df4b0dd9f32b8d11ce768
 
 
 

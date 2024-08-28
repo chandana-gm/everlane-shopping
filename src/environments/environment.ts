@@ -33,9 +33,13 @@ export const environment = {
     getAddress:'addresses/',
     myDonation:'my-disasters/',
     viewOrders:'orders/',
+<<<<<<< HEAD
     getallProductList:'products/',
     getReturnProduct:'return-pending/',
     getPickup:'pickups/'
+=======
+    getRecommendation:'recommendations/'
+>>>>>>> d98ab1b9a2ce2b45ef7df4b0dd9f32b8d11ce768
 
   };
 
@@ -52,6 +56,7 @@ export const postApis = {
     donateRegister:'disasters/',
     addressCreation:'addresses/create/',
     placeOrder:'place-order/',
+    returnRequest:'request-return/',
 
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',
@@ -72,7 +77,8 @@ export const deleteApis = {
 export const patchApis = {
     production: false,
     updateProfile: 'profile/update/',
-    changePassword:'profile/change-password/'
+    changePassword:'profile/change-password/',
+    addQuestionnaire:'questionnaire/'
   };
 export const baseUrl = {
     production: false,

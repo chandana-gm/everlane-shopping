@@ -22,7 +22,7 @@
                             <section class="row">
                                 <div class="col-sm-3">
                                     <img [src]="item.product_image ? item.product_image : '../../../assets/images/loaders/images.png'"
-                                        alt="Product Image" class="img-fluid">
+                                        alt="Product Image" (click)="redirectToDetailPage(item.product_id)" class="img-fluid">
                                 </div>
                                 <div class="col-sm-6">
                                     <p>{{item.product_name}}</p>
@@ -35,6 +35,8 @@
                                     <section class="share-remove-product">Size: {{item.size}}</section>
                                     <div class="share-remove-product">
                                         <section (click)="removecartItem(item)">Remove</section>
+                                        <section>&#124; </section>
+                                        <section (click)="moveToWishlist(item)">Move to wishlist</section>
                                         <section>&#124; </section>
                                         <section class="shareButton" (click)="toggleShareLink(item.product_id)">
                                             Copy link
