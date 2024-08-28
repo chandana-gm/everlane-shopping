@@ -15,8 +15,11 @@ export class ClientDonationComponent implements OnInit {
   donationForm!: FormGroup;
   images: string[] = [];
   // address: any[] = []
-  pickup:any[]=[]
-  dis:any
+  pickup: any[] = []
+  dis: any
+  isProcessing = false;
+
+  selectedFiles: File[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -45,10 +48,10 @@ export class ClientDonationComponent implements OnInit {
       this.donationForm.patchValue({
         doner_name: username
       });
-      this.getService.getPickup().subscribe((res)=>{
-        console.log('pick',res);
-        this.pickup=res.data
-        
+      this.getService.getPickup().subscribe((res) => {
+        console.log('pick', res);
+        this.pickup = res.data
+
       })
 
 
@@ -56,7 +59,7 @@ export class ClientDonationComponent implements OnInit {
 
     this.getService.getDisasterList().subscribe((response) => {
       console.log(response);
-      
+
       this.disasterList = response.data;
 
     });
@@ -67,28 +70,52 @@ export class ClientDonationComponent implements OnInit {
     // )
   }
 
+  // onFileSelected(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files) {
+  //     const filesArray = Array.from(input.files);
+
+  //     filesArray.forEach(file => {
+  //       const reader = new FileReader();
+  //       reader.onload = (e: any) => {
+  //         this.images.push(e.target.result);
+  //       };
+  //       reader.readAsDataURL(file);
+  //     });
+  //     // console.log(this.images);
+
+  //     this.donationForm.patchValue({
+  //       images: filesArray
+  //     });
+  //   }
+  // }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const filesArray = Array.from(input.files);
 
       filesArray.forEach(file => {
+        this.selectedFiles.push(file);
+
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.images.push(e.target.result);
         };
         reader.readAsDataURL(file);
       });
-      // console.log(this.images);
 
       this.donationForm.patchValue({
-        images: filesArray
+        images: this.selectedFiles
       });
     }
   }
 
   removeImage(index: number) {
     this.images.splice(index, 1);
+    this.selectedFiles.splice(index, 1);
+    this.donationForm.patchValue({
+      images: this.selectedFiles
+    });
   }
 
   async onSubmit() {
@@ -107,32 +134,30 @@ export class ClientDonationComponent implements OnInit {
 
       const filesArray = this.donationForm.get('images')?.value;
       console.log(filesArray);
-
-      if (filesArray && filesArray.length > 0) {
-        filesArray.forEach((file: File, index: number) => {
-          formData.append(`images`, file);
+      if (this.selectedFiles.length > 0) {
+        this.selectedFiles.forEach((file, index) => {
+          formData.append('images', file);
         });
       }
 
 
       const disasterId = this.donationForm.get('disaster')?.value;
       console.log('abc', disasterId);
-
+      this.isProcessing = true;
       this.postService.postDonation(formData, disasterId).subscribe(
         (data: any) => {
-
+          this.isProcessing = false;
           console.log(data, 'response');
-          if (data.status == 'sucess') {
+          if (data.status == 'success') {
             this.toastr.success(data.message);
+            
           }
-          else {
-
-            this.toastr.info(data.message);
+          else if (data.status == 'failed') {
+           this.toastr.info(data.message);
           }
-          // this.toastr.error('Registration successful!',data.error.images[0]);
         },
         (error) => {
-
+          this.isProcessing = false;
           // this.toastr.error('Failed to upload donation!',error.error.errors.images[0]);
           if (error.error.errors && error.error.errors.images) {
             this.toastr.error(error.error.errors.images[0], 'Image Upload Error');
@@ -156,18 +181,11 @@ export class ClientDonationComponent implements OnInit {
     this.markAllFieldsAsTouched();
   }
 
-  onDisasterChange(event: Event){
+  onDisasterChange(event: Event) {
     const selectedDisasterId = (event.target as HTMLSelectElement).value;
     console.log(selectedDisasterId);
-   this.dis = this.disasterList.find(disaster => disaster.id === +selectedDisasterId);
-    // console.log(Dis);
-    // const men_req=Dis.required_men_dresses
-    // const women_req=Dis.required_women_dresses
-    
-    
-    
+    this.dis = this.disasterList.find(disaster => disaster.id === +selectedDisasterId);
 
-    
   }
 }
 

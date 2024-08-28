@@ -36,7 +36,8 @@ export const environment = {
     getallProductList:'products/',
     getReturnProduct:'return-pending/',
     getPickup:'pickups/',
-    getRecommendation:'recommendations/'
+    getRecommendation:'recommendations/',
+    getUserDonation:'user-donations/'
 
   };
 

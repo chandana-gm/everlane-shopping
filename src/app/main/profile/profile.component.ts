@@ -92,6 +92,12 @@ export class ProfileComponent implements OnInit {
       console.log('data', response);
       this.myDonation = response.data
     })
+    this.service.getUserDonatios().subscribe((res)=>{
+
+      console.log('whfudh',res);
+      
+    })
+    
   }
 
   onSubmit() {

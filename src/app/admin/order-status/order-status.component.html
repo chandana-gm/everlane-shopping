@@ -34,11 +34,11 @@
                   <td>{{item.returned_quantity}}</td>
                   <td>
                       <div class="d-flex justify-content-between">
-                          <button type="button" class="btn btn-outline-success btn-sm" (click)="approve(item)">Accept</button>
-                          <button type="button" class="btn btn-outline-danger btn-sm">Reject</button>
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="approve(item,'approve')">Accept</button>
+                          <button type="button" class="btn btn-outline-danger btn-sm" (click)="approve(item,'reject')">Reject</button>
                       </div>
                   </td>
-              </tr>
+              </tr> 
           </tbody>
       </table>
   </div>

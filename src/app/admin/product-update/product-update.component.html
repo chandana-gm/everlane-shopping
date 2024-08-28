@@ -160,17 +160,7 @@
 
                             <div class="row mb-3">
 
-                                <div class="col-md-6">
-                                    <label for="season" class="form-label">Preferred Season:</label>
-                                    <select id="season" formControlName="season" class="form-select">
-                                        <option *ngFor="let choice of seasonChoices" [value]="choice.value">
-                                            {{ choice.label }}
-                                        </option>
-                                        <div *ngIf="productForm.get('season')?.invalid && productForm.get('season')?.touched" class="text-danger">
-                                            season is required.
-                                          </div>
-                                    </select>
-                                </div>
+                             
                                 <div class="col-md-6">
                                     <label for="usage" class="form-label">Usage:</label>
                                     <select id="usage" formControlName="usages" class="form-select">
@@ -181,6 +171,28 @@
                                             usages is required.
                                           </div>
                                     </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="season" class="form-label">Preferred Season:</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
+                                        <label for="summer" class="form-check-label">Summer</label>
+                                    </div>
+        
+                                    <div class="form-check">
+                                        <input type="checkbox" id="winter" formControlName="winter" class="form-check-input">
+                                        <label for="winter" class="form-check-label">Winter</label>
+                                    </div>
+        
+                                    <div class="form-check">
+                                        <input type="checkbox" id="rainy" formControlName="rainy" class="form-check-input">
+                                        <label for="rainy" class="form-check-label">Rainy</label>
+                                    </div>
+        
+                                    <div class="form-check">
+                                        <input type="checkbox" id="autumn" formControlName="autumn" class="form-check-input">
+                                        <label for="autumn" class="form-check-label">Autumn</label>
+                                    </div> 
                                 </div>
                             </div>
 
@@ -194,27 +206,7 @@
                                           </div>
                                     <label for="isTrending" class="form-check-label">Is trending</label>
                                 </div>
-                                <!-- 
-                            <div class="form-check">
-                                <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
-                                <label for="summer" class="form-check-label">Summer</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input type="checkbox" id="winter" formControlName="winter" class="form-check-input">
-                                <label for="winter" class="form-check-label">Winter</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input type="checkbox" id="rainy" formControlName="rainy" class="form-check-input">
-                                <label for="rainy" class="form-check-label">Rainy</label>
-                            </div>
-
-                            <div class="form-check">
-                                <input type="checkbox" id="autumn" formControlName="autumn" class="form-check-input">
-                                <label for="autumn" class="form-check-label">Autumn</label>
-                            </div> -->
-
+                            
                                 <div class="form-check">
                                     <input type="checkbox" id="isActive" formControlName="isActive"
                                         class="form-check-input">

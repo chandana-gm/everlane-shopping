@@ -119,6 +119,10 @@ export class GettingserviceService {
   getRecommdation(){
     return this.http.get<any>(baseUrl.baseUrl+environment.getRecommendation)
   }
+  getUserDonatios(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getUserDonation)
+
+  }
 
 
 

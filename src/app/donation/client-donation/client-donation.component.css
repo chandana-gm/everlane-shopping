@@ -74,3 +74,12 @@ input::-webkit-inner-spin-button {
     font-size: 20px;
     color: rgb(107, 3, 3);
   }
+  .processing-order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    text-align: center;
+    font-weight: 700;
+    background: transparent;
+  }

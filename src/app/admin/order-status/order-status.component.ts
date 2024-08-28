@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 
@@ -8,7 +9,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./order-status.component.css']
 })
 export class OrderStatusComponent implements OnInit {
-  constructor(private getService: GettingserviceService,private postService:PostServiceService) { }
+  constructor(private getService: GettingserviceService, private postService: PostServiceService,private toaster:ToastrService) { }
   returnList: any[] = []
   ngOnInit(): void {
     this.getAllreturn();
@@ -24,11 +25,19 @@ export class OrderStatusComponent implements OnInit {
 
   }
 
-  approve(item:any) {
-this.postService.approvReturn(item).subscribe((data)=>{
-  console.log(data,'vmgvj');
-  
-})
+  approve(item: any, action: any) {
+    this.postService.approvReturn(item.id, action).subscribe((data) => {
+      console.log(data, 'vmgvj');
+      this.getAllreturn();
+      if(data.status=="success"){
+        this.toaster.success(data.message, 'Success');
+      }
+      else{
+        this.toaster.error(data.message, 'Error');
+      }
+
+       
+    })
   }
 
 }
