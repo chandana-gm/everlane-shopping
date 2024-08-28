@@ -32,7 +32,10 @@ export const environment = {
     getDonationList:'disasters/donations/',
     getAddress:'addresses/',
     myDonation:'my-disasters/',
-    viewOrders:'orders/'
+    viewOrders:'orders/',
+    getallProductList:'products/',
+    getReturnProduct:'return-pending/',
+    getPickup:'pickups/'
 
   };
 
@@ -53,7 +56,9 @@ export const postApis = {
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',
     postDonation:'donations/',
-    addProduct:'products/create/'
+    addProduct:'products/create/',
+    postStock:'add-product-item/',
+    postApproveReturn:'process-return/'
    
   };
 
@@ -61,6 +66,7 @@ export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
      deleteCart:'cart-item/delete',
+
      
   };
 export const patchApis = {

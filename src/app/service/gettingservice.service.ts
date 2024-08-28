@@ -108,6 +108,13 @@ export class GettingserviceService {
     return this.http.get<any>(baseUrl.baseUrl+environment.getallProductList)
 
   }
+  getAllreturnProduct(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getReturnProduct)
+  }
+  getPickup(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getPickup)
+  }
+
 
 
 

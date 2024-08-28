@@ -108,6 +108,13 @@ export class PostServiceService {
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.addProduct}`,item)
 
   }
+  addStockProduct(item:any){
+
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postStock}`,item)
+  }
+  approvReturn(item:any){
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postApproveReturn}`,item)
+  }
   
 
 

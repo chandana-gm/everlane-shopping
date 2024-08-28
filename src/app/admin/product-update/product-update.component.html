@@ -1,25 +1,28 @@
 <div>
     <div style="text-align: center;">
-        <h2 class="animated-h2">Products details </h2>
+        <h2 class="mt-2" style="color:#973d93"> Add Product Details</h2>
     </div>
-    <br>
+    <div class="card">
+        <div class="row">
+            <div class="col-6 d-flex justify-content-center align-items-center">
+                <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="button" (click)="addProduct()">
+                    <i class="bi bi-file-plus"></i> Add Product
+                </button>
+            </div>
 
-     <div class="row">
-    <div class="col-3">
-    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="button" (click)="addProduct()"><i class="bi bi-file-plus" ></i>Add Product</button>
+            <div class="col-6 d-flex justify-content-center align-items-center" >
+                <button class="button">Add Stock</button>
+            </div>
+        </div>
     </div>
-   
-    <div class="col-3" routerLink="admin/addProduct" >
-        <button class="button"> Add Product Size</button>
-    </div>
-     </div>
- 
+
+
 </div>
 
 <div>
 
 
- 
+
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl ">
@@ -28,135 +31,170 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    
+
 
                     <div class="card border-success mb-3">
                         <h1 class="text-center mt-2">{{ isEdit ? 'Edit Product' : 'Add Product' }}</h1>
                         <hr>
-                         
-                    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-<div class="row">
-    <div class="col-md-6">
-        <label for="genders" class="form-label">Gender:</label>
-        <select id="genders" formControlName="genders" class="form-select">
-          <option *ngFor="let choice of genderChoices" [value]="choice.value">
-            {{ choice.label }}
-          </option>
-        </select>
-      </div>
-      <div class="col-md-6">
-                    
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" formControlName="name" class="form-control">
-        </div>
 
-    </div>
-</div>
-                     
-                      
-                  
-                        <div class="form-group">
-                            <label for="description">Description:</label>
-                            <textarea id="description" formControlName="description" class="form-control"
-                                rows="3"></textarea>
-                        </div>
-                       
-                        <div class="row category-group">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="price">Price:</label>
-                                    <input type="number" id="price" formControlName="price" class="form-control">
+                        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="genders" class="form-label">Gender:</label>
+                                    <select id="genders" formControlName="genders" class="form-select">
+                                        <option *ngFor="let choice of genderChoices" [value]="choice.value">
+                                            {{ choice.label }}
+                                        </option>
+                                        <div *ngIf="productForm.get('genders')?.invalid && productForm.get('genders')?.touched" class="text-danger">
+                                            Gender is required.
+                                          </div>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" id="name" formControlName="name" class="form-control">
+                                        <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-danger">
+                                            Gender is required.
+                                          </div>
+                                    </div>
+
                                 </div>
                             </div>
-                    
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="brand">Brand:</label>
-                                    <input type="text" id="brand" formControlName="brand" class="form-control">
+
+
+
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <textarea id="description" formControlName="description" class="form-control"
+                                    rows="3"></textarea>
+                                    <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+                                        description is required.
+                                      </div>
+                                    
+                            </div>
+
+                            <div class="row category-group">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="price">Price:</label>
+                                        <input type="number" id="price" formControlName="price" class="form-control">
+                                        <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-danger">
+                                            price is required.
+                                          </div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="brand">Brand:</label>
+                                        <input type="text" id="brand" formControlName="brand" class="form-control">
+                                        <div *ngIf="productForm.get('brand')?.invalid && productForm.get('brand')?.touched" class="text-danger">
+                                            brand is required.
+                                          </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="category" class="form-label">Subcategory:</label>
+                                        <select class="form-select" id="category" formControlName="subcategory">
+                                            <option value="" disabled selected>Select a location</option>
+                                            <option value="1">Shirts</option>
+                                            <option value="2">Jeans Men</option>
+                                            <option value="3">T shirts</option>
+                                            <option value="4">Trousers</option>
+                                            <option value="6">Shorts</option>
+                                            <option value="5">Kurtis</option>
+                                            <option value="8">Jeans</option>
+                                            <option value="9">Skirts</option>
+                                            <option value="7">T shirts Woman</option>
+                                            <option value="11">Tops</option>
+                                            <option value="13">Jeggings</option>
+                                            <option value="14">Sweater</option>
+                                            <option value="15">Sports Wear</option>
+                                            <option value="16">Party Wear Men</option>
+                                            <div *ngIf="productForm.get('subcategory')?.invalid && productForm.get('subcategory')?.touched" class="text-danger">
+                                                subcategory is required.
+                                              </div>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                    
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="category" class="form-label">Subcategory:</label>
-                                    <select class="form-select" id="category" formControlName="subcategory">
-                                        <option value="" disabled selected>Select a location</option>
-                                        <option value="1">Shirts</option>
-                                        <option value="2">Jeans Men</option>
-                                        <option value="3">T shirts</option>
-                                        <option value="4">Trousers</option>
-                                        <option value="6">Shorts</option>
-                                        <option value="5">Kurtis</option>
-                                        <option value="8">Jeans</option>
-                                        <option value="9">Skirts</option>
-                                        <option value="7">T shirts Woman</option>
-                                        <option value="11">Tops</option>
-                                        <option value="13">Jeggings</option>
-                                        <option value="14">Sweater</option>
-                                        <option value="15">Sports Wear</option>
-                                        <option value="16">Party Wear Men</option>
+                            <div class="form-group">
+                                <label for="image">Image:</label>
+                                <input type="file" id="image" (change)="onFileChange($event)" class="form-control" />
+                                <div *ngIf="imagePreview" class="mt-3">
+                                    <img [src]="imagePreview" width="150" height="150" />
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="skinColor" class="form-label">Skin Color:</label>
+                                    <select id="skin_colors" formControlName="skin_colors" class="form-select">
+                                        <option *ngFor="let choice of skinColorChoices" [value]="choice.value">
+                                            {{ choice.label }}
+                                        </option>
+                                        <div *ngIf="productForm.get('skin_colors')?.invalid && productForm.get('skin_colors')?.touched" class="text-danger">
+                                            skin_colors is required.
+                                          </div>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="height" class="form-label">Height:</label>
+                                    <select id="height" formControlName="heights" class="form-select">
+                                        <option *ngFor="let choice of heightChoices" [value]="choice.value">
+                                            {{ choice.label }}
+                                        </option>
+                                        <div *ngIf="productForm.get('heights')?.invalid && productForm.get('heights')?.touched" class="text-danger">
+                                            heights is required.
+                                          </div>
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                       <div class="form-group">
-                            <label for="image">Image:</label>
-                            <input type="file" id="image" (change)="onFileChange($event)" class="form-control" />
-                            <div *ngIf="imagePreview" class="mt-3">
-                              <img [src]="imagePreview"  width="150" height="150" />
-                            </div>
-                          </div>
 
-                      
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                              <label for="skinColor" class="form-label">Skin Color:</label>
-                              <select id="skinColor" formControlName="skinColor" class="form-select">
-                                <option *ngFor="let choice of skinColorChoices" [value]="choice.value">
-                                  {{ choice.label }}
-                                </option>
-                              </select>
+                            <div class="row mb-3">
+
+                                <div class="col-md-6">
+                                    <label for="season" class="form-label">Preferred Season:</label>
+                                    <select id="season" formControlName="season" class="form-select">
+                                        <option *ngFor="let choice of seasonChoices" [value]="choice.value">
+                                            {{ choice.label }}
+                                        </option>
+                                        <div *ngIf="productForm.get('season')?.invalid && productForm.get('season')?.touched" class="text-danger">
+                                            season is required.
+                                          </div>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="usage" class="form-label">Usage:</label>
+                                    <select id="usage" formControlName="usages" class="form-select">
+                                        <option *ngFor="let choice of usageChoices" [value]="choice.value">
+                                            {{ choice.label }}
+                                        </option>
+                                        <div *ngIf="productForm.get('usages')?.invalid && productForm.get('usages')?.touched" class="text-danger">
+                                            usages is required.
+                                          </div>
+                                    </select>
+                                </div>
                             </div>
-                        
-                            <div class="col-md-6">
-                              <label for="height" class="form-label">Height:</label>
-                              <select id="height" formControlName="height" class="form-select">
-                                <option *ngFor="let choice of heightChoices" [value]="choice.value">
-                                  {{ choice.label }}
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-                        
-                          <div class="row mb-3">
-    
-                            <div class="col-md-6">
-                              <label for="season" class="form-label">Preferred Season:</label>
-                              <select id="season" formControlName="season" class="form-select">
-                                <option *ngFor="let choice of seasonChoices" [value]="choice.value">
-                                  {{ choice.label }}
-                                </option>
-                              </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="usage" class="form-label">Usage:</label>
-                                <select id="usage" formControlName="usage" class="form-select">
-                                  <option *ngFor="let choice of usageChoices" [value]="choice.value">
-                                    {{ choice.label }}
-                                  </option>
-                                </select>
-                              </div>
-                          </div>
-                        
-                        
-                          <div class="checkbox-group mt-4">
-                            <div class="form-check">
-                                <input type="checkbox" id="isTrending" formControlName="isTrending"
-                                    class="form-check-input">
-                                <label for="isTrending" class="form-check-label">Is trending</label>
-                            </div>
-<!-- 
+
+
+                            <div class="checkbox-group mt-4">
+                                <div class="form-check">
+                                    <input type="checkbox" id="isTrending" formControlName="isTrending"
+                                        class="form-check-input">
+                                        <div *ngIf="productForm.get('isTrending')?.invalid && productForm.get('isTrending')?.touched" class="text-danger">
+                                            isTrending 
+                                          </div>
+                                    <label for="isTrending" class="form-check-label">Is trending</label>
+                                </div>
+                                <!-- 
                             <div class="form-check">
                                 <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
                                 <label for="summer" class="form-check-label">Summer</label>
@@ -177,68 +215,149 @@
                                 <label for="autumn" class="form-check-label">Autumn</label>
                             </div> -->
 
-                            <div class="form-check">
-                                <input type="checkbox" id="isActive" formControlName="isActive"
-                                    class="form-check-input">
-                                <label for="isActive" class="form-check-label">Is active</label>
+                                <div class="form-check">
+                                    <input type="checkbox" id="isActive" formControlName="isActive"
+                                        class="form-check-input">
+                                    <label for="isActive" class="form-check-label">Is active</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="checkbox" id="isDeleted" formControlName="isDeleted"
+                                        class="form-check-input">
+                                    <label for="isDeleted" class="form-check-label">Is deleted</label>
+                                </div>
                             </div>
 
-                            <div class="form-check">
-                                <input type="checkbox" id="isDeleted" formControlName="isDeleted"
-                                    class="form-check-input">
-                                <label for="isDeleted" class="form-check-label">Is deleted</label>
-                            </div>
-                        </div>
-                   
-                        <div class="text-center mt-4">
-                       
-                            <button type="submit" class="button" style="width:25%"> {{ isEdit ? 'Update' : 'Submit' }}</button>
-                        </div>
-                      
-                    </form>
+                            <div class="text-center mt-4">
 
+                                <button type="submit" class="button" style="width:25%"> {{ isEdit ? 'Update' : 'Submit'
+                                    }}</button>
+                            </div>
+
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div></div>
+    </div>
     <table class="table  table-hover  mt-4 p-4">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Brand</th>
-            <th>Trending</th>
-            <th>Gender</th>
-          
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Brand</th>
+                <th>Trending</th>
+                <th>Gender</th>
+
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of productList">
-            <td>{{item.name}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.price}}</td>
-            <td>{{item.brand}}</td>
-            <td>{{item.is_trending}}</td>
-            <td>{{item.genders}}</td>
-            <td>{{item.created_on}}</td>
-            <td>
-                <div class="row">
+            <tr *ngFor="let item of productList"  >
               
-                  <div class="col-5">
-                    <button type="button" class="btn btn-outline-success btn-sm" style="font-size: xx-small; " data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="editproduct(item)">Edit</button>
-                  </div>
-                  <div class="col-5">
-                    <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: xx-small;" (click)="deleteProduct(item)">Delete</button>
-                
-                  </div>
-                </div>
-            </td>
+                <td data-toggle="modal" data-target="#exampleModal1" style="cursor: pointer;"(click)="stockmodal(item)">{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.is_trending}}</td>
+                <td>{{item.genders}}</td>
+                <td>{{item.created_on}}</td>
+                <td>
+                    <div class="row">
+
+                        <div class="col-5">
+                            <button type="button" class="btn btn-outline-success btn-sm" style="font-size: xx-small; "
+                                data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                (click)="editproduct(item)">Edit</button>
+                        </div>
+                        <div class="col-5">
+                            <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: xx-small;"
+                                (click)="deleteProduct(item)">Delete</button>
+
+                        </div>
+                    </div>
+                </td>
+
+              
            
-        
-          </tr>
+           
+           
+            </tr>
         </tbody>
-      </table>
-      
+    </table>
+
+
+
+
+
+  
+  <!-- add stock-->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h2 style="color:#973d93">Add Stock</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+               
+                <form [formGroup]="stockForm" (ngSubmit)="stockAdd()">
+                    <div class="form-group">
+                        <div>{{productName}}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="productId" class="col-sm-2 col-form-label">Product ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="product" formControlName="product" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="size" class="col-sm-2 col-form-label">Size</label>
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                            
+                                <select class="form-select" id="stock" formControlName="size" >
+                                    <option value="" disabled selected>Select Size</option>
+                                    <option value="XL">XL</option>
+                                     <option value="L">L</option>
+                                      <option value="M">M</option>
+                                       <option value="S">S</option>
+                                       <div *ngIf="stockForm.get('size')?.invalid && stockForm.get('size')?.touched" class="text-danger">
+                                        size is required.
+                                      </div>
+                                </select></div>
+                        </div>
+                    </div>
+                
+                    <div class="row mb-3">
+                        <label for="stock" class="col-sm-2 col-form-label">Stock</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="stock" formControlName="stock" placeholder="Enter stock quantity">
+                            <div *ngIf="stockForm.get('stock')?.invalid && stockForm.get('stock')?.touched" class="text-danger">
+                                stock is required.
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10 offset-sm-2">
+                            <button type="submit" class="btn btn-primary" [disabled]="stockForm.invalid">Add</button>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+            
+        </div>
+       
+         
+    
+      </div>
+    </div>
+  </div>
+  

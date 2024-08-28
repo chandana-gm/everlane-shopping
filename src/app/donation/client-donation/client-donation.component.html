@@ -29,54 +29,78 @@
 
                 <div class="form-group mb-3">
                     <label for="disasterSelect" class="form-label">Select Disaster</label>
-                    <select class="form-select" id="disasterSelect" formControlName="disaster">
+                    <select class="form-select" id="disasterSelect" formControlName="disaster" (change)="onDisasterChange($event)">
                         <option value="" disabled selected> Disaster and location</option>
                         <option *ngFor="let disaster of disasterList" [value]="disaster.id">
                             {{disaster.name}}, {{disaster.location}}
                         </option>
-
                     </select>
+                    
                     <div *ngIf="donationForm.get('disaster')?.invalid && donationForm.get('disaster')?.touched"
                         class="text-danger">
                         Please select a disaster.
                     </div>
                 </div>
-                <hr>
+            
+<!--                
+                <div class="card" *ngIf="dis">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-4 border-end">
+        <p><strong>Kids Dresses:</strong></p>
+        <p [ngClass]="{'text-danger': dis.required_kids_dresses > dis.fulfilled_kids_dresses}">
+          Required: <span [style.color]="dis.required_kids_dresses > dis.fulfilled_kids_dresses ? 'red' : 'green'">{{dis.required_kids_dresses}}</span>
+        </p>
+        <p [ngClass]="{'text-success': dis.fulfilled_kids_dresses >= dis.required_kids_dresses}">
+          Fulfilled: <span [style.color]="dis.fulfilled_kids_dresses >= dis.required_kids_dresses ? 'green' : 'red'">{{dis.fulfilled_kids_dresses}}</span>
+        </p>
+      </div>
+      <div class="col-4 border-end">
+        <p><strong>Men Dresses:</strong></p>
+        <p [ngClass]="{'text-danger': dis.required_men_dresses > dis.fulfilled_men_dresses}">
+          Required: <span [style.color]="dis.required_men_dresses > dis.fulfilled_men_dresses ? 'red' : 'green'">{{dis.required_men_dresses}}</span>
+        </p>
+        <p [ngClass]="{'text-success': dis.fulfilled_men_dresses >= dis.required_men_dresses}">
+          Fulfilled: <span [style.color]="dis.fulfilled_men_dresses >= dis.required_men_dresses ? 'green' : 'red'">{{dis.fulfilled_men_dresses}}</span>
+        </p>
+      </div>
+      <div class="col-4">
+        <p><strong>Women Dresses:</strong></p>
+        <p [ngClass]="{'text-danger': dis.required_women_dresses > dis.fulfilled_women_dresses}">
+          Required: <span [style.color]="dis.required_women_dresses > dis.fulfilled_women_dresses ? 'red' : 'green'">{{dis.required_women_dresses}}</span>
+        </p>
+        <p [ngClass]="{'text-success': dis.fulfilled_women_dresses >= dis.required_women_dresses}">
+          Fulfilled: <span [style.color]="dis.fulfilled_women_dresses >= dis.required_women_dresses ? 'green' : 'red'">{{dis.fulfilled_women_dresses}}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div> -->
 
-                <!-- 
-              <div class="form-group mb-3">
-                <label for="images" class="form-label"> Upload your image of dress</label> 
-                <div>
-                    <input type="file" formControlName="images" (change)="onFileSelected($event)" multiple>
-                  </div>
-                  <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
-                    <p class="text-danger">Please select at least one image.</p>
-                  </div>
-                  <div *ngIf="images && images.length" class="preview">
-                    <div *ngFor="let image of images">
-                      <img [src]="image" alt="Uploaded Image" width="150" height="150">
-                    </div>
-                  </div>
-  </div> -->
-                <div class="form-group mb-3">
-                    <label for="images">Upload Images</label>
-                    <div>
-                        <input type="file" id="images" (change)="onFileSelected($event)" multiple>
-                    </div>
-                    <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
-                        <p class="text-danger">Please select at least five images.</p>
-                    </div>
-
-                    <div *ngIf="images.length" class="preview">
-                        <div *ngFor="let image of images; let i = index" class="image-container">
-                            <i class="bi bi-x-circle-fill remove-icon" (click)="removeImage(i)"></i>
-                            <img [src]="image" alt="Image Preview" width="150" height="150">
-                        </div>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="row mb-3">
+<div class="card" *ngIf="dis">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 border-end">
+          <p><strong>Kids Dresses:</strong></p>
+          <p>Required: <span style="color: red;">{{dis.required_kids_dresses}}</span></p>
+          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_kids_dresses}}</span></p>
+        </div>
+        <div class="col-4 border-end">
+          <p><strong>Men Dresses:</strong></p>
+          <p>Required: <span style="color: red;">{{dis.required_men_dresses}}</span></p>
+          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_men_dresses}}</span></p>
+        </div>
+        <div class="col-4">
+          <p><strong>Women Dresses:</strong></p>
+          <p>Required: <span style="color: red;">{{dis.required_women_dresses}}</span></p>
+          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_women_dresses}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+            
+                <div class="row mb-3 mt-4">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="men" class="form-label">Dress for Men</label>
@@ -111,14 +135,31 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                <div class="form-group mb-3">
+                    <label for="images">Upload Images</label>
+                    <div>
+                        <input type="file" id="images" (change)="onFileSelected($event)" multiple>
+                    </div>
+                    <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
+                        <p class="text-danger">Please select at least five images.</p>
+                    </div>
 
+                    <div *ngIf="images.length" class="preview">
+                        <div *ngFor="let image of images; let i = index" class="image-container">
+                            <i class="bi bi-x-circle-fill remove-icon" (click)="removeImage(i)"></i>
+                            <img [src]="image" alt="Image Preview" width="150" height="150">
+                        </div>
+                    </div>
+                </div>
+<hr>
                 <div class="form-group mb-3">
                     <label for="pickupLocation" class="form-label">Pick Up Location</label>
                     <select class="form-select" id="pickupLocation" formControlName="pickup_location">
                         <option value="" disabled selected>Select a location</option>
-                        <option *ngFor="let item of address" [value]="1">
-                            {{item.address}},{{item.city}},{{item.locality
-                            }},{{item.mobile}}
+                        <option *ngFor="let item of pickup" [value]="item.id">
+                            {{item.address}},{{item.city}}
+                           
 
                         </option>
 
