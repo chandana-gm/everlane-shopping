@@ -73,7 +73,7 @@ export class AppHeaderComponent implements OnInit {
 
 
   redirectToRegister() {
-    this.router.navigate(['/auth/register']);
+    this.router.navigate(['/auth/login']);
   }
 
   redirectToProfile() {

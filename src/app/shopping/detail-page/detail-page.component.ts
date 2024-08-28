@@ -64,7 +64,6 @@ export class DetailPageComponent implements OnInit {
   }
   checkIfWishlisted() {
     this.isWishlisted = this.allData.some((wish: any) => wish.product === this.singleProduct.id);
-    console.log(this.isWishlisted, "iswish");
 
   }
   addToCart(item: any) {

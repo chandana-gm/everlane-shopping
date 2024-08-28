@@ -39,7 +39,23 @@ export class HomeComponent {
     preferred_season: '',
     usage_of_dress: ''
   }
-
+  ngOnInit() {
+    window.scroll(0,0)
+    this.randomNumber = Math.floor(Math.random() * 4)
+    this.api.getMensCategories().subscribe((data: any) => {
+      this.categories = data.data;
+    });
+    this.api.getWomensCategories().subscribe((data: any) => {
+      this.womensCategories = data.data;
+    });
+    this.api.getBanners().subscribe((data) => {
+      this.banners = data;
+      this.isLoading = true
+    });
+    this.api.getTrendingProducts().subscribe((data) => {
+      this.trending = data.data;
+    });
+  }
   questions: any[] = [
     { question: 'Choose a gender', options: [{ display: 'Male', value: 'M' }, { display: 'Female', value: 'F' }] },
     { question: 'Select your skin texture', options: [{ display: 'Fair', value: 'FAIR' }, { display: 'Medium', value: 'MEDIUM' }, { display: 'Dark', value: 'DARK' }] },
@@ -119,32 +135,20 @@ export class HomeComponent {
     const token = localStorage.getItem('user')
     if (token) {
       this.isRecommendationsPopupOpen = !this.isRecommendationsPopupOpen;
+      this.isQuizCompleted = false;
+      this.currentQuestionIndex = 0;
+      this.quizForm.reset();
+      this.answers = []
     }
     else {
       this.router.navigate(['/auth/register'])
-    }
+    } 
   }
   selectGender(gender: string) {
     this.selectedGender = gender;
   }
 
-  ngOnInit() {
-    window.scroll(0, 0)
-    this.randomNumber = Math.floor(Math.random() * 4)
-    this.api.getMensCategories().subscribe((data: any) => {
-      this.categories = data.data;
-    });
-    this.api.getWomensCategories().subscribe((data: any) => {
-      this.womensCategories = data.data;
-    });
-    this.api.getBanners().subscribe((data) => {
-      this.banners = data;
-      this.isLoading = true
-    });
-    this.api.getTrendingProducts().subscribe((data) => {
-      this.trending = data.data;
-    });
-  }
+ 
 
   onCategoryClick(category: any) {
     this.router.navigate(['shopping/shoppingDetails', category.name]);

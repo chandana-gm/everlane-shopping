@@ -109,7 +109,7 @@ export class CartComponent {
       this.removecartItem(item)
     },
       error => {
-      this.toastr.error(error.error.message)
+      this.toastr.info(error.error.message)
       }
   )}
   refreshCart() {
@@ -118,6 +118,8 @@ export class CartComponent {
   redirectToDetailPage(id:string){
 this.router.navigate(['/shopping/detailsPage',id])
   }
+
+  
 
   // copy link
   currentUrl: string = window.location.origin;

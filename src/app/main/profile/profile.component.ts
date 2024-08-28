@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -11,6 +11,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('passwordForm') passwordForm!: NgForm;
   userData: any = {};
   currentSection: string = 'section1';
   addressList: any
@@ -127,6 +128,7 @@ export class ProfileComponent implements OnInit {
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
       this.loading = false
+      // this.passwordForm.reset()
     }, (error) => {
       this.toster.error(error.error.message)
       this.loading = false
