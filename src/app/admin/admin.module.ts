@@ -12,6 +12,9 @@ import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { OrderStatusComponent } from './order-status/order-status.component';
 import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/disaster-tracking-approvel.component';
 import { DonationListComponent } from './donation-list/donation-list.component';
+import { MaincontentComponent } from './maincontent/maincontent.component';
+import { AdminheaderComponent } from './adminheader/adminheader.component';
+
 
 
 @NgModule({
@@ -24,7 +27,9 @@ import { DonationListComponent } from './donation-list/donation-list.component';
     ViewOrdersComponent,
     OrderStatusComponent,
     DisasterTrackingApprovelComponent,
-    DonationListComponent
+    DonationListComponent,
+    MaincontentComponent,
+    AdminheaderComponent,
   ],
   imports: [
     CommonModule,

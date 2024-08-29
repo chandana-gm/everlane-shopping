@@ -19,7 +19,8 @@ const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'order%status',component:OrderStatusComponent},
   {path:'returnrequest',component:ReturnRequestComponent},
   {path:'disaterstatusrequest',component:DisasterTrackingApprovelComponent},
-  {path:'donation_list',component:DonationListComponent}
+  {path:'donation_list',component:DonationListComponent},
+
 
 ] },
  

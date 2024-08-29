@@ -1,31 +1,28 @@
-<nav class="sidebar1">
-  <!-- <div class="profile" >
-      <div class="round-image" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <img [src]="uploadedImageUrl" alt="">
-      </div>
-      <div class="round-image" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      </div>
-    </div>
-    <div >
-  
-      <div class="profile" >
-        <div class="round-image" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <img src="../../../assets/images/image.png" alt="">
-          </div>
+
+    <div class="container-fluid  sidebar1">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky">
+                  <ul>
+                    <li><a routerLink="/main">Home</a></li>
+                    <!-- <li><a routerLink="/admin/view%orders">View orders</a></li>-->
+                     <li><a routerLink="/admin/order%status">Return Approve</a></li> 
+                    <li><a routerLink="/admin/update%product">Add/Update Product</a></li>
+                    <!-- <li><a routerLink="/admin/addProduct">Add New Products</a></li> -->
+                    <li><a routerLink="/admin/donation_list">Donation List</a></li>
+                    <li><a routerLink="/admin/disaterstatusrequest">Disaster Request Approvel</a></li>
+                    <li><a routerLink="/main">LogOut</a></li>
+                    
+                
+                  </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h1 class="h2">Main Content Area</h1>
+                <p>This is where your main content goes.</p>
+            </main>
         </div>
-      </div> -->
-
-  <!-- <br> -->
-  <ul>
-    <li><a routerLink="/main">Home</a></li>
-    <!-- <li><a routerLink="/admin/view%orders">View orders</a></li>-->
-     <li><a routerLink="/admin/order%status">Return Approve</a></li> 
-    <li><a routerLink="/admin/update%product">Add/Update Product</a></li>
-    <!-- <li><a routerLink="/admin/addProduct">Add New Products</a></li> -->
-    <li><a routerLink="/admin/donation_list">Donation List</a></li>
-    <li><a routerLink="/admin/disaterstatusrequest">Disaster Request Approvel</a></li>
-    <li><a routerLink="/main">LogOut</a></li>
-    
-
-  </ul>
-</nav>
+    </div>
