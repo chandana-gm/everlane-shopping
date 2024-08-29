@@ -9,6 +9,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { SuccessPaymentComponent } from './payment-status/success-payment/success-payment.component';
 import { FailedPaymentComponent } from './payment-status/failed-payment/failed-payment.component';
+import { NoBackGuard } from '../guards/auth-guard.guard';
 
 
 const routes: Routes = [
