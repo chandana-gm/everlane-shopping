@@ -249,6 +249,14 @@ input::placeholder {
   margin-top: 10px;
   font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
 }
+.donation-select{
+  display: flex;
+  /* border: 2px solid gold; */
+  /* justify-content: space-between; */
+}
+.child-div {
+  flex: 1;
+margin: 5px;}
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
@@ -287,4 +295,94 @@ input::placeholder {
   .p {
     font-size: 0.9rem;
   }
+}
+
+
+/* .Yorder{
+  margin-top: 15px;
+  height: 600px;
+  padding: 20px;
+ 
+}
+
+
+.Yorder>div{
+  padding:20px 0; 
+} */
+
+button{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 30px;
+  background: #973d93;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.payment {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.payment-method h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.pm-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  /* padding: 10px; */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.pm-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 30px;
+  margin: 0 !important;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+
+input[type="radio"]#COD,#ONLINE {
+  display: none; /* Hide the radio buttons */
+}
+
+input[type="radio"]:checked + .pm-label {
+  background-color: #f0f0f0;
+  border-color: #007bff;
+}
+
+.pm-text {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.pm-text h5 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 5px 0;
+}
+
+.pm-text p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
 }

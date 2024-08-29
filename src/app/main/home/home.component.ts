@@ -113,7 +113,7 @@ export class HomeComponent {
       data => {
           this.recommendations = data.data
           this.recommandationDataLoaded = false
-          this.isQuizCompleted=true
+          // this.isQuizCompleted=true
 
       },
       error => {

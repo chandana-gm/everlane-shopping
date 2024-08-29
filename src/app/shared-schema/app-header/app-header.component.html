@@ -48,11 +48,11 @@
                   
                 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/main/wishlist" (click)="redirectToWishlist()"><i class="bi bi-heart "
+                    <a class="nav-link active" aria-current="page"  (click)="redirectToWishlist()"><i class="bi bi-heart "
                             style="font-size: larger; font-weight: 900;"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/shopping/cart" (click)="redirectToCart()"><i class="bi bi-cart position-relative"
+                    <a class="nav-link active" aria-current="page" (click)="redirectToCart()"><i class="bi bi-cart position-relative"
                            >
                             <span *ngIf="isAuthenticated" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:x-small;">{{cartLength}}</span>
                             <span *ngIf="!isAuthenticated" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:x-small;">0</span>

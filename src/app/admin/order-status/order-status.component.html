@@ -1,36 +1,47 @@
-<div >
-    <div style="text-align: center;">
-      <h2 class="animated-h2">Track orders</h2>
-    </div>
-    <br>
-    <table class="table table-secondary table-bordered" >
-      <thead>
-        <tr class="table-dark">
-          <th scope="col">Product</th>
-          <th scope="col">User</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr >
-          <th></th>
-          <td></td>
-          <!-- <td>{{ item.data.userId | titlecase }}</td> -->
-          <td></td>
-          <td></td>
-        </tr>
-        
-      </tbody>
-    </table>
+<div class="container">
+  <div class="text-center">
+      <h2 style="color:#973d93;">Return Product Approval</h2>
   </div>
-  
-  <div>
-    <!-- <div class="loading">
-      <h1 class="mt-5">Fetching your details, please wait...</h1>
-      <img src="../../../assets/images/1488 (1).gif">   
-    </div>
-  </div> -->
-  
-  
+  <br>
+  <div class="table-responsive">
+      <table class="table table-hover  mt-4 p-4">
+          <thead>
+              <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Product Item</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Refund Amount</th>
+                  <th scope="col">Refund Date</th>
+                  <th scope="col">Return Reason</th>
+                  <th scope="col">Returned Quantity</th>
+                  <th scope="col">Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of returnList">
+                  <td>{{item.product_name}}</td>
+                  <td>{{item.product_item}}</td>
+                  <td><img src="{{item.product_image}}" alt="Product Image" class="img-fluid" style="max-width: 50px;"></td>
+                  <td>{{item.product_price}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.size}}</td>
+                  <td>{{item.refund_amount}}</td>
+                  <td>{{item.refund_date}}</td>
+                  <td>{{item.return_reason}}</td>
+                  <td>{{item.returned_quantity}}</td>
+                  <td>
+                      <div class="d-flex justify-content-between">
+                          <button type="button" class="btn btn-outline-success btn-sm" (click)="approve(item)">Accept</button>
+                          <button type="button" class="btn btn-outline-danger btn-sm">Reject</button>
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
   

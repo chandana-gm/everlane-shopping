@@ -72,3 +72,13 @@ p{
   .mb-2 {
     margin-bottom: 0.5rem;
   }
+  th{
+    font-size:medium;
+  }
+  td{
+    font-size:small;
+  }
+  .card{
+    padding: 20px;
+    background-color: rgb(221, 221, 221);
+  }

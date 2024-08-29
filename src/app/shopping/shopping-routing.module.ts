@@ -5,6 +5,7 @@ import { ShoppingDetailsComponent } from './shopping-details/shopping-details.co
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     {path:'detailsPage/:id',component:DetailPageComponent, runGuardsAndResolvers: 'paramsOrQueryParamsChange'},
     {path:'cart',component:CartComponent},
     {path:'checkout',component:CheckoutComponent},
+    {path:'payment',component:PaymentComponent}
   ]}
   
   

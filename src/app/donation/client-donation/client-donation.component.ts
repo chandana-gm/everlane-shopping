@@ -14,14 +14,16 @@ export class ClientDonationComponent implements OnInit {
   disasterList: any[] = [];
   donationForm!: FormGroup;
   images: string[] = [];
-  address:any[]=[]
+  // address: any[] = []
+  pickup:any[]=[]
+  dis:any
 
   constructor(
     private fb: FormBuilder,
     private getService: GettingserviceService,
     private postService: PostServiceService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.donationForm = this.fb.group({
@@ -33,29 +35,36 @@ export class ClientDonationComponent implements OnInit {
       kids_dresses: [0, [Validators.required, Validators.min(0)]],
       pickup_location: ['', Validators.required],
       donated_on: ['', Validators.required],
-    
+
     });
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-    const user = JSON.parse(storedUser);
-  const username=user.username
-  console.log(username);
-  this.donationForm.patchValue({
-    doner_name:username
-  });
-  
-    
+      const user = JSON.parse(storedUser);
+      const username = user.username
+      console.log(username);
+      this.donationForm.patchValue({
+        doner_name: username
+      });
+      this.getService.getPickup().subscribe((res)=>{
+        console.log('pick',res);
+        this.pickup=res.data
+        
+      })
+
+
     }
 
     this.getService.getDisasterList().subscribe((response) => {
-          this.disasterList = response.data;
-        
-        });
-        this.getService.getAddress().subscribe((data)=>{
-          console.log(data,'address');
-     this.address=data.data  
-        }
-        )
+      console.log(response);
+      
+      this.disasterList = response.data;
+
+    });
+    // this.getService.getAddress().subscribe((data) => {
+    //   console.log(data, 'address');
+    //   this.address = data.data
+    // }
+    // )
   }
 
   onFileSelected(event: Event): void {
@@ -71,7 +80,7 @@ export class ClientDonationComponent implements OnInit {
         reader.readAsDataURL(file);
       });
       // console.log(this.images);
-      
+
       this.donationForm.patchValue({
         images: filesArray
       });
@@ -79,46 +88,51 @@ export class ClientDonationComponent implements OnInit {
   }
 
   removeImage(index: number) {
-    this.images.splice(index, 1); 
+    this.images.splice(index, 1);
   }
 
   async onSubmit() {
-   if (this.donationForm.valid) {
+    if (this.donationForm.valid) {
       const formData = new FormData();
 
-        formData.append('disaster', this.donationForm.get('disaster')?.value);
-        formData.append('men_dresses', this.donationForm.get('men_dresses')?.value);
-        formData.append('women_dresses', this.donationForm.get('women_dresses')?.value);
-        formData.append('kids_dresses', this.donationForm.get('kids_dresses')?.value);
-        formData.append('pickup_location', this.donationForm.get('pickup_location')?.value);
-        formData.append('donated_on', this.donationForm.get('donated_on')?.value);
-        formData.append('doner_name', this.donationForm.get('doner_name')?.value);
-    
+      formData.append('disaster', this.donationForm.get('disaster')?.value);
+      formData.append('men_dresses', this.donationForm.get('men_dresses')?.value);
+      formData.append('women_dresses', this.donationForm.get('women_dresses')?.value);
+      formData.append('kids_dresses', this.donationForm.get('kids_dresses')?.value);
+      formData.append('pickup_location', this.donationForm.get('pickup_location')?.value);
+      formData.append('donated_on', this.donationForm.get('donated_on')?.value);
+      formData.append('doner_name', this.donationForm.get('doner_name')?.value);
+
 
 
       const filesArray = this.donationForm.get('images')?.value;
       console.log(filesArray);
-      
+
       if (filesArray && filesArray.length > 0) {
         filesArray.forEach((file: File, index: number) => {
           formData.append(`images`, file);
         });
       }
-  
+
 
       const disasterId = this.donationForm.get('disaster')?.value;
-      console.log('abc',disasterId);
-      
+      console.log('abc', disasterId);
+
       this.postService.postDonation(formData, disasterId).subscribe(
         (data: any) => {
 
-          console.log(data,'response');
-          
-          this.toastr.success(data.message);
+          console.log(data, 'response');
+          if (data.status == 'sucess') {
+            this.toastr.success(data.message);
+          }
+          else {
+
+            this.toastr.info(data.message);
+          }
           // this.toastr.error('Registration successful!',data.error.images[0]);
         },
         (error) => {
-        
+
           // this.toastr.error('Failed to upload donation!',error.error.errors.images[0]);
           if (error.error.errors && error.error.errors.images) {
             this.toastr.error(error.error.errors.images[0], 'Image Upload Error');
@@ -128,7 +142,7 @@ export class ClientDonationComponent implements OnInit {
         }
       );
     }
-    else{
+    else {
       this.markAllFieldsAsTouched();
     }
   }
@@ -141,6 +155,19 @@ export class ClientDonationComponent implements OnInit {
   onFormClick(): void {
     this.markAllFieldsAsTouched();
   }
+
+  onDisasterChange(event: Event){
+    const selectedDisasterId = (event.target as HTMLSelectElement).value;
+    console.log(selectedDisasterId);
+   this.dis = this.disasterList.find(disaster => disaster.id === +selectedDisasterId);
+    // console.log(Dis);
+    // const men_req=Dis.required_men_dresses
+    // const women_req=Dis.required_women_dresses
+    
+    
+    
+
+    
+  }
 }
 
-  

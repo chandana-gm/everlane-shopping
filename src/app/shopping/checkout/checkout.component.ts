@@ -16,6 +16,7 @@ export class CheckoutComponent {
     window.scroll(0, 0)
     this.getAddress()
     this.getDisasterList()
+    this.getPickUp()
     console.log(this.checkoutForm.status);
   }
   checkoutForm: FormGroup;
@@ -34,6 +35,9 @@ export class CheckoutComponent {
   activeSection: string = 'addAddress';
   selectedAddressId: any = null;
   isProcessing = false;
+  paypalUrl: any
+  picUpData: any
+  selectedPickup:string = ''
 
 
   constructor(
@@ -78,8 +82,12 @@ export class CheckoutComponent {
   }
   confirmOrder() {
     this.isProcessing = true;
-    this.postService.postPlaceOrder(this.selectedType, this.selectedPaymentMethod, this.addressId, this.selectAddress, this.selectedPlace).subscribe((data) => {
-      this.toster.success(data.message)
+    this.postService.postPlaceOrder(this.selectedType, this.selectedPaymentMethod, this.addressId, this.selectAddress, this.selectedPlace,this.selectedPickup).subscribe((data) => {
+      // this.toster.success(data.message)
+      this.paypalUrl = data.approval_url
+      if (this.paypalUrl) {
+        window.location.href = this.paypalUrl;
+      }
       this.deleteService.cartItemNumbers()
       this.isOrderConfirmed = true
       this.isProcessing = false;
@@ -96,7 +104,12 @@ export class CheckoutComponent {
 
     })
   }
+  getPickUp() {
+    this.service.getPickup().subscribe((data) => {
+      this.picUpData = data.data
 
+    })
+  }
   isNextButtonDisabled(): boolean {
     if (this.selectedPaymentMethod === 'ONLINE') {
       return !this.upiId;

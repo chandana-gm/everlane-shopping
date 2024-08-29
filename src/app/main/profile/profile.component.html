@@ -171,10 +171,11 @@
                                                             <p class="text-pebble">{{ item.product_name }}</p>
                                                             <p class="text-pebble">{{ item.price | currency: 'INR' }}
                                                             </p>
+                                                            <p class="text-muted">Size: {{ item.size }}</p>
                                                             <p class="text-muted">Quantity: {{ item.quantity }}</p>
 
 
-                                                            <span *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id]" style="cursor: not-allowed;color: red;">
+                                                            <span *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id] || item.return_status === 'PENDING'" style="cursor: not-allowed;color: red;">
                                                                 Return requested
                                                             </span>
 
