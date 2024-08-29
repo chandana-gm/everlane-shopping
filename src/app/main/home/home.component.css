@@ -112,6 +112,7 @@
 .img-carousel {
     border-radius: 5px;
     padding: 10px;
+    padding-top: 0 !important;
 }
 
 
@@ -532,7 +533,7 @@ button.next {
 
 @media (max-width: 370px) {
     .marquee {
-        animation: scroll-left 130s linear infinite;
+        animation: scroll-left 13s linear infinite;
     }
 
     .category p {

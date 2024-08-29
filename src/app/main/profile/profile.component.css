@@ -188,6 +188,10 @@ input[type="text"]:focus {
     font-size: small;
   }
 }
+@media (max-width: 576px) {
+  
+}
+
 @media (max-width: 380px) {
   .order-image{
     margin-left: 0px;

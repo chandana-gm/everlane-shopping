@@ -71,6 +71,9 @@ export class PostServiceService {
     const options = { headers: headers };
     return this.http.post<any>(baseUrl.baseUrl + postApis.logOut, body, options)
   }
+  forgotPassword(email:any){
+    return this.http.post<any>(baseUrl.baseUrl+postApis.forgotPassword,email)
+  }
   createAddress(value: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.addressCreation, value)
   }
@@ -94,13 +97,13 @@ export class PostServiceService {
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postDonation}`, item, id);
   }
 
-  postPlaceOrder(delivery_type: any, payment_method: any, id?: any, existingid?: any, disaster_id?: any) {
+  postPlaceOrder(delivery_type: any, payment_method: any, id?: any, existingid?: any, disaster_id?: any, pickups?:any) {
     let body = {
       "order_type": delivery_type,
       "payment_method": payment_method,
       "address_id": id,
       "disaster_id": disaster_id,
-      "pickup_location_id": 1
+      "pickup_location_id": pickups
     }
     return this.http.post<any>(baseUrl.baseUrl + postApis.placeOrder, body)
   }
@@ -126,6 +129,7 @@ export class PostServiceService {
     }
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postApproveReturn}`,body)
   }
+
   
 
 

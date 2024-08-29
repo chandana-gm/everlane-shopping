@@ -15,21 +15,27 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   loading: boolean = false;
+  forgotPasswordForm!: FormGroup;
   passwordFieldType: string = 'password';
   loginForm!: FormGroup;
+  forgotPasswordMode = false;
 
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
-
+    this.forgotPasswordForm = this.fb.group({
+      username: ['', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]]
+    });
   }
+
+
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
-  onSubmit() {
+  onLoginSubmit() {
     this.loading = true
     if (this.loginForm.valid) {
       console.log('data', this.loginForm.value);
@@ -66,8 +72,24 @@ export class LoginComponent implements OnInit {
   }
 
 
-
+  toggleForgotPasswordMode() {
+    this.forgotPasswordMode = !this.forgotPasswordMode;
+  }
+  onForgotPasswordSubmit() {
+    this.loading = true
+this.service.forgotPassword(this.forgotPasswordForm.value).subscribe((data)=>{
+this.toastr.success(data.message)
+this.loading=false
+},
+error=>{
+  this.toastr.error(error.error.error)
+  this.loading=false
 }
+)
 
+
+
+  }
+}
 
 

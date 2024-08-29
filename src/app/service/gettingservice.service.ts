@@ -65,22 +65,22 @@ export class GettingserviceService {
   getSkirtsWomenCategory() {
     return this.http.get<any>(baseUrl.baseUrl + environment.skirtsWomenCategory)
   }
-  getSportswear(){
+  getSportswear() {
     return this.http.get<any>(baseUrl.baseUrl + environment.sportsCategory)
   }
-  getpartyWearMen(){
+  getpartyWearMen() {
     return this.http.get<any>(baseUrl.baseUrl + environment.partywearMenCategory)
   }
-  getTopwear(){
+  getTopwear() {
     return this.http.get<any>(baseUrl.baseUrl + environment.topWomenCategory)
   }
-  getJegginswear(){
+  getJegginswear() {
     return this.http.get<any>(baseUrl.baseUrl + environment.jegginsWomenCategory)
   }
-  Sweaterwear(){
+  Sweaterwear() {
     return this.http.get<any>(baseUrl.baseUrl + environment.sweaterWomenCategory)
   }
-  getSubCategories(id:string){
+  getSubCategories(id: string) {
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.sportsCategory}${id}`)
   }
   getCart() {
@@ -99,30 +99,36 @@ export class GettingserviceService {
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.productSearch}${searchItem}`)
   }
   getAddress() {
-    return this.http.get<any>(baseUrl.baseUrl + environment.getAddress)
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.getAddress}`)
   }
   getOrders() {
     return this.http.get<any>(baseUrl.baseUrl + environment.viewOrders)
   }
-
-  getAllProductList(){
-    return this.http.get<any>(baseUrl.baseUrl+environment.getallProductList)
+  getAllProductList() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getallProductList)
 
   }
-  getAllreturnProduct(){
-    return this.http.get<any>(baseUrl.baseUrl+environment.getReturnProduct)
+  getAllreturnProduct() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getReturnProduct)
   }
-  getPickup(){
-    return this.http.get<any>(baseUrl.baseUrl+environment.getPickup)
+  getPickup() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getPickup)
   }
 
-  getRecommdation(){
-    return this.http.get<any>(baseUrl.baseUrl+environment.getRecommendation)
+  getRecommdation() {
+    return this.http.get<any>(baseUrl.baseUrl + environment.getRecommendation)
+  }
+  getPaymentUpdation(payerId:any,paymentId:any,token:any) {
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.getPaymentUpdation}?paymentId=${paymentId}&token=${token}&PayerID=${payerId}`);
+  }
+  cancelOrder(token:any){
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.cancelPayment}?token=${token}`);
   }
   getUserDonatios(){
     return this.http.get<any>(baseUrl.baseUrl+environment.getUserDonation)
 
   }
+
 
 
 

@@ -10,7 +10,7 @@
                 <div class="detail" (click)="showSection('section4')">Address</div>
                 <div class="detail" (click)="showSection('section5')">My Registrations</div>
                 <div class="detail" (click)="showSection('section6')">My Donations</div>
-                
+
             </div>
         </div>
         <div class="col-12 col-md-9 col-lg-9">
@@ -72,11 +72,11 @@
             <div class="container-password" *ngIf="currentSection === 'section2'">
                 <h2 class="my-4" style="color:#973d93">Password Change</h2>
                 <hr>
-                <form>
+                <form #passwordForm="ngForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="currentPassword">Current Password</label>
-                            <input id="currentPassword" class="form-control" type="password" #currentPassword />
+                            <input id="currentPassword" class="form-control" type="password" #currentPassword ngModel />
                         </div>
 
                         <div class="form-group col-md-6">
@@ -126,7 +126,7 @@
                                             </span>
                                         </div>
 
-                                        <div class="col-6 col-md">
+                                        <div class="col-6 col-md order-image">
                                             <p class="text-pebble">{{ orders.items[0].product_name| slice:0:23}}{{
                                                 orders.items[0].product_name.length > 23 ? '...' :
                                                 ''}}</p>
@@ -135,9 +135,9 @@
 
 
                                         </div>
-                                        <div class="col-6 col-md">
+                                        <div class="col-5 col-md">
                                             <h6 class="font-weight-bold">Order Date</h6>
-                                            <p class="text-pebble">{{orders.created_on |  date }}</p>
+                                            <p class="text-pebble">{{orders.created_on | date }}</p>
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <a class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download
@@ -164,35 +164,39 @@
                                             <div *ngIf="singleProduct && singleProduct.items.length > 0">
                                                 <div *ngFor="let item of singleProduct.items">
                                                     <div class="d-flex">
-                                                        <!-- Image section with a smaller width -->
-                                                        <div class="col-5 col-sm-3 order-image">
+                                                        <div class="col-5 col-md order-image">
                                                             <img [src]="item.product_image"
                                                                 alt="{{ item.product_name }}" height="150px"
                                                                 width="150px">
                                                         </div>
-                                                        <!-- Content section taking up the remaining width -->
                                                         <div class="col-9 col-md">
                                                             <p class="text-pebble">{{ item.product_name }}</p>
                                                             <p class="text-pebble">{{ item.price | currency: 'INR' }}
                                                             </p>
+                                                            <p class="text-muted">Size: {{ item.size }}</p>
                                                             <p class="text-muted">Quantity: {{ item.quantity }}</p>
 
 
-                                                            <span *ngIf="item.return_status === 'PENDING'" style="cursor: not-allowed;color: red;">
+                                                            <span
+                                                                *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id] || item.return_status === 'RETURNED'"
+                                                                style="cursor: not-allowed;color: red;">
                                                                 Return requested
                                                             </span>
 
-                                                            <!-- Hide the "Return" button if this item is selected -->
-                                                            <button class="button" *ngIf="item.return_status !== 'PENDING' && selectedItem !== item"
-                                                                (click)="returnRequest(item)" [disabled]="returnRequestSuccessful[item.id]"> 
-                                                                <span *ngIf="!returnRequestSuccessful[item.id]">Return</span>
-                                                                <span *ngIf="returnRequestSuccessful[item.id]" style="cursor: not-allowed;">Return requested</span>
+                                                            <!-- Hide the Return button if this item is selected -->
+                                                            <button class="button"
+                                                                *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id]"
+                                                                (click)="returnRequest(item)"
+                                                                [disabled]="returnRequestSuccessful[item.id]">
+                                                                <span>Return</span>
+                                                                <!-- <span *ngIf="returnRequestSuccessful[item.id]" style="cursor: not-allowed;">Return requested</span> -->
                                                             </button>
                                                         </div>
                                                     </div>
 
                                                     <!-- Display input fields if this item is selected -->
-                                                    <div *ngIf="selectedItem === item && !returnRequestSuccessful[item.id]" class="return-details mt-3">
+                                                    <div *ngIf="selectedItem === item && !returnRequestSuccessful[item.id]"
+                                                        class="return-details mt-3">
                                                         <div class="form-group">
                                                             <label for="returnReason">Return Reason:</label>
                                                             <select [(ngModel)]="returnReason[item.id]"
@@ -212,8 +216,16 @@
                                                         </div>
                                                         <button class="button"
                                                             [disabled]="!returnReason[item.id] || !returnQuantity[item.id]"
-                                                            (click)="sendReturnRequest(item.id)">Request
-                                                            Return</button>
+                                                            (click)="sendReturnRequest(item.id)">
+                                                            <span *ngIf="!loading">Request Return</span>
+                                                            <span *ngIf="loading">
+                                                                <img src="../../../assets/images/loaders/spinner.gif"
+                                                                    alt="Loading..."
+                                                                    style="min-width: 40px; height: 20px;" />
+                                                            </span>
+                                                            
+
+                                                            </button>
                                                         <!-- <button class="btn btn-secondary" (click)="cancelRequest()">Cancel</button> -->
                                                     </div>
 
@@ -261,7 +273,7 @@
                         </div>
 
                         <div class="address-container">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label for="city">City <small>*</small></label>
                                 <input formControlName="city" type="text" id="city" name="city">
                                 <div
@@ -270,7 +282,7 @@
                                         is required.</small>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label>State <small>*</small></label>
                                 <input formControlName="state" type="text" id="state" name="state">
                                 <div
@@ -283,11 +295,11 @@
                         </div>
 
                         <div class="address-container">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label>Landmark</label>
                                 <input formControlName="landMark" type="text" id="landmark" name="landmark">
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label for="pincode">Postal Code <small>*</small></label>
                                 <input formControlName="pincode" type="text" id="postalCode" name="postalCode">
                                 <div
@@ -303,7 +315,7 @@
                         </div>
 
                         <div class="address-container">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label>Mobile: <small>*</small></label>
                                 <input formControlName="mobile" type="text" id="mobile" name="mobile">
                                 <div
@@ -316,7 +328,7 @@
                                         format</small>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label>Locality <small>*</small></label>
                                 <input formControlName="locality" type="text" id="locality" name="locality">
                                 <div
@@ -388,7 +400,7 @@
                                         </div>
 
                                         <div class="address-container">
-                                            <div class="col-6">
+                                            <div class="col-md-6">
                                                 <label for="city">City <small>*</small></label>
                                                 <input formControlName="city" type="text" id="city" name="city">
                                                 <div
@@ -398,7 +410,7 @@
                                                         is required.</small>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-md-6">
                                                 <label>State <small>*</small></label>
                                                 <input formControlName="state" type="text" id="state" name="state">
                                                 <div
@@ -412,12 +424,12 @@
                                         </div>
 
                                         <div class="address-container">
-                                            <div class="col-6">
+                                            <div class="col-md-6">
                                                 <label>Landmark</label>
                                                 <input formControlName="landMark" type="text" id="landmark"
                                                     name="landmark">
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-md-6">
                                                 <label for="pincode">Postal Code <small>*</small></label>
                                                 <input formControlName="pincode" type="text" id="postalCode"
                                                     name="postalCode">
@@ -436,7 +448,7 @@
                                         </div>
 
                                         <div class="address-container">
-                                            <div class="col-6">
+                                            <div class="col-md-6">
                                                 <label>Mobile: <small>*</small></label>
                                                 <input formControlName="mobile" type="text" id="mobile" name="mobile">
                                                 <div
@@ -450,7 +462,7 @@
                                                         format</small>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-md-6">
                                                 <label>Locality <small>*</small></label>
                                                 <input formControlName="locality" type="text" id="locality"
                                                     name="locality">

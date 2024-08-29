@@ -37,6 +37,9 @@ export const environment = {
     getReturnProduct:'return-pending/',
     getPickup:'pickups/',
     getRecommendation:'recommendations/',
+
+    getPaymentUpdation:'payment/execute/',
+    cancelPayment:'payment/cancel/',
     getUserDonation:'user-donations/'
 
   };
@@ -55,6 +58,7 @@ export const postApis = {
     addressCreation:'addresses/create/',
     placeOrder:'place-order/',
     returnRequest:'request-return/',
+    forgotPassword:'forgot-password/',
 
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',

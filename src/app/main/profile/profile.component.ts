@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -11,6 +11,7 @@ import { PostServiceService } from 'src/app/service/post-service.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('passwordForm') passwordForm!: NgForm;
   userData: any = {};
   currentSection: string = 'section1';
   addressList: any
@@ -24,7 +25,7 @@ export class ProfileComponent implements OnInit {
   loading: boolean = false
   singleProduct:any
   selectedItem: any = null;
-  returnReasons: string[] = ['Reason 1', 'Reason 2', 'Reason 3'];
+  returnReasons: string[] = ['Wrong Item Delivered', 'Damaged or Defective Item', 'Incorrect Size or Fit','Quality Issue','Wrong Color','Others'];
   ifReturned=false
   returnRequestSuccessful: { [key: number]: boolean } = {};
   donations:any[]=[]
@@ -56,6 +57,7 @@ export class ProfileComponent implements OnInit {
   }
 
   sendReturnRequest(productItem: number) {
+    this.loading=true
     const quantity = this.returnQuantity[productItem];
     const reason = this.returnReason[productItem];
     console.log('Return Request:', { productItem, quantity, reason });
@@ -63,6 +65,7 @@ export class ProfileComponent implements OnInit {
       this.toster.success(data.message)
       this.returnRequestSuccessful[productItem] = true;
     this.selectedItem = null;
+    this.loading=false
 
     }
   )
@@ -135,6 +138,7 @@ this.donations=res.data
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
       this.loading = false
+      // this.passwordForm.reset()
     }, (error) => {
       this.toster.error(error.error.message)
       this.loading = false
