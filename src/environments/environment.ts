@@ -39,7 +39,8 @@ export const environment = {
     getRecommendation:'recommendations/',
 
     getPaymentUpdation:'payment/execute/',
-    cancelPayment:'payment/cancel/'
+    cancelPayment:'payment/cancel/',
+    getUserDonation:'user-donations/'
 
   };
 
@@ -57,6 +58,7 @@ export const postApis = {
     addressCreation:'addresses/create/',
     placeOrder:'place-order/',
     returnRequest:'request-return/',
+    forgotPassword:'forgot-password/',
 
     disasterRegister:'disasters/',
     adminApprove:'disasters/approve/',
@@ -82,6 +84,6 @@ export const patchApis = {
   };
 export const baseUrl = {
     production: false,
-    baseUrl: 'http://18.143.206.136/api/',
+    baseUrl: 'https://18.143.206.136/api/',
     subCategories:'products/?subcategory='
   };

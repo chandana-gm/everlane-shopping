@@ -38,6 +38,7 @@ export class CheckoutComponent {
   paypalUrl: any
   picUpData: any
   selectedPickup:string = ''
+  codOrderConfirmed=false
 
 
   constructor(
@@ -87,6 +88,13 @@ export class CheckoutComponent {
       this.paypalUrl = data.approval_url
       if (this.paypalUrl) {
         window.location.href = this.paypalUrl;
+      }
+      else{
+        console.log("cod");
+        this.codOrderConfirmed=true
+      //   setTimeout(() => {
+      //     this.route.navigate(['/main']);
+      // }, 3000);
       }
       this.deleteService.cartItemNumbers()
       this.isOrderConfirmed = true

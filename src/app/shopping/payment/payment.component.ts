@@ -20,10 +20,10 @@ export class PaymentComponent {
   paymentProcessing: boolean = true;
 
   constructor(private route: ActivatedRoute,
-     private router: Router,
-     private getService: GettingserviceService,
-     private deleteService:DeleteServiceService
-    ) { }
+    private router: Router,
+    private getService: GettingserviceService,
+    private deleteService: DeleteServiceService
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -34,12 +34,13 @@ export class PaymentComponent {
       if (this.payerId && this.paymentId && this.token) {
         this.getService.getPaymentUpdation(this.payerId, this.paymentId, this.token).subscribe((data) => {
           if (data.status === 'success') {
-            this.paymentSuccess = true;
             this.paymentProcessing = false;
             this.deleteService.cartItemNumbers()
+            this.router.navigate(['shopping/payment-success'])
           } else if (data.status === 'failed') {
             this.paymentFailed = true;
             this.paymentProcessing = false;
+
           }
         }, error => {
           this.paymentFailed = true;
@@ -47,6 +48,7 @@ export class PaymentComponent {
         });
       } else if (this.token && !this.payerId && !this.paymentId) {
         this.getService.cancelOrder(this.token).subscribe((data) => {
+          this.router.navigate(['shopping/payment-failed'])
           this.paymentFailed = true;
           this.paymentProcessing = false;
         }, error => {

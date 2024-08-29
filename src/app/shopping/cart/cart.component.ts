@@ -12,10 +12,10 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 })
 export class CartComponent {
   constructor(
-    private service: GettingserviceService, 
-    private postService: PostServiceService, 
-    private deleteService: DeleteServiceService, 
-    private router:Router,
+    private service: GettingserviceService,
+    private postService: PostServiceService,
+    private deleteService: DeleteServiceService,
+    private router: Router,
     private toastr: ToastrService) { }
   productDetail: any = [];
   total: any;
@@ -26,7 +26,7 @@ export class CartComponent {
 
 
   async ngOnInit() {
-
+    window.scroll(0, 0)
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const user = JSON.parse(storedUser);
@@ -109,17 +109,18 @@ export class CartComponent {
       this.removecartItem(item)
     },
       error => {
-      this.toastr.info(error.error.message)
+        this.toastr.info(error.error.message)
       }
-  )}
+    )
+  }
   refreshCart() {
     this.deleteService.sendWithoutRefresh();
   }
-  redirectToDetailPage(id:string){
-this.router.navigate(['/shopping/detailsPage',id])
+  redirectToDetailPage(id: string) {
+    this.router.navigate(['/shopping/detailsPage', id])
   }
 
-  
+
 
   // copy link
   currentUrl: string = window.location.origin;

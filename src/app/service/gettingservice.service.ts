@@ -123,8 +123,14 @@ export class GettingserviceService {
   }
   cancelOrder(token:any){
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.cancelPayment}?token=${token}`);
+  }
+  getUserDonatios(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getUserDonation)
 
   }
+
+
+
 
 
 

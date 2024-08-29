@@ -71,6 +71,9 @@ export class PostServiceService {
     const options = { headers: headers };
     return this.http.post<any>(baseUrl.baseUrl + postApis.logOut, body, options)
   }
+  forgotPassword(email:any){
+    return this.http.post<any>(baseUrl.baseUrl+postApis.forgotPassword,email)
+  }
   createAddress(value: any) {
     return this.http.post<any>(baseUrl.baseUrl + postApis.addressCreation, value)
   }
@@ -119,9 +122,14 @@ export class PostServiceService {
 
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postStock}`,item)
   }
-  approvReturn(item:any){
-    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postApproveReturn}`,item)
+  approvReturn(product_id:any,action:any){
+    let body={
+      "order_item_id": product_id,
+      "action":action
+    }
+    return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postApproveReturn}`,body)
   }
+
   
 
 

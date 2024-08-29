@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedSchemaModule } from '../shared-schema/shared-schema.module';
 import { FormsModule } from '@angular/forms';
 import { PaymentComponent } from './payment/payment.component';
+import { FailedPaymentComponent } from './payment-status/failed-payment/failed-payment.component';
+import { SuccessPaymentComponent } from './payment-status/success-payment/success-payment.component';
 
 
 
@@ -22,6 +24,8 @@ import { PaymentComponent } from './payment/payment.component';
     CartComponent,
     CheckoutComponent,
     PaymentComponent,
+    FailedPaymentComponent,
+    SuccessPaymentComponent,
     
   ],
   imports: [

@@ -9,6 +9,8 @@
                 <div class="detail" (click)="showSection('section3')">My Orders</div>
                 <div class="detail" (click)="showSection('section4')">Address</div>
                 <div class="detail" (click)="showSection('section5')">My Registrations</div>
+                <div class="detail" (click)="showSection('section6')">My Donations</div>
+
             </div>
         </div>
         <div class="col-12 col-md-9 col-lg-9">
@@ -135,7 +137,7 @@
                                         </div>
                                         <div class="col-6 col-md">
                                             <h6 class="font-weight-bold">Order Date</h6>
-                                            <p class="text-pebble">{{orders.created_on |  date }}</p>
+                                            <p class="text-pebble">{{orders.created_on | date }}</p>
                                         </div>
                                         <div class="col-12 col-md-3">
                                             <a class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download
@@ -175,21 +177,26 @@
                                                             <p class="text-muted">Quantity: {{ item.quantity }}</p>
 
 
-                                                            <span *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id] || item.return_status === 'PENDING'" style="cursor: not-allowed;color: red;">
+                                                            <span
+                                                                *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id] || item.return_status === 'RETURNED'"
+                                                                style="cursor: not-allowed;color: red;">
                                                                 Return requested
                                                             </span>
 
                                                             <!-- Hide the Return button if this item is selected -->
-                                                            <button class="button" *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id]"
-                                                                (click)="returnRequest(item)" [disabled]="returnRequestSuccessful[item.id]"> 
-                                                                <span >Return</span>
+                                                            <button class="button"
+                                                                *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id]"
+                                                                (click)="returnRequest(item)"
+                                                                [disabled]="returnRequestSuccessful[item.id]">
+                                                                <span>Return</span>
                                                                 <!-- <span *ngIf="returnRequestSuccessful[item.id]" style="cursor: not-allowed;">Return requested</span> -->
                                                             </button>
                                                         </div>
                                                     </div>
 
                                                     <!-- Display input fields if this item is selected -->
-                                                    <div *ngIf="selectedItem === item && !returnRequestSuccessful[item.id]" class="return-details mt-3">
+                                                    <div *ngIf="selectedItem === item && !returnRequestSuccessful[item.id]"
+                                                        class="return-details mt-3">
                                                         <div class="form-group">
                                                             <label for="returnReason">Return Reason:</label>
                                                             <select [(ngModel)]="returnReason[item.id]"
@@ -209,8 +216,16 @@
                                                         </div>
                                                         <button class="button"
                                                             [disabled]="!returnReason[item.id] || !returnQuantity[item.id]"
-                                                            (click)="sendReturnRequest(item.id)">Request
-                                                            Return</button>
+                                                            (click)="sendReturnRequest(item.id)">
+                                                            <span *ngIf="!loading">Request Return</span>
+                                                            <span *ngIf="loading">
+                                                                <img src="../../../assets/images/loaders/spinner.gif"
+                                                                    alt="Loading..."
+                                                                    style="min-width: 40px; height: 20px;" />
+                                                            </span>
+                                                            
+
+                                                            </button>
                                                         <!-- <button class="btn btn-secondary" (click)="cancelRequest()">Cancel</button> -->
                                                     </div>
 
@@ -474,7 +489,7 @@
                 </ng-template>
 
             </div>
-            <!-- my donations -->
+            <!-- disaster register -->
             <div *ngIf="currentSection === 'section5'">
                 <div *ngIf="myDonation.length > 0; else noRegistrations">
                     <div style="text-align: center;">
@@ -523,6 +538,11 @@
                     </div>
                 </div>
             </ng-template>
+
+
+            <div *ngIf="currentSection === 'section6'">
+                <h1>asfgbsehgb</h1>
+            </div>
 
         </div>
     </div>

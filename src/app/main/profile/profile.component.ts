@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   loading: boolean = false
   singleProduct:any
   selectedItem: any = null;
-  returnReasons: string[] = ['Reason 1', 'Reason 2', 'Reason 3'];
+  returnReasons: string[] = ['Wrong Item Delivered', 'Damaged or Defective Item', 'Incorrect Size or Fit','Quality Issue','Wrong Color','Others'];
   ifReturned=false
   returnRequestSuccessful: { [key: number]: boolean } = {};
 
@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
   }
 
   sendReturnRequest(productItem: number) {
+    this.loading=true
     const quantity = this.returnQuantity[productItem];
     const reason = this.returnReason[productItem];
     console.log('Return Request:', { productItem, quantity, reason });
@@ -63,6 +64,7 @@ export class ProfileComponent implements OnInit {
       this.toster.success(data.message)
       this.returnRequestSuccessful[productItem] = true;
     this.selectedItem = null;
+    this.loading=false
 
     }
   )
@@ -93,6 +95,12 @@ export class ProfileComponent implements OnInit {
       console.log('data', response);
       this.myDonation = response.data
     })
+    this.service.getUserDonatios().subscribe((res)=>{
+
+      console.log('whfudh',res);
+      
+    })
+    
   }
 
   onSubmit() {
