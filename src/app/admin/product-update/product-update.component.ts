@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -58,15 +58,14 @@ export class ProductUpdateComponent implements OnInit {
       subcategory: ['', Validators.required],
       image: [null],
       isTrending: [false],
-      skin_colors: ['', Validators.required],
-
-      heights: ['', Validators.required],
+      skin_colors: this.fb.array([], Validators.required),
+      heights: this.fb.array([], Validators.required),
+      usages: this.fb.array([], Validators.required),
       genders: ['', Validators.required],
       summer: [false],
       winter: [false],
       rainy: [false],
       autumn: [false],
-      usages: ['', Validators.required],
       isActive: [false],
       isDeleted: [false],
       createdOn: [{ value: '', disabled: true }]
@@ -82,6 +81,23 @@ export class ProductUpdateComponent implements OnInit {
 
 
   }
+
+  onCheckboxChange(event: any, formArrayName: string) {
+    const formArray: FormArray = this.productForm.get(formArrayName) as FormArray;
+
+    if (event.target.checked) {
+      formArray.push(this.fb.control(event.target.value));
+    } else {
+      const index = formArray.controls.findIndex(x => x.value === event.target.value);
+      formArray.removeAt(index);
+    }
+  }
+
+  isChecked(formArrayName: string, value: string): boolean {
+    const formArray: FormArray = this.productForm.get(formArrayName) as FormArray;
+    return formArray.value.includes(value);
+  }
+
 
  getAllProducts() {
     this.service.getAllProductList().subscribe((data) => {
@@ -203,8 +219,23 @@ export class ProductUpdateComponent implements OnInit {
             this.toster.error('Failed to add product.', 'Error');
           });
       }
+      this.productForm.reset()
     }
+    else{
+this.markAllFieldsAsTouched()
+    }
+    
+  }
   
+  
+  private markAllFieldsAsTouched(): void {
+    Object.keys(this.productForm.controls).forEach(field => {
+      const control = this.productForm.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
+  }
+  onFormClick(): void {
+    this.markAllFieldsAsTouched();
   }
   addProduct() {
     this.isEdit = false;
