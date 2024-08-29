@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   returnReasons: string[] = ['Reason 1', 'Reason 2', 'Reason 3'];
   ifReturned=false
   returnRequestSuccessful: { [key: number]: boolean } = {};
+  donations:any[]=[]
 
   constructor(
     private service: GettingserviceService,
@@ -95,6 +96,7 @@ export class ProfileComponent implements OnInit {
     this.service.getUserDonatios().subscribe((res)=>{
 
       console.log('whfudh',res);
+this.donations=res.data
       
     })
     

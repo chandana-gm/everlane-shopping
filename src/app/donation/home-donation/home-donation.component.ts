@@ -12,6 +12,10 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 export class HomeDonationComponent implements OnInit {
   disasterForm!: FormGroup;
   authenticated = false
+  isOrderConfirmed = false
+  isProcessing = false;
+  username:any
+
 
   constructor(private fb: FormBuilder, 
     private toastr: ToastrService, 
@@ -35,6 +39,12 @@ export class HomeDonationComponent implements OnInit {
       required_women_dresses: ['', [Validators.required, Validators.min(0)]],
       required_kids_dresses: ['', [Validators.required, Validators.min(0)]]
     });
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      this.username=user.username
+    }
+     
 
   }
 
@@ -46,14 +56,10 @@ export class HomeDonationComponent implements OnInit {
       const storedUser = localStorage.getItem('user');
       if (storedUser) {
         const user = JSON.parse(storedUser);
-        // const username=user.username
-        // this.disasterForm.patchValue({
-
-        // })
         const decryptedToken = await this.postService.decryptData(user.token, 'token');
         this.postService.postDonationReg(formData, decryptedToken).subscribe((data: any) => {
           console.log('response', data);
-
+    
           this.toastr.success('Registration successful!', data.message);
           this.router.navigate(['/donation/donation%25home']);
 

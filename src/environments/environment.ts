@@ -80,6 +80,6 @@ export const patchApis = {
   };
 export const baseUrl = {
     production: false,
-    baseUrl: 'http://18.143.206.136/api/',
+    baseUrl: 'https://18.143.206.136/api/',
     subCategories:'products/?subcategory='
   };

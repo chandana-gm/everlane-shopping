@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
@@ -25,7 +26,8 @@ export class ClientDonationComponent implements OnInit {
     private fb: FormBuilder,
     private getService: GettingserviceService,
     private postService: PostServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
   ) { }
 
   async ngOnInit() {
@@ -37,7 +39,8 @@ export class ClientDonationComponent implements OnInit {
       women_dresses: [0, [Validators.required, Validators.min(0)]],
       kids_dresses: [0, [Validators.required, Validators.min(0)]],
       pickup_location: ['', Validators.required],
-      donated_on: ['', Validators.required],
+      donated_on: [this.getCurrentDate()] 
+    
 
     });
     const storedUser = localStorage.getItem('user');
@@ -69,6 +72,18 @@ export class ClientDonationComponent implements OnInit {
     // }
     // )
   }
+  getCurrentDate(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm: string | number = today.getMonth() + 1; // Months start at 0!
+    let dd: string | number = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
 
   // onFileSelected(event: Event): void {
   //   const input = event.target as HTMLInputElement;
@@ -150,10 +165,13 @@ export class ClientDonationComponent implements OnInit {
           console.log(data, 'response');
           if (data.status == 'success') {
             this.toastr.success(data.message);
-            
+    this.router.navigate(['/donation/donation%25home'])
           }
           else if (data.status == 'failed') {
            this.toastr.info(data.message);
+          }
+          else if(data.status=='error'){
+            this.toastr.error(data.message);
           }
         },
         (error) => {
