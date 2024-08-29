@@ -11,6 +11,8 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 })
 export class DisasterTrackingApprovelComponent implements OnInit {
   [x: string]: any;
+   searchText:any=''
+   items?:any=[]
 
   disasterReg: any = []
   constructor(private getService: GettingserviceService, private postService: PostServiceService, private toastr: ToastrService, private deleteService: DeleteServiceService) { }
@@ -31,6 +33,7 @@ export class DisasterTrackingApprovelComponent implements OnInit {
         console.log('response', response);
         
         this.disasterReg = response.data
+        this.items=response.data
 
 
       })
@@ -69,4 +72,17 @@ export class DisasterTrackingApprovelComponent implements OnInit {
       this.toastr.error('Rejected');
     }
   }
+
+  filteredItems() {
+    if(this.searchText!=''){
+     
+      
+      this.disasterReg= this.items.filter((item:any)=>item.location==this.searchText)
+      console.log(this.searchText);
+      
+    }else{
+      this.disasterReg=this.items
+    }
+  }
+
 }

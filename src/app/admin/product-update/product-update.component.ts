@@ -47,6 +47,9 @@ export class ProductUpdateComponent implements OnInit {
   productId: any;
   producttName: any
   StockProductId: any
+  items?:any=[]
+  itemarray?:any=[]
+  searchText:any=''
   constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService) { }
 
   ngOnInit(): void {
@@ -103,6 +106,8 @@ export class ProductUpdateComponent implements OnInit {
     this.service.getAllProductList().subscribe((data) => {
       console.log(data);
       this.productList = data.data
+      // this.itemarray=data.data
+      this.items=data.data;
     })
   }
   onFileChange(event: any) {
@@ -286,5 +291,17 @@ this.markAllFieldsAsTouched()
 
 
   }
+  filteredItems() {
+    if(this.searchText!=''){
+      console.log(this.itemarray);
+      
+      this.productList= this.items.filter((item:any)=>item.name==this.searchText)
+      console.log(this.searchText);
+      
+    }else{
+      this.productList=this.items
+    }
+  }
+
 }
 

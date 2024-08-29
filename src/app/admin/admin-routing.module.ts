@@ -12,6 +12,7 @@ import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/
 import { DonationListComponent } from './donation-list/donation-list.component';
 
 const routes: Routes = [{ path: '', component: AdminComponent, children:[
+  {path:'',component:AdminHomeComponent},
   {path:'addProduct',component:AddProductComponent},
   {path:'view%orders',component:ViewOrdersComponent},
   {path:'order%status',component:OrderStatusComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'returnrequest',component:ReturnRequestComponent},
   {path:'disaterstatusrequest',component:DisasterTrackingApprovelComponent},
   {path:'donation_list',component:DonationListComponent},
+  {path:'adminhome',component:AdminHomeComponent}
 
 
 ] },

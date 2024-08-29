@@ -14,6 +14,7 @@ import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/
 import { DonationListComponent } from './donation-list/donation-list.component';
 import { MaincontentComponent } from './maincontent/maincontent.component';
 import { AdminheaderComponent } from './adminheader/adminheader.component';
+import { FormsModule } from '@angular/forms'; 
 
 
 
@@ -34,7 +35,8 @@ import { AdminheaderComponent } from './adminheader/adminheader.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule 
   ]
 })
 export class AdminModule { }

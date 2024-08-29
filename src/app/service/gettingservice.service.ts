@@ -129,7 +129,7 @@ export class GettingserviceService {
 
 
   // adminget
-  getDiasterRegister(token: any) {
+  getDiasterRegister(token?: any) {
     const headers = new HttpHeaders({
       'Authorization': `Token ${token}`
     });
