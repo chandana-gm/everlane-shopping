@@ -283,9 +283,16 @@ margin: 5px;}
     height: 120px;
     width: 120px;
   }
+  .payment-type .type {
+    width: 40%;
+    min-height: 160px;
+  }
 
   .checkmark {
     font-size: 60px;
+  }
+  .donation-select{
+    flex-direction: column;
   }
 
   .h1 {

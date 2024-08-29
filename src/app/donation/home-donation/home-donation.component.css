@@ -69,6 +69,8 @@ input::-webkit-inner-spin-button {
     .overlay-text {
       font-size: 1.75rem;
       /* padding: 4px 1px; */
+      top: 45%;
+
     }
     
     .overlay-button button {
@@ -94,14 +96,18 @@ input::-webkit-inner-spin-button {
   
   @media (max-width: 576px) {
     .overlay-text {
-      /* font-size: 1.5rem; */
-      /* padding: 2px 8px; */
+      top: 48%;
     }
     
     .overlay-button button {
       font-size: 0.75rem;
       padding: 10px 20px;
 
+    }
+  }
+  @media (max-width: 550px) {
+    .overlay-text {
+      top: 40%;
     }
   }
   

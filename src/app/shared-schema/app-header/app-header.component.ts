@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,6 +15,7 @@ export class AppHeaderComponent implements OnInit {
 
   isAuthenticated = false;
   authenticatedUser = '';
+  isSmallScreen = false;
   dropdownOpen = false;
   cartItems: any[] = [];
   decryptedTokenFromStorage: string | undefined;
@@ -30,7 +31,7 @@ export class AppHeaderComponent implements OnInit {
     private getService: GettingserviceService,
     private deleteService: DeleteServiceService,
    
-  ) { }
+  ) { this.checkScreenSize() }
 
   ngOnInit() {
     const storedUser = localStorage.getItem('user');
@@ -93,9 +94,7 @@ export class AppHeaderComponent implements OnInit {
     this.router.navigate(['/shopping/cart']);
   }
 
-  toggleDropdown(state: boolean) {
-    this.dropdownOpen = state;
-  }
+
 
    logout() {
      this.service.postLogout().subscribe((response) => {
@@ -106,6 +105,32 @@ export class AppHeaderComponent implements OnInit {
         window.location.reload();
       });
     });
+  }
+
+
+  toggleDropdown(state: boolean) {
+    if (!this.isSmallScreen) {
+      this.dropdownOpen = state;
+    }
+  }
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isSmallScreen = window.innerWidth < 768; 
+  }
+  handleHover(state: boolean) {
+    if (!this.isSmallScreen) {
+      this.toggleDropdown(state);
+    }
+  }
+
+  handleClick() {
+    if (this.isSmallScreen) {
+      this.dropdownOpen = !this.dropdownOpen;
+    }
   }
   
 }

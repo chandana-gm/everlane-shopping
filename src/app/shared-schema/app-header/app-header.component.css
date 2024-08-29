@@ -71,6 +71,9 @@ nav {
 .input-group {
   width: 50%;
 }
+.search-box-for-smaller-screen{
+  display: none;
+}
 
 .form-control .search {
   position: relative;
@@ -89,8 +92,12 @@ nav {
   display: none;
 } */
 
-.dropdown.show .dropdown-menu {
+.dropdown-menu.show {
   display: block;
+}
+
+.dropdown-menu {
+  display: none;
 }
 
 .dropdown-menu {
@@ -134,19 +141,21 @@ nav {
   }
 }
 
-/* @media (max-width: 400px) {
-  .input-group input {
-    display: none;
+@media (max-width: 420px) {
+  .dropdown-menu {
+    width: 20rem;
+  left: 20px;
+
   }
 
-  .input-group-text {
-    border: none;
- 
-  }
-
-} */
+}
 
 @media (max-width: 350px) {
+  .dropdown-menu {
+    width: 15rem;
+  left: 15px;
+
+  }
   .logo-search a {
     font-size: 10px;
   }
