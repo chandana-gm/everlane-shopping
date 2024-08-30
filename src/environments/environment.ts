@@ -65,8 +65,8 @@ export const postApis = {
     postDonation:'donations/',
     addProduct:'products/create/',
     postStock:'add-product-item/',
-    postApproveReturn:'process-return/'
-   
+    postApproveReturn:'process-return/',
+    rejectDisaster:'disasters/approve/'
   };
 
 export const deleteApis = {

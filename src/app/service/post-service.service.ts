@@ -129,6 +129,14 @@ export class PostServiceService {
     }
     return this.http.post<any>(`${baseUrl.baseUrl}${postApis.postApproveReturn}`,body)
   }
+rejectDisaster(item:any,action:any)
+{
+  let body={
+   
+    "approve":action
+  }
+  return this.http.patch<any>(`${baseUrl.baseUrl}${postApis.rejectDisaster}${item}/`,body)
+}
 
   
 

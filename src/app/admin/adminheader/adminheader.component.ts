@@ -13,14 +13,14 @@ constructor(private service:PostServiceService,private router:Router,private tos
 ngOnInit(): void {
   
 }
-  logout() {
-    this.service.postLogout().subscribe((response) => {
-     this.toster.success(response.message)
-     localStorage.removeItem('user');
-     this.router.navigate(['/main']).then(() => {
+//   logout() {
+//     this.service.postLogout().subscribe((response) => {
+//      this.toster.success(response.message)
+//      localStorage.removeItem('user');
+//      this.router.navigate(['/main']).then(() => {
  
-     });
-   });
- }
+//      });
+//    });
+//  }
 }
 

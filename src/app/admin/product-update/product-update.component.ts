@@ -16,6 +16,7 @@ export class ProductUpdateComponent implements OnInit {
   stockForm!: FormGroup;
   productList: any[] = []
   productName: any
+  isProcessing = false;
 
   skinColorChoices = [
     { value: 'FAIR', label: 'Fair' },
@@ -47,17 +48,17 @@ export class ProductUpdateComponent implements OnInit {
   productId: any;
   producttName: any
   StockProductId: any
-  items?:any=[]
-  itemarray?:any=[]
-  searchText:any=''
+  items?: any = []
+  itemarray?: any = []
+  searchText: any = ''
   constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService) { }
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0)]],
-      brand:  ['', Validators.required],
+      brand: ['', Validators.required],
       subcategory: ['', Validators.required],
       image: [null],
       isTrending: [false],
@@ -102,12 +103,12 @@ export class ProductUpdateComponent implements OnInit {
   }
 
 
- getAllProducts() {
+  getAllProducts() {
     this.service.getAllProductList().subscribe((data) => {
       console.log(data);
       this.productList = data.data
       // this.itemarray=data.data
-      this.items=data.data;
+      this.items = data.data;
     })
   }
   onFileChange(event: any) {
@@ -175,7 +176,7 @@ export class ProductUpdateComponent implements OnInit {
   // }
   onSubmit() {
     console.log(this.productForm.value);
-    
+
     if (this.productForm.valid) {
       const formData = new FormData();
       formData.append('name', this.productForm.get('name')?.value);
@@ -187,13 +188,13 @@ export class ProductUpdateComponent implements OnInit {
       formData.append('skin_colors', JSON.stringify(this.productForm.get('skin_colors')?.value));
       formData.append('heights', JSON.stringify(this.productForm.get('heights')?.value));
       formData.append('usages', JSON.stringify(this.productForm.get('usages')?.value));
-      formData.append('isTrending', this.productForm.get('isTrending')?.value);
-      formData.append('isActive', this.productForm.get('isActive')?.value);
-      formData.append('summer', this.productForm.get('summer')?.value);
-      formData.append('winter', this.productForm.get('winter')?.value);
-      formData.append('rainy', this.productForm.get('rainy')?.value);
-      formData.append('autumn', this.productForm.get('autumn')?.value);
-      formData.append('isDeleted', this.productForm.get('isDeleted')?.value);
+      formData.append('isTrending', this.productForm.get('isTrending')?.value ? 'true' : 'false');
+      formData.append('isActive', this.productForm.get('isActive')?.value ? 'true' : 'false');
+      formData.append('summer', this.productForm.get('summer')?.value ? 'true' : 'false');
+      formData.append('winter', this.productForm.get('winter')?.value ? 'true' : 'false');
+      formData.append('rainy', this.productForm.get('rainy')?.value ? 'true' : 'false');
+      formData.append('autumn', this.productForm.get('autumn')?.value ? 'true' : 'false');
+      formData.append('isDeleted', this.productForm.get('isDeleted')?.value ? 'true' : 'false');
       formData.append('createdOn', this.productForm.get('createdOn')?.value);
 
       const imageFile = this.productForm.get('image')?.value;
@@ -202,11 +203,12 @@ export class ProductUpdateComponent implements OnInit {
       }
 
       if (this.isEdit && this.productId) {
-
+        this.isProcessing = true;
         this.deleteService.updateProduct(this.productId, formData).subscribe((data: any) => {
           console.log(data);
 
           this.toster.success('Product updated successfully!', 'Success');
+          this.isProcessing = false;
           this.getAllProducts();
         },
           (error: any) => {
@@ -214,25 +216,28 @@ export class ProductUpdateComponent implements OnInit {
             this.toster.error('Failed to update product.', 'Error');
           });
       } else {
-
+        this.isProcessing = true;
         this.postService.addProduct(formData).subscribe((data) => {
           this.toster.success('Product added successfully!', 'Success');
-          this.getAllProducts();
+          this.isProcessing = false;
+          this.productForm.reset();
+
         },
           (error) => {
             console.error('Error:', error);
             this.toster.error('Failed to add product.', 'Error');
+            this.isProcessing = false;
           });
       }
       this.productForm.reset()
     }
-    else{
-this.markAllFieldsAsTouched()
+    else {
+      this.markAllFieldsAsTouched()
     }
-    
+
   }
-  
-  
+
+
   private markAllFieldsAsTouched(): void {
     Object.keys(this.productForm.controls).forEach(field => {
       const control = this.productForm.get(field);
@@ -247,10 +252,39 @@ this.markAllFieldsAsTouched()
     this.productForm.reset();
   }
   editproduct(item: any) {
-    this.isEdit = true;
-    this.productForm.patchValue(item);
-    this.imagePreview = item.image;
-    this.productId = item.id;
+    {
+      this.isEdit = true;
+      this.productForm.patchValue({
+        name: item.name,
+        description: item.description,
+        price: item.price,
+        brand: item.brand,
+        subcategory: item.subcategory,
+        genders: item.genders,
+        isTrending: item.isTrending,
+        summer: item.summer,
+        winter: item.winter,
+        rainy: item.rainy,
+        autumn: item.autumn,
+        isActive: item.isActive,
+        isDeleted: item.isDeleted,
+        createdOn: item.createdOn
+      });
+
+      // Reset and patch FormArrays
+      this.resetFormArray(this.productForm.get('skin_colors') as FormArray, item.skin_colors);
+      this.resetFormArray(this.productForm.get('heights') as FormArray, item.heights);
+      this.resetFormArray(this.productForm.get('usages') as FormArray, item.usages);
+
+      this.imagePreview = item.image;
+      this.productId = item.id;
+    }
+
+
+  }
+  resetFormArray(formArray: FormArray, values: any[]) {
+    formArray.clear();
+    values.forEach(value => formArray.push(this.fb.control(value)));
   }
 
   deleteProduct(item: any) {
@@ -292,14 +326,14 @@ this.markAllFieldsAsTouched()
 
   }
   filteredItems() {
-    if(this.searchText!=''){
+    if (this.searchText != '') {
       console.log(this.itemarray);
-      
-      this.productList= this.items.filter((item:any)=>item.name==this.searchText)
+
+      this.productList = this.items.filter((item: any) => item.name == this.searchText)
       console.log(this.searchText);
-      
-    }else{
-      this.productList=this.items
+
+    } else {
+      this.productList = this.items
     }
   }
 
