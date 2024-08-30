@@ -61,6 +61,7 @@ export class HomeDonationComponent implements OnInit {
           console.log('response', data);
     
           this.toastr.success('Registration successful!', data.message);
+          this.closeModal();
           this.router.navigate(['/donation/donation%25home']);
 
         });
@@ -92,6 +93,20 @@ export class HomeDonationComponent implements OnInit {
     }
     else {
       this.router.navigate(['/auth/register'])
+    }
+  }
+
+
+  closeModal() {
+    const modal = document.getElementById('exampleModalCenter');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove();
+      }
     }
   }
 }

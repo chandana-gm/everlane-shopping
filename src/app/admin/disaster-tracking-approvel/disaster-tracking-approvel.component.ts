@@ -11,14 +11,15 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 })
 export class DisasterTrackingApprovelComponent implements OnInit {
   [x: string]: any;
-   searchText:any=''
-   items?:any=[]
+  searchText: any = ''
+  items?: any = []
+  clicked = true
 
   disasterReg: any = []
   constructor(private getService: GettingserviceService, private postService: PostServiceService, private toastr: ToastrService, private deleteService: DeleteServiceService) { }
   async ngOnInit() {
 
-   
+
     const storedUser = localStorage.getItem('user');
     console.log(storedUser);
 
@@ -31,9 +32,9 @@ export class DisasterTrackingApprovelComponent implements OnInit {
 
       this.getService.getDiasterRegister(decryptedToken).subscribe((response) => {
         console.log('response', response);
-        
+
         this.disasterReg = response.data
-        this.items=response.data
+        this.items = response.data
 
 
       })
@@ -42,6 +43,12 @@ export class DisasterTrackingApprovelComponent implements OnInit {
 
     }
 
+    this.load()
+  }
+  load() {
+    this.getService.getDiasterRegister().subscribe((response) => {
+      console.log('response', response);
+    });
   }
 
   async disasterApproval(item: any, action: any) {
@@ -54,10 +61,10 @@ export class DisasterTrackingApprovelComponent implements OnInit {
         console.log('item &token ', item, decryptedToken);
 
         this.postService.postDisAdminApprove(item.id, decryptedToken).subscribe((data: any) => {
-        this.toastr.success(data.message);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500); 
+          this.toastr.success(data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
           (error: any) => {
             console.error('login  error:', error);
@@ -73,15 +80,30 @@ export class DisasterTrackingApprovelComponent implements OnInit {
     }
   }
 
+  reject(item: any, action: any) {
+    this.clicked = false
+    this.postService.rejectDisaster(item.id, this.clicked).subscribe((data) => {
+
+      console.log(data, 'hdgvjsgf');
+      this.load();
+      this.toastr.error(data.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+      
+    })
+
+  }
+
   filteredItems() {
-    if(this.searchText!=''){
-     
-      
-      this.disasterReg= this.items.filter((item:any)=>item.location==this.searchText)
+    if (this.searchText != '') {
+
+
+      this.disasterReg = this.items.filter((item: any) => item.location == this.searchText)
       console.log(this.searchText);
-      
-    }else{
-      this.disasterReg=this.items
+
+    } else {
+      this.disasterReg = this.items
     }
   }
 
