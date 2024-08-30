@@ -50,6 +50,8 @@ export class LoginComponent implements OnInit {
 
           if (formdata.username === 'admin1' && formdata.password === 'Admin12345') {
             this.toastr.success('Welcome Admin!');
+            const admin = { Admin: "admin" };
+            localStorage.setItem('Admin', JSON.stringify(admin));
             this.router.navigate(['/admin']).then(() => {
               window.location.reload();
               this.loading = false
@@ -77,15 +79,15 @@ export class LoginComponent implements OnInit {
   }
   onForgotPasswordSubmit() {
     this.loading = true
-this.service.forgotPassword(this.forgotPasswordForm.value).subscribe((data)=>{
-this.toastr.success(data.message)
-this.loading=false
-},
-error=>{
-  this.toastr.error(error.error.error)
-  this.loading=false
-}
-)
+    this.service.forgotPassword(this.forgotPasswordForm.value).subscribe((data) => {
+      this.toastr.success(data.message)
+      this.loading = false
+    },
+      error => {
+        this.toastr.error(error.error.error)
+        this.loading = false
+      }
+    )
 
 
 

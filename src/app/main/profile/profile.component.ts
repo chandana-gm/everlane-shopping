@@ -23,12 +23,12 @@ export class ProfileComponent implements OnInit {
   newPasswordValue: string = '';
   isPasswordValid: boolean = false;
   loading: boolean = false
-  singleProduct:any
+  singleProduct: any
   selectedItem: any = null;
-  returnReasons: string[] = ['Wrong Item Delivered', 'Damaged or Defective Item', 'Incorrect Size or Fit','Quality Issue','Wrong Color','Others'];
-  ifReturned=false
+  returnReasons: string[] = ['Wrong Item Delivered', 'Damaged or Defective Item', 'Incorrect Size or Fit', 'Quality Issue', 'Wrong Color', 'Others'];
+  ifReturned = false
   returnRequestSuccessful: { [key: number]: boolean } = {};
-  donations:any[]=[]
+  donations: any[] = []
 
   constructor(
     private service: GettingserviceService,
@@ -57,23 +57,23 @@ export class ProfileComponent implements OnInit {
   }
 
   sendReturnRequest(productItem: number) {
-    this.loading=true
+    this.loading = true
     const quantity = this.returnQuantity[productItem];
     const reason = this.returnReason[productItem];
     console.log('Return Request:', { productItem, quantity, reason });
-    this.postService.requestRequestPost(productItem,quantity,reason).subscribe((data)=>{
+    this.postService.requestRequestPost(productItem, quantity, reason).subscribe((data) => {
       this.toster.success(data.message)
       this.returnRequestSuccessful[productItem] = true;
-    this.selectedItem = null;
-    this.loading=false
+      this.selectedItem = null;
+      this.loading = false
 
     }
-  )
+    )
 
   }
   returnRequest(item: any): void {
-    this.selectedItem = item; 
-    this.returnQuantity[item.id] = 1; 
+    this.selectedItem = item;
+    this.returnQuantity[item.id] = 1;
   }
 
   getQuantityOptions(quantity: number): number[] {
@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
   toggleReturnFields(productId: string) {
     this.showReturnFields[productId] = !this.showReturnFields[productId];
   }
-  
+
   ngOnInit(): void {
     window.scroll(0, 0);
     this.getUserProfile();
@@ -93,16 +93,13 @@ export class ProfileComponent implements OnInit {
       this.getAddress()
     })
     this.service.getMyDonation().subscribe((response) => {
-      console.log('data', response);
       this.myDonation = response.data
     })
-    this.service.getUserDonatios().subscribe((res)=>{
+    this.service.getUserDonatios().subscribe((res) => {
+      this.donations = res.data
 
-      console.log('whfudh',res);
-this.donations=res.data
-      
     })
-    
+
   }
 
   onSubmit() {
@@ -175,7 +172,7 @@ this.donations=res.data
 
   OrderDetail(item: any) {
     console.log(item);
-    this.singleProduct=item
+    this.singleProduct = item
 
   }
 
