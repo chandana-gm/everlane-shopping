@@ -90,11 +90,8 @@ export class CheckoutComponent {
         window.location.href = this.paypalUrl;
       }
       else{
-        console.log("cod");
-        this.codOrderConfirmed=true
-      //   setTimeout(() => {
-      //     this.route.navigate(['/main']);
-      // }, 3000);
+        this.deleteService.cartItemNumbers()
+        this.route.navigate(['shopping/payment-success'])
       }
       this.deleteService.cartItemNumbers()
       this.isOrderConfirmed = true

@@ -14,8 +14,6 @@
 .inside-wishlist {
   width: 100%;
 }
-
-/* Ensure equal height for all cards */
 .equal-height-cards {
   display: flex;
   flex-wrap: wrap;

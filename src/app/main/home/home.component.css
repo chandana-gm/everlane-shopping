@@ -501,11 +501,13 @@ button.next {
     .marquee img {
         object-fit: cover;
         height: 200px;
-        width: 120px;
+        width: 150px;
         /* padding-left: 5px; */
     }
 
-
+    .marquee {
+        animation: marquee-scroll 10s linear infinite;
+    }
     .category {
         overflow-x: auto;
         white-space: nowrap;
@@ -532,10 +534,6 @@ button.next {
 }
 
 @media (max-width: 370px) {
-    .marquee {
-        animation: scroll-left 13s linear infinite;
-    }
-
     .category p {
         font-size: xx-small;
     }

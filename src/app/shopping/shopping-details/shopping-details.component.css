@@ -80,8 +80,22 @@ span.add-to-cart {
 }
 @media (max-width:767px) {
   .wishlist-icon {
-    left: 145
-    px;
+    left: 145px;
+  }
+}
+@media (max-width:505px) {
+  .wishlist-icon {
+    left: 100px;
+  }
+}
+@media (max-width:410px) {
+  .wishlist-icon {
+    left: 80px;
+  }
+}
+@media (max-width:370px) {
+  .wishlist-icon {
+    left: 60px;
   }
 }
 

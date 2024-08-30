@@ -10,9 +10,10 @@ import { ReturnRequestComponent } from './return-request/return-request.componen
 import { DiasterRegisterComponent } from '../donation/diaster-register/diaster-register.component';
 import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/disaster-tracking-approvel.component';
 import { DonationListComponent } from './donation-list/donation-list.component';
+import { adminAuthGuard } from '../guards/guards.guard';
 
 const routes: Routes = [{ path: '', component: AdminComponent, children:[
-  {path:'',component:AdminHomeComponent},
+  {path:'',component:AdminHomeComponent ,canActivate: [adminAuthGuard],},
   {path:'addProduct',component:AddProductComponent},
   {path:'view%orders',component:ViewOrdersComponent},
   {path:'order%status',component:OrderStatusComponent},

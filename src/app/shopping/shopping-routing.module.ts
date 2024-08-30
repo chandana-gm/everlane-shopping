@@ -9,6 +9,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import { SuccessPaymentComponent } from './payment-status/success-payment/success-payment.component';
 import { FailedPaymentComponent } from './payment-status/failed-payment/failed-payment.component';
+import { preventBackGuard } from '../guards/prevent-back.guard';
 
 
 
@@ -19,7 +20,9 @@ const routes: Routes = [
     {path:'cart',component:CartComponent},
     {path:'checkout',component:CheckoutComponent},
     {path:'payment',component:PaymentComponent},
-    {path:'payment-success',component:SuccessPaymentComponent},
+    {path:'payment-success',component:SuccessPaymentComponent
+      // ,canDeactivate:[preventBackGuard]
+    },
     {path:'payment-failed',component:FailedPaymentComponent}
   ]}
   

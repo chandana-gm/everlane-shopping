@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location, PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-success-payment',
@@ -8,18 +8,15 @@ import { Location } from '@angular/common';
   styleUrls: ['./success-payment.component.css']
 })
 export class SuccessPaymentComponent {
-  constructor(private router: Router, private location: Location) {}
-  
-  ngOnInit(): void {
-  this.router.navigate(['/your-target-page']).then(() => {
-    // Replace the current state to prevent back navigation
-    this.location.replaceState('/your-target-page');
-  });
+  constructor(private router: Router, private PlatformLocation: PlatformLocation) {
+    history.pushState(null,'',location.href);
+    this.PlatformLocation.onPopState(()=>{
+      history.pushState(null,'',location.href);
+    })
+  }
+  backToShopping(){
+    this.router.navigate(['/main'])
+  }
 
-  // Listen for back button events
-  window.addEventListener('popstate', () => {
-    // Prevent back navigation by navigating to the current page
-    this.router.navigate(['/your-target-page']);
-  });
-}
+
 }
