@@ -1,13 +1,16 @@
 <div class="landing-part">
-    <div class="banner">
-        <!-- <img src="../../../assets/images/croped/banner2.jpg" alt="" routerLink="/shopping/shoppingDetails"> -->
-        <!-- <button class="outfit-maker-button button">Outfit Maker</button> -->
-        <img *ngIf="!imageLoaded" src="../../../assets/images/banner/image.png" alt="Loading..." class="loading-img" />
-    </div>
     <div class="banner" *ngIf="banners?.data?.length">
         <div class="gradient-overlay"></div>
         <img [src]="banners.data[randomNumber].image" alt="" (load)="imageLoaded = true">
+        <div *ngIf="imageLoaded">
+            <!-- <img src="../../../assets/images/croped/banner2.jpg" alt="" routerLink="/shopping/shoppingDetails"> -->
+            <!-- <button class="outfit-maker-button button">Outfit Maker</button> -->
+            <img *ngIf="!imageLoaded" src="../../../assets/images/banner/image.png" alt="Loading..."
+                class="loading-img" />
+
+        </div>
     </div>
+
     <div class="button-container">
         <button class="genderCategory  " [ngClass]="{'active': selectedGender === 'Men'}" (click)="selectGender('Men')">
             Men

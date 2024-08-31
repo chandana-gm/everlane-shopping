@@ -26,6 +26,7 @@ export class CartComponent {
 
 
   async ngOnInit() {
+    // this.deleteService.cartItemNumbers()
     window.scroll(0, 0)
     const storedUser = localStorage.getItem('user');
     if (storedUser) {

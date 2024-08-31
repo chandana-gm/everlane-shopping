@@ -8,12 +8,15 @@ import { Location, PlatformLocation } from '@angular/common';
   styleUrls: ['./success-payment.component.css']
 })
 export class SuccessPaymentComponent {
-  constructor(private router: Router, private PlatformLocation: PlatformLocation) {
-    history.pushState(null,'',location.href);
-    this.PlatformLocation.onPopState(()=>{
-      history.pushState(null,'',location.href);
-    })
+  constructor(private router: Router, private PlatformLocation: PlatformLocation,private locations:Location) {
+    // history.pushState(null,'',location.href);
+    // this.PlatformLocation.onPopState(()=>{
+    //   history.pushState(null,'',location.href);
+    // })
   }
+  // ngOnInit(){
+  //   this.location.replaceState('/main'); 
+  // }
   backToShopping(){
     this.router.navigate(['/main'])
   }
