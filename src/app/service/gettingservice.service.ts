@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { baseUrl } from 'src/environments/environment';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -132,6 +132,15 @@ export class GettingserviceService {
 
 
 
+
+  isCartEmpty(): Observable<boolean> {
+    return this.getCart().pipe(
+      map(response => {
+        const items = response.data[0]?.items || [];
+        return items.length === 0; 
+      })
+    );
+  }
 
 
   // adminget

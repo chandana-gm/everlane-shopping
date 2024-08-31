@@ -17,6 +17,7 @@ export class CheckoutComponent {
     this.getAddress()
     this.getDisasterList()
     this.getPickUp()
+    this.deleteService.cartItemNumbers()
     console.log(this.checkoutForm.status);
   }
   checkoutForm: FormGroup;
