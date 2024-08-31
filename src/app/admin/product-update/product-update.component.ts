@@ -49,7 +49,7 @@ export class ProductUpdateComponent implements OnInit {
   producttName: any
   StockProductId: any
   items?: any = []
-  itemarray?: any = []
+
   searchText: any = ''
   constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService) { }
 
@@ -327,7 +327,7 @@ export class ProductUpdateComponent implements OnInit {
   }
   filteredItems() {
     if (this.searchText != '') {
-      console.log(this.itemarray);
+ 
 
       this.productList = this.items.filter((item: any) => item.name == this.searchText)
       console.log(this.searchText);

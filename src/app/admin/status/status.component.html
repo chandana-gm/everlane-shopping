@@ -1,13 +1,30 @@
+<div style="text-align: center;">
+    <h2 class="mt-" style="color:#973d93">Product Status List</h2>
+    <div>
+        <div class="input-group mb-3 mt-3">
+            <input 
+              class="form-control" 
+              type="text" 
+              [(ngModel)]="searchText" 
+              placeholder="Search..." 
+              (input)="filteredItems()"
+            />
+            <span class="input-group-text">
+              <i class="fas fa-search"></i>
+            </span>
+          </div> 
+    </div>
+  </div>
 <div class="table-responsive">
 <table class="table" >
     <thead>
       <tr >
-        <th>order_code</th>
-        <th>user</th>
-        <th>payment_method</th>
-        <th>payment_status</th>
-        <th>order_status</th>
-        <th> change Status</th>
+        <th>Order Code</th>
+        <th>User</th>
+        <th>Payment Method</th>
+        <th>Payment Status</th>
+        <th>Order Status</th>
+        <th> Change Status</th>
       </tr>
     </thead>
     <tbody>
@@ -16,16 +33,25 @@
        <td>{{order.user}}</td>
        <td>{{order.payment_method}}</td>
        <td>{{order.payment_status}}</td>
-       <td>{{order.order_status}}</td>
-       <td><div class="form-group">
+       <td [ngStyle]="{
+        'color': order.order_status === 'Processing' ? 'orange' : 
+                  order.order_status === 'Pending' ? 'red' : 
+                  order.order_status === 'Completed' ? 'green' : 'black'
+      }">
+        {{ order.order_status }}
+      </td>
+       <td>
+        <div class="form-group">
       
-        <select id="status" class="form-control" (change)="onStatusChange($event,order.id)">
+        <select id="status" class="form-control" (change)="onStatusChange($event,order.id)"   [disabled]="order.order_status === 'Completed'">
             <option value="" disabled selected>Select Status</option>
           <option value="Processing"  >Processing</option>
          
           <option value="Completed"  >Completed</option>
         </select>
-      </div></td>
+       
+      </div>
+    </td>
       </tr>
       
     </tbody>
