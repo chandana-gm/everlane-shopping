@@ -14,7 +14,8 @@ import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/
 import { DonationListComponent } from './donation-list/donation-list.component';
 import { MaincontentComponent } from './maincontent/maincontent.component';
 import { AdminheaderComponent } from './adminheader/adminheader.component';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { StatusComponent } from './status/status.component'; 
 
 
 
@@ -31,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     DonationListComponent,
     MaincontentComponent,
     AdminheaderComponent,
+    StatusComponent,
   ],
   imports: [
     CommonModule,

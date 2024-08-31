@@ -165,7 +165,7 @@ export class ClientDonationComponent implements OnInit {
           console.log(data, 'response');
           if (data.status == 'success') {
             this.toastr.success(data.message);
-    this.router.navigate(['/donation/donation%25home'])
+    this.router.navigate(['/donation/donation%home'])
           }
           else if (data.status == 'failed') {
            this.toastr.info(data.message);

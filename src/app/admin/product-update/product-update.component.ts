@@ -70,8 +70,8 @@ export class ProductUpdateComponent implements OnInit {
       winter: [false],
       rainy: [false],
       autumn: [false],
-      isActive: [false],
-      isDeleted: [false],
+      // isActive: [false],
+      // isDeleted: [false],
       createdOn: [{ value: '', disabled: true }]
     });
     this.createdOn = new Date();
@@ -189,12 +189,12 @@ export class ProductUpdateComponent implements OnInit {
       formData.append('heights', JSON.stringify(this.productForm.get('heights')?.value));
       formData.append('usages', JSON.stringify(this.productForm.get('usages')?.value));
       formData.append('isTrending', this.productForm.get('isTrending')?.value ? 'true' : 'false');
-      formData.append('isActive', this.productForm.get('isActive')?.value ? 'true' : 'false');
+      // formData.append('isActive', this.productForm.get('isActive')?.value ? 'true' : 'false');
       formData.append('summer', this.productForm.get('summer')?.value ? 'true' : 'false');
       formData.append('winter', this.productForm.get('winter')?.value ? 'true' : 'false');
       formData.append('rainy', this.productForm.get('rainy')?.value ? 'true' : 'false');
       formData.append('autumn', this.productForm.get('autumn')?.value ? 'true' : 'false');
-      formData.append('isDeleted', this.productForm.get('isDeleted')?.value ? 'true' : 'false');
+      // formData.append('isDeleted', this.productForm.get('isDeleted')?.value ? 'true' : 'false');
       formData.append('createdOn', this.productForm.get('createdOn')?.value);
 
       const imageFile = this.productForm.get('image')?.value;

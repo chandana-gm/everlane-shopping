@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { baseUrl } from 'src/environments/environment';
+import { baseUrl, patchApis } from 'src/environments/environment';
 import { postApis } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { Subject } from 'rxjs';
@@ -137,7 +137,15 @@ rejectDisaster(item:any,action:any)
   }
   return this.http.patch<any>(`${baseUrl.baseUrl}${postApis.rejectDisaster}${item}/`,body)
 }
-
+orderStatusUpdate(item:any,action:any){
+  {
+    let body={
+     
+      "order_status":action
+    }
+    return this.http.patch<any>(`${baseUrl.baseUrl}${patchApis.updateOrderStatus}${item}/`,body)
+}
+}
   
 
 

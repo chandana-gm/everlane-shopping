@@ -59,38 +59,12 @@
                 <input id="username" class="form-control" placeholder="{{username}}" />
 
               </div>
-
               <div class="form-group">
-                <label for="name" class="form-label">Select Name of Disaster:</label>
-                <select class="form-select" formControlName="name" aria-label="Default select example">
-                  <option value="" disabled selected>Type Of Disaster</option>
-                  <option value="earthquakes">Earthquakes</option>
-                  <option value="tsunamis">Tsunamis</option>
-                  <option value="volcanicEruptions">Volcanic Eruptions</option>
-                  <option value="floods">Floods</option>
-                  <option value="droughts">Droughts</option>
-                  <option value="hurricanes">Hurricanes/Typhoons/Cyclones</option>
-                  <option value="tornadoes">Tornadoes</option>
-                  <option value="landslides">Landslides</option>
-                  <option value="wildfires">Wildfires</option>
-                  <option value="industrialAccidents">Industrial Accidents</option>
-                  <option value="nuclearDisasters">Nuclear Disasters</option>
-                  <option value="oilSpills">Oil Spills</option>
-                  <option value="transportationAccidents">Transportation Accidents</option>
-                  <option value="terrorism">Terrorism</option>
-                  <option value="urbanFires">Urban Fires</option>
-                  <option value="climateChange">Climate Change</option>
-                  <option value="deforestation">Deforestation</option>
-                  <option value="pollution">Pollution</option>
-                  <option value="biodiversityLoss">Biodiversity Loss</option>
-                  <option value="pandemics">Pandemics</option>
-                  <option value="epidemics">Epidemics</option>
-                  <option value="cyberAttacks">Cyber Attacks</option>
-                  <option value="infrastructureFailures">Infrastructure Failures</option>
-
-                </select>
+                <label for="name" class="form-label">Disaster Name:</label>
+                <input id="name" formControlName="name" class="form-control" />
+             
                 <div *ngIf="disasterForm.get('name')?.invalid && disasterForm.get('name')?.touched" class="text-danger">
-                  Please select a type of disaster.
+                  Please Enter Disaster Name.
                 </div>
               </div>
               <div class="form-group">

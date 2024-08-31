@@ -62,7 +62,7 @@ export class HomeDonationComponent implements OnInit {
     
           this.toastr.success('Registration successful!', data.message);
           this.closeModal();
-          this.router.navigate(['/donation/donation%25home']);
+    
 
         });
       }

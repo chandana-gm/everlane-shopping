@@ -80,7 +80,8 @@ export const patchApis = {
     production: false,
     updateProfile: 'profile/update/',
     changePassword:'profile/change-password/',
-    addQuestionnaire:'questionnaire/'
+    addQuestionnaire:'questionnaire/',
+    updateOrderStatus:'update-order-status/'
   };
 export const baseUrl = {
     production: false,

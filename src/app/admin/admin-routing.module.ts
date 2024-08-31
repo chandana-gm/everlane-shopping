@@ -11,6 +11,7 @@ import { DiasterRegisterComponent } from '../donation/diaster-register/diaster-r
 import { DisasterTrackingApprovelComponent } from './disaster-tracking-approvel/disaster-tracking-approvel.component';
 import { DonationListComponent } from './donation-list/donation-list.component';
 import { adminAuthGuard } from '../guards/guards.guard';
+import { StatusComponent } from './status/status.component';
 
 const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'',component:AdminHomeComponent ,canActivate: [adminAuthGuard],},
@@ -22,7 +23,10 @@ const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'returnrequest',component:ReturnRequestComponent},
   {path:'disaterstatusrequest',component:DisasterTrackingApprovelComponent},
   {path:'donation_list',component:DonationListComponent},
-  {path:'adminhome',component:AdminHomeComponent}
+  {path:'adminhome',component:AdminHomeComponent},
+  {path:'productstatus',component:StatusComponent}
+
+
 
 
 ] },
