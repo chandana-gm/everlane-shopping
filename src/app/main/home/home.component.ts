@@ -31,6 +31,7 @@ export class HomeComponent {
   currentQuestionIndex: number = 0;
   isQuizCompleted: boolean = false;
   recommandationDataLoaded = false
+  isMobile: boolean = false;
 
   answer2 = {
     gender: '',
@@ -40,22 +41,46 @@ export class HomeComponent {
     usage_of_dress: ''
   }
   ngOnInit() {
-    window.scroll(0,0)
-    this.randomNumber = Math.floor(Math.random() * 4)
+    this.isMobile = window.innerWidth < 540;
+
+    window.scroll(0, 0)
     this.api.getMensCategories().subscribe((data: any) => {
       this.categories = data.data;
     });
     this.api.getWomensCategories().subscribe((data: any) => {
       this.womensCategories = data.data;
     });
-    this.api.getBanners().subscribe((data) => {
-      this.banners = data;
-      this.isLoading = true
-    });
     this.api.getTrendingProducts().subscribe((data) => {
       this.trending = data.data;
     });
+    // this.api.getBanners().subscribe((data) => {
+    //   this.banners = data;
+    //   this.imageLoaded=true
+    //   this.isLoading = true
+    // });
+    this.loadBanners()
+
+
+    this.randomNumber = Math.floor(Math.random() * 5 );
+
+
   }
+  loadBanners() {
+    if (this.isMobile) {
+      this.api.getMobileWidthBanner().subscribe(data => {
+        this.banners = data;
+        this.imageLoaded = true
+        this.isLoading = true
+      });
+    } else {
+      this.api.getBanners().subscribe(data => {
+        this.banners = data;
+        this.imageLoaded = true
+        this.isLoading = true
+      });
+    }
+  }
+
   questions: any[] = [
     { question: 'Choose a gender', options: [{ display: 'Male', value: 'M' }, { display: 'Female', value: 'F' }] },
     { question: 'Select your skin texture', options: [{ display: 'Fair', value: 'FAIR' }, { display: 'Medium', value: 'MEDIUM' }, { display: 'Dark', value: 'DARK' }] },
@@ -89,8 +114,6 @@ export class HomeComponent {
       this.isQuizCompleted = true;
     }
   }
-
-
   onPrevious() {
     if (this.currentQuestionIndex > 0) {
       this.answers[this.currentQuestionIndex] = this.quizForm.value.answer;
@@ -98,7 +121,6 @@ export class HomeComponent {
       this.quizForm.patchValue({ answer: this.answers[this.currentQuestionIndex] });
     }
   }
-
   onSubmit() {
     this.recommandationDataLoaded = true
     this.isQuizCompleted = false
@@ -106,14 +128,14 @@ export class HomeComponent {
     console.log(this.answers);
     this.deleteService.recommendationPatch(this.answer2).pipe(
       switchMap(response => {
-        
+
         return this.api.getRecommdation()
       })
     ).subscribe(
       data => {
-          this.recommendations = data.data
-          this.recommandationDataLoaded = false
-          // this.isQuizCompleted=true
+        this.recommendations = data.data
+        this.recommandationDataLoaded = false
+        // this.isQuizCompleted=true
 
       },
       error => {
@@ -142,13 +164,13 @@ export class HomeComponent {
     }
     else {
       this.router.navigate(['/auth/register'])
-    } 
+    }
   }
   selectGender(gender: string) {
     this.selectedGender = gender;
   }
 
- 
+
 
   onCategoryClick(category: any) {
     this.router.navigate(['shopping/shoppingDetails', category.name]);
@@ -156,6 +178,9 @@ export class HomeComponent {
 
   onImageClick(season: string) {
     this.router.navigate(['shopping/shoppingDetails', season]);
+  }
+  onTrendingClick(category:string){
+    this.router.navigate(['shopping/shoppingDetails', category])
   }
 
   scrollLeft() {

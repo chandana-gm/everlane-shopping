@@ -12,7 +12,7 @@ export class DeleteServiceService {
   constructor(private http: HttpClient) { }
   wishlistData = new Subject
   cartNumber: any = new Subject();
-  pageLoad=new Subject
+  pageLoad = new Subject
 
   // subjects
   sendWithoutRefresh() {
@@ -49,9 +49,14 @@ export class DeleteServiceService {
     this.sendWithoutRefresh()
     return this.http.delete<any>(`${baseUrl.baseUrl}${environment.getAddress}${item}/delete/`)
   }
-  deleteProduct(item:any)
-  {
+  deleteProduct(item: any) {
     return this.http.delete<any>(`${baseUrl.baseUrl}products/${item}/delete/`)
+  }
+  cancelOrder(id: string) {
+    return this.http.delete<any>(`${baseUrl.baseUrl}${deleteApis.cancelOrder}${id}/`)
+  }
+  deleteNotification(id: string) {
+    return this.http.delete<any>(`${baseUrl.baseUrl}${environment.getNotifications}${id}/${deleteApis.deleteNotifications}`)
   }
 
 
@@ -62,11 +67,11 @@ export class DeleteServiceService {
   changePassword(data: any) {
     return this.http.patch<any>(baseUrl.baseUrl + patchApis.changePassword, data)
   }
-  updateProduct(item:any,formData:any){
-    return this.http.patch<any>(`${baseUrl.baseUrl}products/${item}/update/`,formData)
+  updateProduct(item: any, formData: any) {
+    return this.http.patch<any>(`${baseUrl.baseUrl}products/${item}/update/`, formData)
   }
-  recommendationPatch(data:any){
-    return this.http.patch<any>(baseUrl.baseUrl+patchApis.addQuestionnaire,data)
+  recommendationPatch(data: any) {
+    return this.http.patch<any>(baseUrl.baseUrl + patchApis.addQuestionnaire, data)
   }
 
 }

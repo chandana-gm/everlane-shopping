@@ -2,7 +2,9 @@
     <div class="row full-height">
         <div class="profile-detail col-12 col-md-3 col-lg-3">
             <div class="my-profile">
-                <div (click)="showSection('section1')"><b>My Profile</b></div>
+                <div class="d-flex justify-content-between"><b>My Profile</b><b style="cursor: pointer;"><i
+                            class="fa-regular fa-bell" data-toggle="modal" data-target="#exampleModalLeft"></i></b>
+                </div>
                 <hr>
                 <div class="detail" (click)="showSection('section1')"><b>My Profile</b></div>
                 <div class="detail" (click)="showSection('section2')">Change password</div>
@@ -13,6 +15,40 @@
 
             </div>
         </div>
+
+        <!-- notifications -->
+        <div class="modal left-modal fade drawer left-align" id="exampleModalLeft" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-box" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div *ngFor="let item of notifications; let i = index" class="d-flex justify-content-between">
+                            <div class="col-11">
+                                <p>{{item.description}}</p>
+                            </div>
+                            <div class="col-1" (click)="togglePopup(i, $event)" style="cursor: pointer;">
+                                <p><i class="fa-solid fa-ellipsis-vertical"></i></p>
+                            </div>&nbsp;
+                            <div *ngIf="showPopupIndex === i" class="popup" (click)="stopPropagation($event)">
+                                <p (click)="deleteItem(item)">Delete</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <!-- notification -->
+
         <div class="col-12 col-md-9 col-lg-9">
             <!-- Profile Section -->
             <div *ngIf="currentSection === 'section1'">
@@ -25,46 +61,55 @@
                             </div>
                         </div>
                         <hr>
-                        <form class="mt-4">
+                        <form class="mt-4" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
                             <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="username" class="form-label">First Name:</label>
-                                        <input id="username" class="form-control" name="first_name"
-                                            [(ngModel)]="userData.first_name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">Email:</label>
-                                        <input id="email" class="form-control" name="email"
-                                            [(ngModel)]="userData.email" />
-                                    </div>
+                              <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                  <label for="username" class="form-label">First Name:</label>
+                                  <input id="username" class="form-control" name="first_name" [(ngModel)]="userData.first_name" required />
+                                  <div *ngIf="userForm.submitted && userForm.controls['first_name']?.invalid" class="text-danger">
+                                    First name is required.
+                                  </div>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="lastname" class="form-label">Last Name:</label>
-                                        <input id="lastname" class="form-control" name="last_name"
-                                            [(ngModel)]="userData.last_name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label">Phone Number:</label>
-                                        <input id="phone" class="form-control" name="mobile"
-                                            [(ngModel)]="userData.mobile" />
-                                    </div>
+                                <div class="form-group">
+                                  <label for="email" class="form-label">Email:</label>
+                                  <input id="email" class="form-control" name="email" [(ngModel)]="userData.email" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                  <div *ngIf="userForm.submitted && userForm.controls['email']?.invalid" class="text-danger">
+                                    <div *ngIf="userForm.controls['email']?.errors?.['required']">Email is required.</div>
+                                    <div *ngIf="userForm.controls['email']?.errors?.['pattern']">Please enter a valid email address.</div>
+                                  </div>
                                 </div>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                  <label for="lastname" class="form-label">Last Name:</label>
+                                  <input id="lastname" class="form-control" name="last_name" [(ngModel)]="userData.last_name" required />
+                                  <div *ngIf="userForm.submitted && userForm.controls['last_name']?.invalid" class="text-danger">
+                                    Last name is required.
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="phone" class="form-label">Phone Number:</label>
+                                  <input id="phone" class="form-control" name="mobile" [(ngModel)]="userData.mobile" required 
+                                         pattern="^[0-9]{10}$" />
+                                  <div *ngIf="userForm.submitted && userForm.controls['mobile']?.invalid" class="text-danger">
+                                    <div *ngIf="userForm.controls['mobile']?.errors?.['required']">Phone number is required.</div>
+                                    <div *ngIf="userForm.controls['mobile']?.errors?.['pattern']">Please enter a valid 10-digit phone number.</div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <hr>
                             <div class="form-group d-flex justify-content-center mt-4">
-                                <!-- <button type="button" (click)="onSubmit()" class="button"
-                                    style="width:20%;">Edit</button> -->
-                                <button type="submit" style="width:20%;" class="button" (click)="onSubmit()">
-                                    <span *ngIf="!loading">Edit</span>
-                                    <span *ngIf="loading">
-                                        <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
-                                            style="width: 20px; height: 20px;" />
-                                    </span>
-                                </button>
+                              <button type="submit" style="width:20%;" class="button">
+                                <span *ngIf="!loading">Edit</span>
+                                <span *ngIf="loading">
+                                  <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                                </span>
+                              </button>
                             </div>
-                        </form>
+                          </form>
+                          
                     </div>
                 </div>
             </div>
@@ -96,7 +141,7 @@
                         <!-- <button type="button" [disabled]="!isPasswordValid"
                             (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})"
                             class="button">Change Password</button> -->
-                        <button type="submit" [disabled]="!isPasswordValid" style="min-width: 150px;" class="button"
+                        <button type="submit" [disabled]="!isPasswordValid" style="max-width: 200px;" class="button "
                             (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
                             <span *ngIf="!loading">Change Password</span>
                             <span *ngIf="loading">
@@ -114,93 +159,95 @@
                     <h2 class="text-charcoal hidden-sm-down" style="color:#973d93">Your Orders</h2>
                     <div class="row">
                         <div class="col-12">
-                            <div class="list-group mb-3" *ngFor="let orders of ordersList" (click)="OrderDetail(orders)"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <div class="list-group mb-3" *ngFor="let order of ordersList" (click)="OrderDetail(order)"
+                                >
                                 <div class="list-group-item p-3 bg-snow" style="position: relative;">
                                     <div class="row w-100 no-gutters">
-                                        <div class="col-6 col-md order-image" *ngIf="orders.items.length > 0">
-                                            <img [src]="orders.items[0].product_image" alt="" height="100px"
-                                                width="100px">
-                                            <span *ngIf="orders.items.length > 1" class="image-count position-absolute">
-                                                {{ orders.items.length - 1 }} more items
+            
+                                        <div class="col-6 col-md order-image" *ngIf="order.items.length > 0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <img [src]="order.items[0].product_image" alt="" height="100px" width="100px">
+                                            <span *ngIf="order.items.length > 1" class="image-count position-absolute">
+                                                {{ order.items.length - 1 }} more items
                                             </span>
                                         </div>
-
-                                        <div class="col-6 col-md order-image">
-                                            <p class="text-pebble">{{ orders.items[0].product_name| slice:0:23}}{{
-                                                orders.items[0].product_name.length > 23 ? '...' :
-                                                ''}}</p>
-                                            <p class="text-pebble">{{orders.total_amount|currency:'INR'}}</p>
-                                            <small class="text-muted">ID: {{orders.order_code}}</small>
-
-
+                                        <div class="col-6 col-md order-image" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <p class="text-pebble">{{ order.items[0].product_name | slice:0:23 }}{{
+                                                order.items[0].product_name.length > 23 ? '...' : ''}}</p>
+                                            <p class="text-pebble">{{ order.total_amount | currency:'INR' }}</p>
+                                            <small class="text-muted">ID: {{ order.order_code }}</small>
                                         </div>
-                                        <div class="col-5 col-md">
-                                            <h6 class="font-weight-bold">Order Date</h6>
-                                            <p class="text-pebble">{{orders.created_on | date }}</p>
+                                        <div class="col-5 col-md" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <h6 class="font-weight-bold">Order Status</h6>
+                                            <p [ngClass]="{
+                                                'text-processing': order.order_status === 'Processing',
+                                                'text-completed': order.order_status === 'Completed'
+                                            }">
+                                                {{ order.order_status }}
+                                            </p>
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <a class="btn btn-primary w-100" [href]="orders.invoice?.pdf" download
-                                                target="_blank">Invoice <i class="fa-solid fa-download"></i></a>
+                                            <a class="btn btn-primary w-100" [href]="order.invoice?.pdf" download target="_blank">
+                                                Invoice <i class="fa-solid fa-download"></i>
+                                            </a>&nbsp;
+                                            <a class="btn btn-light w-100" *ngIf="order.order_status === 'Processing' || order.order_status === 'Pending'" (click)="cancelOrder(order)">
+                                                Cancel Order
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
-
-
+            
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <!-- <h1 class="modal-title fs-5" style="text-align: center;" id="exampleModalLabel">Return Order</h1> -->
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body ">
+                                        <div class="modal-body">
                                             <div *ngIf="singleProduct && singleProduct.items.length > 0">
                                                 <div *ngFor="let item of singleProduct.items">
                                                     <div class="d-flex">
-                                                        <div class="col-5 col-md order-image">
-                                                            <img [src]="item.product_image"
-                                                                alt="{{ item.product_name }}" height="150px"
-                                                                width="150px">
-                                                        </div>
-                                                        <div class="col-9 col-md ">
-                                                            <p class="text-pebble">{{ item.product_name }}</p>
-                                                            <p class="text-pebble">{{ item.price | currency: 'INR' }}
-                                                            </p>
+                                                        <div class="order-image returned">
+                                                            <img [src]="item.product_image" alt="{{ item.product_name }}">
+                                                        </div>&nbsp;&nbsp;
+                                                        <div class="ml-3">
+                                                            <h3 class="text-pebble">{{ item.product_name }}</h3>
+                                                            <p class="text-pebble">{{ item.price | currency: 'INR' }}</p>
                                                             <p class="text-muted">Size: {{ item.size }}</p>
                                                             <p class="text-muted">Quantity: {{ item.quantity }}</p>
-
-
-                                                            <span
-                                                                *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id] || item.return_status === 'RETURNED'"
+            
+                                                            <span *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id]"
                                                                 style="cursor: not-allowed;color: red;">
                                                                 Return requested
                                                             </span>
-
-                                                            <!-- Hide the Return button if this item is selected -->
-                                                            <button class="button"
-                                                                *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id]"
-                                                                (click)="returnRequest(item)"
-                                                                [disabled]="returnRequestSuccessful[item.id]">
-                                                                <span>Return</span>
-                                                                <!-- <span *ngIf="returnRequestSuccessful[item.id]" style="cursor: not-allowed;">Return requested</span> -->
-                                                            </button>
+                                                            <span *ngIf="item.return_status === 'APPROVED'"
+                                                                style="cursor: not-allowed;color: green;">
+                                                                Return request Approved
+                                                                <p class="text-muted">Return Quantity: {{
+                                                                    item.returned_quantity }}</p>
+                                                            </span>
                                                         </div>
                                                     </div>
 
+                                                            
+                                                    <!-- Show Return button for completed orders -->
+                                                    <div class="col-12" *ngIf="singleProduct.order_status === 'Completed'">
+                                                        <button class="button"
+                                                            *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id] && item.return_status !== 'APPROVED'"
+                                                            (click)="returnRequest(item)"
+                                                            [disabled]="returnRequestSuccessful[item.id]">
+                                                            <span>Return</span>
+                                                        </button>
+                                                    </div>
+            
                                                     <!-- Display input fields if this item is selected -->
                                                     <div *ngIf="selectedItem === item && !returnRequestSuccessful[item.id]"
                                                         class="return-details mt-3">
                                                         <div class="form-group">
                                                             <label for="returnReason">Return Reason:</label>
-                                                            <select [(ngModel)]="returnReason[item.id]"
-                                                                class="form-select">
+                                                            <select [(ngModel)]="returnReason[item.id]" class="form-select">
                                                                 <option *ngFor="let reason of returnReasons"
                                                                     [value]="reason">{{ reason }}</option>
                                                             </select>
@@ -209,8 +256,7 @@
                                                             <label for="returnQuantity">Quantity:</label>
                                                             <select id="returnQuantity" class="form-control"
                                                                 [(ngModel)]="returnQuantity[item.id]">
-                                                                <option
-                                                                    *ngFor="let qty of getQuantityOptions(item.quantity)"
+                                                                <option *ngFor="let qty of getQuantityOptions(item.quantity)"
                                                                     [value]="qty">{{ qty }}</option>
                                                             </select>
                                                         </div>
@@ -220,28 +266,15 @@
                                                             <span *ngIf="!loading">Request Return</span>
                                                             <span *ngIf="loading">
                                                                 <img src="../../../assets/images/loaders/spinner.gif"
-                                                                    alt="Loading..."
-                                                                    style="min-width: 40px; height: 20px;" />
+                                                                    alt="Loading..." style="min-width: 40px; height: 20px;" />
                                                             </span>
-
-
                                                         </button>
-                                                        <!-- <button class="btn btn-secondary" (click)="cancelRequest()">Cancel</button> -->
                                                     </div>
-
-                                                    <!-- <button class="button" *ngIf="returnRequestSuccessful[item.id]"> Return requested</button> -->
+            
                                                     <hr class="mt-3 mb-3">
                                                 </div>
-
-
                                             </div>
                                         </div>
-
-                                        <!-- <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -252,11 +285,11 @@
                     <div class="rows">
                         <div class="cards">
                             <h1 class="h1">No records found</h1>
-
                         </div>
                     </div>
                 </ng-template>
             </div>
+            
             <!-- address section -->
             <div *ngIf="currentSection === 'section4'">
                 <div *ngIf="addressMessage === 'failed'  else addressCard" id="addressFormContainer">
@@ -550,13 +583,16 @@
                         <h2 style="color:#973d93">My Donations</h2>
                     </div>
                     <div class="table-container">
-    
+
                         <div class="table-responsive">
-                            <table class="table table-hover b-0">
+                            <table class="table table-hover table-bordered b-0 mt-4">
                                 <thead>
                                     <tr>
-                                        <th>Disaster</th>
-                                        <th>Donated On</th>
+                                        <th rowspan="2">Disaster</th>
+                                        <th rowspan="2">Donated On</th>
+                                        <th colspan="3" class="text-center">Donated dresses</th>
+                                    </tr>
+                                    <tr>
                                         <th>Kids</th>
                                         <th>Men</th>
                                         <th>Women</th>
@@ -565,8 +601,8 @@
                                 <tbody>
                                     <tr *ngFor="let donation of donations">
                                         <td>{{ donation.disaster_name }}</td>
-                                        <td>{{ donation.donated_on | date: 'short' }}</td>
-    
+                                        <td>{{ donation.donated_on | date }}</td>
+
                                         <td>{{ donation.kids_dresses }}</td>
                                         <td>{{ donation.men_dresses }}</td>
                                         <td>{{ donation.women_dresses }}</td>
@@ -580,7 +616,7 @@
                     <div class="rows">
                         <div class="cards">
                             <h1 class="h1">No records found</h1>
-    
+
                         </div>
                     </div>
                 </ng-template>

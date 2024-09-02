@@ -43,13 +43,14 @@
                     <button *ngIf="isWishlisted" class="button col mt-3" disabled>Wishlisted</button>
                     &nbsp;
                     <button *ngIf="size && size.length > 0" class="button col mt-3 "
-                        (click)="addToCart(singleProduct.id)">Add to
-                        Cart</button>
+                        (click)="addToCart(singleProduct.id)">
+                        <span *ngIf="!isloading">Add to Cart</span>
+                        <span *ngIf="isloading">
+                            <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                          </span>
+                        </button>
                 </div>
             </div>
         </div>
     </div>
-
-
-
 </div>

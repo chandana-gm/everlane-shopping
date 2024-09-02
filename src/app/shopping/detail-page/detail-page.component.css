@@ -80,9 +80,7 @@
     cursor: not-allowed;
     background-color:#c797c5;
 }
-.button{
-    /* max-width: 70%; */
-}
+
 .loader {
     display: flex;
     justify-content: center;

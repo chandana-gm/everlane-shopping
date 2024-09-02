@@ -23,6 +23,10 @@ export class GettingserviceService {
   getBanners() {
     return this.http.get<any>(baseUrl.baseUrl + environment.bannerUrl)
   }
+  getMobileWidthBanner(){
+    return this.http.get<any>(baseUrl.baseUrl + environment.mobileWidthBanner)
+
+  }
   getTrendingProducts() {
     return this.http.get<any>(baseUrl.baseUrl + environment.trendingUrl)
   }
@@ -133,11 +137,16 @@ export class GettingserviceService {
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.Pagination}`, {params });
 
  }
+  getNotifications(){
+    return this.http.get<any>(baseUrl.baseUrl+environment.getNotifications)
+  }
 
 
 
 
 
+
+  // guard check
   isCartEmpty(): Observable<boolean> {
     return this.getCart().pipe(
       map(response => {

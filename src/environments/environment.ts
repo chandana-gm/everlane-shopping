@@ -5,6 +5,7 @@ export const environment = {
     mensCategoryUrl: 'subcategories/?category_id=1',
     womensCategoryUrl: 'subcategories/?category_id=3',
     bannerUrl:'banners/',
+    mobileWidthBanner:'bannerss/',
     trendingUrl:'products/trending/',
     autumnSeasonProductsUrl:'products/autumn/',
     rainySeasonProductsUrl:'products/rainy/',
@@ -39,6 +40,7 @@ export const environment = {
     getReturnProduct:'return-pending/',
     getPickup:'pickups/',
     getRecommendation:'recommendations/',
+    getNotifications:'notification/',
 
     getPaymentUpdation:'payment/execute/',
     cancelPayment:'payment/cancel/',
@@ -76,6 +78,8 @@ export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
      deleteCart:'cart-item/delete',
+     cancelOrder:'order-cancel/',
+     deleteNotifications:'delete/'
 
      
   };

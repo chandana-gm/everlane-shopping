@@ -20,7 +20,9 @@ export class DetailPageComponent implements OnInit {
   allData: any
   isWishlisted: boolean = false;
   selectedSize: any
+  isloading=false
   loading: boolean = true
+  isToastVisible: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private service: GettingserviceService, private postservice: PostServiceService, private toster: ToastrService, private deleteService: DeleteServiceService) { }
 
@@ -36,6 +38,10 @@ export class DetailPageComponent implements OnInit {
       this.singleProduct = data.data
       this.loading = false
       this.size = this.singleProduct.items
+      const sizeOrder = ['S', 'M', 'L', 'XL'];
+    this.size.sort((a: { size: string; }, b: { size: string; }) => {
+      return sizeOrder.indexOf(a.size) - sizeOrder.indexOf(b.size);
+    });
       this.getWishlist()
       this.checkIfWishlisted()
 
@@ -67,16 +73,20 @@ export class DetailPageComponent implements OnInit {
 
   }
   addToCart(item: any) {
+    this.isloading=true
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       console.log('cart clicked');
       this.postservice.postCart(item, this.selectedSize).subscribe((data: any) => {
         this.toster.success(data.message);
         this.deleteService.cartItemNumbers()
+        this.isloading=false
 
       },
         (error: any) => {
           this.toster.error("select size");
+        this.isloading=false
+
 
         }
       );
@@ -86,9 +96,7 @@ export class DetailPageComponent implements OnInit {
     }
   }
   selectSize(item: any) {
-    this.selectedSize = item.size
-    console.log(this.selectedSize);
-
+    this.selectedSize = item.size 
   }
 
 }
