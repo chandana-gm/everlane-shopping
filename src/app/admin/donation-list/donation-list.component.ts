@@ -10,8 +10,10 @@ import { GettingserviceService } from 'src/app/service/gettingservice.service';
 export class DonationListComponent implements OnInit {
   constructor(private getService: GettingserviceService, private fb: FormBuilder) { }
   data: any[] = [];
+  disasterList: any[] = [];
   donationlist:any[]=[];
   list!: FormGroup
+  dis:any
 
 
   ngOnInit(): void {
@@ -24,7 +26,9 @@ export class DonationListComponent implements OnInit {
       
       console.log(response, 'res');
       this.data = response.data
+      this.disasterList=response.data
       console.log(this.data);
+      
 
     });
   
@@ -38,8 +42,18 @@ export class DonationListComponent implements OnInit {
         this.getService.getDonationList(disasterId).subscribe((response) => {
           console.log(response,'abc');
                   this.donationlist=response.data
+                  // this.list=this.donationlist.
+                  
+                 
+                  
           
       });
+  }
+  onDisasterChange(event: Event) {
+    const selectedDisasterId = (event.target as HTMLSelectElement).value;
+    console.log(selectedDisasterId);
+    this.dis = this.disasterList.find(disaster => disaster.id === +selectedDisasterId);
+
   }
 }
 
