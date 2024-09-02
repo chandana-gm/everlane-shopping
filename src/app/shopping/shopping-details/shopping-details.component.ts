@@ -134,7 +134,7 @@ export class ShoppingDetailsComponent implements OnInit {
         this.wishlisted()
       });
     }
-    else if (this.bannerSeason === 'jeggins') {
+    else if (this.bannerSeason === 'Shirts women') {
       this.isLoading=true
       this.service.getJegginswear().subscribe((data) => {
         this.seasonProducts = data.data
@@ -247,7 +247,7 @@ export class ShoppingDetailsComponent implements OnInit {
   async deleteWishlistItem(item: any) {
     try {
       this.deleteService.removeItemFromWishlist(item).subscribe((data) => {
-        this.toastr.success(data.message);
+        // this.toastr.success(data.message);
       });
     } catch (error) {
       console.error('Error removing item from wishlist:', error);
@@ -259,7 +259,7 @@ export class ShoppingDetailsComponent implements OnInit {
     if (storedUser) {
       this.postService.postWishlist(item.id).subscribe(data => {
         console.log(data);
-        this.toastr.success(data.message)
+        // this.toastr.success(data.message)
       });
 
     } else

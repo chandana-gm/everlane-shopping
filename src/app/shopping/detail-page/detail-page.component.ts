@@ -21,6 +21,7 @@ export class DetailPageComponent implements OnInit {
   isWishlisted: boolean = false;
   selectedSize: any
   loading: boolean = true
+  isToastVisible: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private service: GettingserviceService, private postservice: PostServiceService, private toster: ToastrService, private deleteService: DeleteServiceService) { }
 
@@ -36,6 +37,10 @@ export class DetailPageComponent implements OnInit {
       this.singleProduct = data.data
       this.loading = false
       this.size = this.singleProduct.items
+      const sizeOrder = ['S', 'M', 'L', 'XL'];
+    this.size.sort((a: { size: string; }, b: { size: string; }) => {
+      return sizeOrder.indexOf(a.size) - sizeOrder.indexOf(b.size);
+    });
       this.getWishlist()
       this.checkIfWishlisted()
 
@@ -86,9 +91,7 @@ export class DetailPageComponent implements OnInit {
     }
   }
   selectSize(item: any) {
-    this.selectedSize = item.size
-    console.log(this.selectedSize);
-
+    this.selectedSize = item.size 
   }
 
 }

@@ -1,12 +1,12 @@
-<div class="landing-part">
+<div class="landing-part" >
     <div class="banner" *ngIf="banners?.data?.length">
         <div class="gradient-overlay"></div>
-        <img [src]="banners.data[randomNumber].image" alt="" (load)="imageLoaded = true">
+        <img [src]="banners.data[0].image" alt="" (load)="imageLoaded = true">
         <div *ngIf="imageLoaded">
             <!-- <img src="../../../assets/images/croped/banner2.jpg" alt="" routerLink="/shopping/shoppingDetails"> -->
             <!-- <button class="outfit-maker-button button">Outfit Maker</button> -->
             <img *ngIf="!imageLoaded" src="../../../assets/images/banner/image.png" alt="Loading..."
-                class="loading-img" />
+                class="banner" />
 
         </div>
     </div>
@@ -162,7 +162,7 @@
                         <button type="button" class="btn btn-primary" (click)="onNext()" [disabled]="!quizForm.valid"
                             *ngIf="currentQuestionIndex < questions.length - 1">Next</button>
                         <button type="submit" class="btn btn-success"
-                            *ngIf="currentQuestionIndex === questions.length - 1">Submit</button>
+                            *ngIf="currentQuestionIndex === questions.length - 1" [disabled]="!quizForm.valid">Submit</button>
                     </div>
                 </form>
             </div>

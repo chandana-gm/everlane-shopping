@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div *ngIf="paymentProcessing" class="processing-order">
+    <div *ngIf="paymentProcessing else payment" class="processing-order">
         <div class="processing-spinner">
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Processing...</span>
@@ -8,5 +8,16 @@
             <p class="mt-3">Processing, please wait...</p>
         </div>
     </div>
+    <ng-template #payment>
+        <div class="processing-order">
+            <div class="processing-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Processing...</span>
+                </div>
+                <p class="mt-3">Processing, please wait...</p>
+            </div>
+        </div>
+  </ng-template>
+    
 
 </div>

@@ -5,8 +5,9 @@
                 <i class="checkmark">✓</i>
             </div>
             <h1>Success</h1>
-            <p>We received your purchase request;<br /> we'll be in touch shortly!</p>
-        </div>&nbsp;&nbsp;
+            <p>We received your purchase request;<br /> we'll be in touch shortly!</p>&nbsp;
+            <p *ngIf="ordersList">Order ID: {{ordersList.order_code}}</p>
+        </div>&nbsp;
         <p (click)="backToShopping()" class="back-to-shopping">back to shopping</p>
     </div>
 </div>
