@@ -150,6 +150,14 @@ export class ShoppingDetailsComponent implements OnInit {
         this.wishlisted()
       });
     }
+    else if (this.bannerSeason === 'trending') {
+      this.isLoading=true
+      this.service.getTrendingProducts().subscribe((data) => {
+        this.seasonProducts = data.data
+        this.isLoading=false
+        this.wishlisted()
+      });
+    }
 
 
     // seasons //

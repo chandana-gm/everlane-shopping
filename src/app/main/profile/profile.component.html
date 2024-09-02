@@ -61,46 +61,55 @@
                             </div>
                         </div>
                         <hr>
-                        <form class="mt-4">
+                        <form class="mt-4" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
                             <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="username" class="form-label">First Name:</label>
-                                        <input id="username" class="form-control" name="first_name"
-                                            [(ngModel)]="userData.first_name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">Email:</label>
-                                        <input id="email" class="form-control" name="email"
-                                            [(ngModel)]="userData.email" />
-                                    </div>
+                              <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                  <label for="username" class="form-label">First Name:</label>
+                                  <input id="username" class="form-control" name="first_name" [(ngModel)]="userData.first_name" required />
+                                  <div *ngIf="userForm.submitted && userForm.controls['first_name']?.invalid" class="text-danger">
+                                    First name is required.
+                                  </div>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="lastname" class="form-label">Last Name:</label>
-                                        <input id="lastname" class="form-control" name="last_name"
-                                            [(ngModel)]="userData.last_name" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phone" class="form-label">Phone Number:</label>
-                                        <input id="phone" class="form-control" name="mobile"
-                                            [(ngModel)]="userData.mobile" />
-                                    </div>
+                                <div class="form-group">
+                                  <label for="email" class="form-label">Email:</label>
+                                  <input id="email" class="form-control" name="email" [(ngModel)]="userData.email" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                  <div *ngIf="userForm.submitted && userForm.controls['email']?.invalid" class="text-danger">
+                                    <div *ngIf="userForm.controls['email']?.errors?.['required']">Email is required.</div>
+                                    <div *ngIf="userForm.controls['email']?.errors?.['pattern']">Please enter a valid email address.</div>
+                                  </div>
                                 </div>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                  <label for="lastname" class="form-label">Last Name:</label>
+                                  <input id="lastname" class="form-control" name="last_name" [(ngModel)]="userData.last_name" required />
+                                  <div *ngIf="userForm.submitted && userForm.controls['last_name']?.invalid" class="text-danger">
+                                    Last name is required.
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="phone" class="form-label">Phone Number:</label>
+                                  <input id="phone" class="form-control" name="mobile" [(ngModel)]="userData.mobile" required 
+                                         pattern="^[0-9]{10}$" />
+                                  <div *ngIf="userForm.submitted && userForm.controls['mobile']?.invalid" class="text-danger">
+                                    <div *ngIf="userForm.controls['mobile']?.errors?.['required']">Phone number is required.</div>
+                                    <div *ngIf="userForm.controls['mobile']?.errors?.['pattern']">Please enter a valid 10-digit phone number.</div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                             <hr>
                             <div class="form-group d-flex justify-content-center mt-4">
-                                <!-- <button type="button" (click)="onSubmit()" class="button"
-                                    style="width:20%;">Edit</button> -->
-                                <button type="submit" style="width:20%;" class="button" (click)="onSubmit()">
-                                    <span *ngIf="!loading">Edit</span>
-                                    <span *ngIf="loading">
-                                        <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
-                                            style="width: 20px; height: 20px;" />
-                                    </span>
-                                </button>
+                              <button type="submit" style="width:20%;" class="button">
+                                <span *ngIf="!loading">Edit</span>
+                                <span *ngIf="loading">
+                                  <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                                </span>
+                              </button>
                             </div>
-                        </form>
+                          </form>
+                          
                     </div>
                 </div>
             </div>
@@ -592,7 +601,7 @@
                                 <tbody>
                                     <tr *ngFor="let donation of donations">
                                         <td>{{ donation.disaster_name }}</td>
-                                        <td>{{ donation.donated_on | date: 'short' }}</td>
+                                        <td>{{ donation.donated_on | date }}</td>
 
                                         <td>{{ donation.kids_dresses }}</td>
                                         <td>{{ donation.men_dresses }}</td>

@@ -20,6 +20,7 @@ export class DetailPageComponent implements OnInit {
   allData: any
   isWishlisted: boolean = false;
   selectedSize: any
+  isloading=false
   loading: boolean = true
   isToastVisible: boolean = false;
 
@@ -72,16 +73,20 @@ export class DetailPageComponent implements OnInit {
 
   }
   addToCart(item: any) {
+    this.isloading=true
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       console.log('cart clicked');
       this.postservice.postCart(item, this.selectedSize).subscribe((data: any) => {
         this.toster.success(data.message);
         this.deleteService.cartItemNumbers()
+        this.isloading=false
 
       },
         (error: any) => {
           this.toster.error("select size");
+        this.isloading=false
+
 
         }
       );

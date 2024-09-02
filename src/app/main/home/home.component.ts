@@ -61,7 +61,7 @@ export class HomeComponent {
     this.loadBanners()
 
 
-    this.randomNumber = Math.floor(Math.random() * 3);
+    this.randomNumber = Math.floor(Math.random() * 5 );
 
 
   }
@@ -178,6 +178,9 @@ export class HomeComponent {
 
   onImageClick(season: string) {
     this.router.navigate(['shopping/shoppingDetails', season]);
+  }
+  onTrendingClick(category:string){
+    this.router.navigate(['shopping/shoppingDetails', category])
   }
 
   scrollLeft() {

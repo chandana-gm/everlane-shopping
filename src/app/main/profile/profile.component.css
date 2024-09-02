@@ -29,6 +29,10 @@
   font-weight: bold;
   cursor: pointer;
 }
+.button:disabled{
+  background: #c382c0;
+
+}
 .profile-name .col {
   display: flex;
   align-items: center;

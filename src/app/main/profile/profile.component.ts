@@ -135,15 +135,30 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  onSubmit() {
-    this.loading = true
+  // onSubmit() {
+  //   this.loading = true
+  //   console.log('Updated userData:', this.userData);
+  //   this.deleteService.updateProfile(this.userData).subscribe((data) => {
+  //     this.toster.success(data.message)
+  //     this.checkoutForm.reset();
+  //     this.loading = false
+  //   })
+  // }
+  onSubmit(userForm: NgForm) {
+    if (userForm.valid) {
+      this.loading = true
     console.log('Updated userData:', this.userData);
     this.deleteService.updateProfile(this.userData).subscribe((data) => {
       this.toster.success(data.message)
       this.checkoutForm.reset();
       this.loading = false
     })
+    } else {
+      // Handle the case where the form is invalid
+    }
   }
+  
+
 
   addressCreated(form: any) {
     this.postService.createAddress(form).subscribe((data) => {
