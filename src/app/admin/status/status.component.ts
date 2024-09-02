@@ -13,6 +13,8 @@ export class StatusComponent implements OnInit{
   Orderlist:any[]=[]
   items?: any = []
     searchText: any = ''
+    // isProcessing = false;
+    data:any
 
   ngOnInit(): void {
     this.orderView()
@@ -30,12 +32,17 @@ orderView()
 }
 
 onStatusChange(event: Event,id:any) {
+ 
+  // this.isProcessing = true;
   const selectElement = event.target as HTMLSelectElement;
   const selectedValue = selectElement.value;
  
   console.log('Selected Status:', selectedValue);
   this.postService.orderStatusUpdate(id,selectedValue).subscribe((data)=>{
+   this.data=data.data
+  //  this.isProcessing = false;
     this.toaster.success(data.message);
+ 
       this.orderView();
     }, error => {
       this.toaster.error('Failed to update order status', 'Error');
