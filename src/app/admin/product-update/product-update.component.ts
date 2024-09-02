@@ -17,6 +17,7 @@ export class ProductUpdateComponent implements OnInit {
   productList: any[] = []
   productName: any
   isProcessing = false;
+  isSearching: boolean = false;
 
   skinColorChoices = [
     { value: 'FAIR', label: 'Fair' },
@@ -49,6 +50,13 @@ export class ProductUpdateComponent implements OnInit {
   producttName: any
   StockProductId: any
   items?: any = []
+  currentPage: number = 1;
+  totalItems:any;
+  next: string | null = null;
+  previous: string | null = null;
+
+  itemsall:any[]=[]
+  productsPage:any[]=[]
 
   searchText: any = ''
   constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService) { }
@@ -82,6 +90,7 @@ export class ProductUpdateComponent implements OnInit {
       size: ['', Validators.required],
       stock: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
+    this.loadProducts()
 
 
   }
@@ -326,14 +335,48 @@ export class ProductUpdateComponent implements OnInit {
 
   }
   filteredItems() {
+    this.isSearching = true;
     if (this.searchText != '') {
- 
 
-      this.productList = this.items.filter((item: any) => item.name == this.searchText)
-      console.log(this.searchText);
+      this.service.searchProducts(this.searchText).subscribe((data) => {
+        this.productsPage = data.data; 
+       
+        console.log(data);
 
+      });
     } else {
-      this.productList = this.items
+      this.loadProducts();
+    }
+    
+   
+  }
+  loadProducts(page: number = 1): void {
+    this.isSearching = false;
+    this.service.getPagination(page).subscribe(data => {
+      console.log('paginated',data);
+      this.productsPage = data.results; 
+      this.totalItems = data.count;
+      this.next = data.next; 
+      this.previous = data.previous;
+    });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadProducts(page);
+  }
+
+  loadNextPage(): void {
+    if (this.next) {
+      this.currentPage++;
+      this.loadProducts(this.currentPage);
+    }
+  }
+
+  loadPreviousPage(): void {
+    if (this.previous) {
+      this.currentPage--;
+      this.loadProducts(this.currentPage);
     }
   }
 

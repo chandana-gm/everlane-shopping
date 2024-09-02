@@ -90,7 +90,7 @@ export class DisasterTrackingApprovelComponent implements OnInit {
       setTimeout(() => {
         window.location.reload();
       }, 1500);
-      
+
     })
 
   }

@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './service/interceptor.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { PaginatorModule } from 'primeng/paginator';
 
 
 
@@ -36,6 +36,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ToastrModule.forRoot({ 
       positionClass: 'toast-bottom-center', 
     }),
+    PaginatorModule
   
   
     

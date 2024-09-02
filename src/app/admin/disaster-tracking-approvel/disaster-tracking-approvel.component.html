@@ -1,40 +1,35 @@
-<div >
-    <div style="text-align: center;">
-      <h2 class="mt-" style="color:#973d93">Approval of Disaster Aid Requests</h2>
+<div>
+  <div style="text-align: center;">
+    <h2 class="mt-" style="color:#973d93">Approval of Disaster Aid Requests</h2>
+  </div>
+  <div class="col-6 ">
+    <div class="input-group mb-3 mt-3">
+      <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search..."
+        (input)="filteredItems()" />
+      <span class="input-group-text">
+        <i class="fas fa-search"></i>
+      </span>
     </div>
-    <div class="col-6 ">
-      <div class="input-group mb-3 mt-3">
-          <input 
-            class="form-control" 
-            type="text" 
-            [(ngModel)]="searchText" 
-            placeholder="Search..." 
-            (input)="filteredItems()"
-          />
-          <span class="input-group-text">
-            <i class="fas fa-search"></i>
-          </span>
-        </div>
-      
+
   </div>
   <div class="table-responsive">
     <table class="table  table-hover p-4 ">
 
       <thead>
-        <th >Name</th>
-        <th >DisasterName</th>
+        <th>Name</th>
+        <th>DisasterName</th>
 
-        <th >Adhar</th>
-        <th >location</th>
-        <th >Decription</th>
-        <th >Men</th>
-        <th >Women</th>
-        <th >Kid</th>
-        <th >Status</th>
+        <th>Adhar</th>
+        <th>location</th>
+        <th>Decription</th>
+        <th>Men</th>
+        <th>Women</th>
+        <th>Kid</th>
+        <th>Status</th>
 
       </thead>
       <tbody>
-        <tr class="" *ngFor="let item of disasterReg" >
+        <tr class="" *ngFor="let item of disasterReg">
           <td>{{item.first_name}}</td>
           <td>{{item.name}}</td>
           <td>{{item.adhar}}</td>
@@ -46,15 +41,17 @@
           <td>{{item.required_kids_dresses}}</td>
           <td>
             <!-- <div class="row"  *ngIf= "item.is_approved=='false'"> -->
-              <div class="row">
-                <!-- <span class="badge badge-success">Success</span>
+            <div class="row">
+              <!-- <span class="badge badge-success">Success</span>
                 <span class="badge badge-danger">Danger</span> -->
               <div class="col-6">
-                <button type="button" class="btn btn-outline-success btn-sm" style="font-size: x-small; "(click)="disasterApproval(item,'accept')">Accept</button>
+                <button type="button" class="btn btn-outline-success btn-sm" style="font-size: x-small; "
+                  (click)="disasterApproval(item,'accept')">Accept</button>
               </div>
               <div class="col-6">
-                <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: x-small;" (click)="reject(item,'false')">Reject</button>
-            
+                <button type="button" class="btn btn-outline-danger btn-sm" style="font-size: x-small;"
+                  (click)="reject(item,'false')">Reject</button>
+
               </div>
               <!-- <div class="col-6">
                 <button type="button" class="btn btn-outline-success btn-sm" style="font-size: x-small;">Accept</button>
@@ -64,25 +61,22 @@
             
               </div> -->
             </div>
-            
+
 
 
 
           </td>
 
         </tr>
-       
+
       </tbody>
     </table>
   </div>
-  </div>
-  
-  <div>
-    <!-- <div class="loading">
+</div>
+
+<div>
+  <!-- <div class="loading">
       <h1 class="mt-5">Fetching your details, please wait...</h1>
       <img src="../../../assets/images/1488 (1).gif">   
     </div>
   </div> -->
-  
-  
-  

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { baseUrl } from 'src/environments/environment';
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
@@ -128,6 +128,11 @@ export class GettingserviceService {
     return this.http.get<any>(baseUrl.baseUrl+environment.getUserDonation)
 
   }
+  getPagination(page:number){
+    let params = new HttpParams().set('page', page.toString());
+    return this.http.get<any>(`${baseUrl.baseUrl}${environment.Pagination}`, {params });
+
+ }
 
 
 

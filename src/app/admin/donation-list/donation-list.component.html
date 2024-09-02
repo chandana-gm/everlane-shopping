@@ -1,24 +1,25 @@
 <div class="card mt-4">
-<form [formGroup]="list"  (ngSubmit)="onSubmit()">
+  <form [formGroup]="list" (ngSubmit)="onSubmit()">
 
     <div class="row align-items-center ">
       <div class="col-md-2">
-        <label for="disasterSelect" class="form-label" style="font-size: large;font-weight: bold;">Select Disaster</label>
+        <label for="disasterSelect" class="form-label" style="font-size: large;font-weight: bold;">Select
+          Disaster</label>
       </div>
       <div class="col-md-6">
-        <select class="form-select" id="disasterSelect" formControlName="disaster"  (change)="onDisasterChange($event)">
+        <select class="form-select" id="disasterSelect" formControlName="disaster" (change)="onDisasterChange($event)">
           <option value="" disabled selected>Disaster and Location</option>
           <option *ngFor="let disaster of data" [value]="disaster.id">
             {{disaster.name}} ,{{disaster.location}}
 
           </option>
-    
+
         </select>
       </div>
-      <div class="col-md-4">
+      <!-- <div class="col-md-4">
         <button type="submit" class="button" [disabled]="list.invalid">Check Donation list</button>
 
-      </div>
+      </div> -->
     </div>
     <!-- <div class="card" *ngIf="donationlist">
       <div class="card-body">
@@ -41,32 +42,32 @@
         </div>
       </div>
     </div> -->
- 
-</form>
+
+  </form>
 </div>
- <div class="card mt-2" *ngIf="dis">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-4 border-end">
-          <p><strong>Kids Dresses:</strong></p>
-          <p>Required: <span style="color: red;">{{dis.required_kids_dresses}}</span></p>
-          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_kids_dresses}}</span></p>
-        </div>
-        <div class="col-4 border-end">
-          <p><strong>Men Dresses:</strong></p>
-          <p>Required: <span style="color: red;">{{dis.required_men_dresses}}</span></p>
-          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_men_dresses}}</span></p>
-        </div>
-        <div class="col-4">
-          <p><strong>Women Dresses:</strong></p>
-          <p>Required: <span style="color: red;">{{dis.required_women_dresses}}</span></p>
-          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_women_dresses}}</span></p>
-        </div>
+<div class="card mt-2" *ngIf="dis">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-4 border-end">
+        <p><strong>Kids Dresses:</strong></p>
+        <p>Required: <span style="color: red;">{{dis.required_kids_dresses}}</span></p>
+        <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_kids_dresses}}</span></p>
+      </div>
+      <div class="col-4 border-end">
+        <p><strong>Men Dresses:</strong></p>
+        <p>Required: <span style="color: red;">{{dis.required_men_dresses}}</span></p>
+        <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_men_dresses}}</span></p>
+      </div>
+      <div class="col-4">
+        <p><strong>Women Dresses:</strong></p>
+        <p>Required: <span style="color: red;">{{dis.required_women_dresses}}</span></p>
+        <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_women_dresses}}</span></p>
       </div>
     </div>
-  </div> 
-  
-<div >
+  </div>
+</div>
+
+<div>
   <div *ngIf="donationlist.length > 0; else noRegistrations">
     <div style="text-align: center;">
       <h2 class="mt-2" style="color:#973d93"> Donation List</h2>
@@ -80,31 +81,31 @@
         <th scope="col">Donated_on</th>
         <th scope="col">Men Dress</th>
         <th scope="col">Women Dress</th>
-        <th scope="col">Kids  Dress</th>
+        <th scope="col">Kids Dress</th>
         <th scope="col">Pickup Location</th>
       </thead>
       <tbody>
-      <tr *ngFor="let item of donationlist">
-        <td>{{item.donor_name}}</td>
-        <td>{{item.donated_on | date:'shortDate'}}</td>
-        <td>{{item.men_dresses}}</td>
-        <td>{{item.kids_dresses}}</td>
-        <td>{{item.women_dresses}}</td>
-        <td>{{item.pickup_location}}</td>
-      </tr>
+        <tr *ngFor="let item of donationlist">
+          <td>{{item.donor_name}}</td>
+          <td>{{item.donated_on | date:'shortDate'}}</td>
+          <td>{{item.men_dresses}}</td>
+          <td>{{item.kids_dresses}}</td>
+          <td>{{item.women_dresses}}</td>
+          <td>{{item.pickup_location_address}},{{item.pickup_location_city}}</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-    <ng-template #noRegistrations>
-      <div class="rows">
-          <div class="cards">
-              <h1 class="h1"></h1>
+  <ng-template #noRegistrations>
+    <div class="rows">
+      <div class="cards">
+        <h1 class="h1"></h1>
 
-          </div>
       </div>
+    </div>
   </ng-template>
-  </div>
-  
-  <div>
+</div>
+
+<div>
 </div>

@@ -1,3 +1,5 @@
+import { Paginator } from "primeng/paginator";
+
 export const environment = {
     production: false,
     mensCategoryUrl: 'subcategories/?category_id=1',
@@ -40,7 +42,8 @@ export const environment = {
 
     getPaymentUpdation:'payment/execute/',
     cancelPayment:'payment/cancel/',
-    getUserDonation:'user-donations/'
+    getUserDonation:'user-donations/',
+    Pagination:'products-paginated/'
 
   };
 

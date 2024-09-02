@@ -40,13 +40,10 @@ p{
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    padding: 20px;
+
 }
-.card-header {
-    background-color:#2e2d2e;
-    color: white;
-    padding: 15px;
-    border-radius: 15px 15px 0 0;
+.card[_ngcontent-ng-c3607592353] {
+  padding: 0;
 }
 .form-group {
     margin-bottom: 1rem;

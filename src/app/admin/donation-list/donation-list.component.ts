@@ -53,7 +53,7 @@ export class DonationListComponent implements OnInit {
     const selectedDisasterId = (event.target as HTMLSelectElement).value;
     console.log(selectedDisasterId);
     this.dis = this.disasterList.find(disaster => disaster.id === +selectedDisasterId);
-
+    this.onSubmit()
   }
 }
 

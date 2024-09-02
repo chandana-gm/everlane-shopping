@@ -254,11 +254,12 @@
             </div>
         </div>
     </div>
+    <div *ngIf="productsPage.length">
     <table class="table  table-hover  mt-4 p-4">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Description</th>
+                <!-- <th>Description</th> -->
                 <th>Price</th>
                 <th>Brand</th>
                 <th>Trending</th>
@@ -269,10 +270,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of productList"  >
+            <tr *ngFor="let item of productsPage"  >
               
                 <td data-toggle="modal" data-target="#exampleModal1" style="cursor: pointer;"(click)="stockmodal(item)">{{item.name}}</td>
-                <td>{{item.description}}</td>
+                <!-- <td>{{item.description}}</td> -->
                 <td>{{item.price}}</td>
                 <td>{{item.brand}}</td>
                 <td>{{item.is_trending}}</td>
@@ -300,8 +301,16 @@
            
             </tr>
         </tbody>
-    </table>
+       
+     </table>
 
+     
+     <div class="pagination-controls text-center my-3">
+      <button class="button btn-outline-primary rounded-pill mx-2" (click)="loadPreviousPage()" [disabled]="!previous">Previous</button>
+      <span class="mx-2">Page {{ currentPage }}</span>
+      <button class="button btn-outline-primary rounded-pill mx-2" (click)="loadNextPage()" [disabled]="!next">Next</button>
+    </div>
+    
 
 
 

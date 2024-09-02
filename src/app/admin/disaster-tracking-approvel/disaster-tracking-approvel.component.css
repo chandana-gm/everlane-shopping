@@ -27,10 +27,10 @@
     color: #6c757d; 
   }
   .table-responsive {
-    max-height: 400px; /* Set a max height if needed */
-    overflow-y: auto;  /* Enables vertical scrolling if the table content is too tall */
+    max-height: 400px; 
+    overflow-y: auto;  
   }
   
   table {
-    width: 100%; /* Ensure the table takes up the full width of the container */
+    width: 100%; 
   }
