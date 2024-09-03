@@ -12,6 +12,7 @@
     </div>
 
   </div>
+  <div  *ngIf="disasterReg.length > 0; else noRegistrations">
   <div class="table-responsive">
     <table class="table  table-hover p-4 ">
 
@@ -72,9 +73,23 @@
       </tbody>
     </table>
   </div>
+
+</div>
+
+  <ng-template #noRegistrations>
+    <div class="rows">
+        <div class="cards">
+            <h1 class="h1">No records found</h1>
+
+        </div>
+    </div>
+</ng-template>
 </div>
 
 <div>
+
+
+
   <!-- <div class="loading">
       <h1 class="mt-5">Fetching your details, please wait...</h1>
       <img src="../../../assets/images/1488 (1).gif">   

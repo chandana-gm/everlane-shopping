@@ -10,3 +10,16 @@ th{
 td{
     font-size:small;
 }
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .h1 {
+    color: #a1393e;
+    
+    font-size: 30px;
+    margin-top: 50px;
+  }

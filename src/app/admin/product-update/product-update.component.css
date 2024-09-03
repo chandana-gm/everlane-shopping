@@ -43,7 +43,7 @@ p{
 
 }
 .card[_ngcontent-ng-c3607592353] {
-  padding: 0;
+  padding: 10px;
 }
 .form-group {
     margin-bottom: 1rem;
@@ -103,4 +103,16 @@ p{
   .input-group-text .fas {
     color: #6c757d; 
   }
+  .cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
+  
+  .h1 {
+    color: #a1393e;
+    
+    font-size: 30px;
+    margin-top: 50px;
+  }

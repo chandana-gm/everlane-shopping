@@ -127,95 +127,79 @@
                         <hr>
                         <h2 style="color:#973d93">Recommands </h2>
                         <hr>
-                            <div class="row mb-3">
-                                <div class="col-md-3">
-                                    <label class="form-label">Skin Color:</label>
-                                    <div *ngFor="let skinColor of skinColorChoices" class="form-check">
-                                        <input type="checkbox" [value]="skinColor.value" (change)="onCheckboxChange($event, 'skin_colors')" 
-                                               [checked]="isChecked('skin_colors', skinColor.value)" class="form-check-input" id="{{'skin_' + skinColor.value}}">
-                                        <label class="form-check-label" [for]="'skin_' + skinColor.value">{{ skinColor.label }}</label>
-                                    </div>
-                                    <div *ngIf="productForm.get('skin_colors')?.invalid && productForm.get('skin_colors')?.touched" class="text-danger">
-                                        At least one skin color must be selected.
-                                      </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Height:</label>
-                                    <div *ngFor="let height of heightChoices" class="form-check">
-                                        <input type="checkbox" [value]="height.value" (change)="onCheckboxChange($event, 'heights')" 
-                                               [checked]="isChecked('heights', height.value)" class="form-check-input" id="{{'height_' + height.value}}">
-                                        <label class="form-check-label" [for]="'height_' + height.value">{{ height.label }}</label>
-                                    </div>
-                                    <div *ngIf="productForm.get('heights')?.invalid && productForm.get('heights')?.touched" class="text-danger">
-                                        At least one heights must be selected.
-                                      </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">Usage:</label>
-                                    <div *ngFor="let usage of usageChoices" class="form-check">
-                                        <input type="checkbox" [value]="usage.value" (change)="onCheckboxChange($event, 'usages')" 
-                                               [checked]="isChecked('usages', usage.value)" class="form-check-input" id="{{'usage_' + usage.value}}">
-                                        <label class="form-check-label" [for]="'usage_' + usage.value">{{ usage.label }}</label>
-                                    </div>
-                                    <div *ngIf="productForm.get('usages')?.invalid && productForm.get('usages')?.touched" class="text-danger">
-                                        At least one usages must be selected.
-                                      </div>
-                                </div>
-                                <!-- <div class="col-md-3">
-                                    <label class="form-label">Preferred Season:</label>
-                                    <div class="form-check">
-                                        <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
-                                        <label for="summer" class="form-check-label">Summer</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" id="winter" formControlName="winter" class="form-check-input">
-                                        <label for="winter" class="form-check-label">Winter</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" id="rainy" formControlName="rainy" class="form-check-input">
-                                        <label for="rainy" class="form-check-label">Rainy</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" id="autumn" formControlName="autumn" class="form-check-input">
-                                        <label for="autumn" class="form-check-label">Autumn</label>
-                                    </div>
-                                 
-                                </div> -->
-                    
-                          <div class="col-md-3">
-                                    <label class="form-label">Preferred Season:</label>
-                        
-                                <div class="form-check">
-                                    <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
-                                    <label for="summer" class="form-check-label">Summer</label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input type="checkbox" id="winter" formControlName="winter" class="form-check-input">
-                                    <label for="winter" class="form-check-label">Winter</label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input type="checkbox" id="rainy" formControlName="rainy" class="form-check-input">
-                                    <label for="rainy" class="form-check-label">Rainy</label>
-                                  </div>
-                                  <div class="form-check">
-                                    <input type="checkbox" id="autumn" formControlName="autumn" class="form-check-input">
-                                    <label for="autumn" class="form-check-label">Autumn</label>
-                                  </div>
+                        <div class="row">
+                          <div class="col-12 col-md-6 col-lg-3">
+                        <b> <label class="form-label">Skin Colors:</label></b>   
+                            <div formGroupName="skin_colors">
+                              <div *ngFor="let color of getKeys(skinColors)">
+                              <label >
+                                <input type="checkbox" [formControlName]="color" />
+                                {{ color }}
+                              </label>
+                            </div>
+                              <div *ngIf="productForm.get('skin_colors')?.invalid && productForm.get('skin_colors')?.touched" class="text-danger">
+                                At least one skin color must be selected.
+                              </div>
+                            </div>
                           </div>
-                                </div>
+                        
+                          <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-label">Heights</label>
+                            <div formGroupName="heights">
+                              <div  *ngFor="let height of getKeys(heights)">
+                              <label>
+                                <input type="checkbox" [formControlName]="height" />
+                                {{ height }}
+                              </label>
+                              </div>
+                              <div *ngIf="productForm.get('heights')?.invalid && productForm.get('heights')?.touched" class="text-danger">
+                                At least one height must be selected.
+                              </div>
+                            </div>
+                          </div>
+                          
+                        
+                          <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-label">Usages:</label>
+                            <div formGroupName="usages">
+                              <div *ngFor="let usage of getKeys(usages)">
+                                <label>
+                                  <input type="checkbox" [formControlName]="usage" />
+                                  {{ usage }} 
+                                </label>
+                              </div>
+                              <div *ngIf="productForm.get('usages')?.invalid && productForm.get('usages')?.touched" class="text-danger">
+                                At least one usage must be selected.
+                              </div>
+                            </div>
+                            
+                          </div>
+                        
+                          <div class="col-12 col-md-6 col-lg-3">
+                            <label class="form-label">Preferred Season:</label>
+                            <div formGroupName="Season">
+                              <div class="form-check">
+                                <input type="checkbox" id="summer" formControlName="summer" class="form-check-input">
+                                <label for="summer" class="form-check-label">Summer</label>
+                              </div>
+                              <div class="form-check">
+                                <input type="checkbox" id="winter" formControlName="winter" class="form-check-input">
+                                <label for="winter" class="form-check-label">Winter</label>
+                              </div>
+                              <div class="form-check">
+                                <input type="checkbox" id="rainy" formControlName="rainy" class="form-check-input">
+                                <label for="rainy" class="form-check-label">Rainy</label>
+                              </div>
+                              <div class="form-check">
+                                <input type="checkbox" id="autumn" formControlName="autumn" class="form-check-input">
+                                <label for="autumn" class="form-check-label">Autumn</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
                                 <div class="row">
-                                    <!-- <div class="col">
-                                      <div class="form-check">
-                                        <input type="checkbox" id="isActive" formControlName="isActive" class="form-check-input">
-                                        <label for="isActive" class="form-check-label">Is Active</label>
-                                      </div>
-                                    </div> -->
-                                    <!-- <div class="col">
-                                      <div class="form-check">
-                                        <input type="checkbox" id="isDeleted" formControlName="isDeleted" class="form-check-input">
-                                        <label for="isDeleted" class="form-check-label">Is Deleted</label>
-                                      </div>
-                                    </div> -->
+                                 
                                     <div class="col">
                                       <div class="form-check">
                                         <input type="checkbox" id="isTrending" formControlName="isTrending" class="form-check-input">
@@ -248,13 +232,14 @@
                                 </button>
                             </div>
                         </form>
+                    </div>
                         
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div *ngIf="productsPage.length">
+    <div *ngIf="productsPage.length >0; else noRegistrations">
     <table class="table  table-hover  mt-4 p-4">
         <thead>
             <tr>
@@ -311,10 +296,17 @@
       <button class="button btn-outline-primary rounded-pill mx-2" (click)="loadNextPage()" [disabled]="!next">Next</button>
     </div>
     
+    </div>
 
 
-
-
+    <ng-template #noRegistrations>
+      <div class="rows">
+          <div class="cards">
+              <h1 class="h1">No records found</h1>
+  
+          </div>
+      </div>
+  </ng-template>
   
   <!-- add stock-->
   <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

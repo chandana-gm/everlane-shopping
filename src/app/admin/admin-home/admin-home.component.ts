@@ -17,26 +17,31 @@ export class AdminHomeComponent implements OnInit {
   disapprovListLength: any
   returnlistlegth: any
   disasterListtLength: any
+  loading: boolean = false;
   constructor(private service: PostServiceService, private getService: GettingserviceService) { }
   ngOnInit(): void {
+    this.loading=true
     this.getService.getAllProductList().subscribe((data) => {
-
+      this.loading=false
       this.productlist = data.data
       console.log(this.productlist);
       this.productlength = this.productlist.length
 
     })
     this.getService.getAllreturnProduct().subscribe((data) => {
+      this.loading=false
       this.returnlist = data.data
       console.log(this.returnlist);
       this.returnlistlegth = this.returnlist.length
     })
     this.getService.getDiasterRegister().subscribe((data) => {
+      this.loading=false
       this.disapprovList = data.data
       console.log(this.disapprovList);
       this.disapprovListLength = this.disapprovList.length
     })
     this.getService.getDisasterList().subscribe((data) => {
+      this.loading=false
       this.disasterList = data.data
       console.log(this.disasterList);
       this.disasterListtLength = this.disasterList.length

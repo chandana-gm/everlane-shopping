@@ -1,8 +1,10 @@
 <div class="container">
+    <div  *ngIf="returnList.length > 0; else noRegistrations">
   <div class="text-center">
       <h2 style="color:#973d93;"class="mt-3" >Return Product Approval</h2>
   </div>
-  <br>
+  <hr>
+ 
   <div class="table-responsive">
       <table class="table table-hover   p-4">
           <thead>
@@ -42,6 +44,15 @@
           </tbody>
       </table>
   </div>
+</div>
+  <ng-template #noRegistrations>
+    <div class="rows">
+        <div class="cards" style="align-items: center;">
+            <h1 class="h1">No Return Request found</h1>
+
+        </div>
+    </div>
+</ng-template>
 </div>
 
   

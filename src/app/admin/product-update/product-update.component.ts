@@ -19,29 +19,13 @@ export class ProductUpdateComponent implements OnInit {
   isProcessing = false;
   isSearching: boolean = false;
 
-  skinColorChoices = [
-    { value: 'FAIR', label: 'Fair' },
-    { value: 'MEDIUM', label: 'Medium' },
-    { value: 'DARK', label: 'Dark' },
-  ];
-
-  heightChoices = [
-    { value: 'SHORT', label: 'Short' },
-    { value: 'MEDIUM', label: 'Medium' },
-    { value: 'TALL', label: 'Tall' },
-  ];
+ 
 
   genderChoices = [
     { value: 'M', label: 'Male' },
     { value: 'F', label: 'Female' },
   ];
 
-  usageChoices = [
-    { value: 'CASUAL', label: 'Casual' },
-    { value: 'FORMAL', label: 'Formal' },
-    { value: 'SPORTS', label: 'Sports' },
-    { value: 'PARTY', label: 'Party' },
-  ];
 
   createdOn!: Date;
   imagePreview: any
@@ -59,6 +43,25 @@ export class ProductUpdateComponent implements OnInit {
   productsPage:any[]=[]
 
   searchText: any = ''
+  skinColors = {
+    Dark: false,
+    Fair: false,
+    Medium: false
+  };
+
+  heights = {
+    Tall: false,
+    Short: false,
+    Medium: false
+  };
+
+  usages = {
+    Party: false,
+    Casual: false,
+    Formal: false,
+    Sports: false
+  };
+
   constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService) { }
 
   ngOnInit(): void {
@@ -70,15 +73,17 @@ export class ProductUpdateComponent implements OnInit {
       subcategory: ['', Validators.required],
       image: [null],
       isTrending: [false],
-      skin_colors: this.fb.array([], Validators.required),
-      heights: this.fb.array([], Validators.required),
-      usages: this.fb.array([], Validators.required),
+  
+      skin_colors: this.fb.group(this.skinColors),
+      heights: this.fb.group(this.heights),
+      usages: this.fb.group(this.usages),
+     
       genders: ['', Validators.required],
       summer: [false],
       winter: [false],
       rainy: [false],
       autumn: [false],
-      // isActive: [false],
+      isActive: [true],
       // isDeleted: [false],
       createdOn: [{ value: '', disabled: true }]
     });
@@ -93,22 +98,6 @@ export class ProductUpdateComponent implements OnInit {
     this.loadProducts()
 
 
-  }
-
-  onCheckboxChange(event: any, formArrayName: string) {
-    const formArray: FormArray = this.productForm.get(formArrayName) as FormArray;
-
-    if (event.target.checked) {
-      formArray.push(this.fb.control(event.target.value));
-    } else {
-      const index = formArray.controls.findIndex(x => x.value === event.target.value);
-      formArray.removeAt(index);
-    }
-  }
-
-  isChecked(formArrayName: string, value: string): boolean {
-    const formArray: FormArray = this.productForm.get(formArrayName) as FormArray;
-    return formArray.value.includes(value);
   }
 
 
@@ -132,6 +121,9 @@ export class ProductUpdateComponent implements OnInit {
         image: file
       });
     }
+  }
+  getKeys(obj: any): string[] {
+    return Object.keys(obj);
   }
 
   //   onSubmit(): void {
@@ -184,7 +176,7 @@ export class ProductUpdateComponent implements OnInit {
 
   // }
   onSubmit() {
-    console.log(this.productForm.value);
+    console.log('value',this.productForm.value);
 
     if (this.productForm.valid) {
       const formData = new FormData();
@@ -198,7 +190,7 @@ export class ProductUpdateComponent implements OnInit {
       formData.append('heights', JSON.stringify(this.productForm.get('heights')?.value));
       formData.append('usages', JSON.stringify(this.productForm.get('usages')?.value));
       formData.append('isTrending', this.productForm.get('isTrending')?.value ? 'true' : 'false');
-      // formData.append('isActive', this.productForm.get('isActive')?.value ? 'true' : 'false');
+      formData.append('isActive', this.productForm.get('isActive')?.value ? 'true' : 'false');
       formData.append('summer', this.productForm.get('summer')?.value ? 'true' : 'false');
       formData.append('winter', this.productForm.get('winter')?.value ? 'true' : 'false');
       formData.append('rainy', this.productForm.get('rainy')?.value ? 'true' : 'false');
@@ -271,19 +263,22 @@ export class ProductUpdateComponent implements OnInit {
         subcategory: item.subcategory,
         genders: item.genders,
         isTrending: item.isTrending,
+        skin_color: item.skinColors,
+        heights: item.heights,
+        usages: item.usages,
         summer: item.summer,
         winter: item.winter,
         rainy: item.rainy,
         autumn: item.autumn,
         isActive: item.isActive,
-        isDeleted: item.isDeleted,
+     
         createdOn: item.createdOn
       });
 
       // Reset and patch FormArrays
-      this.resetFormArray(this.productForm.get('skin_colors') as FormArray, item.skin_colors);
-      this.resetFormArray(this.productForm.get('heights') as FormArray, item.heights);
-      this.resetFormArray(this.productForm.get('usages') as FormArray, item.usages);
+      // this.resetFormArray(this.productForm.get('skin_colors') as FormArray, item.skin_colors);
+      // this.resetFormArray(this.productForm.get('heights') as FormArray, item.heights);
+      // this.resetFormArray(this.productForm.get('usages') as FormArray, item.usages);
 
       this.imagePreview = item.image;
       this.productId = item.id;
