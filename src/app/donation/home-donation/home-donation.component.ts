@@ -92,7 +92,7 @@ export class HomeDonationComponent implements OnInit {
       this.router.navigate(['/donation/client_donat'])
     }
     else {
-      this.router.navigate(['/auth/register'])
+      this.router.navigate(['/auth/login'])
     }
   }
 

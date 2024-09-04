@@ -163,7 +163,7 @@ export class HomeComponent {
       this.answers = []
     }
     else {
-      this.router.navigate(['/auth/register'])
+      this.router.navigate(['/auth/login'])
     }
   }
   selectGender(gender: string) {

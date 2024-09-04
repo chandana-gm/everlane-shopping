@@ -72,7 +72,7 @@ span.add-to-cart {
 .loader img{
   object-fit: cover;
 }
-.empty_state{height: 190px;}
+.empty_state{min-height: 50vh;padding-top: 10vh;}
 @media (max-width:993px) {
   .wishlist-icon {
     left: 120px;

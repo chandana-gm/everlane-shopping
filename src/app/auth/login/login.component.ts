@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
     });
     this.forgotPasswordForm = this.fb.group({
-      username: ['', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)]]
+      username: ['', [Validators.required]]
     });
   }
 

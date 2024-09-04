@@ -30,7 +30,9 @@ export class RegistrationComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      mobile: ['', [Validators.required, this.mobileValidator]],
+      country_code:['',[Validators.required]],
+      mobile: ['', Validators.required],
+      // mobile: ['', [Validators.required, this.mobileValidator]],
       password: ['', [Validators.required,
       Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%#*?&])[A-Za-z\\d@$!%#*?&]{8,}$')]],
       confirm_password: ['', [Validators.required,]]
@@ -61,7 +63,7 @@ export class RegistrationComponent implements OnInit {
     }
     return { invalidMobile: true };
   }
-  
+
   get password() {
     return this.signUpForm.get('password');
   }
@@ -72,11 +74,23 @@ export class RegistrationComponent implements OnInit {
       this.service.postRegistration(this.signUpForm.value).subscribe(
         (response: any) => {
           this.toastr.success(response.message);
+          this.loading=false
           this.router.navigate(['/auth/login']);
         },
         (error) => {
-          this.toastr.error(error.error?.data?.username ? error.error.data.username[0] : 'something went wrong please try again');
           this.loading = false
+          this.toastr.error(
+            error.error?.data?.username
+              ? error.error.data.username[0]
+              : error.error.data.email
+              ? error.error.data.email[0]
+              : error.error.data.mobile
+              ? error.error.data.mobile[0]
+              : error.error.data.country_code[0]
+              ? error.error.data.country_code[0]
+              : 'Something went wrong, please try again'
+          );
+
         }
       );
 

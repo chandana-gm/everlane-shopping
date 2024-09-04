@@ -174,19 +174,19 @@ export class ProfileComponent implements OnInit {
 
     })
   }
-  checkPasswordValidity(): void {
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    this.isPasswordValid = passwordPattern.test(this.newPasswordValue);
-  }
+  // checkPasswordValidity(): void {
+  //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  //   this.isPasswordValid = passwordPattern.test(this.newPasswordValue);
+  // }
   changePassword(passwords: { old_password: string; new_password: string }) {
-    this.loadinggif = true
+    this.loading = true
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
-      this.loadinggif = false
+      this.loading = false
       // this.passwordForm.reset()
     }, (error) => {
       this.toster.error(error.error.message)
-      this.loadinggif = false
+      this.loading = false
       // console.error(error)
     }
     )

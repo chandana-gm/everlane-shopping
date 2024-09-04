@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="field half">
                                     <label for="postalCode">Postal Code <small>*</small></label>
-                                    <input formControlName="pincode" type="text" id="postalCode" name="postalCode">
+                                    <input formControlName="pincode" type="number" id="postalCode" name="postalCode">
                                     <div
                                         *ngIf="checkoutForm.controls['pincode'].invalid && (checkoutForm.controls['pincode'].dirty || checkoutForm.controls['pincode'].touched)">
                                         <small class="error"
@@ -111,7 +111,7 @@
                             <div class="flex justify-space-between">
                                 <div class="field half">
                                     <label>Mobile: <small>*</small></label>
-                                    <input formControlName="mobile" type="text" id="mobile" name="mobile">
+                                    <input formControlName="mobile" type="number" id="mobile" name="mobile">
                                     <div
                                         *ngIf="checkoutForm.controls['mobile'].invalid && (checkoutForm.controls['mobile'].dirty || checkoutForm.controls['mobile'].touched)">
                                         <small class="error"

@@ -383,6 +383,7 @@ button.next {
     border-radius: 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 1000;
 }
 .recommendations-popup::-webkit-scrollbar {
     width: 8px;
