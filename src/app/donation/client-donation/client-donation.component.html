@@ -24,52 +24,55 @@
 
 
 <form [formGroup]="donationForm" (ngSubmit)="onSubmit()" (click)="onFormClick()">
-    
+
     <div class="container">
-        
+
         <div class="card border-success mb-3">
             <div *ngIf="!isProcessing ">
-                
-           
-            <div class="card-header">
-                <h1 class="text-center mt-2" style="color:white">Donation</h1>
-                <p class="text-center">"Every gift, no matter how small, can make a big impact."</p>
-            </div>
-            <div class="card-body">
-              
 
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="form-group">
-                            <label for="doner" class="form-label">Donor Name</label>
-                            <input type="text" id="doner" formControlName="doner_name" class="form-control" readonly>
 
+                <div class="card-header">
+                    <h1 class="text-center mt-2" style="color:white">Donation</h1>
+                    <p class="text-center">"Every gift, no matter how small, can make a big impact."</p>
+                </div>
+                <div class="card-body">
+
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="doner" class="form-label">Donor Name</label>
+                                <input type="text" id="doner" formControlName="doner_name" class="form-control"
+                                    readonly>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="donated_on">Created On:</label>
+                                <input type="date" id="donated_on" formControlName="donated_on" class="form-control"
+                                    readonly>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
-                        <div class="form-group">
-                            <label for="donated_on">Created On:</label>
-                            <input type="date" id="donated_on" formControlName="donated_on" class="form-control" readonly>
-                          </div>
-                    </div>
-                </div>
 
-                <div class="form-group mb-3">
-                    <label for="disasterSelect" class="form-label">Select Disaster</label>
-                    <select class="form-select" id="disasterSelect" formControlName="disaster" (change)="onDisasterChange($event)">
-                        <option value="" disabled selected> Disaster and location</option>
-                        <option *ngFor="let disaster of disasterList" [value]="disaster.id">
-                            {{disaster.name}}, {{disaster.location}}
-                        </option>
-                    </select>
-                    
-                    <div *ngIf="donationForm.get('disaster')?.invalid && donationForm.get('disaster')?.touched"
-                        class="text-danger">
-                        Please select a disaster.
+                    <div class="form-group mb-3">
+                        <label for="disasterSelect" class="form-label">Select Disaster</label>
+                        <select class="form-select" id="disasterSelect" formControlName="disaster"
+                            (change)="onDisasterChange($event)">
+                            <option value="" disabled selected> Disaster and location</option>
+                            <option *ngFor="let disaster of disasterList" [value]="disaster.id">
+                                {{disaster.name}}, {{disaster.location}}
+                            </option>
+                        </select>
+
+                        <div *ngIf="donationForm.get('disaster')?.invalid && donationForm.get('disaster')?.touched"
+                            class="text-danger">
+                            Please select a disaster.
+                        </div>
                     </div>
-                </div>
-            
-<!--                
+
+                    <!--                
                 <div class="card" *ngIf="dis">
   <div class="card-body">
     <div class="row">
@@ -104,104 +107,105 @@
   </div>
 </div> -->
 
-<div class="card" *ngIf="dis">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-4 border-end">
-          <p><strong>Kids Dresses:</strong></p>
-          <p>Required: <span style="color: red;">{{dis.required_kids_dresses}}</span></p>
-          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_kids_dresses}}</span></p>
-        </div>
-        <div class="col-4 border-end">
-          <p><strong>Men Dresses:</strong></p>
-          <p>Required: <span style="color: red;">{{dis.required_men_dresses}}</span></p>
-          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_men_dresses}}</span></p>
-        </div>
-        <div class="col-4">
-          <p><strong>Women Dresses:</strong></p>
-          <p>Required: <span style="color: red;">{{dis.required_women_dresses}}</span></p>
-          <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_women_dresses}}</span></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-            
-                <div class="row mb-3 mt-4">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="men" class="form-label">Dress for Men</label>
-                            <input type="number" id="men" formControlName="men_dresses" class="form-control"
-                                placeholder="Number of Men-dress">
-                            <div *ngIf="donationForm.get('men_dresses')?.invalid && donationForm.get('men_dresses')?.touched"
-                                class="text-danger">
-                                Please enter a valid number for Men-dress.
+                    <div class="card" *ngIf="dis">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 border-end">
+                                    <p><strong>Kids Dresses:</strong></p>
+                                    <p>Required: <span style="color: red;">{{dis.required_kids_dresses}}</span></p>
+                                    <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_kids_dresses}}</span></p>
+                                </div>
+                                <div class="col-4 border-end">
+                                    <p><strong>Men Dresses:</strong></p>
+                                    <p>Required: <span style="color: red;">{{dis.required_men_dresses}}</span></p>
+                                    <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_men_dresses}}</span></p>
+                                </div>
+                                <div class="col-4">
+                                    <p><strong>Women Dresses:</strong></p>
+                                    <p>Required: <span style="color: red;">{{dis.required_women_dresses}}</span></p>
+                                    <p>Fulfilled: <span style="color: green;">{{dis.fulfilled_women_dresses}}</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="women" class="form-label">Dress for Women</label>
-                            <input type="number" id="women" formControlName="women_dresses" class="form-control"
-                                placeholder="Number of Women-dress">
-                            <div *ngIf="donationForm.get('women_dresses')?.invalid && donationForm.get('women_dresses')?.touched"
-                                class="text-danger">
-                                Please enter a valid number for Women-dress.
+
+
+                    <div class="row mb-3 mt-4">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="men" class="form-label">Dress for Men</label>
+                                <input type="number" id="men" formControlName="men_dresses" class="form-control"
+                                    placeholder="Number of Men-dress">
+                                <div *ngIf="donationForm.get('men_dresses')?.invalid && donationForm.get('men_dresses')?.touched"
+                                    class="text-danger">
+                                    Please enter a valid number for Men-dress.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="women" class="form-label">Dress for Women</label>
+                                <input type="number" id="women" formControlName="women_dresses" class="form-control"
+                                    placeholder="Number of Women-dress">
+                                <div *ngIf="donationForm.get('women_dresses')?.invalid && donationForm.get('women_dresses')?.touched"
+                                    class="text-danger">
+                                    Please enter a valid number for Women-dress.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kid" class="form-label">Dress for Kids</label>
+                                <input type="number" id="kid" formControlName="kids_dresses" class="form-control"
+                                    placeholder="Number of Kid-dress">
+                                <div *ngIf="donationForm.get('kids_dresses')?.invalid && donationForm.get('kids_dresses')?.touched"
+                                    class="text-danger">
+                                    Please enter a valid number for Kid-dress.
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="kid" class="form-label">Dress for Kids</label>
-                            <input type="number" id="kid" formControlName="kids_dresses" class="form-control"
-                                placeholder="Number of Kid-dress">
-                            <div *ngIf="donationForm.get('kids_dresses')?.invalid && donationForm.get('kids_dresses')?.touched"
-                                class="text-danger">
-                                Please enter a valid number for Kid-dress.
+                    <hr>
+                    <div class="form-group mb-3">
+                        <label for="images">Upload Images</label>
+                        <div>
+                            <input type="file" id="images" (change)="onFileSelected($event)" multiple>
+                        </div>
+                        <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
+                            <p class="text-danger">Please select images.</p>
+                        </div>
+
+                        <div *ngIf="images.length" class="preview"> <b> Total: {{ images.length }}</b>
+
+                            <div *ngFor="let image of images; let i = index" class="image-container">
+                                <i class="bi bi-x-circle-fill remove-icon" (click)="removeImage(i)"></i>
+                                <img [src]="image" width="150" height="150">
                             </div>
                         </div>
                     </div>
-                </div>
-                <hr>
-                <div class="form-group mb-3">
-                    <label for="images">Upload Images</label>
-                    <div>
-                        <input type="file" id="images" (change)="onFileSelected($event)" multiple>
-                    </div>
-                    <div *ngIf="donationForm.get('images')?.invalid && donationForm.get('images')?.touched">
-                        <p class="text-danger">Please select images.</p>
-                    </div>
+                    <hr>
+                    <div class="form-group mb-3">
+                        <label for="pickupLocation" class="form-label">Pick Up Location</label>
+                        <select class="form-select" id="pickupLocation" formControlName="pickup_location">
+                            <option value="" disabled selected>Select a location</option>
+                            <option *ngFor="let item of pickup" [value]="item.id">
+                                {{item.address}},{{item.city}}
 
-                    <div *ngIf="images.length" class="preview"> <b> Total: {{ images.length }}</b>
-                      
-                        <div *ngFor="let image of images; let i = index" class="image-container">
-                            <i class="bi bi-x-circle-fill remove-icon" (click)="removeImage(i)"></i>
-                            <img [src]="image"width="150" height="150">
+
+                            </option>
+
+                        </select>
+                        <div *ngIf="donationForm.get('pickup_location')?.invalid && donationForm.get('pickup_location')?.touched"
+                            class="text-danger">
+                            Please select a pickup location.
                         </div>
                     </div>
-                </div>
-<hr>
-                <div class="form-group mb-3">
-                    <label for="pickupLocation" class="form-label">Pick Up Location</label>
-                    <select class="form-select" id="pickupLocation" formControlName="pickup_location">
-                        <option value="" disabled selected>Select a location</option>
-                        <option *ngFor="let item of pickup" [value]="item.id">
-                            {{item.address}},{{item.city}}
-                           
 
-                        </option>
-
-                    </select>
-                    <div *ngIf="donationForm.get('pickup_location')?.invalid && donationForm.get('pickup_location')?.touched"
-                        class="text-danger">
-                        Please select a pickup location.
+                    <div class="text-center">
+                        <button type="submit" class="button" [disabled]="donationForm.invalid">Submit</button>
                     </div>
-                </div>
-               
-                <div class="text-center">
-                    <button type="submit" class="button" [disabled]="donationForm.invalid">Submit</button>
                 </div>
             </div>
         </div>
-        </div> </div>
+    </div>
 </form>

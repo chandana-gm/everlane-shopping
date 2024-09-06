@@ -40,9 +40,11 @@ export class CartComponent {
     } else {
       this.loading = false
     }
+    this.deleteService.cartItemNumbers()
 
     this.deleteService.getWithoutRefresh().subscribe(() => {
       this.getCart();
+      
       // this.wishlistData=data
     });
   }

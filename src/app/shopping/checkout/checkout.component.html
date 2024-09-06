@@ -152,16 +152,19 @@
                         &nbsp;&nbsp;
                         <div *ngIf="activeSection === 'selectAddress'">
                             <div class="">
-                                <div *ngFor="let address of addressList" class="pm-item mt-3">
-                                    <input type="radio" [id]="address.id" [value]="address"
-                                           name="selectedAddress" (change)="selectAddress(address)"
-                                           class="position-absolute top-0 start-3 mt-3 ms-1">
-                                    <label [for]="address.id" class="pm-label">
-                                        <div class="pm-text">
-                                            <h6 class="ml-3">{{ address.address }}, {{ address.city }}, {{ address.state }}, {{ address.locality }}, {{ address.pincode }}</h6>
-                                            <p class="card-text ml-3">Mobile: {{ address.mobile }}</p>
-                                        </div>
-                                    </label>
+                                <div class="">
+                                    <div *ngFor="let address of addressList" class="pm-item mt-3 position-relative">
+                                        <input type="radio" [id]="address.id" [value]="address"
+                                               name="selectedAddress" (change)="selectAddress(address)"
+                                               class="position-absolute top-0 start-3 mt-3 ms-1 hidden-radio">
+                                        <label [for]="address.id" class="pm-label">
+                                            <div class="pm-text">
+                                                <h6 class="ml-3">{{ address.address }}, {{ address.city }}, {{ address.state }}, {{ address.locality }}, {{ address.pincode }}</h6>
+                                                <p class="card-text ml-3">Mobile: {{ address.mobile }}</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    
                                 </div>
                                 
                             </div>
@@ -196,7 +199,7 @@
                         <div class="child-div">
                             <div class="title">
                                 <div class="num">2</div>
-                                <h6 class="mt-2">Select Pick Up Location</h6>
+                                <h6 class="mt-2">Select Delivery Location</h6>
                             </div>&nbsp;
                             <div class="form-group">
                                 <select id="" class="form-select" [(ngModel)]="selectedPickup">

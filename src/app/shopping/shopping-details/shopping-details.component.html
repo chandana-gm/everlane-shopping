@@ -1,9 +1,8 @@
 <div class="container ">
     <div *ngIf="isLoading" class="loading-spinner mt-5">
-        <div class="loader">
-
-            <img src="../../../assets/images/loaders/spinner.gif" alt="">
-        </div>
+        <div class="shimmer-wrapper">
+            <div class="shimmer-card" *ngFor="let shimmer of [1, 2, 3, 4]"></div>
+          </div>
     </div>
     <div *ngIf="!isLoading">
         <div *ngIf="seasonProducts?.length === 0" class="text-center mt-5">
@@ -20,12 +19,15 @@
                 *ngFor="let item of seasonProducts">
                 <div class="card" style="width: 15rem;">
                     <img [src]="item.image ? item.image : '../../../assets/images/loaders/images.png'"
-                        class="card-img-top" alt="..." (click)="redirectToDetailPage(item.id)">
+                        class="card-img-top" alt="..." (click)="redirectToDetailPage(item.id)" style="cursor: pointer;">
                     <div class="card-body">
-                        <h5 class="card-title">{{item.brand | uppercase}} - {{item.name | titlecase }}</h5>
-                        <p class="card-text">{{item.price | currency : 'INR'}}</p>
-                        <p class="card-text">{{item.description | slice:0:20 }}{{ item.description.length > 20 ? '...' :
-                            ''}}</p>
+                        <div (click)="redirectToDetailPage(item.id)" style="cursor: pointer;">
+                            <h5 class="card-title">{{item.brand | uppercase}} - {{item.name | titlecase }}</h5>
+                            <p class="card-text">{{item.price | currency : 'INR'}}</p>
+                            <p class="card-text">{{item.description | slice:0:20 }}{{ item.description.length > 20 ? '...' :
+                                ''}}</p>
+                        </div>
+                       
                         <div class="d-flex">
                             <div class="wishlist-icon" (click)="wishlistEvent(item)">
                                 <span *ngIf="!item.isWishlisted"><i class="bi bi-heart"></i></span>

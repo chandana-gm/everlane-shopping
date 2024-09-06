@@ -36,6 +36,7 @@ export class DetailPageComponent implements OnInit {
   getSingleProduct() {
     this.service.getAllProducts(this.productId).subscribe((data) => {
       this.singleProduct = data.data
+      // this.singleProduct=this.singleProduct.replace(/\\r\\n|\\n/g, '<br>')
       this.loading = false
       this.size = this.singleProduct.items
       const sizeOrder = ['S', 'M', 'L', 'XL'];

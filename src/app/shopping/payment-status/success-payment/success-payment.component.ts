@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location, PlatformLocation } from '@angular/common';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
+import { DeleteServiceService } from 'src/app/service/delete-service.service';
 
 @Component({
   selector: 'app-success-payment',
@@ -10,7 +11,7 @@ import { GettingserviceService } from 'src/app/service/gettingservice.service';
 })
 export class SuccessPaymentComponent {
   ordersList:any
-  constructor(private router: Router, private PlatformLocation: PlatformLocation,private locations:Location, private service: GettingserviceService,) {
+  constructor(private router: Router, private PlatformLocation: PlatformLocation,private locations:Location, private service: GettingserviceService,private deleteService:DeleteServiceService) {
     // history.pushState(null,'',location.href);
     // this.PlatformLocation.onPopState(()=>{
     //   history.pushState(null,'',location.href);
@@ -20,6 +21,8 @@ export class SuccessPaymentComponent {
   //   this.location.replaceState('/main'); 
   // }
   ngOnInit(){
+    this.deleteService.cartItemNumbers()
+
 this.viewOrdersList()
   }
   backToShopping(){

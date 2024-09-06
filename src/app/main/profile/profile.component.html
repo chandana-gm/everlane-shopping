@@ -37,7 +37,7 @@
                                 <div class="col-1" (click)="togglePopup(i, $event)" style="cursor: pointer;">
                                     <p><i class="fa-solid fa-ellipsis-vertical"></i></p>
                                 </div>&nbsp;
-                                <div *ngIf="showPopupIndex === i" class="popup" (click)="stopPropagation($event)">
+                                <div *ngIf="showPopupIndex === i" class="popup">
                                     <p (click)="deleteItem(item)">Delete</p>
                                 </div>
                                 <hr>
@@ -134,19 +134,29 @@
             <div class="container-password" *ngIf="currentSection === 'section2'">
                 <h2 class="my-4" style="color:#973d93">Password Change</h2>
                 <hr>
-                <form #passwordForm="ngForm" (ngSubmit)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
+                <form #passwordForm="ngForm"
+                    (ngSubmit)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="currentPassword">Current Password</label>
-                            <input id="currentPassword" class="form-control" type="password" #currentPassword ngModel name="current-password" />
+                            <input id="currentPassword" class="form-control"
+                                [type]="passwordVisible ? 'text' : 'password'" #currentPassword ngModel
+                                name="current-password" />
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="form-label" for="newPassword">New Password</label>
-                            <input id="newPassword" class="form-control" type="password" #newPassword="ngModel"
-                                [(ngModel)]="newPasswordValue" name="newPassword" required
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"/>
-                                <!-- (input)="checkPasswordValidity()" /> -->
+                            <div class="input-group">
+                                <input id="newPassword" class="form-control"
+                                    [type]="passwordVisible ? 'text' : 'password'" #newPassword="ngModel"
+                                    [(ngModel)]="newPasswordValue" name="newPassword" required
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" />
+                                <!-- <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                                        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                    </button>
+                                </div> -->
+                            </div>
                             <div *ngIf="newPassword.invalid && newPassword.touched" class="text-danger">
                                 Password must be at least 8 characters long, with at least one uppercase letter, one
                                 lowercase letter, one number, and one special character.
@@ -155,19 +165,18 @@
                     </div>
 
                     <div class="form-group d-flex justify-content-center mt-4">
-                        <!-- <button type="button" [disabled]="!isPasswordValid"
-                            (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})"
-                            class="button">Change Password</button> -->
-                            <button type="submit" [disabled]=" passwordForm.invalid" style="max-width: 200px;" class="button">
-                                <span *ngIf="!loading">Change Password</span>
-                                <span *ngIf="loading">
-                                    <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
-                                </span>
-                            </button>
-                    
-                    
+                        <button type="submit" [disabled]="passwordForm.invalid" style="max-width: 200px;"
+                            class="button">
+                            <span *ngIf="!loading">Change Password</span>
+                            <span *ngIf="loading">
+                                <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                    style="width: 20px; height: 20px;" />
+                            </span>
+                        </button>
                     </div>
                 </form>
+
+
 
             </div>
             <!-- my orders -->
@@ -181,7 +190,7 @@
                                     <div class="row w-100 no-gutters">
 
                                         <div class="col-6 col-md order-image" *ngIf="order.items.length > 0"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
                                             <img [src]="order.items[0].product_image" alt="" height="100px"
                                                 width="100px">
                                             <span *ngIf="order.items.length > 1" class="image-count position-absolute">
@@ -189,31 +198,33 @@
                                             </span>
                                         </div>
                                         <div class="col-6 col-md order-image" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
+                                            data-bs-target="#exampleModal" style="cursor: pointer;">
                                             <p class="text-pebble">{{ order.items[0].product_name | slice:0:23 }}{{
                                                 order.items[0].product_name.length > 23 ? '...' : ''}}</p>
-                                            <p class="text-pebble">{{ order.total_amount | currency:'INR' }}</p>
+                                            <p class="text-pebble" *ngIf="order.total_amount !== '0.00'">{{
+                                                order.total_amount | currency:'INR' }}</p>
                                             <small class="text-muted">ID: {{ order.order_code }}</small>
                                         </div>
                                         <div class="col-5 col-md" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <h6 class="font-weight-bold">Order Status</h6>
                                             <p [ngClass]="{
                                                 'text-processing': order.order_status === 'Processing',
+                                                'text-canceled': order.order_status === 'Canceled',
                                                 'text-completed': order.order_status === 'Completed'
                                             }">
                                                 {{ order.order_status }}
                                             </p>
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <a class="btn btn-primary w-100" [href]="order.invoice?.pdf" download
-                                                target="_blank">
+                                            <a class="btn btn-primary w-100" *ngIf="order.total_amount !== '0.00'"
+                                                [href]="order.invoice?.pdf" download target="_blank">
                                                 Invoice <i class="fa-solid fa-download"></i>
                                             </a>&nbsp;
-                                            <a class="btn btn-light w-100"
+                                            <!-- <a class="btn btn-light w-100"
                                                 *ngIf="order.order_status === 'Processing' || order.order_status === 'Pending'"
                                                 (click)="cancelOrder(order)">
                                                 Cancel Order
-                                            </a>
+                                            </a> -->
                                         </div>
                                     </div>
                                 </div>
@@ -248,10 +259,13 @@
                                                                 style="cursor: not-allowed;color: red;">
                                                                 Return requested
                                                             </span>
-                                                            <span
-                                                                *ngIf="item.return_status === 'REJECTED'"
+                                                            <span *ngIf="item.return_status === 'REJECTED'"
                                                                 style="cursor: not-allowed;color: red;">
                                                                 Return request Rejected
+                                                            </span>
+                                                            <span *ngIf="item.order_item_status === 'Canceled'"
+                                                                style="cursor: not-allowed;color: red;">
+                                                                Canceled
                                                             </span>
                                                             <span *ngIf="item.return_status === 'RETURNED'"
                                                                 style="cursor: not-allowed;color: green;">
@@ -261,11 +275,23 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    <!-- Show Return button for completed orders -->
+                                                    <div class="col-12 d-flex justify-content-center"
+                                                        *ngIf=" singleProduct.order_status !== 'Completed' && item.order_item_status !== 'Canceled' && !orderCanceled[item.id]">
+                                                        <button class="button" (click)="cancelOrder(item)">
+                                                            <span *ngIf="!isCancellingOrder[item.id]">Cancel order</span>
+                                                            <span *ngIf="isCancellingOrder[item.id]">
+                                                                <img src="../../../assets/images/loaders/spinner.gif"
+                                                                    alt="Loading..."
+                                                                    style="min-width: 20px; height: 20px;" />
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- <p *ngIf="item.order_item_status === 'Canceled'">Canceled</p> -->
 
 
                                                     <!-- Show Return button for completed orders -->
-                                                    <div class="col-12"
-                                                        *ngIf="singleProduct.order_status === 'Completed'">
+                                                    <div class="d-flex justify-content-center" *ngIf="singleProduct.order_status === 'Completed'">
                                                         <button class="button"
                                                             *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id] && item.return_status !== 'RETURNED' && item.return_status !== 'REJECTED'"
                                                             (click)="returnRequest(item)"
@@ -294,7 +320,8 @@
                                                                     [value]="qty">{{ qty }}</option>
                                                             </select>
                                                         </div>
-                                                        <button class="button"
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="button"
                                                             [disabled]="!returnReason[item.id] || !returnQuantity[item.id]"
                                                             (click)="sendReturnRequest(item.id)">
                                                             <span *ngIf="!loading">Request Return</span>
@@ -304,6 +331,8 @@
                                                                     style="min-width: 40px; height: 20px;" />
                                                             </span>
                                                         </button>
+                                                        </div>
+                                                        
                                                     </div>
 
                                                     <hr class="mt-3 mb-3">

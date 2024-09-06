@@ -2,13 +2,12 @@
 <div class="container mt-2">
     <div *ngIf="loading" class="loading-spinner">
         <div class="loader">
-
             <img src="../../../assets/images/loaders/spinner.gif" alt="">
         </div>
     </div>
     <div *ngIf="!loading">
         <div class="col-12 wishlist mb-3 mt-2" *ngIf="wishlistData?.length > 0; else nodata">
-            <h3 class="wishlist-text">My Wishlist - {{ wishlistData.length }} items</h3>
+            <h3 class="wishlist-text">Wishlist - {{ wishlistData.length }} items</h3>
             <div class="inside-wishlist">
               <hr>
               <div class="row equal-height-cards">
@@ -27,8 +26,11 @@
                           <span class="add-to-cart">Add to cart</span>
                         </button> -->
                         <button class="cart-button button" (click)="removeItemFromWishlist(data.product)">
+                          <!-- <span class="add-to-cart" *ngIf="!isLoading">Remove</span> -->
                           <span class="add-to-cart">Remove</span>
-                          
+                          <!-- <span *ngIf="isLoading">
+                            <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                          </span> -->
                         </button>
                         
                         <!-- <i class="bi bi-trash3" style="cursor: pointer;" (click)="removeItemFromWishlist(data.id)"></i> -->

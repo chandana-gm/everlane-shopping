@@ -78,7 +78,7 @@ export const deleteApis = {
     production: false,
     removeItemFromWishlist: 'wishlist/delete',
      deleteCart:'cart-item/delete',
-     cancelOrder:'order-cancel/',
+     cancelOrder:'cancel-order-item/',
      deleteNotifications:'delete/'
 
      

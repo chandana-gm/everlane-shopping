@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
@@ -35,8 +35,13 @@ export class ProfileComponent implements OnInit {
   showNewPassword = false;
   loadinggif = false
   notifications: any
-  cancelSuccess: boolean = false; 
+  cancelSuccess: boolean = false;
   showPopupIndex: number | null = null;
+  currentPasswordVisible: boolean = false;
+  newPasswordVisible: boolean = false;
+  passwordVisible: boolean = false;
+  isCancellingOrder: { [orderId: number]: boolean } = {};
+  orderCanceled: { [key: string]: boolean } = {};
 
   constructor(
     private service: GettingserviceService,
@@ -93,20 +98,24 @@ export class ProfileComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
+        this.isCancellingOrder[item.id] = true;
         this.deleteService.cancelOrder(item.id).subscribe({
           next: (response) => {
             console.log(response);
             this.viewOrdersList();
+            this.orderCanceled[item.id] = true;
+            this.isCancellingOrder[item.id] = false;
             Swal.fire('Cancelled!', 'Your order has been cancelled.', 'success');
           },
           error: (error) => {
+            this.isCancellingOrder[item.id] = false;
             this.toster.error(error.error.message);
           }
         });
       }
     });
   }
-  
+
 
   getQuantityOptions(quantity: number): number[] {
     return Array.from({ length: quantity }, (_, i) => i + 1);
@@ -147,17 +156,17 @@ export class ProfileComponent implements OnInit {
   onSubmit(userForm: NgForm) {
     if (userForm.valid) {
       this.loading = true
-    console.log('Updated userData:', this.userData);
-    this.deleteService.updateProfile(this.userData).subscribe((data) => {
-      this.toster.success(data.message)
-      this.checkoutForm.reset();
-      this.loading = false
-    })
+      console.log('Updated userData:', this.userData);
+      this.deleteService.updateProfile(this.userData).subscribe((data) => {
+        this.toster.success(data.message)
+        this.checkoutForm.reset();
+        this.loading = false
+      })
     } else {
       // Handle the case where the form is invalid
     }
   }
-  
+
 
 
   addressCreated(form: any) {
@@ -256,11 +265,11 @@ export class ProfileComponent implements OnInit {
     });
 
   }
+  @HostListener('document:click', ['$event'])
   closePopup(event: MouseEvent) {
     this.showPopupIndex = null;
   }
-  stopPropagation(event: MouseEvent) {
-    event.stopPropagation();
-  }
-
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+}
 }

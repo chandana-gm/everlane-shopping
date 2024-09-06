@@ -24,6 +24,7 @@ export class WishlistComponent {
   outofstockUpdate = false
   wishlistData: any
   loading:boolean=true
+  isLoading=false
 
 
   async ngOnInit() {
@@ -53,11 +54,13 @@ export class WishlistComponent {
   async removeItemFromWishlist(item: any) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
+      this.isLoading=true
       const user = JSON.parse(storedUser);
       const decryptedToken = await this.postServive.decryptData(user.token, 'token');
 
       this.deleteService.removeItemFromWishlist(item, decryptedToken).subscribe((data) => {
         this.toaster.success(data.message);
+        this.isLoading=false
         this.getWishlist();
       });
     }

@@ -18,7 +18,7 @@
 
 }
 .button{
-  width: 100%;
+  width: 50%;
   margin-top: 10px;
   padding: 10px;
   border: none;
@@ -190,6 +190,9 @@ input[type="text"]:focus {
 
 .text-completed {
   color: green;
+}
+.text-canceled{
+  color: red;
 }
 
 

@@ -79,17 +79,18 @@ export class RegistrationComponent implements OnInit {
         },
         (error) => {
           this.loading = false
-          this.toastr.error(
-            error.error?.data?.username
-              ? error.error.data.username[0]
-              : error.error.data.email
-              ? error.error.data.email[0]
-              : error.error.data.mobile
-              ? error.error.data.mobile[0]
-              : error.error.data.country_code[0]
-              ? error.error.data.country_code[0]
-              : 'Something went wrong, please try again'
-          );
+          // this.toastr.error(
+          //   error.error?.data?.username
+          //     ? error.error.data.username[0]
+          //     : error.error.data.email
+          //     ? error.error.data.email[0]
+          //     : error.error.data.mobile
+          //     ? error.error.data.mobile[0]
+          //     : error.error.data.country_code[0]
+          //     ? error.error.data.country_code[0]
+          //     : 'Something went wrong, please try again'
+          // );
+          this.toastr.error(error.error.message)
 
         }
       );

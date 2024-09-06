@@ -10,6 +10,7 @@ export const cartGuard: CanActivateFn = (route, state) => {
   return cartService.isCartEmpty().pipe(
     map(isCartEmpty => {
       if (isCartEmpty) {
+        console.log(isCartEmpty,'cart value@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');   
         router.navigate(['/shopping/cart']); 
         return false;
       }
