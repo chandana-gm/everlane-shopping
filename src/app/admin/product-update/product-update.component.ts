@@ -8,11 +8,12 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 // declare var bootstrap: any;
 
-export function atLeastOneSeasonValidator(): ValidatorFn {
+
+export function singleCheckboxValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: boolean } | null => {
     const formValue = control.value;
     const checkedCount = Object.values(formValue).filter(value => value).length;
-    return checkedCount >= 1 ? null : { atLeastOne: true };
+    return checkedCount === 1 ? null : { singleCheckbox: true };
   };
 }
 @Component({
@@ -95,8 +96,8 @@ export class ProductUpdateComponent implements OnInit {
       autumn: [false],
       is_active: [true],
 
-      createdOn: [{ value: '', disabled: true }]},
-      { validators: atLeastOneSeasonValidator() });
+      createdOn: [{ value: '', disabled: true }]
+    });
     this.createdOn = new Date();
     this.productForm.patchValue({ createdOn: this.createdOn });
     this.getAllProducts();
