@@ -6,7 +6,7 @@
         </div>
     </div>
     <div *ngIf="!loading">
-        <div class="row mb-4" *ngIf="singleProduct">
+        <div class="row mb-4 mt-3" *ngIf="singleProduct">
             <div class="col-md-6 product-image-card">
                 <img [src]="singleProduct.image ? singleProduct.image : '../../../assets/images/loaders/images.png'"
                     alt="Product Image" class="product-image">

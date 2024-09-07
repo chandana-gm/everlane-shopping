@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -96,16 +97,26 @@ export class AppHeaderComponent implements OnInit {
 
 
 
-   logout() {
-     this.service.postLogout().subscribe((response) => {
-      this.isAuthenticated = false;
-      this.toster.success(response.message)
-      localStorage.removeItem('user');
-      this.router.navigate(['/main']).then(() => {
-        window.location.reload();
-      });
+  logout() {
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.postLogout().subscribe((response) => {
+          this.isAuthenticated = false;
+          this.toster.success(response.message);
+          localStorage.removeItem('user');
+          this.router.navigate(['/main']).then(() => {
+            window.location.reload();
+          });
+        });
+      }
     });
   }
+  
 
 
   toggleDropdown(state: boolean) {

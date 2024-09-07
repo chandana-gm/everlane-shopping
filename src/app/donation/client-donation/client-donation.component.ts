@@ -27,7 +27,7 @@ export class ClientDonationComponent implements OnInit {
     private getService: GettingserviceService,
     private postService: PostServiceService,
     private toastr: ToastrService,
-    private router:Router
+    private router: Router
   ) { }
 
   async ngOnInit() {
@@ -39,8 +39,8 @@ export class ClientDonationComponent implements OnInit {
       women_dresses: [0, [Validators.required, Validators.min(0)]],
       kids_dresses: [0, [Validators.required, Validators.min(0)]],
       pickup_location: ['', Validators.required],
-      donated_on: [this.getCurrentDate()] 
-    
+      donated_on: [this.getCurrentDate()]
+
 
     });
     const storedUser = localStorage.getItem('user');
@@ -75,7 +75,7 @@ export class ClientDonationComponent implements OnInit {
   getCurrentDate(): string {
     const today = new Date();
     const yyyy = today.getFullYear();
-    let mm: string | number = today.getMonth() + 1; // Months start at 0!
+    let mm: string | number = today.getMonth() + 1;
     let dd: string | number = today.getDate();
 
     if (dd < 10) dd = '0' + dd;
@@ -164,13 +164,13 @@ export class ClientDonationComponent implements OnInit {
           this.isProcessing = false;
           console.log(data, 'response');
           if (data.status == 'success') {
-            this.toastr.success(data.message);
-    this.router.navigate(['/donation/donation%home'])
+            // this.toastr.success(data.message);
+            this.router.navigate(['/donation/donation-success'])
           }
           else if (data.status == 'failed') {
-           this.toastr.info(data.message);
+            this.toastr.info(data.message);
           }
-          else if(data.status=='error'){
+          else if (data.status == 'error') {
             this.toastr.error(data.message);
           }
         },

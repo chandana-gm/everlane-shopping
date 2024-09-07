@@ -164,6 +164,8 @@ getAllOreders(page:number){
     return this.getCart().pipe(
       map(response => {
         const items = response.data[0]?.items || [];
+        console.log(items.length,'guard checking from service');
+        
         return items.length === 0; 
       })
     );

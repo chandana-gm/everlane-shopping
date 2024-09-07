@@ -271,7 +271,7 @@ export class ShoppingDetailsComponent implements OnInit {
       });
 
     } else
-      this.router.navigate(['/auth/register'])
+      this.router.navigate(['/auth/login'])
   }
 
 }

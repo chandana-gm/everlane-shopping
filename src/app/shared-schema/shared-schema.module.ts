@@ -21,8 +21,4 @@ import { FormsModule } from '@angular/forms';
   exports:[AppFooterComponent,AppHeaderComponent]
 })
 export class SharedSchemaModule { 
-  constructor(){
-    console.log("SharedSchemaModule loaded");
-    
-  }
 }

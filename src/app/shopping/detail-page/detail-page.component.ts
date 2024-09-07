@@ -36,6 +36,7 @@ export class DetailPageComponent implements OnInit {
   getSingleProduct() {
     this.service.getAllProducts(this.productId).subscribe((data) => {
       this.singleProduct = data.data
+      // this.singleProduct=this.singleProduct.replace(/\\r\\n|\\n/g, '<br>')
       this.loading = false
       this.size = this.singleProduct.items
       const sizeOrder = ['S', 'M', 'L', 'XL'];
@@ -55,7 +56,7 @@ export class DetailPageComponent implements OnInit {
         this.isWishlisted = true;
       })
     } else {
-      this.router.navigate(['/auth/register'])
+      this.router.navigate(['/auth/login'])
     }
   }
 
@@ -77,6 +78,7 @@ export class DetailPageComponent implements OnInit {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       console.log('cart clicked');
+      // this.toster.clear();
       this.postservice.postCart(item, this.selectedSize).subscribe((data: any) => {
         this.toster.success(data.message);
         this.deleteService.cartItemNumbers()
@@ -84,6 +86,7 @@ export class DetailPageComponent implements OnInit {
 
       },
         (error: any) => {
+          // this.toster.clear();
           this.toster.error("select size");
         this.isloading=false
 
@@ -92,7 +95,7 @@ export class DetailPageComponent implements OnInit {
       );
 
     } else {
-      this.router.navigate(['/auth/register'])
+      this.router.navigate(['/auth/login'])
     }
   }
   selectSize(item: any) {

@@ -1,4 +1,7 @@
-
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 small{
   font-size: 10px;
   color: red;
@@ -208,7 +211,7 @@ input::placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 30vh;
   text-align: center;
   font-weight: 700;
 }
@@ -369,7 +372,10 @@ button{
 
 
 input[type="radio"]#COD,#ONLINE,#address {
-  display: none; /* Hide the radio buttons */
+  display: none;
+}
+.hidden-radio {
+  display: none;
 }
 
 input[type="radio"]:checked + .pm-label {

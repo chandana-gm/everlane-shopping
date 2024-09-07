@@ -18,7 +18,7 @@
 
 }
 .button{
-  width: 100%;
+  width: 50%;
   margin-top: 10px;
   padding: 10px;
   border: none;
@@ -177,6 +177,11 @@ input[type="text"]:focus {
 }
 .order-image{
   margin-left: 20px;
+  
+}
+.order-image img{
+  object-fit: cover;
+  
 }
 .returned img{height: 150px;width: 200px;}
 .text-processing {
@@ -185,6 +190,9 @@ input[type="text"]:focus {
 
 .text-completed {
   color: green;
+}
+.text-canceled{
+  color: red;
 }
 
 
@@ -245,7 +253,7 @@ input[type="text"]:focus {
     transform: translateX(-50%);
     top: 12px; 
     margin-top: 8px; 
-    min-width: 100px;
+    min-width: 90px;
     text-align: center;
     color: red;
 }

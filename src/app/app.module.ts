@@ -34,6 +34,8 @@ import { PaginatorModule } from 'primeng/paginator';
     ReactiveFormsModule,
     BrowserAnimationsModule ,
     ToastrModule.forRoot({ 
+      maxOpened: 1,
+      autoDismiss: true,
       positionClass: 'toast-bottom-center', 
     }),
     PaginatorModule

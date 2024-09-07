@@ -4,6 +4,7 @@ import { DiasterRegisterComponent } from './diaster-register/diaster-register.co
 import { HomeDonationComponent } from './home-donation/home-donation.component';
 import { DonationComponent } from './donation.component';
 import { ClientDonationComponent } from './client-donation/client-donation.component';
+import { SuccessDonationComponent } from './success-donation/success-donation.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
 
     {path:'',component:DiasterRegisterComponent},
     {path:'donation%home',component:HomeDonationComponent},
-    {path:'client_donat',component:ClientDonationComponent}
+    {path:'client_donat',component:ClientDonationComponent},
+    {path:'donation-success',component:SuccessDonationComponent}
   ] }
 ];
 

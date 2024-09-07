@@ -28,22 +28,27 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div *ngFor="let item of notifications; let i = index" class="d-flex justify-content-between">
-                            <div class="col-11">
-                                <p>{{item.description}}</p>
+                        <div *ngIf="notifications?.length > 0 else noNotifications">
+                            <div *ngFor="let item of notifications; let i = index"
+                                class="d-flex justify-content-between">
+                                <div class="col-11">
+                                    <p>{{item.description}}</p>
+                                </div>
+                                <div class="col-1" (click)="togglePopup(i, $event)" style="cursor: pointer;">
+                                    <p><i class="fa-solid fa-ellipsis-vertical"></i></p>
+                                </div>&nbsp;
+                                <div *ngIf="showPopupIndex === i" class="popup">
+                                    <p (click)="deleteItem(item)">Delete</p>
+                                </div>
+                                <hr>
                             </div>
-                            <div class="col-1" (click)="togglePopup(i, $event)" style="cursor: pointer;">
-                                <p><i class="fa-solid fa-ellipsis-vertical"></i></p>
-                            </div>&nbsp;
-                            <div *ngIf="showPopupIndex === i" class="popup" (click)="stopPropagation($event)">
-                                <p (click)="deleteItem(item)">Delete</p>
-                            </div>
-                            <hr>
                         </div>
+                        <ng-template #noNotifications>
+                            <div class="text-center">
+                                <p>No notifications available.</p>
+                            </div>
+                        </ng-template>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -63,53 +68,65 @@
                         <hr>
                         <form class="mt-4" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
                             <div class="row">
-                              <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                  <label for="username" class="form-label">First Name:</label>
-                                  <input id="username" class="form-control" name="first_name" [(ngModel)]="userData.first_name" required />
-                                  <div *ngIf="userForm.submitted && userForm.controls['first_name']?.invalid" class="text-danger">
-                                    First name is required.
-                                  </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="username" class="form-label">First Name:</label>
+                                        <input id="username" class="form-control" name="first_name"
+                                            [(ngModel)]="userData.first_name" required />
+                                        <div *ngIf="userForm.submitted && userForm.controls['first_name']?.invalid"
+                                            class="text-danger">
+                                            First name is required.
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email:</label>
+                                        <input id="email" class="form-control" name="email" [(ngModel)]="userData.email"
+                                            required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                        <div *ngIf="userForm.submitted && userForm.controls['email']?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="userForm.controls['email']?.errors?.['required']">Email is
+                                                required.</div>
+                                            <div *ngIf="userForm.controls['email']?.errors?.['pattern']">Please enter a
+                                                valid email address.</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                  <label for="email" class="form-label">Email:</label>
-                                  <input id="email" class="form-control" name="email" [(ngModel)]="userData.email" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
-                                  <div *ngIf="userForm.submitted && userForm.controls['email']?.invalid" class="text-danger">
-                                    <div *ngIf="userForm.controls['email']?.errors?.['required']">Email is required.</div>
-                                    <div *ngIf="userForm.controls['email']?.errors?.['pattern']">Please enter a valid email address.</div>
-                                  </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastname" class="form-label">Last Name:</label>
+                                        <input id="lastname" class="form-control" name="last_name"
+                                            [(ngModel)]="userData.last_name" required />
+                                        <div *ngIf="userForm.submitted && userForm.controls['last_name']?.invalid"
+                                            class="text-danger">
+                                            Last name is required.
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Phone Number:</label>
+                                        <input id="phone" class="form-control" name="mobile"
+                                            [(ngModel)]="userData.mobile" required pattern="^[0-9]{10}$" />
+                                        <div *ngIf="userForm.submitted && userForm.controls['mobile']?.invalid"
+                                            class="text-danger">
+                                            <div *ngIf="userForm.controls['mobile']?.errors?.['required']">Phone number
+                                                is required.</div>
+                                            <div *ngIf="userForm.controls['mobile']?.errors?.['pattern']">Please enter a
+                                                valid 10-digit phone number.</div>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                  <label for="lastname" class="form-label">Last Name:</label>
-                                  <input id="lastname" class="form-control" name="last_name" [(ngModel)]="userData.last_name" required />
-                                  <div *ngIf="userForm.submitted && userForm.controls['last_name']?.invalid" class="text-danger">
-                                    Last name is required.
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="phone" class="form-label">Phone Number:</label>
-                                  <input id="phone" class="form-control" name="mobile" [(ngModel)]="userData.mobile" required 
-                                         pattern="^[0-9]{10}$" />
-                                  <div *ngIf="userForm.submitted && userForm.controls['mobile']?.invalid" class="text-danger">
-                                    <div *ngIf="userForm.controls['mobile']?.errors?.['required']">Phone number is required.</div>
-                                    <div *ngIf="userForm.controls['mobile']?.errors?.['pattern']">Please enter a valid 10-digit phone number.</div>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
                             <hr>
                             <div class="form-group d-flex justify-content-center mt-4">
-                              <button type="submit" style="width:20%;" class="button">
-                                <span *ngIf="!loading">Edit</span>
-                                <span *ngIf="loading">
-                                  <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
-                                </span>
-                              </button>
+                                <button type="submit" style="width:20%;" class="button">
+                                    <span *ngIf="!loading">Edit</span>
+                                    <span *ngIf="loading">
+                                        <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
+                                            style="width: 20px; height: 20px;" />
+                                    </span>
+                                </button>
                             </div>
-                          </form>
-                          
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -117,19 +134,29 @@
             <div class="container-password" *ngIf="currentSection === 'section2'">
                 <h2 class="my-4" style="color:#973d93">Password Change</h2>
                 <hr>
-                <form #passwordForm="ngForm">
+                <form #passwordForm="ngForm"
+                    (ngSubmit)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="currentPassword">Current Password</label>
-                            <input id="currentPassword" class="form-control" type="password" #currentPassword ngModel />
+                            <input id="currentPassword" class="form-control"
+                                [type]="passwordVisible ? 'text' : 'password'" #currentPassword ngModel
+                                name="current-password" />
                         </div>
 
                         <div class="form-group col-md-6">
                             <label class="form-label" for="newPassword">New Password</label>
-                            <input id="newPassword" class="form-control" type="password" #newPassword="ngModel"
-                                [(ngModel)]="newPasswordValue" name="newPassword" required
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                                (input)="checkPasswordValidity()" />
+                            <div class="input-group">
+                                <input id="newPassword" class="form-control"
+                                    [type]="passwordVisible ? 'text' : 'password'" #newPassword="ngModel"
+                                    [(ngModel)]="newPasswordValue" name="newPassword" required
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" />
+                                <!-- <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                                        <i class="fa" [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                    </button>
+                                </div> -->
+                            </div>
                             <div *ngIf="newPassword.invalid && newPassword.touched" class="text-danger">
                                 Password must be at least 8 characters long, with at least one uppercase letter, one
                                 lowercase letter, one number, and one special character.
@@ -138,11 +165,8 @@
                     </div>
 
                     <div class="form-group d-flex justify-content-center mt-4">
-                        <!-- <button type="button" [disabled]="!isPasswordValid"
-                            (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})"
-                            class="button">Change Password</button> -->
-                        <button type="submit" [disabled]="!isPasswordValid" style="max-width: 200px;" class="button "
-                            (click)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
+                        <button type="submit" [disabled]="passwordForm.invalid" style="max-width: 200px;"
+                            class="button">
                             <span *ngIf="!loading">Change Password</span>
                             <span *ngIf="loading">
                                 <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
@@ -152,6 +176,8 @@
                     </div>
                 </form>
 
+
+
             </div>
             <!-- my orders -->
             <div *ngIf="currentSection === 'section3'">
@@ -159,70 +185,89 @@
                     <h2 class="text-charcoal hidden-sm-down" style="color:#973d93">Your Orders</h2>
                     <div class="row">
                         <div class="col-12">
-                            <div class="list-group mb-3" *ngFor="let order of ordersList" (click)="OrderDetail(order)"
-                                >
+                            <div class="list-group mb-3" *ngFor="let order of ordersList" (click)="OrderDetail(order)">
                                 <div class="list-group-item p-3 bg-snow" style="position: relative;">
                                     <div class="row w-100 no-gutters">
-            
-                                        <div class="col-6 col-md order-image" *ngIf="order.items.length > 0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <img [src]="order.items[0].product_image" alt="" height="100px" width="100px">
+
+                                        <div class="col-6 col-md order-image" *ngIf="order.items.length > 0"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;">
+                                            <img [src]="order.items[0].product_image" alt="" height="100px"
+                                                width="100px">
                                             <span *ngIf="order.items.length > 1" class="image-count position-absolute">
                                                 {{ order.items.length - 1 }} more items
                                             </span>
                                         </div>
-                                        <div class="col-6 col-md order-image" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <div class="col-6 col-md order-image" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" style="cursor: pointer;">
                                             <p class="text-pebble">{{ order.items[0].product_name | slice:0:23 }}{{
                                                 order.items[0].product_name.length > 23 ? '...' : ''}}</p>
-                                            <p class="text-pebble">{{ order.total_amount | currency:'INR' }}</p>
+                                            <p class="text-pebble" *ngIf="order.total_amount !== '0.00'">{{
+                                                order.total_amount | currency:'INR' }}</p>
                                             <small class="text-muted">ID: {{ order.order_code }}</small>
                                         </div>
                                         <div class="col-5 col-md" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <h6 class="font-weight-bold">Order Status</h6>
                                             <p [ngClass]="{
                                                 'text-processing': order.order_status === 'Processing',
+                                                'text-canceled': order.order_status === 'Canceled',
                                                 'text-completed': order.order_status === 'Completed'
                                             }">
                                                 {{ order.order_status }}
                                             </p>
                                         </div>
                                         <div class="col-12 col-md-3">
-                                            <a class="btn btn-primary w-100" [href]="order.invoice?.pdf" download target="_blank">
+                                            <a class="btn btn-primary w-100" *ngIf="order.total_amount !== '0.00'"
+                                                [href]="order.invoice?.pdf" download target="_blank">
                                                 Invoice <i class="fa-solid fa-download"></i>
                                             </a>&nbsp;
-                                            <a class="btn btn-light w-100" *ngIf="order.order_status === 'Processing' || order.order_status === 'Pending'" (click)="cancelOrder(order)">
+                                            <!-- <a class="btn btn-light w-100"
+                                                *ngIf="order.order_status === 'Processing' || order.order_status === 'Pending'"
+                                                (click)="cancelOrder(order)">
                                                 Cancel Order
-                                            </a>
+                                            </a> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-            
+
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div *ngIf="singleProduct && singleProduct.items.length > 0">
                                                 <div *ngFor="let item of singleProduct.items">
                                                     <div class="d-flex">
                                                         <div class="order-image returned">
-                                                            <img [src]="item.product_image" alt="{{ item.product_name }}">
+                                                            <img [src]="item.product_image"
+                                                                alt="{{ item.product_name }}">
                                                         </div>&nbsp;&nbsp;
                                                         <div class="ml-3">
                                                             <h3 class="text-pebble">{{ item.product_name }}</h3>
-                                                            <p class="text-pebble">{{ item.price | currency: 'INR' }}</p>
+                                                            <p class="text-pebble">{{ item.price | currency: 'INR' }}
+                                                            </p>
                                                             <p class="text-muted">Size: {{ item.size }}</p>
                                                             <p class="text-muted">Quantity: {{ item.quantity }}</p>
-            
-                                                            <span *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id]"
+
+                                                            <span
+                                                                *ngIf="item.return_status === 'PENDING' || returnRequestSuccessful[item.id]"
                                                                 style="cursor: not-allowed;color: red;">
                                                                 Return requested
                                                             </span>
-                                                            <span *ngIf="item.return_status === 'APPROVED'"
+                                                            <span *ngIf="item.return_status === 'REJECTED'"
+                                                                style="cursor: not-allowed;color: red;">
+                                                                Return request Rejected
+                                                            </span>
+                                                            <span *ngIf="item.order_item_status === 'Canceled'"
+                                                                style="cursor: not-allowed;color: red;">
+                                                                Canceled
+                                                            </span>
+                                                            <span *ngIf="item.return_status === 'RETURNED'"
                                                                 style="cursor: not-allowed;color: green;">
                                                                 Return request Approved
                                                                 <p class="text-muted">Return Quantity: {{
@@ -230,24 +275,38 @@
                                                             </span>
                                                         </div>
                                                     </div>
-
-                                                            
                                                     <!-- Show Return button for completed orders -->
-                                                    <div class="col-12" *ngIf="singleProduct.order_status === 'Completed'">
+                                                    <div class="col-12 d-flex justify-content-center"
+                                                        *ngIf=" singleProduct.order_status !== 'Completed' && item.order_item_status !== 'Canceled' && !orderCanceled[item.id]">
+                                                        <button class="button" (click)="cancelOrder(item)">
+                                                            <span *ngIf="!isCancellingOrder[item.id]">Cancel order</span>
+                                                            <span *ngIf="isCancellingOrder[item.id]">
+                                                                <img src="../../../assets/images/loaders/spinner.gif"
+                                                                    alt="Loading..."
+                                                                    style="min-width: 20px; height: 20px;" />
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- <p *ngIf="item.order_item_status === 'Canceled'">Canceled</p> -->
+
+
+                                                    <!-- Show Return button for completed orders -->
+                                                    <div class="d-flex justify-content-center" *ngIf="singleProduct.order_status === 'Completed'">
                                                         <button class="button"
-                                                            *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id] && item.return_status !== 'APPROVED'"
+                                                            *ngIf="item.return_status !== 'PENDING' && selectedItem !== item && !returnRequestSuccessful[item.id] && item.return_status !== 'RETURNED' && item.return_status !== 'REJECTED'"
                                                             (click)="returnRequest(item)"
                                                             [disabled]="returnRequestSuccessful[item.id]">
                                                             <span>Return</span>
                                                         </button>
                                                     </div>
-            
+
                                                     <!-- Display input fields if this item is selected -->
                                                     <div *ngIf="selectedItem === item && !returnRequestSuccessful[item.id]"
                                                         class="return-details mt-3">
                                                         <div class="form-group">
                                                             <label for="returnReason">Return Reason:</label>
-                                                            <select [(ngModel)]="returnReason[item.id]" class="form-select">
+                                                            <select [(ngModel)]="returnReason[item.id]"
+                                                                class="form-select">
                                                                 <option *ngFor="let reason of returnReasons"
                                                                     [value]="reason">{{ reason }}</option>
                                                             </select>
@@ -256,21 +315,26 @@
                                                             <label for="returnQuantity">Quantity:</label>
                                                             <select id="returnQuantity" class="form-control"
                                                                 [(ngModel)]="returnQuantity[item.id]">
-                                                                <option *ngFor="let qty of getQuantityOptions(item.quantity)"
+                                                                <option
+                                                                    *ngFor="let qty of getQuantityOptions(item.quantity)"
                                                                     [value]="qty">{{ qty }}</option>
                                                             </select>
                                                         </div>
-                                                        <button class="button"
+                                                        <div class="d-flex justify-content-center">
+                                                            <button class="button"
                                                             [disabled]="!returnReason[item.id] || !returnQuantity[item.id]"
                                                             (click)="sendReturnRequest(item.id)">
                                                             <span *ngIf="!loading">Request Return</span>
                                                             <span *ngIf="loading">
                                                                 <img src="../../../assets/images/loaders/spinner.gif"
-                                                                    alt="Loading..." style="min-width: 40px; height: 20px;" />
+                                                                    alt="Loading..."
+                                                                    style="min-width: 40px; height: 20px;" />
                                                             </span>
                                                         </button>
+                                                        </div>
+                                                        
                                                     </div>
-            
+
                                                     <hr class="mt-3 mb-3">
                                                 </div>
                                             </div>
@@ -289,7 +353,7 @@
                     </div>
                 </ng-template>
             </div>
-            
+
             <!-- address section -->
             <div *ngIf="currentSection === 'section4'">
                 <div *ngIf="addressMessage === 'failed'  else addressCard" id="addressFormContainer">

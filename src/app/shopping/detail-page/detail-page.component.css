@@ -52,7 +52,8 @@
 .selected {
     background-color: #eef1f4;
     color: rgb(6, 6, 6);
-    /* border-color: #007bff; */
+    border-color: #ccc;
+    
   }
 .product-image-card{
     

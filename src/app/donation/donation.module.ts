@@ -7,6 +7,7 @@ import { DiasterRegisterComponent } from './diaster-register/diaster-register.co
 import { HomeDonationComponent } from './home-donation/home-donation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClientDonationComponent } from './client-donation/client-donation.component';
+import { SuccessDonationComponent } from './success-donation/success-donation.component';
 
 
 
@@ -15,7 +16,8 @@ import { ClientDonationComponent } from './client-donation/client-donation.compo
     DonationComponent,
     DiasterRegisterComponent,
     HomeDonationComponent,
-    ClientDonationComponent
+    ClientDonationComponent,
+    SuccessDonationComponent
   ],
   imports: [
     CommonModule,
