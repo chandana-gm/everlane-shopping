@@ -1,33 +1,54 @@
-<div >
-    <div style="text-align: center;">
-      <h2 class="animated-h2">List of orders</h2>
-    </div>
-    <br>
-    <table class="table table-secondary table-bordered" >
+<div *ngIf="isProcesing" class="processing">
+  <div class="processing-spinner">
+      <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Processing...</span>
+      </div>
+      <p class="mt-3">Fetching data.., please wait...</p>
+  </div>
+</div>
+<div style="text-align: center;">
+  <h2 class="mt-" style="color:#973d93">All Orders</h2>
+</div>
+
+<div *ngIf="!isProcesing">
+<div class="table-responsive">
+  <table class="table mt-2" >
       <thead>
-        <tr class="table-dark">
-          <th scope="col">Product</th>
-          <th scope="col">User</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Action</th>
+        <tr >
+          <th>Date</th>
+          <th>Order Code</th>
+          <th>User</th>
+          <th>Payment Method</th>
+          <th>Payment Status</th>
+          <th>Order Status</th>
+        
         </tr>
       </thead>
       <tbody>
-        <tr >
-          <td>
-            <img src="../../../assets/images/everlaneStyle/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-white-shirt-trousers-fashion-male-posing-street-background-europe-city-sunset-sunglasses_158538-21210.jpg" alt="">
-          </td>
-          <td></td>
-          <!-- <td>{{ item.data.userId | titlecase }}</td> -->
-          <td></td>
-          <td class=""><button class="btn btn-outline-success ">edit</button>  &nbsp;<button class="btn btn-outline-danger ">delete</button></td>
+        <tr *ngFor="let order of AllOrders" >
+          <td>{{order.created_on|date}}</td>
+         <td>{{order.order_code}}</td>
+         <td>{{order.user}}</td>
+         <!-- <td>{{order.da}}</td> -->
+         <td>{{order.payment_method}}</td>
+         <td>{{order.payment_status}}</td>
+       
+        <td> {{ order.order_status }}</td> 
+        
+        
         </tr>
         
       </tbody>
     </table>
+    <div class="pagination-controls text-center my-3">
+      <button class="button btn-outline-primary rounded-pill mx-2" (click)="loadPreviousPage()"
+        [disabled]="!previous">Previous</button>
+      <span class="mx-2">Page {{ currentPage }}</span>
+      <button class="button btn-outline-primary rounded-pill mx-2" (click)="loadNextPage()"
+        [disabled]="!next">Next</button>
+    </div>
   </div>
-  
-  <div>
+</div>
     <!-- <div class="loading">
       <h1 class="mt-5">Fetching your details, please wait...</h1>
       <img src="../../../assets/images/1488 (1).gif">   

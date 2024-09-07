@@ -18,6 +18,8 @@ export class AdminHomeComponent implements OnInit {
   returnlistlegth: any
   disasterListtLength: any
   loading: boolean = false;
+  ordercount:any
+  statuscount:any
   constructor(private service: PostServiceService, private getService: GettingserviceService) { }
   ngOnInit(): void {
     this.loading=true
@@ -47,19 +49,34 @@ export class AdminHomeComponent implements OnInit {
       this.disasterListtLength = this.disasterList.length
     })
 
-
+    this.loadProducts()
+    this.load()
 
 
   }
-  // logout() {
-  //   this.service.postLogout().subscribe((data)=>{
-  //     console.log(data);
-  //     this.isAuthenticated = false;
+  loadProducts(page: number = 1): void {
+    this.loading=true
+    this.getService.getAllOreders(page).subscribe((data:any)=>{
+      this.loading=false
+       console.log('paginated', data);
+       this.ordercount=data.count;
+       console.log(this.ordercount);
+       
 
-  //     localStorage.removeItem('user');
+    });
+  }
 
-  //   })
+  
+load(page: number = 1): void {
+  this.loading=true
+  this.getService.getOrderPagination(page).subscribe((data:any)=>{
+    this.loading=false
+  console.log(data);
+  this.statuscount=data.count
+  });
+  
 
 }
 
 
+}

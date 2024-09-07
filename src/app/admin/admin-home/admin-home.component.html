@@ -1,14 +1,15 @@
-<div class="container mt-5">
+<div class="container mt-2">
   <!-- Welcome Message -->
   <div class="welcome-message">
     <div class="alert" role="alert">
    <b><h2 class="alert-heading font-weight: bold">Welcome, Admin!</h2></b>   
     </div>
   </div>
-
+  <div class="container">
   <div class="row mt-4">
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="card card-custom" routerLink="/admin/donation_list">
+    <!-- Row 1 -->
+    <div class="col-12 col-md-4 d-flex">
+      <div class="card card-custom h-100 w-100" routerLink="/admin/donation_list">
         <div class="card-body">
           <h5 class="card-title">Disaster List</h5>
           <p class="card-text">View disaster records.</p>
@@ -26,8 +27,8 @@
       </div>
     </div>
   
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="card card-custom" routerLink="/admin/order%status">
+    <div class="col-12 col-md-4 d-flex">
+      <div class="card card-custom h-100 w-100" routerLink="/admin/order%status">
         <div class="card-body">
           <h5 class="card-title">Return Approval</h5>
           <p class="card-text">Approve or reject return requests.</p>
@@ -45,8 +46,8 @@
       </div>
     </div>
   
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="card card-custom" routerLink="/admin/disaterstatusrequest">
+    <div class="col-12 col-md-4 d-flex">
+      <div class="card card-custom h-100 w-100" routerLink="/admin/disaterstatusrequest">
         <div class="card-body">
           <h5 class="card-title">Disaster Approval</h5>
           <p class="card-text">Approve or manage disaster responses.</p>
@@ -63,9 +64,12 @@
         </div>
       </div>
     </div>
+  </div>
   
-    <div class="col-12 col-md-6 col-lg-3">
-      <div class="card card-custom" routerLink="/admin/update%product">
+  <div class="row mt-4">
+    <!-- Row 2 -->
+    <div class="col-12 col-md-4 d-flex">
+      <div class="card card-custom h-100 w-100" routerLink="/admin/update%product">
         <div class="card-body">
           <h5 class="card-title">Add & Update Products</h5>
           <p class="card-text">Add new products or update existing ones.</p>
@@ -82,6 +86,43 @@
         </div>
       </div>
     </div>
-  </div>
+    
+    <div class="col-12 col-md-4 d-flex">
+      <div class="card card-custom h-100 w-100" routerLink="/admin/view%orders">
+        <div class="card-body">
+          <h5 class="card-title">All Orderlist</h5>
+          <p class="card-text"> All orders here</p>
+        </div>
+        <div class="card-footer">
+          <span class="data-highlight">
+            <ng-container *ngIf="!loading; elsordercounte loadingTemplate">
+              {{ordercount}} Products
+            </ng-container>
+            <ng-template #loadingTemplate>
+              <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+            </ng-template>
+          </span>
+        </div>
+      </div>
+    </div>
   
+    <div class="col-12 col-md-4 d-flex">
+      <div class="card card-custom h-100 w-100" routerLink="/admin/productstatus">
+        <div class="card-body">
+          <h5 class="card-title">Order Status</h5>
+          <p class="card-text">Add new products or update existing ones.</p>
+        </div>
+        <div class="card-footer">
+          <span class="data-highlight">
+            <ng-container *ngIf="!loading; else loadingTemplate">
+              {{statuscount}} pending
+            </ng-container>
+            <ng-template #loadingTemplate>
+              <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+            </ng-template>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

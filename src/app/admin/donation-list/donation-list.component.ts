@@ -14,6 +14,7 @@ export class DonationListComponent implements OnInit {
   donationlist:any[]=[];
   list!: FormGroup
   dis:any
+  isProcesing=false
 
 
   ngOnInit(): void {
@@ -38,22 +39,33 @@ export class DonationListComponent implements OnInit {
   {
     const disasterId = this.list.get('disaster')?.value;
     console.log(disasterId);
+    if (disasterId) {
+      this.isProcesing = true;
       
         this.getService.getDonationList(disasterId).subscribe((response) => {
           console.log(response,'abc');
                   this.donationlist=response.data
-                  // this.list=this.donationlist.
+                  this.isProcesing = false; 
+                }, error => {
+                  console.error('Error fetching donation list', error);
+                  this.isProcesing = false; 
+                });
+              }
+               
                   
                  
                   
           
-      });
+    
   }
   onDisasterChange(event: Event) {
+    this.isProcesing=true
     const selectedDisasterId = (event.target as HTMLSelectElement).value;
     console.log(selectedDisasterId);
     this.dis = this.disasterList.find(disaster => disaster.id === +selectedDisasterId);
+    this.isProcesing=false
     this.onSubmit()
+   
   }
 }
 

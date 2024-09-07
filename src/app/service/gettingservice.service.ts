@@ -137,10 +137,23 @@ export class GettingserviceService {
     return this.http.get<any>(`${baseUrl.baseUrl}${environment.Pagination}`, {params });
 
  }
+ getOrderPagination(page:number){
+  let params = new HttpParams().set('page', page.toString());
+  return this.http.get<any>(`${baseUrl.baseUrl}${environment.viewOrders}`, {params });
+
+ }
   getNotifications(){
     return this.http.get<any>(baseUrl.baseUrl+environment.getNotifications)
   }
+orderSearch(searchItem: any){
+  return this.http.get<any>(`${baseUrl.baseUrl}${environment.orderSearch}${searchItem}`)
 
+}
+getAllOreders(page:number){
+  let params = new HttpParams().set('page', page.toString());
+  return this.http.get<any>(`${baseUrl.baseUrl}${environment.viewAllorders}`, {params });
+
+}
 
 
 

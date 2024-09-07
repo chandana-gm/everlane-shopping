@@ -31,7 +31,7 @@
                   <td>{{item.quantity}}</td>
                   <td>{{item.size}}</td>
                   <td>{{item.refund_amount}}</td>
-                  <td>{{item.refund_date}}</td>
+                  <td>{{item.refund_date|date}}</td>
                   <td>{{item.return_reason}}</td>
                   <td>{{item.returned_quantity}}</td>
                   <td>
@@ -43,6 +43,7 @@
               </tr> 
           </tbody>
       </table>
+    
   </div>
 </div>
   <ng-template #noRegistrations>

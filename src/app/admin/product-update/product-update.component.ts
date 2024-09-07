@@ -1,25 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+// declare var bootstrap: any;
 
+export function atLeastOneSeasonValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: boolean } | null => {
+    const formValue = control.value;
+    const checkedCount = Object.values(formValue).filter(value => value).length;
+    return checkedCount >= 1 ? null : { atLeastOne: true };
+  };
+}
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
   styleUrls: ['./product-update.component.css']
 })
+
 export class ProductUpdateComponent implements OnInit {
 
   productForm!: FormGroup;
   stockForm!: FormGroup;
   productList: any[] = []
   productName: any
-  isProcessing = false;
+  loading = false;
   isSearching: boolean = false;
 
- 
+  modalElement:any
+  modal:any
 
   genderChoices = [
     { value: 'M', label: 'Male' },
@@ -35,15 +47,15 @@ export class ProductUpdateComponent implements OnInit {
   StockProductId: any
   items?: any = []
   currentPage: number = 1;
-  totalItems:any;
+  totalItems: any;
   next: string | null = null;
   previous: string | null = null;
 
-  itemsall:any[]=[]
-  productsPage:any[]=[]
-
+  itemsall: any[] = []
+  productsPage: any[] = []
+  isProcesing=false
   searchText: any = ''
-  skinColors = {
+  skin_colors = {
     Dark: false,
     Fair: false,
     Medium: false
@@ -62,7 +74,7 @@ export class ProductUpdateComponent implements OnInit {
     Sports: false
   };
 
-  constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService) { }
+  constructor(private fb: FormBuilder, private postService: PostServiceService, private toster: ToastrService, private service: GettingserviceService, private deleteService: DeleteServiceService,private router:Router) { }
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
@@ -71,22 +83,20 @@ export class ProductUpdateComponent implements OnInit {
       price: ['', [Validators.required, Validators.min(0)]],
       brand: ['', Validators.required],
       subcategory: ['', Validators.required],
-      image: [null],
-      isTrending: [false],
-  
-      skin_colors: this.fb.group(this.skinColors),
-      heights: this.fb.group(this.heights),
-      usages: this.fb.group(this.usages),
-     
+      image: [null, [Validators.required]],
+      skin_colors: this.fb.group(this.skin_colors, { validators: this.checkboxGroupValidator }),
+      heights: this.fb.group(this.heights, { validators: this.checkboxGroupValidator }),
+      usages: this.fb.group(this.usages, { validators: this.checkboxGroupValidator }),
       genders: ['', Validators.required],
+      is_trending: [false],
       summer: [false],
       winter: [false],
       rainy: [false],
       autumn: [false],
-      isActive: [true],
-      // isDeleted: [false],
-      createdOn: [{ value: '', disabled: true }]
-    });
+      is_active: [true],
+
+      createdOn: [{ value: '', disabled: true }]},
+      { validators: atLeastOneSeasonValidator() });
     this.createdOn = new Date();
     this.productForm.patchValue({ createdOn: this.createdOn });
     this.getAllProducts();
@@ -95,6 +105,7 @@ export class ProductUpdateComponent implements OnInit {
       size: ['', Validators.required],
       stock: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
+    
     this.loadProducts()
 
 
@@ -105,7 +116,7 @@ export class ProductUpdateComponent implements OnInit {
     this.service.getAllProductList().subscribe((data) => {
       console.log(data);
       this.productList = data.data
-      // this.itemarray=data.data
+
       this.items = data.data;
     })
   }
@@ -126,58 +137,9 @@ export class ProductUpdateComponent implements OnInit {
     return Object.keys(obj);
   }
 
-  //   onSubmit(): void {
-  //     if (this.productForm.valid) {
-
-
-  //         const formData = new FormData();
-
-  //         formData.append('name', this.productForm.get('name')?.value);
-  //         formData.append('description', this.productForm.get('description')?.value);
-  //         formData.append('price', this.productForm.get('price')?.value);
-  //         formData.append('brand', this.productForm.get('brand')?.value);
-  //         formData.append('subcategory', this.productForm.get('subcategory')?.value);
-  //         formData.append('genders', this.productForm.get('genders')?.value);
-  //         const skinColors = this.productForm.get('skin_colors')?.value;
-  //         formData.append('skin_colors', JSON.stringify(skinColors));
-  //         formData.append('heights',JSON.stringify(this.productForm.get('heights') ?.value));
-  //         formData.append('season', this.productForm.get('season')?.value);
-  //         formData.append('usages',JSON.stringify(this.productForm.get('usages') ?.value));
-  //         formData.append('isTrending', this.productForm.get('isTrending')?.value);
-  //         formData.append('isActive', this.productForm.get('isActive')?.value);
-  //         formData.append('isDeleted', this.productForm.get('isDeleted')?.value);
-  //         formData.append('createdOn', this.productForm.get('createdOn')?.value);
-
-  //         const imageFile = this.productForm.get('image')?.value;
-  //         if (imageFile) {
-  //             formData.append('image', imageFile, imageFile.name);
-  //         }
-
-  //         this.postService.addProduct(formData).subscribe((data) => {
-  //           console.log('Response:', data);
-  //           this.Toster.success('Product add successfully!', 'Success');
-  //         },
-  //         (error) => {
-  //           console.error('Error:', error);
-  //           this.Toster.error('Failed to add product.', 'Error');
-  //         });
-  //         if(this.isEdit)
-  //         {
-  //           const id = this.productForm.get('id')?.value;
-  //           console.log(id);
-
-  //           this.deleteService.updateProduct(id,formData).subscribe((data)=>{
-  //             console.log('updated',data);
-
-  //           })
-  //         }
-  //       }
-
-
-  // }
   onSubmit() {
-    console.log('value',this.productForm.value);
-
+    console.log('value', this.productForm.value);
+    this.loading=true;
     if (this.productForm.valid) {
       const formData = new FormData();
       formData.append('name', this.productForm.get('name')?.value);
@@ -189,13 +151,12 @@ export class ProductUpdateComponent implements OnInit {
       formData.append('skin_colors', JSON.stringify(this.productForm.get('skin_colors')?.value));
       formData.append('heights', JSON.stringify(this.productForm.get('heights')?.value));
       formData.append('usages', JSON.stringify(this.productForm.get('usages')?.value));
-      formData.append('isTrending', this.productForm.get('isTrending')?.value ? 'true' : 'false');
-      formData.append('isActive', this.productForm.get('isActive')?.value ? 'true' : 'false');
+      formData.append('is_trending', this.productForm.get('is_trending')?.value ? 'true' : 'false');
       formData.append('summer', this.productForm.get('summer')?.value ? 'true' : 'false');
       formData.append('winter', this.productForm.get('winter')?.value ? 'true' : 'false');
       formData.append('rainy', this.productForm.get('rainy')?.value ? 'true' : 'false');
       formData.append('autumn', this.productForm.get('autumn')?.value ? 'true' : 'false');
-      // formData.append('isDeleted', this.productForm.get('isDeleted')?.value ? 'true' : 'false');
+      formData.append('is_active', 'true');
       formData.append('createdOn', this.productForm.get('createdOn')?.value);
 
       const imageFile = this.productForm.get('image')?.value;
@@ -204,46 +165,69 @@ export class ProductUpdateComponent implements OnInit {
       }
 
       if (this.isEdit && this.productId) {
-        this.isProcessing = true;
+   
         this.deleteService.updateProduct(this.productId, formData).subscribe((data: any) => {
           console.log(data);
-
+          this.loadProducts();
           this.toster.success('Product updated successfully!', 'Success');
-          this.isProcessing = false;
-          this.getAllProducts();
+          this.productForm.reset();
+          this.imagePreview = '';
+          this.loading = false;
+        //   this. modalElement = document.getElementById('staticBackdrop');
+        //   this. modal = new (window as any).bootstrap.Modal(this.modalElement);
+        //  this. modal.hide();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
         },
           (error: any) => {
             console.error('Error:', error);
             this.toster.error('Failed to update product.', 'Error');
           });
       } else {
-        this.isProcessing = true;
+    
         this.postService.addProduct(formData).subscribe((data) => {
+          this.loadProducts();
           this.toster.success('Product added successfully!', 'Success');
-          this.isProcessing = false;
+          this.loading = false;
           this.productForm.reset();
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          // const modalElement = document.getElementById('staticBackdrop');
+          // console.log(modalElement);
+          
+          // const modal = new (window as any).bootstrap.Modal(modalElement);
+          // modal.hide();
+        
 
         },
           (error) => {
             console.error('Error:', error);
             this.toster.error('Failed to add product.', 'Error');
-            this.isProcessing = false;
+          
           });
       }
       this.productForm.reset()
+   
     }
     else {
       this.markAllFieldsAsTouched()
     }
-
+    
+  
   }
 
 
-  private markAllFieldsAsTouched(): void {
+ private markAllFieldsAsTouched(): void {
     Object.keys(this.productForm.controls).forEach(field => {
       const control = this.productForm.get(field);
       control?.markAsTouched({ onlySelf: true });
     });
+  } 
+  checkboxGroupValidator(control: FormGroup): { [key: string]: boolean } | null {
+    const atLeastOneChecked = Object.values(control.value).some(value => value);
+    return atLeastOneChecked ? null : { 'required': true };
   }
   onFormClick(): void {
     this.markAllFieldsAsTouched();
@@ -251,6 +235,10 @@ export class ProductUpdateComponent implements OnInit {
   addProduct() {
     this.isEdit = false;
     this.productForm.reset();
+    const imageInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    if (imageInput) {
+      imageInput.value = '';
+    }
   }
   editproduct(item: any) {
     {
@@ -262,39 +250,41 @@ export class ProductUpdateComponent implements OnInit {
         brand: item.brand,
         subcategory: item.subcategory,
         genders: item.genders,
-        isTrending: item.isTrending,
-        skin_color: item.skinColors,
+        is_trending: item.is_trending,
+        skin_colors: item.skin_colors,
         heights: item.heights,
         usages: item.usages,
         summer: item.summer,
         winter: item.winter,
         rainy: item.rainy,
         autumn: item.autumn,
-        isActive: item.isActive,
-     
-        createdOn: item.createdOn
+        createdOn: item.createdOn,
+        image: item.image ? item.image : null 
       });
-
-      // Reset and patch FormArrays
-      // this.resetFormArray(this.productForm.get('skin_colors') as FormArray, item.skin_colors);
-      // this.resetFormArray(this.productForm.get('heights') as FormArray, item.heights);
-      // this.resetFormArray(this.productForm.get('usages') as FormArray, item.usages);
-
-      this.imagePreview = item.image;
+      
+      if (typeof item.image === 'string') {
+        this.imagePreview = item.image;
+      } else if (item.image instanceof Blob || item.image instanceof File) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.imagePreview = e.target.result;
+        };
+        reader.readAsDataURL(item.image);
+      }
       this.productId = item.id;
-    }
-
 
   }
-  resetFormArray(formArray: FormArray, values: any[]) {
-    formArray.clear();
-    values.forEach(value => formArray.push(this.fb.control(value)));
-  }
+}
+
 
   deleteProduct(item: any) {
-    this.deleteService.deleteProduct(item.id).subscribe(() => {
-      this.getAllProducts();
-      this.toster.success('Product deleted successfully!', 'Success');
+    this.loading = true;
+    this.deleteService.deleteProduct(item.id).subscribe((data) => {
+      console.log(data);
+      this.loading = false;
+
+      this.loadProducts();
+      this.toster.error('Product deleted successfully!', 'Success');
     },
       (error) => {
         console.error('Error:', error);
@@ -324,34 +314,29 @@ export class ProductUpdateComponent implements OnInit {
         }
       )
 
-
     }
-
 
   }
   filteredItems() {
     this.isSearching = true;
     if (this.searchText != '') {
-
       this.service.searchProducts(this.searchText).subscribe((data) => {
-        this.productsPage = data.data; 
-       
+        this.productsPage = data.data;
         console.log(data);
-
       });
     } else {
       this.loadProducts();
     }
-    
-   
   }
   loadProducts(page: number = 1): void {
+   this.isProcesing=true
     this.isSearching = false;
     this.service.getPagination(page).subscribe(data => {
-      console.log('paginated',data);
-      this.productsPage = data.results; 
+      this.isProcesing=false
+      console.log('paginated', data);
+      this.productsPage = data.results;
       this.totalItems = data.count;
-      this.next = data.next; 
+      this.next = data.next;
       this.previous = data.previous;
     });
   }

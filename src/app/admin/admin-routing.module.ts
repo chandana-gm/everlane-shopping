@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AddProductComponent } from './add-product/add-product.component';
+
 import { ViewOrdersComponent } from './view-orders/view-orders.component';
 import { OrderStatusComponent } from './order-status/order-status.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
@@ -15,7 +15,6 @@ import { StatusComponent } from './status/status.component';
 
 const routes: Routes = [{ path: '', component: AdminComponent, children:[
   {path:'',component:AdminHomeComponent ,canActivate: [adminAuthGuard],},
-  {path:'addProduct',component:AddProductComponent},
   {path:'view%orders',component:ViewOrdersComponent},
   {path:'order%status',component:OrderStatusComponent},
   {path:'update%product',component:ProductUpdateComponent},

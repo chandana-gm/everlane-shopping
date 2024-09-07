@@ -41,11 +41,12 @@ export const environment = {
     getPickup:'pickups/',
     getRecommendation:'recommendations/',
     getNotifications:'notification/',
-
     getPaymentUpdation:'payment/execute/',
     cancelPayment:'payment/cancel/',
     getUserDonation:'user-donations/',
-    Pagination:'products-paginated/'
+    Pagination:'products-paginated/',
+    orderSearch:'orders/?keyword=',
+    viewAllorders:'completed-orders/'
 
   };
 

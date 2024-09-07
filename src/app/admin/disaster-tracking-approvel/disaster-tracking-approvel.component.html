@@ -1,8 +1,11 @@
+
+
 <div>
+  <div  *ngIf="disasterReg.length > 0; else noRegistrations">
   <div style="text-align: center;">
     <h2 class="mt-" style="color:#973d93">Approval of Disaster Aid Requests</h2>
   </div>
-  <div class="col-6 ">
+  <!-- <div class="col-6 ">
     <div class="input-group mb-3 mt-3">
       <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search..."
         (input)="filteredItems()" />
@@ -11,10 +14,10 @@
       </span>
     </div>
 
-  </div>
-  <div  *ngIf="disasterReg.length > 0; else noRegistrations">
+  </div> -->
+
   <div class="table-responsive">
-    <table class="table  table-hover p-4 ">
+    <table class="table  table-hover p-4 mt-4">
 
       <thead>
         <th>Name</th>

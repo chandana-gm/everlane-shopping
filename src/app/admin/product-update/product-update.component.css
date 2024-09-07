@@ -116,3 +116,11 @@ p{
     font-size: 30px;
     margin-top: 50px;
   }
+  .processing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    text-align: center;
+    font-weight: 700;
+  }

@@ -11,6 +11,8 @@ import { PostServiceService } from 'src/app/service/post-service.service';
 export class OrderStatusComponent implements OnInit {
   constructor(private getService: GettingserviceService, private postService: PostServiceService,private toaster:ToastrService) { }
   returnList: any[] = []
+
+
   ngOnInit(): void {
     this.getAllreturn();
   }
@@ -19,9 +21,8 @@ export class OrderStatusComponent implements OnInit {
     this.getService.getAllreturnProduct().subscribe((res) => {
       console.log(res);
       this.returnList = res.data
-
-
     })
+   
 
   }
 
@@ -39,5 +40,5 @@ export class OrderStatusComponent implements OnInit {
        
     })
   }
-
+ 
 }

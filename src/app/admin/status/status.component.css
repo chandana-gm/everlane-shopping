@@ -22,3 +22,34 @@
   .input-group-text .fas {
     color: #6c757d; 
   }
+  .cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .h1 {
+    color: #a1393e;
+    
+    font-size: 30px;
+    margin-top: 50px;
+  }
+  .processing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    text-align: center;
+    font-weight: 700;
+  }
+  .card{
+    padding: 10px;
+  }
+
+  th{
+    font-size:medium;
+  }
+  td{
+    font-size:small;
+  }
