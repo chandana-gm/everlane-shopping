@@ -18,13 +18,21 @@
                 <div class="row ml-1">
                     <!-- <b class="col">Size:</b> -->
                     <!-- <div class="col" *ngFor="let item of size"> -->
-                    <div style="display: flex;" *ngIf="size && size.length > 0; else outOfStock">
-                        <div class="col" *ngFor="let item of size" [class.selected]="item.size === selectedSize"
-                            (click)="selectSize(item)">
-                            {{ item.size }}
+                        <div style="display: flex;" *ngIf="size && size.length > 0; else outOfStock">
+                            <div class="col position-relative"
+                                *ngFor="let item of size"
+                                [class.selected]="item.size === selectedSize"
+                                (click)="item.stock !== 0 && selectSize(item)"
+                                [class.disabled]="item.stock === 0"
+                                [style.pointer-events]="item.stock === 0 ? 'none' : 'auto'"
+                                [style.opacity]="item.stock === 0 ? 0.5 : 1">
+                                {{ item.size }}
+                                <!-- Add a cross line only for out-of-stock items -->
+                                <div *ngIf="item.stock === 0" class="cross-line"></div>
+                            </div>
                         </div>
-
-                    </div>
+                        
+                        
                     &nbsp;
                     &nbsp;
 

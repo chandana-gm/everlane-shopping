@@ -173,6 +173,7 @@
 .marquee-wrapper {
     width: 100%;
     overflow: hidden;
+    overflow-x: scroll;
 }
 
 .marquee {
@@ -540,6 +541,9 @@ button.next {
     .banner img {
         height: 90vh;
 
+    }
+    .sub-category p{
+margin: 0 !important;
     }
 }
 @media (max-width: 320px) {

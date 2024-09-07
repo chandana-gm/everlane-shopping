@@ -101,7 +101,7 @@ export class CheckoutComponent {
     }
       , (error) => {
         this.isProcessing = false;
-        this.toster.error('Order could not be placed. Please try again.');
+        this.toster.error(error.error.message ? error.error.message:'Order could not be placed. Please try again.');
       })
   }
   getDisasterList() {
