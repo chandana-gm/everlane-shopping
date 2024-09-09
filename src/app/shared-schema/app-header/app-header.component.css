@@ -45,7 +45,9 @@ nav {
   font-family: Georgia, "Times New Roman", Times, serif;
   margin-left: 20px;
 }
-
+.navbar-brand:hover{
+color: #973d93;
+}
 .navbar-light .navbar-toggler {
   border-color: #007bff;
 }
@@ -94,6 +96,7 @@ nav {
 
 .dropdown-menu.show {
   display: block;
+  z-index: 1;
 }
 
 .dropdown-menu {

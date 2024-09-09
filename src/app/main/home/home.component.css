@@ -173,7 +173,7 @@
 .marquee-wrapper {
     width: 100%;
     overflow: hidden;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
 .marquee {
@@ -435,7 +435,6 @@ button.next {
    padding: 10px;
    margin:0 !important;
 }
-
 
 
 

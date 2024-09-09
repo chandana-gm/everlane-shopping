@@ -12,6 +12,8 @@
                 <div class="detail" (click)="showSection('section4')">Address</div>
                 <div class="detail" (click)="showSection('section5')">My Registrations</div>
                 <div class="detail" (click)="showSection('section6')">My Donations</div>
+                <hr>
+                <div class="detail" (click)="logout()">Logout <i class="bi bi-box-arrow-right"></i></div>
 
             </div>
         </div>
@@ -134,49 +136,55 @@
             <div class="container-password" *ngIf="currentSection === 'section2'">
                 <h2 class="my-4" style="color:#973d93">Password Change</h2>
                 <hr>
-                <form #passwordForm="ngForm"
-                    (ngSubmit)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
+                <form #passwordForm="ngForm" (ngSubmit)="changePassword({old_password: currentPassword.value, new_password: newPassword.value})">
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="currentPassword">Current Password</label>
-                            <input id="currentPassword" class="form-control"
-                                [type]="passwordVisible ? 'text' : 'password'" #currentPassword ngModel
-                                name="current-password" />
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="newPassword">New Password</label>
-                            <div class="position-relative">
-                                <input id="newPassword" class="form-control pr-5"
-                                    [type]="passwordVisible ? 'text' : 'password'" #newPassword="ngModel"
-                                    [(ngModel)]="newPasswordValue" name="newPassword" required
-                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" />
-                                
-                                <i class="bi" 
-                                   [ngClass]="passwordVisible ? 'bi-eye-fill' : 'bi-eye'"
-                                   (click)="togglePasswordVisibility()"
-                                   style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
-                            </div>
+                      
+                      <!-- Current Password -->
+                      <div class="form-group col-md-6">
+                        <label class="form-label" for="currentPassword">Current Password</label>
+                        <div class="position-relative">
+                          <input id="currentPassword" class="form-control pr-5"
+                            [type]="currentPasswordVisible ? 'text' : 'password'" #currentPassword="ngModel"
+                            [(ngModel)]="currentPasswordValue" name="currentPassword" required />
                             
-                            <div *ngIf="newPassword.invalid && newPassword.touched" class="text-danger">
-                                Password must be at least 8 characters long, with at least one uppercase letter, one
-                                lowercase letter, one number, and one special character.
-                            </div>
+                          <i class="bi" [ngClass]="currentPasswordVisible ? 'bi-eye-fill' : 'bi-eye'"
+                            (click)="toggleCurrentPasswordVisibility()"
+                            style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
                         </div>
-                        
+                      </div>
+                  
+                      <!-- New Password -->
+                      <div class="form-group col-md-6">
+                        <label class="form-label" for="newPassword">New Password</label>
+                        <div class="position-relative">
+                          <input id="newPassword" class="form-control pr-5"
+                            [type]="newPasswordVisible ? 'text' : 'password'" #newPassword="ngModel"
+                            [(ngModel)]="newPasswordValue" name="newPassword" required
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" />
+                  
+                          <i class="bi" [ngClass]="newPasswordVisible ? 'bi-eye-fill' : 'bi-eye'"
+                            (click)="toggleNewPasswordVisibility()"
+                            style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+                        </div>
+                  
+                        <div *ngIf="newPassword.invalid && newPassword.touched" class="text-danger">
+                          Password must be at least 8 characters long, with at least one uppercase letter, one
+                          lowercase letter, one number, and one special character.
+                        </div>
+                      </div>
+                  
                     </div>
-
+                  
                     <div class="form-group d-flex justify-content-center mt-4">
-                        <button type="submit" [disabled]="passwordForm.invalid" style="max-width: 200px;"
-                            class="button">
-                            <span *ngIf="!loading">Change Password</span>
-                            <span *ngIf="loading">
-                                <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..."
-                                    style="width: 20px; height: 20px;" />
-                            </span>
-                        </button>
+                      <button type="submit" [disabled]="passwordForm.invalid" style="max-width: 200px;" class="button">
+                        <span *ngIf="!loading">Change Password</span>
+                        <span *ngIf="loading">
+                          <img src="../../../assets/images/loaders/spinner.gif" alt="Loading..." style="width: 20px; height: 20px;" />
+                        </span>
+                      </button>
                     </div>
-                </form>
+                  </form>
+                  
 
 
 
@@ -448,37 +456,35 @@
                         </div>
                     </form>
                 </div>
-
                 <ng-template #addressCard>
+                    <div class="add-new-border ">
+                        <p class="add-new ml-5 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="bi bi-plus-lg"></i> &nbsp; ADD A NEW ADDRESS
+                        </p>
+                    </div>
                     &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <a class="add-new" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        add new
-                    </a>
-                    <div *ngFor="let item of addressList" class="card mb-3" style="max-width: 720px;">
-                        <div class="row g-0">
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <p class="card-text"><strong>Building No & Name:</strong> {{ item.address }}</p>
-                                    <p class="card-text"><strong>Mobile:</strong> {{ item.mobile }}</p>
-                                    <p class="card-text"><strong>Locality:</strong> {{ item.locality }}</p>
-                                    <p class="card-text"><strong>Landmark:</strong> {{ item.landmark }}</p>
+                    <div class="add-new-border mb-2">
+                        <div class="row">
+                            <div *ngFor="let item of addressList" class="mb-3">
+                                <div class="card" style="background-color: #faf6fa;">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">{{ item.address }}</h5>
+                                            <!-- <p class="card-text">{{ item.state }}</p> -->
+                                            <p class="card-text">{{ item.city }}, {{ item.state }}, {{ item.locality }}
+                                                {{ item.pincode }}</p>
+                                            <p class="card-text">{{ item.mobile }}</p>
+                                        </div>
+
+                                        <div class="remove" style="cursor: pointer;" (click)="removeAddress(item.id)">
+                                            <i class="bi bi-trash3" style="color: red;"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card-body">
-                                    <p class="card-text"><strong>City:</strong> {{ item.city }}</p>
-                                    <p class="card-text"><strong>State:</strong> {{ item.state }}</p>
-                                    <p class="card-text"><strong>Postal Code:</strong> {{ item.pincode }}</p>
-                                </div>
-                            </div>
-                            &nbsp;
-                            <div class="remove" style="cursor: pointer;" (click)="removeAddress(item.id)">remove
-                                <i class="bi bi-trash3"></i>
                             </div>
                         </div>
                     </div>
+
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -591,7 +597,6 @@
                         </div>
                     </div>
                 </ng-template>
-
             </div>
             <!-- disaster register -->
             <div *ngIf="currentSection === 'section5'">
@@ -654,7 +659,7 @@
                     <div class="table-container">
 
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered b-0 mt-4">
+                            <table class="table table-bordered b-0 mt-4">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">Disaster</th>

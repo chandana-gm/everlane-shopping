@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
   myDonation: any[] = []
   ordersList: any
   newPasswordValue: string = '';
+  currentPasswordValue=''
   isPasswordValid: boolean = false;
   loading: boolean = false
   singleProduct: any
@@ -43,11 +45,13 @@ export class ProfileComponent implements OnInit {
   isCancellingOrder: { [orderId: number]: boolean } = {};
   orderCanceled: { [key: string]: boolean } = {};
 
+
   constructor(
     private service: GettingserviceService,
     private fb: FormBuilder,
     private deleteService: DeleteServiceService,
     private toster: ToastrService,
+    private router:Router,
     private postService: PostServiceService) {
     this.checkoutForm = this.fb.group({
       address: ['', Validators.required],
@@ -192,7 +196,7 @@ export class ProfileComponent implements OnInit {
     this.deleteService.changePassword(passwords).subscribe((data) => {
       this.toster.success(data.message)
       this.loading = false
-      // this.passwordForm.reset()
+      this.passwordForm.reset()
     }, (error) => {
       this.toster.error(error.error.message)
       this.loading = false
@@ -200,6 +204,15 @@ export class ProfileComponent implements OnInit {
     }
     )
   }
+    // Toggle visibility for Current Password
+    toggleCurrentPasswordVisibility() {
+      this.currentPasswordVisible = !this.currentPasswordVisible;
+    }
+  
+    // Toggle visibility for New Password
+    toggleNewPasswordVisibility() {
+      this.newPasswordVisible = !this.newPasswordVisible;
+    }
 
   showSection(section: string) {
     this.currentSection = section;
@@ -272,4 +285,25 @@ export class ProfileComponent implements OnInit {
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
 }
+
+logout() {
+  Swal.fire({
+    title: 'Are you sure you want to logout?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.postService.postLogout().subscribe((response) => {
+        // this.isAuthenticated = false;
+        this.toster.success(response.message);
+        localStorage.removeItem('user');
+        this.router.navigate(['/main']).then(() => {
+          window.location.reload();
+        });
+      });
+    }
+  });
+}
+
 }

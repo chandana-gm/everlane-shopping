@@ -97,27 +97,6 @@ export class AppHeaderComponent implements OnInit {
 
 
 
-  logout() {
-    Swal.fire({
-      title: 'Are you sure you want to logout?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.postLogout().subscribe((response) => {
-          this.isAuthenticated = false;
-          this.toster.success(response.message);
-          localStorage.removeItem('user');
-          this.router.navigate(['/main']).then(() => {
-            window.location.reload();
-          });
-        });
-      }
-    });
-  }
-  
-
 
   toggleDropdown(state: boolean) {
     if (!this.isSmallScreen) {

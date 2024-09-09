@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostServiceService } from 'src/app/service/post-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private service: PostServiceService, private router: Router, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder, private service: PostServiceService, private router: Router, private toastr: ToastrService,private location: Location) { }
   email: string = '';
   password: string = '';
   loading: boolean = false;
@@ -88,9 +90,9 @@ export class LoginComponent implements OnInit {
         this.loading = false
       }
     )
-
-
-
+  }
+  goBack() {
+    this.location.back();
   }
 }
 

@@ -66,7 +66,13 @@ label {
   cursor: pointer;
   margin-top:8px !important;
 }
-
+.backButton{
+  /* border: 1px solid #ccc; */
+  position: fixed;
+  left: 20px;
+  top: 10px;
+  cursor: pointer;
+}
 
 @media (max-width: 767px) {
   .container-fluid {
