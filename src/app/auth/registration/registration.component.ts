@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors }
 import { Router } from '@angular/router';
 import { PostServiceService } from 'src/app/service/post-service.service';
 import { ToastrService } from 'ngx-toastr';
+// import intlTelInput from 'intl-tel-input'
+// import { SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +19,8 @@ export class RegistrationComponent implements OnInit {
   confirmPasswordFieldType: string = 'password';
   loading: boolean = false
 
+  // PhoneNumberFormat = PhoneNumberFormat;
+  // SearchCountryField = SearchCountryField;
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -37,7 +41,18 @@ export class RegistrationComponent implements OnInit {
       Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%#*?&])[A-Za-z\\d@$!%#*?&]{8,}$')]],
       confirm_password: ['', [Validators.required,]]
     }, { validator: this.passwordMatchValidator });
+
+    // const inputElement=document.getElementById('mobile') as HTMLInputElement;
+    // if(inputElement){
+    //   intlTelInput(inputElement,{
+    //     initialCountry:'US',
+    //     separateDialCode: true,
+    //     utilsScript:
+    //       'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.0/js/utils.js',
+    //   })
+    // }
   }
+  
 
   togglePasswordVisibility(field: string) {
     if (field === 'password') {

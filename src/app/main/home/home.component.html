@@ -48,7 +48,7 @@
     </div>
     <!-- carousel -->
     <div class="mt-3">
-        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div id="carouselExampleIndicators2" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row">
@@ -191,7 +191,7 @@
                     <h6>Here are some Hand picks for you</h6>
                     <div *ngFor="let product of recommendations">
                         <div class="image-item" style="cursor: pointer;">
-                            <img [src]="product.image" alt="" height="50px" width="50px"
+                            <img [src]="product.image ? product.image : '../../../assets/images/loaders/images.png'" alt="" height="50px" width="50px"
                                 (click)="recommendationProducts(product)">
                         </div>
                     </div>

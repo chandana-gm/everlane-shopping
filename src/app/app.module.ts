@@ -13,6 +13,7 @@ import { AuthInterceptor } from './service/interceptor.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PaginatorModule } from 'primeng/paginator';
 
+// import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 
@@ -32,6 +33,7 @@ import { PaginatorModule } from 'primeng/paginator';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule ,
+    // NgxIntlTelInputModule,
     ToastrModule.forRoot({ 
       maxOpened: 1,
       autoDismiss: true,
