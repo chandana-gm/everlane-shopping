@@ -34,7 +34,7 @@ export class OrderStatusComponent implements OnInit {
         this.toaster.success(data.message, 'Success');
       }
       else{
-        this.toaster.error(data.message, 'Error');
+        this.toaster.error(data.message);
       }
 
        

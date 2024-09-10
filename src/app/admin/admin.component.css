@@ -12,11 +12,10 @@
 }
 
 
-#sidebar .nav-item {
+.nav-item {
   margin-bottom: 10px;
 }
-
-#sidebar .nav-link {
+.nav-link {
   color: white; 
   padding: 10px 20px;
   font-weight: 500;
@@ -24,18 +23,18 @@
   display: block;
 }
 
-#sidebar .nav-link:hover {
+.nav-link:hover {
 
   color:#973d93; 
 }
 
-#sidebar .nav-link.active {
+.nav-link.active {
 
   color: #973d93; 
   font-weight: bold;
 }
 
-#sidebar .nav-link i {
+.nav-link i {
   margin-right: 10px; 
 }
 
@@ -48,9 +47,16 @@
   font-weight: bold;
 
 }
+a{
+  font-size:small;
+}
 
-@media (max-width: 767.98px) {
-  #sidebar {
-      padding: 0.5rem;
-  }
+#main-content {
+  margin-left: auto;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+#sidebar {
+  height: 100vh;
+  position: fixed;
 }

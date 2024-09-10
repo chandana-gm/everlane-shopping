@@ -6,16 +6,23 @@ import { DeleteServiceService } from 'src/app/service/delete-service.service';
 import { GettingserviceService } from 'src/app/service/gettingservice.service';
 import { PostServiceService } from 'src/app/service/post-service.service';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-// declare var bootstrap: any;
+export function atLeastOneSeasonSelectedValidator(): ValidatorFn {
+  return (formGroup: AbstractControl): { [key: string]: boolean } | null => {
+    const summer = formGroup.get('summer')?.value;
+    const winter = formGroup.get('winter')?.value;
+    const rainy = formGroup.get('rainy')?.value;
+    const autumn = formGroup.get('autumn')?.value;
 
-
-export function singleCheckboxValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: boolean } | null => {
-    const formValue = control.value;
-    const checkedCount = Object.values(formValue).filter(value => value).length;
-    return checkedCount === 1 ? null : { singleCheckbox: true };
+    // Check if at least one checkbox is checked
+    if (summer || winter || rainy || autumn) {
+      return null;  // Validation passes, no error
+    } else {
+      return { atLeastOneSeason: true };  // Validation fails, return error
+    }
   };
 }
+
+
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
@@ -96,8 +103,8 @@ export class ProductUpdateComponent implements OnInit {
       autumn: [false],
       is_active: [true],
 
-      createdOn: [{ value: '', disabled: true }]
-    });
+      createdOn: [{ value: '', disabled: true }]  },
+       { validators: atLeastOneSeasonSelectedValidator() });
     this.createdOn = new Date();
     this.productForm.patchValue({ createdOn: this.createdOn });
     this.getAllProducts();
@@ -213,7 +220,7 @@ export class ProductUpdateComponent implements OnInit {
    
     }
     else {
-      this.markAllFieldsAsTouched()
+      this.productForm.markAllAsTouched(); 
     }
     
   

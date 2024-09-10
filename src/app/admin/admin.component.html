@@ -1,49 +1,59 @@
-<div class="main">
-    <div class="admin-container">
-      <app-adminheader></app-adminheader>
-  
-      <div class="container-fluid">
-        <div class="row">
-          <!-- Toggle Button for Sidebar -->
-          <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-  
-          <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse ">
-            <div class="position-sticky">
-              <ul class="nav flex-column mt-4">
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/adminhome" routerLinkActive="active">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/update%product" routerLinkActive="active">Add/Update Product</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/productstatus" routerLinkActive="active">Order Status</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/order%status" routerLinkActive="active">Return Approve</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/donation_list" routerLinkActive="active">Donation List</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/disaterstatusrequest" routerLinkActive="active">Disaster Request Approval</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/admin/view%orders" routerLinkActive="active">All Orders</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          
-  
-          <!-- Main Content -->
-          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <router-outlet></router-outlet>
-          </main>
-        </div>
+<app-adminheader></app-adminheader>
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <!-- Toggle Button for Sidebar on mobile devices -->
+    <!-- <button class="btn btn-dark d-md-none position-fixed start-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar">
+      <i class="bi bi-list"></i> Menu
+    </button>
+    -->
+
+    <!-- Sidebar -->
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark position-fixed " >
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
+        <ul class="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/adminhome" routerLinkActive="active">
+              <i class="bi bi-house-door"></i><span class="ms-1 d-none d-sm-inline">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/update%product" routerLinkActive="active">
+              <i class="bi bi-plus-circle"></i><span class="ms-1 d-none d-sm-inline">Add/Update</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/productstatus" routerLinkActive="active">
+              <i class="bi bi-card-checklist"></i><span class="ms-1 d-none d-sm-inline">Order Status</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/order%status" routerLinkActive="active">
+              <i class="bi bi-arrow-return-left"></i><span class="ms-1 d-none d-sm-inline">Return Order</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/donation_list" routerLinkActive="active">
+              <i class="bi bi-heart"></i><span class="ms-1 d-none d-sm-inline">Donation List</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/disaterstatusrequest" routerLinkActive="active">
+              <i class="bi bi-exclamation-triangle"></i><span class="ms-1 d-none d-sm-inline">Disaster Approval</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" routerLink="/admin/view%orders" routerLinkActive="active">
+              <i class="bi bi-bag"></i><span class="ms-1 d-none d-sm-inline">All Orders</span>
+            </a>
+          </li>
+        </ul>
+        <hr>
       </div>
     </div>
+
+    <!-- Main Content -->
+ <div class="col-10" id="main-content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  
+</div>
