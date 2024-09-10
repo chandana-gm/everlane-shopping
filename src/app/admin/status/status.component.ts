@@ -126,8 +126,8 @@ loadProducts(page: number = 1): void {
     this.isSearching = true;
     if (this.searchText.trim() !== '') {
       this.getService.orderSearch(this.searchText).subscribe((data) => {
-        // Assuming the API response contains an array of orders
-        this.AllOrders = data.results.data; // Make sure this variable is used in the template to display orders
+      
+        this.AllOrders = data.results.data; 
         this.isSearching = false;
         console.log(this.AllOrders);
       }, error => {
@@ -135,7 +135,7 @@ loadProducts(page: number = 1): void {
         this.isSearching = false;
       });
     } else {
-      this.loadProducts(); // Load all products when search text is empty
+      this.loadProducts(); 
     }
   }
   

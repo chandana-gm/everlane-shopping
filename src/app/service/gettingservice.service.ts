@@ -154,7 +154,10 @@ getAllOreders(page:number){
   return this.http.get<any>(`${baseUrl.baseUrl}${environment.viewAllorders}`, {params });
 
 }
+DisasterSearch(searchItem: any){
+  return this.http.get<any>(`${baseUrl.baseUrl}${environment.DisasterSearch}${searchItem}`)
 
+}
 
 
 

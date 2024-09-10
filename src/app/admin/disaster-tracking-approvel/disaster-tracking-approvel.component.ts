@@ -18,7 +18,7 @@ export class DisasterTrackingApprovelComponent implements OnInit {
   disasterReg: any = []
   constructor(private getService: GettingserviceService, private postService: PostServiceService, private toastr: ToastrService, private deleteService: DeleteServiceService) { }
   async ngOnInit() {
-
+    this.load()
 
     const storedUser = localStorage.getItem('user');
     console.log(storedUser);
@@ -43,11 +43,13 @@ export class DisasterTrackingApprovelComponent implements OnInit {
 
     }
 
-    this.load()
+    
   }
   load() {
-    this.getService.getDiasterRegister().subscribe((response) => {
-      console.log('response', response);
+    this.getService.getDiasterRegister().subscribe((data) => {
+  
+      this.disasterReg = data.results.data; 
+      this.disasterReg =data.data
     });
   }
 
@@ -94,17 +96,23 @@ export class DisasterTrackingApprovelComponent implements OnInit {
     })
 
   }
+  
 
   filteredItems() {
-    if (this.searchText != '') {
-
-
-      this.disasterReg = this.items.filter((item: any) => item.location == this.searchText)
-      console.log(this.searchText);
-
+     if (this.searchText != '')  {
+      this.getService.DisasterSearch(this.searchText).subscribe((data) => {
+        console.log(data);
+        
+        this.disasterReg = data.data;
+     
+      }, error => {
+        console.error('Error while searching:', error);
+      });
     } else {
-      this.disasterReg = this.items
+      window.location.reload();
+      this.load();
     }
   }
+  
+  }
 
-}

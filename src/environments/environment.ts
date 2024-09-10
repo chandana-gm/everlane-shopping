@@ -46,7 +46,8 @@ export const environment = {
     getUserDonation:'user-donations/',
     Pagination:'products-paginated/',
     orderSearch:'orders/?keyword=',
-    viewAllorders:'completed-orders/'
+    viewAllorders:'completed-orders/',
+    DisasterSearch:'disasters/pending/?keyword=',
 
   };
 
