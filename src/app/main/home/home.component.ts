@@ -69,15 +69,24 @@ export class HomeComponent {
     if (this.isMobile) {
       this.api.getMobileWidthBanner().subscribe(data => {
         this.banners = data;
+      this.shuffleBanners()
         this.imageLoaded = true
         this.isLoading = true
       });
     } else {
       this.api.getBanners().subscribe(data => {
         this.banners = data;
+      this.shuffleBanners()
         this.imageLoaded = true
         this.isLoading = true
       });
+    }
+  }
+
+  shuffleBanners() {
+    for (let i = this.banners.data.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.banners.data[i], this.banners.data[j]] = [this.banners.data[j], this.banners.data[i]];
     }
   }
 

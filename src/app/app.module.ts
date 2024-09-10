@@ -16,7 +16,6 @@ import { PaginatorModule } from 'primeng/paginator';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +37,8 @@ import { PaginatorModule } from 'primeng/paginator';
       autoDismiss: true,
       positionClass: 'toast-bottom-center', 
     }),
-    PaginatorModule
+    PaginatorModule,
+
   
   
     

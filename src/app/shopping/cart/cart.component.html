@@ -20,17 +20,29 @@
                         <hr>
                         <div *ngFor="let item of productDetail">
                             <section class="row">
-                                <div class="col-sm-3">
-                                    <img [src]="item.product_image ? item.product_image : '../../../assets/images/loaders/images.png'"
-                                        alt="Product Image" (click)="redirectToDetailPage(item.product_id)" class="img-fluid" style="cursor: pointer;">
+                                <div class="col-sm-3 position-relative">
+                                    <div class="image-container">
+                                        <img 
+                                            [src]="item.product_image ? item.product_image : '../../../assets/images/loaders/images.png'"
+                                            alt="Product Image" 
+                                            (click)="redirectToDetailPage(item.product_id)" 
+                                            class="img-fluid"
+                                            [ngStyle]="{'filter': item.stock === 0 ? 'grayscale(100%)' : 'none'}"
+                                            style="cursor: pointer;">
+                                        <!-- 'Out of Stock' text overlay when stock is 0 -->
+                                        <div *ngIf="item.stock === 0" class="out-of-stock-overlay">
+                                            OUT OF STOCK
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <p>{{item.product_name}}</p>
                                     <div class="quantity">
-                                        <button class="quantity-btn minus" (click)="decrementQuantity(item)"
-                                            [disabled]="item.quantity === 1">-</button>
+                                        <button class="quantity-btn minus" 
+                                                (click)="decrementQuantity(item)" 
+                                                [disabled]="item.quantity === 1">-</button>
                                         <input type="text" class="quantity-input" [value]="item.quantity" readonly>
-                                        <button class="quantity-btn plus" (click)="incrementQuantity(item)">+</button>
+                                        <button class="quantity-btn plus" (click)="incrementQuantity(item)" [disabled]="item.stock === 0">+</button>
                                     </div>&nbsp;
                                     <section class="share-remove-product">Size: {{item.size}}</section>
                                     <div class="share-remove-product">
@@ -49,6 +61,8 @@
                             </section>
                             <hr>
                         </div>
+                        
+                        
                     </div>
                     <div class="col-md-3 col-sm-12 price-details">
                         <div class="price-inner">

@@ -1,7 +1,7 @@
 <div class="landing-part">
     <img *ngIf="!banners || !imageLoaded" src="../../../assets/images/banner/image.png" alt="Loading..." class="d-block w-100" style="height: 50vh;">
     <div class="banner" *ngIf="banners?.data?.length > 0">
-        <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div id="carouselExampleIndicators1" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
             <ol class="carousel-indicators">
                 <li *ngFor="let banner of banners.data; let i = index" [class.active]="i === 0"
                     data-target="#carouselExampleIndicators1" [attr.data-slide-to]="i"></li>
@@ -9,7 +9,7 @@
             <div class="carousel-inner"  (click)="onTrendingClick('trending')">
                 <div class="carousel-item" *ngFor="let banner of banners.data; let i = index" [class.active]="i === 0">
                     <div class="gradient-overlay"></div>
-                    <img [src]="banner.image" alt="" class="d-block w-100" (load)="imageLoaded = true">
+                    <img [src]="banner.image" alt="" class="d-block w-100" (load)="imageLoaded = true" [style.opacity]="imageLoaded ? 1 : 0" loading="lazy">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">

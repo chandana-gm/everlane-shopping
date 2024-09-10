@@ -29,23 +29,19 @@
           <a class="nav-link" aria-current="page" (click)="redirectToDonate()">Donate <i
               class="fa-solid fa-hand-holding-hand"></i></a>
         </li>
-        <li class="nav-item dropdown" 
-        [class.show]="dropdownOpen" 
-        *ngIf="isAuthenticated; else notAuthenticated"
-        (mouseenter)="handleHover(true)" 
-        (mouseleave)="handleHover(false)" 
-        (click)="handleClick()">
+        <li class="nav-item" 
+        *ngIf="isAuthenticated; else notAuthenticated">
       
-      <a class="nav-link dropdown-toggle" id="userDropdown" role="button">
+      <a class="nav-link" id="userDropdown" role="button" (click)="redirectToProfile()">
         Welcome, <small>{{ authenticatedUser | titlecase }}</small>
       </a>
       
-      <div class="dropdown-menu" 
+      <!-- <div class="dropdown-menu" 
            [class.show]="dropdownOpen" 
            aria-labelledby="userDropdown">
-        <a class="dropdown-item" (click)="redirectToProfile()">Profile</a>
+        <a class="dropdown-item">Profile</a>
         <a class="dropdown-item" (click)="logout()">Logout</a>
-      </div>
+      </div> -->
       
     </li>
     
