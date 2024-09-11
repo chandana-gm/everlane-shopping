@@ -27,9 +27,8 @@
                                             alt="Product Image" 
                                             (click)="redirectToDetailPage(item.product_id)" 
                                             class="img-fluid"
-                                            [ngStyle]="{'filter': item.stock === 0 ? 'grayscale(100%)' : 'none'}"
-                                            style="cursor: pointer;">
-                                        <!-- 'Out of Stock' text overlay when stock is 0 -->
+                                            
+                                            style="cursor: pointer;">           
                                         <div *ngIf="item.stock === 0" class="out-of-stock-overlay">
                                             OUT OF STOCK
                                         </div>
